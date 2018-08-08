@@ -1,0 +1,45 @@
+\documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
+\input{setting.tex}
+
+
+\title{Deep Learning for Image Analysisg}
+\author{Ph.D. Santiago VELASCO-FORERO}
+\date{ \'Ecole des Mines de Paris \\ MINES Paris-Tech}
+%To include LOGO?
+%\logo{\includegraphics[width=.1\columnwidth]{MinesLogo}}
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Negative conditional log-likelihood}
+The negative conditional log-likelihood of training data can be written as:
+\begin{equation}
+J(\param)=\EV_{\X,y \sim \pdata} \loss(\mathbf{x},y,\param) = \frac{1}{\nsize} \sum_{i=1}^{\nsize} \loss(\x^{(i)},y^{(i)},\param),
+\end{equation}
+where $\loss$ is the per-example loss $\loss(\x,y,\param)=-\log p(y | \x ; \param)$
+\end{frame}
+
+\begin{frame}{Architecture Design}
+\begin{itemize}
+\item The word \emph{architecture} refers to the overall structure of the network.
+\item Most neural networks are organized into groups of units called \emph{layers}
+\item Most neural networks architectures arranges these layers in a \emph{chain structure}, with each layer being a function of the layer that preceded it.
+\end{itemize}
+In this structure, the first layer is given by:
+\begin{equation}
+h^{(1)}=\act^{(1)} (\W^{(1)T}\x + \bais^{(1)})
+\end{equation}
+where $\act$ denotes the \emph{activation function}.
+Accordingly, the second layer is given by:
+\begin{equation}
+h^{(2)}=\act^{(2)} (\W^{(2)T}\x + \bais^{(2)})
+\end{equation}
+and so on.
+\end{frame}
+
+\end{document}
