@@ -7,6 +7,12 @@
 \usepackage{amssymb}
 \usepackage{array}
 
+\bibliographystyle{apalike}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
 
 
 %Definitiona
@@ -16,10 +22,11 @@
 \newcommand{\W}{\mathbf{W}} %Weight
 \newcommand{\bais}{\mathbf{b}}%Bais
 \newcommand{\act}{\texttt{g}}%Activation
-\newcommand{\loss}{\text{L}}
+\newcommand{\loss}{L}
 \newcommand{\pdata}{\hat{p}_{\texttt{data}}}
 \newcommand{\nsize}{n}
 \newcommand{\param}{\boldsymbol{\theta}}
+\newcommand{\featmap}{\boldsymbol{\phi}}
 \newcommand{\EV}{\mathbb{E}}
 
 

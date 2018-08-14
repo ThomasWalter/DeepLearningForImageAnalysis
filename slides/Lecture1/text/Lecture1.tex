@@ -27,9 +27,22 @@
 \setbeamertemplate{section in toc}[square]
 %\setbeamercolor{section number projected}{bg=lightblue}
 
+% bibliography
+%\usepackage[backend=biber]{biblatex}
+%\bibliography{slides_deep.bib}
+% Removes icon in bibliography
+%\setbeamertemplate{bibliography item}{}
+
+%\bibliographystyle{plain}
+%\bibliographystyle{amsalpha}
+% \bibliographystyle{apalike}
+
+% \setbeamertemplate{bibliography item}{\insertbiblabel}
+% \setbeamertemplate{bibliography entry title}{}
+% \setbeamertemplate{bibliography entry location}{}
+% \setbeamertemplate{bibliography entry note}{}
 
 \begin{document}
-
 
 \begin{frame}
 \titlepage
@@ -42,7 +55,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction: Artificial Intelligence and Machine Learning}
-\frame{\tableofcontents[currentsection]}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
 \begin{frame}{Definition of Artificial Intelligence}
 %\begin{definition}
@@ -66,9 +79,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Design Principles of Machine Learning algorithms}
-\frame{\tableofcontents[currentsection]}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
-\begin{frame}{A simple example: polynomial curve fitting}
+\begin{frame}{A simple example: polynomial curve fitting\footnote{Example adapted from \cite{Bishop2006}}}
 \begin{figure}[htb]
 \includegraphics[width=0.6\textwidth]{../graphics/sample_from_sin.png}
 \end{figure}
@@ -83,17 +96,73 @@
 \end{frame}
 
 \begin{frame}{A simple example: polynomial curve fitting}
-\begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/sample_from_sin.png}
-\end{figure}
 \begin{itemize}
-	\item For this we use the following polynomial model:
-	\begin{equation}
-	f(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_m x^m
-	\end{equation}
-	\item The parameter vector is thus $\theta = (a_0, a_1, \ldots, a_m)^T$. 
+	\item We use the following polynomial model:
+	\begin{eqnarray}
+	f(x) &=& a_0 + a_1 x + a_2 x^2 + \ldots + a_m x^m \nonumber \\
+	&=& \param^T \featmap (x)
+	\end{eqnarray}
+	\item Parameter vector: $\param = (a_0, a_1, \ldots, a_m)^T$
+	\item Here, we do not only use the measurement $x$. We actually map $x$ to a higher dimensional space:
+	\begin{eqnarray}
+		\featmap : \mathbb{R}^P &\rightarrow & \mathbb{R}^Q \nonumber \\
+		x &\rightarrow & \featmap (x) = (1, x, x^2, \ldots, x^m)^T
+	\end{eqnarray}
 	\item The model is linear in the parameters (but for $m>1$ not in the inputs). 
 \end{itemize}
+\end{frame}
+
+\begin{frame}{A simple example: polynomial curve fitting}
+\begin{itemize}
+	\item One classical approach is to minimize the least squared error between measured and predicted values:
+	\begin{eqnarray}
+		\min_{\param} \loss(\param) &=& \min_{\param} \sum_{i=1}^N (y_i - f(x_i))^2 \nonumber \\
+		&=& \min_{\param} \sum_{i=1}^N (y_i - \param^T \featmap (x_i))^2 
+	\end{eqnarray}
+	\item This can be achieved by setting the gradient with respect to $\param$ to zero:
+	\begin{equation}
+		\nabla_{\param} \loss = (\frac{\partial \loss}{\partial a_0}, \frac{\partial \loss}{\partial a_1}, \ldots, \frac{\partial \loss}{\partial a_m} )^T = 0
+	\end{equation}
+	\item Unlike for most optimization problems in this course, this leads to an analytical solution for $\param$. This is known as \textbf{linear regression}. For more details, we refer to \cite{Hastie2009}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_1.png}
+\end{figure}
+For $m=1$, the model is linear in its inputs. The solution is not capable of modeling the measured data points; we get a poor approximation of the original function. The family of functions we have used was not complex enough to model the true data distribution. We also speak of \textbf{underfitting}.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_3.png}
+\end{figure}
+For $m=3$, we obtain a solution that seems to be quite right: it is sufficiently complex to model the true data distribution, but not too complex to model the small variations which are due to noise.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_11.png}
+\end{figure}
+For $m=11$, we obtain a solution that has zero error (the function passes through every point of the training set). But the coefficients with large absolute values that cancel each other precisely on the training points lead to a highly unstable function. We speak of \textbf{overfitting} and \textbf{poor generalization}.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_11_N60.png}
+\end{figure}
+One way of reducing overfitting is to increase the number of samples. Even if the function is complex, it cannot be “too wild”, as it has to find a compromise between many training samples. This however implies the annotation (or measurement) of more samples. 
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/ridge_regression_11_10.png}
+\end{figure}
+Another way of preventing overfitting without increasing the number of samples, is to add a penalization term in the optimization procedure. This is also known as \textbf{regularization}:
+\begin{equation}
+	\loss = \sum_{i=1}^N (y_i - \param^T \featmap (x_i))^2 + \lambda \| \param \|^2
+\end{equation}
 \end{frame}
 
 
@@ -104,6 +173,17 @@
 \subsection{Random Forests}
 \subsection{Linear Discriminant Analysis (LDA)}
 \subsection{Support Vector Machines (SVM) and kernel methods}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliography{slides_deep.bib}
+\end{frame}
+% This prints the bibliography on the slide
+%\printbibliography
+
 
 
 \end{document}
