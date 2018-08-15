@@ -18,6 +18,7 @@
 \usepackage{xcolor}
 \definecolor{lightblue}{RGB}{0,200,255}
 
+
 \setbeamertemplate{footline}[frame number]{}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc}[square]
@@ -70,8 +71,8 @@
 	y = f(x)
 	\end{equation}
 	\item In this formulation, Machine Learning aims at finding (learning) $f$ from available data. 
-	\item The data that is used to learn $f$ is called \textbf{training data}. 
-	\item In this general formulation, there is no particular limitation as to the mathematical nature of $x$ and $y$. In many cases $x$ is a $P$-dimensional vector and $y$ a categorical or continuous output variable, but there are other settings, where $x$ and / or $y$ are more complicated objects, such as images or graphs.
+	\item The data that is used to learn $f$ is called \textbf{training set}. 
+	\item In this general formulation, there is no particular limitation as to the mathematical nature of $x$ and $y$. In many cases $x$ is a $\nfeatures$-dimensional vector and $y$ a categorical or continuous output variable, but there are other settings, where $x$ and / or $y$ are more complicated objects, such as images or graphs.
 \end{itemize}
 \end{frame}
 
@@ -89,11 +90,91 @@
 \begin{itemize}
 	\item In \textbf{supervised learning}, the training data contains both measurements $x_i$ and the corresponding output variables $y_i$. Together, they build the training set $T$:
 	\begin{equation}
-	T = \{(x_i, y_i)\}_{i=1, \ldots, N}
+	T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}
 	\end{equation}
 	\item In \textbf{unsupervised learning}, there are no annotations $y_i$. We aim at inferring \textbf{patterns} from the data (clusters, latent variables). 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Training and prediction}
+\begin{figure}[htb]
+  \centering
+  \subfloat[Training a classifier]{\includegraphics[width=0.6\textwidth]{../graphics/workflow_training.png}}\\  
+  \subfloat[Prediction]{\includegraphics[width=0.8\textwidth]{../graphics/workflow_prediction.png}} 
+\end{figure}
+\begin{itemize}
+\item Training: to learn a model from the training set. Depending on the method, this can minutes, hours or days.
+\item Prediction: to apply the learned classifier to new data. This is usually computationally efficient. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Objects and features}
+\begin{itemize}
+\item Machine learning typically deals with objects outside the mathematical world (emails, images, genomes, cars, $\ldots$).
+\item The first step is therefore to find a suitable representation of the objects. 
+\begin{itemize}
+\item \textbf{feature engineering}: finding descriptors according to existing domain knowledge
+\item \textbf{representation learning}: learning the descriptors together with the classifier
+\end{itemize}
+\item In many cases the objects can be represented by a $\nfeatures$-dimensional vector of features (or descriptors): $\x \in \mathbb{R}^{\nfeatures}$. 
+\item It can be convenient to map a feature vector to a higher dimensional space:
+\begin{eqnarray}
+\featmap : \mathbb{R}^{\nfeatures} &\rightarrow & \mathbb{R}^Q \\
+\x &\rightarrow &\featmap (\x)
+\end{eqnarray}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Training set and design matrix}
+\begin{itemize}
+\item In the frequent case that objects can be described by a feature vector $\x \in \mathbb{R}^{\nfeatures}$, we can represent the training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$ by a $\nsize \times \nfeatures$ \textbf{design matrix} $\X$ and an output vector $y$.
+\item In the design matrix, each row corresponds to one sample, each column corresponds to one feature: 
+\begin{table}
+\begin{tabular}{|l || c | c | c | c |}
+	\hline
+		& feature 1 & feature 2 & $\ldots$ & feature $\nfeatures$ \\
+	\hline \hline
+	Sample 1 & 0.23 & 1.30 & $\ldots$ & 0.01 \\ 
+	\hline
+	Sample 2 & 0.42 & 1.15 & $\ldots$ & -0.23 \\ 
+	\hline
+	$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\ 
+	\hline
+	Sample $\nsize$ & 0.31 & 1.53 & $\ldots$ & 0.33 \\ 
+	\hline
+\end{tabular}
+\end{table}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Example: classification of flowers}
+\begin{figure}
+  \centering
+  \subfloat[Iris setosa]{\includegraphics[height=2.4cm]{../graphics/Iris_setosa.jpg}}\qquad    
+  \subfloat[Iris versicolor]{\includegraphics[height=2.4cm]{../graphics/Iris_versicolor.jpg}}\qquad
+  \subfloat[Iris virginica]{\includegraphics[height=2.4cm]{../graphics/Iris_virginica.jpg}}\qquad
+  \label{fig:Iris_data_set}
+\end{figure}
+\begin{itemize}
+	\item One of the oldest data sets in machine learning is the Iris data set, that was collected by the statistician and biologist Ronald Fisher in 1936 \cite{Fisher1936}. 
+	\item There are 3 classes (different types of the Iris flower). For each class, there were 50 samples collected. For each sample, 4 characteristics were measured (lengths and widths of different parts of the plants).
+	\item The task is thus to learn a rule to predict the type of the flower ($y$) from a 4-dimensional vector $x$ of geometric measurements. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: classification of SPAM emails}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/SPAM_mail.png}
+\end{figure}
+\begin{itemize}
+	\item This is a binary classification problem: $y \in \{0,1\}$ (0: junk, 1: not junk). 
+	\item The features can be constructed in the following way: for each email annotated by the user, the words are listed. An email is described as a vector of frequencies of these words. 
+	\item The system learns then a function that assigns to each vector of measured word frequencies the label $y$. 
+\end{itemize}
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,7 +205,7 @@
 	\item Parameter vector: $\param = (a_0, a_1, \ldots, a_m)^T$
 	\item Here, we do not only use the measurement $x$. We actually map $x$ to a higher dimensional space:
 	\begin{eqnarray}
-		\featmap : \mathbb{R}^P &\rightarrow & \mathbb{R}^Q \nonumber \\
+		\featmap : \mathbb{R}^{\nfeatures} &\rightarrow & \mathbb{R}^Q \nonumber \\
 		x &\rightarrow & \featmap (x) = (1, x, x^2, \ldots, x^m)^T
 	\end{eqnarray}
 	In our example there is only one feature to start with: $P=1$. But high dimensional feature mappings are also commonly used for $P>1$. 
