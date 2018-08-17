@@ -17,8 +17,8 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="simple_nn.svg"
    inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/practical_sessions/graphics/simple_nn.png"
-   inkscape:export-xdpi="200"
-   inkscape:export-ydpi="200">
+   inkscape:export-xdpi="10"
+   inkscape:export-ydpi="10">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="482.04183"
+     inkscape:cx="255.54183"
      inkscape:cy="434.54336"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -156,7 +156,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -358,14 +358,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:35px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="817"
-       y="573.36218"
+       x="818"
+       y="519.36218"
        id="text6626"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6628"
-         x="817"
-         y="573.36218">L</tspan></text>
+         x="818"
+         y="519.36218">L</tspan></text>
     <g
        id="g6853"
        transform="translate(-288,214)">
