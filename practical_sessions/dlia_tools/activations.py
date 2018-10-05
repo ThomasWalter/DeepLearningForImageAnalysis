@@ -67,3 +67,14 @@ class ActivationIdentity(ActivationBase):
 
     def grad(self, x):
         return np.ones(len(x))
+
+
+class ActivationBinary(ActivationBase):
+    def __init__(self):
+        self.name = "binary"
+
+    def __call__(self, x):
+            return 1 * (x > 0)
+
+    def grad(self, x):
+        return 1 * (x == 0)
