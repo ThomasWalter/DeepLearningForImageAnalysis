@@ -10,7 +10,7 @@
 
 \AtBeginSubsection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsection, hideothersubsections]
+  \tableofcontents[currentsubsection, hideothersubsections, sectionstyle=show/hide, subsectionstyle=show/shaded]
   \end{frame}
 }
 
@@ -80,6 +80,7 @@
 \begin{itemize}
 \item The human brain contains 100 billion ($10^{11}$) neurons
 \item A human neuron can have several thousand dendrites
+\item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dentrites) is larger than a threshold.
 \end{itemize}
 
 }
@@ -94,7 +95,7 @@
 \end{figure}
 
 \begin{block}{General principle}
-An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} to the result.
+An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
 \end{block}
 
 \begin{itemize}
@@ -108,15 +109,39 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Artificial neuron}
+  \frametitle{Modern artificial neuron}
 
-\begin{figure}
-\includegraphics[height=3cm]{../graphics/neurone}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{../graphics/neurone}
+  \end{figure}
 
-\begin{block}{Classical neuron}
-  \alert{Bias} $\bias$ is a variable linked to the neuron. The \alert{activation function} $\act$ somehow decides, depending on the input, if a signal (the neuron's \alert{activation}) is produced.
-\end{block}
+  \begin{itemize}
+  \item The neuron computed a linear combination of the inputs
+  \item The \alert{bias} $\bias$ is a variable linked to the neuron. It can be interpreted as defining a threshold on the sum
+  \item The \alert{activation function} $\act$ somehow decides, depending on its input, if a signal (the neuron's \alert{activation}) is produced
+  \end{itemize}
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Activation functions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+  \frametitle{The role of the activation function}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{../graphics/neurone}
+  \end{figure}
+
+  \begin{itemize}
+  \item The initial idea behind the activation function is that is works somehow as a gate
+  \item If its input in ``high enough'', then the neuron is activated, i.e. a signal (other than zero) is produced
+  \item It can be interpreted as a source of abstraction: information considered as unimportant is ignored
+  \end{itemize}
 
 }
 
@@ -261,6 +286,11 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An artificial neuron as a classifier}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
 \frametitle{What can an artifical neuron compute?}
@@ -272,7 +302,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \begin{block}{}
   In $\R^p$ ,
   $b + \sum\limits_{i=0}^p w_ix_i = 0$
-  gives a hyperplane. For a given point
+  corresponds to a hyperplane. For a given point
   $\x = \{x_0, \ldots, x_p\}$,
   decisions are made according to the side of the hyperplane it belongs to.
 \end{block}
@@ -288,6 +318,22 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \includegraphics[height=3cm]{../graphics/neurone_simple}
 \end{figure}
 
+\begin{itemize}
+\item $p=2$ : 2 dimensional inputs (can be represented on a screen!)
+\item Activation: binary
+\item Classification problem
+\end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Gaussian clouds}
+
+\begin{figure}
+\includegraphics[height=6cm]{../graphics/gaussian_clouds}
+\end{figure}
 
 
 }
@@ -295,17 +341,169 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Neural network}
+\frametitle{Gaussian clouds}
+
+\begin{figure}
+\includegraphics[height=6cm]{../graphics/gaussian_clouds_H}
+\end{figure}
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Circles}
+
+\begin{figure}
+\includegraphics[height=6cm]{../graphics/circles}
+\end{figure}
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Circles}
+
+\begin{figure}
+\includegraphics[height=6cm]{../graphics/circles_H}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Artificial neuron compact representation}
+
+\begin{figure}
+\includegraphics[height=3cm]{../graphics/neurone_representation_compacte}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Solution}
+
+\begin{figure}
+\includegraphics[height=6cm]{../graphics/ann_5}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Notations}
+
+\begin{figure}
+\includegraphics[height=3cm]{../graphics/neurone_representation_compacte}
+\end{figure}
+
+\begin{block}{}
+  We will often use:
+  \[
+  \W = (w_1, \ldots, w_p)^T
+  \]
+  \[
+  \x = (x_1, \ldots, x_p)^T
+  \]
+\end{block}
+
+Therefore, we can simply write:
+\[
+g(b+ \sum\limits_{i=1}^p w_ix_i) = g(b + \W^T\x)
+\]
+
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Artificial neural networks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Artificial Neural Network (ANN)}
 
 
 \begin{figure}
-  \includegraphics[height=5cm]{../graphics/network.png}
+  \includegraphics[height=4cm]{../graphics/network.png}
 \end{figure}
 
 {\small(from http://www.jtoy.net)}
 
+\begin{block}{Layers}
+  \begin{itemize}
+  \item Neurons are typically arranged in \alert{layers}
+  \item The first and last layers are respectively called the input and output layers
+  \item Any intermediate layers are called \alert{hidden layers}
+  \end{itemize}
+\end{block}
+
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Artificial Neural Network (ANN)}
+
+
+\begin{block}{Definition}
+
+\end{block}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Feed-foward artificial Neural Network (ANN)}
+
+
+\begin{block}{Definition}
+
+\end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Universal approximation theorem}
+
+\begin{block}{}
+  Let $f$ be a continuous real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function.
+
+  Then there exist an integer $n$, real vectors $\{\W_i\}_{1 \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq n}$ and $\{v_i\}_{1 \leq n}$ such that for all $\x$ in $[0,1]^p$:
+
+  \[
+   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\W_i^T\x + b_i) \right| < \epsilon
+  \]
+
+\end{block}
+
+A first version of this theorem, using sigmoid activation functions, was proposed by \cite{cybenko_approximations_1989}. The version above was demonstrated by \cite{hornik_approximation_1991}.
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Universal approximation theorem: what does it mean?}
+
+  \[
+   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\W_i^T\x + b_i) \right| < \epsilon
+  \]
+
+This means that function $f$ can be approximated with a neural network containing
+\begin{itemize}
+  \item an input layer of size $p$;
+  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\W_i$ and biases $b_i$ ;
+  \item an output layer containing a single neuron, with weigths $v_i$ (and an identity activation function).
+\end{itemize}
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
