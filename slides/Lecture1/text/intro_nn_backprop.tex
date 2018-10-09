@@ -1,4 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -10,7 +10,7 @@
 
 \AtBeginSubsection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsubsection, hideothersubsections, sectionstyle=show/hide, subsectionstyle=show/shaded]
+  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
   \end{frame}
 }
 
@@ -116,8 +116,12 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \end{figure}
 
   \begin{itemize}
-  \item The neuron computed a linear combination of the inputs
-  \item The \alert{bias} $\bias$ is a variable linked to the neuron. It can be interpreted as defining a threshold on the sum
+  \item The neuron computes a linear combination of the \alert{inputs} $x_i$
+    \begin{itemize}
+    \item The \alert{weights} $w_i$ are multiplied with the inputs
+    \item The \alert{bias} $b$ can be interpreted as a threshold on the sum
+    \end{itemize}
+
   \item The \alert{activation function} $\act$ somehow decides, depending on its input, if a signal (the neuron's \alert{activation}) is produced
   \end{itemize}
 
@@ -138,7 +142,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \end{figure}
 
   \begin{itemize}
-  \item The initial idea behind the activation function is that is works somehow as a gate
+  \item The initial idea behind the activation function is that it works somehow as a gate
   \item If its input in ``high enough'', then the neuron is activated, i.e. a signal (other than zero) is produced
   \item It can be interpreted as a source of abstraction: information considered as unimportant is ignored
   \end{itemize}
@@ -153,7 +157,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      g(x)=
+      \act(x)=
       \begin{cases}
         1,& \text{if } x > 0\\
         0,              & \text{otherwise}
@@ -177,6 +181,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
     \item[+] Simple to compute
     \item[+] High abstraction
     \item[-] Gradient nil except on one point
+    \item \alert{In practice, almost never used}
     \end{itemize}
   \end{block}
 
@@ -191,7 +196,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      g(x)= \frac{1}{1 + e^{-x}}
+      \act(x)= \frac{1}{1 + e^{-x}}
       \]
     \end{column}
 
@@ -224,7 +229,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      g(x)= \frac{e^x - e^{-x}}{e^x + e^{-x}}
+      \act(x)= \frac{e^x - e^{-x}}{e^x + e^{-x}}
       \]
     \end{column}
 
@@ -256,7 +261,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      g(x)=
+      \act(x)=
       \begin{cases}
         x,& \text{if } x > 0\\
         0,              & \text{otherwise}
@@ -307,12 +312,16 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   decisions are made according to the side of the hyperplane it belongs to.
 \end{block}
 
+\begin{alertblock}{}
+  When the activation function is binary, we obtain a \alert{perceptron}
+\end{alertblock}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{The power of an artificial neuron: illustration}
+\frametitle{Example of what we can do with a neuron}
 
 \begin{figure}
 \includegraphics[height=3cm]{../graphics/neurone_simple}
@@ -323,7 +332,6 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \item Activation: binary
 \item Classification problem
 \end{itemize}
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -376,27 +384,37 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Artificial neuron compact representation}
+\frametitle{Solution}
 
-\begin{figure}
-\includegraphics[height=3cm]{../graphics/neurone_representation_compacte}
-\end{figure}
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{figure}
+      \includegraphics[height=5cm]{../graphics/ann_5}
+    \end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+
+\begin{block}{Artificial neuron compact representation}
+    \begin{figure}
+      \includegraphics[height=2cm]{../graphics/neurone_representation_compacte}
+    \end{figure}
+\end{block}
+
+  \end{column}
+\end{columns}
+
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Artificial neural networks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{Solution}
-
-\begin{figure}
-\includegraphics[height=6cm]{../graphics/ann_5}
-\end{figure}
-
-}
+\subsection{Basic architectures}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{
 \frametitle{Notations}
 
@@ -416,56 +434,134 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
 Therefore, we can simply write:
 \[
-g(b+ \sum\limits_{i=1}^p w_ix_i) = g(b + \W^T\x)
+\act(b+ \sum\limits_{i=1}^p w_ix_i) = \act(b + \W^T\x)
 \]
 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Neural network (NN)}
+
+\begin{block}{Definitions}
+  \begin{itemize}
+  \item An (artificial) neural network is a directed graph, where:
+    \begin{itemize}
+    \item the nodes are articial neurons and
+    \item the edges are connections between the neurons.
+    \end{itemize}
+  \item The \alert{input layer} is the set of neurons without incoming edges.
+  \item The \alert{ouput layer} is the set of neurons without outgoing edges.
+  \end{itemize}
+
+
+\end{block}
 
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Artificial neural networks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Artificial Neural Network (ANN)}
+\frametitle{Feed-forward neural networks}
 
+
+\begin{block}{Definition}
+  \begin{itemize}
+  \item A feed-forward neural networks is a NN without cycles
+  \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
+  \item Any layers other than input and output layers are called \alert{hidden layers}
+  \end{itemize}
+
+\end{block}
 
 \begin{figure}
-  \includegraphics[height=4cm]{../graphics/network.png}
+  \includegraphics[height=3cm]{../graphics/network.png}
 \end{figure}
 
 {\small(from http://www.jtoy.net)}
 
-\begin{block}{Layers}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Feed-forward neural networks}
+
+\begin{alertblock}{}
+  In the following of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.
+\end{alertblock}
+
+\begin{block}{What about other architectures?}
   \begin{itemize}
-  \item Neurons are typically arranged in \alert{layers}
-  \item The first and last layers are respectively called the input and output layers
-  \item Any intermediate layers are called \alert{hidden layers}
+    \item Recurrent neural networks (RNN)
+    \item Long short-term memory networks (LSTM)
   \end{itemize}
 \end{block}
 
+\begin{itemize}
+  \item More powerful than feed-forward NNs
+  \item More biologically realistic
+  \item Complex dynamics; more difficult to train
+  \item Mainly used for processing temporal data
+\end{itemize}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Fully-connected network}
+
+\begin{itemize}
+\item A layer is said to be fully-connected if each of its neurons is connected to all the neurons of the previous and following layers
+\item A NN is said to be fully connected if all its hidden layers are fully connected
+\end{itemize}
+
+\begin{figure}
+  \includegraphics[height=3cm]{../graphics/network.png}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Number of parameters}
+
+\begin{figure}
+  \includegraphics[height=3cm]{../graphics/network.png}
+\end{figure}
+
+\begin{itemize}
+\item How many parameters does the above network contain?
+\item<2-> First hidden layer:
+\item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
+\item<4-> Second and third layers: $9 \times 9 + 9 =90$
+\item<5-> Output layer: $4 \times 9 + 4$
+\item<6-> Total: $305$ parameters
+\end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The power of neural networks}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Artificial Neural Network (ANN)}
+\frametitle{Universal approximation theorem}
 
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{itemize}
+    \item We have previously seen that a neuron can be used as a linear classifier and that combining several of them one can build complex classifiers
+    \item We will see that this observation can be generalized
+    \end{itemize}
+  \end{column}
 
-\begin{block}{Definition}
+  \begin{column}{.5\textwidth}
+    \begin{figure}
+      \includegraphics[height=4cm]{../graphics/circles_H}
+    \end{figure}
+  \end{column}
+\end{columns}
 
-\end{block}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Feed-foward artificial Neural Network (ANN)}
-
-
-\begin{block}{Definition}
-
-\end{block}
 
 }
 
@@ -484,7 +580,7 @@ g(b+ \sum\limits_{i=1}^p w_ix_i) = g(b + \W^T\x)
 
 \end{block}
 
-A first version of this theorem, using sigmoid activation functions, was proposed by \cite{cybenko_approximations_1989}. The version above was demonstrated by \cite{hornik_approximation_1991}.
+A first version of this theorem, using sigmoidal activation functions, was proposed by \cite{cybenko_approximations_1989}. The version above was demonstrated by \cite{hornik_approximation_1991}.
 
 }
 
@@ -496,93 +592,52 @@ A first version of this theorem, using sigmoid activation functions, was propose
    \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\W_i^T\x + b_i) \right| < \epsilon
   \]
 
-This means that function $f$ can be approximated with a neural network containing
+This means that function $f$ can be approximated with a neural network containing:
 \begin{itemize}
   \item an input layer of size $p$;
-  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\W_i$ and biases $b_i$ ;
+  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\W_i$ and biases $b_i$;
   \item an output layer containing a single neuron, with weigths $v_i$ (and an identity activation function).
 \end{itemize}
 
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{
-\frametitle{Convolutional neural networks (ConvNets or CNNs)}
+  \frametitle{Universal approximation theorem in practice}
 
-\begin{figure}
-  \includegraphics[height=3cm]{../graphics/convnet.png}
-\end{figure}
+  \begin{itemize}
+  \item The number of neurons increases very rapidly with the complexity of the function
+  \item Empirical evidence has shown that multi-layer architectures give better results
+  \end{itemize}
 
-
-(from https://www.researchgate.net)
-
+  \begin{block}<2->{}
+    A NN can potentially have a lot of parameters. How can we set them?
+\end{block}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{The triggering factor to the success of neural networks}
-
-\begin{itemize}
-
-\item Appropriate architectures: graphical processing units (GPUs)
-\item Optimized software
-\item Large annotated databases
-
-\end{itemize}
-
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Training a neural network}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Deep learning today and tomorrow}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Practical considerations}
-
-For a deep-learning solution to work, you need:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Introduction}
 
 \begin{itemize}
-
-\item A lot of annotated data
-\item A lot of fiddling (different architectures; hyper-parameters)
-\item GPUs, at least from training
-
+\item We have seen that NNs have a lot of potential
+\item However, how can the parameters be set?
+  \begin{itemize}
+  \item Weights
+  \item Biases
+  \end{itemize}
 \end{itemize}
 
-Deep learning can produce astonishing results \cite{nguyen_deep_2015}...
-\begin{figure}
-  \includegraphics[height=3cm]{../graphics/dl_easily_fooled.png}
-\end{figure}
+\end{frame}
 
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{The web giants}
-
-\begin{itemize}
-
-\item Google, Facebook, Microsoft, Amazon etc. are actively investing in deep-learning
-  \item Competition is intense
-  \item Most of them are sharing their deep learning libraries
-
-\end{itemize}
-
-}
-
-
-
-
-%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Backpropagation through a fully connected layer}
 \begin{figure}
 \includegraphics[width=0.5\textwidth]{../graphics/bp_fc.png}
@@ -665,6 +720,67 @@ n, q \in \N^*\\
 
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Deep learning today and tomorrow}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{The triggering factor to the success of neural networks}
+
+\begin{itemize}
+
+\item Appropriate architectures: graphical processing units (GPUs)
+\item Optimized software
+\item Large annotated databases
+
+\end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Practical considerations}
+
+For a deep-learning solution to work, you need:
+
+\begin{itemize}
+
+\item A lot of annotated data
+\item A lot of fiddling (different architectures; hyper-parameters)
+\item GPUs, at least from training
+
+\end{itemize}
+
+Deep learning can produce astonishing results \cite{nguyen_deep_2015}...
+\begin{figure}
+  \includegraphics[height=3cm]{../graphics/dl_easily_fooled.png}
+\end{figure}
+
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{The web giants}
+
+\begin{itemize}
+
+\item Google, Facebook, Microsoft, Amazon etc. are actively investing in deep-learning
+  \item Competition is intense
+  \item Most of them are sharing their deep learning libraries
+
+\end{itemize}
+
+}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References}
