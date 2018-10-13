@@ -2,6 +2,8 @@
 \input{../../setting.tex}
 \usepackage{physics}
 
+%% \usepackage{animate}
+
 \AtBeginSection[]{
   \begin{frame}{Contents}
   \tableofcontents[currentsection, hideothersubsections]
@@ -762,6 +764,36 @@ Gradient descent is an essential tool in optimization.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Simple backpropagation example}
+
+\includegraphics[width=\textwidth]{../graphics/bp.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Simple backpropagation example}
+
+\only<1>{\includegraphics[width=\textwidth]{../graphics/bp_0.png}}
+\only<2>{\includegraphics[width=\textwidth]{../graphics/bp_1.png}}
+\only<3>{\includegraphics[width=\textwidth]{../graphics/bp_2.png}}
+\only<4>{\includegraphics[width=\textwidth]{../graphics/bp_3.png}}
+\only<5>{\includegraphics[width=\textwidth]{../graphics/bp_4.png}}
+\only<6>{\includegraphics[width=\textwidth]{../graphics/bp_5.png}}
+\only<7>{\includegraphics[width=\textwidth]{../graphics/bp_6.png}}
+\only<8>{\includegraphics[width=\textwidth]{../graphics/bp_7.png}}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Simple backpropagation example}
+
+%%   \animategraphics[width=4cm, step]{1}{../graphics/bp_}{0}{7}
+
+%% \end{frame}
 
 
 
