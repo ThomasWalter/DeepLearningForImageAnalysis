@@ -424,19 +424,17 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \includegraphics[height=3cm]{../graphics/neurone_representation_compacte}
 \end{figure}
 
-\begin{block}{}
-  We will often use:
+  With
   \[
-  \W = (w_1, \ldots, w_p)^T
+  \mathbf{w} = (w_1, \ldots, w_p)^T
   \]
   \[
   \x = (x_1, \ldots, x_p)^T
   \]
-\end{block}
 
-Therefore, we can simply write:
+We can simply write:
 \[
-\act(b+ \sum\limits_{i=1}^p w_ix_i) = \act(b + \W^T\x)
+\act(b+ \sum\limits_{i=1}^p w_ix_i) = \act(b + \mathbf{w}^T\x)
 \]
 
 }
@@ -470,7 +468,10 @@ Therefore, we can simply write:
 \begin{block}{Definition}
   \begin{itemize}
   \item A feed-forward neural networks is a NN without cycles
-  \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
+  \item Neurons are organized in \alert{layers}
+    \begin{itemize}
+    \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
+    \end{itemize}
   \item Any layers other than input and output layers are called \alert{hidden layers}
   \end{itemize}
 
@@ -500,9 +501,8 @@ Therefore, we can simply write:
 \end{block}
 
 \begin{itemize}
-  \item More powerful than feed-forward NNs
-  \item More biologically realistic
-  \item Complex dynamics; more difficult to train
+  \item[+] More powerful than feed-forward NNs
+  \item[-] Complex dynamics; more difficult to train
   \item Mainly used for processing temporal data
 \end{itemize}
 }
@@ -512,7 +512,8 @@ Therefore, we can simply write:
 \frametitle{Fully-connected network}
 
 \begin{itemize}
-\item A layer is said to be fully-connected if each of its neurons is connected to all the neurons of the previous and following layers
+\item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous and following layers
+  \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are 2D dimensional array (a matrix) of size $q \times r$
 \item A NN is said to be fully connected if all its hidden layers are fully connected
 \end{itemize}
 
@@ -522,25 +523,67 @@ Therefore, we can simply write:
 
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Graphical representation of NNs}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{figure}
+      \includegraphics[height=3cm]{../graphics/network.png}
+    \end{figure}
+    \begin{figure}
+      \includegraphics[height=3cm]{../graphics/nn_representation}
+    \end{figure}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    \begin{itemize}
+    \item Data is organized into arrays, linked with operators
+    \item A layer corresponds to an operator (potentially including an activation) between arrays as well as the resulting array.
+    \end{itemize}
+  \end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The equations of a fully connected neural network}
+
+    \begin{figure}
+      \includegraphics[height=3cm]{../graphics/nn_representation2}
+    \end{figure}
+
+    \begin{block}{}
+      \[\x_i = \act_i(\W_i\x_i + \bias_i),\, i= 1, 2, 3 \]
+      \[\y = \act_4(\W_4 \x_4 + \bias_4)\]
+    \end{block}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Number of parameters}
+  \frametitle{Number of parameters}
 
-\begin{figure}
-  \includegraphics[height=3cm]{../graphics/network.png}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{../graphics/nn_representation.png}
+  \end{figure}
 
-\begin{itemize}
-\item How many parameters does the above network contain?
-\item<2-> First hidden layer:
-\item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
-\item<4-> Second and third layers: $9 \times 9 + 9 =90$
-\item<5-> Output layer: $4 \times 9 + 4$
-\item<6-> Total: $305$ parameters
-\end{itemize}
+  \begin{itemize}
+  \item How many parameters does the above network contain?
+  \item<2-> First hidden layer:\\
+    %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
+    \begin{itemize}
+    \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
+    \end{itemize}
+  \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
+  \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
+  \item<8-> Total: $305$ parameters
+  \end{itemize}
 
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The power of neural networks}
 
@@ -574,10 +617,10 @@ Therefore, we can simply write:
 \begin{block}{}
   Let $f$ be a \textcolor{blue}{continuous} real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function (\emph{\small{the activation function}}).
 
-  Then there exist an integer $n$, real vectors $\{\W_i\}_{1 \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq n}$ and $\{v_i\}_{1 \leq n}$ such that for all $\x$ in $[0,1]^p$:
+  Then there exist an integer $n$, real vectors $\{\mathbf{w}_i\}_{1 \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq n}$ and $\{v_i\}_{1 \leq n}$ such that for all $\x$ in $[0,1]^p$:
 
   \[
-   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\W_i^T\x + b_i) \right| < \epsilon
+   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
 \end{block}
@@ -591,13 +634,13 @@ A first version of this theorem, using sigmoidal activation functions, was propo
 \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\W_i^T\x + b_i) \right| < \epsilon
+   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
 This means that function $f$ can be approximated with a neural network containing:
 \begin{itemize}
   \item an input layer of size $p$;
-  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\W_i$ and biases $b_i$;
+  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\mathbf{w}_i$ and biases $b_i$;
   \item an output layer containing a single neuron, with weigths $v_i$ (and an identity activation function).
 \end{itemize}
 
@@ -688,9 +731,9 @@ where $\mathcal{R}(\param)$ is a regularization term.
   \end{block}
 
   \begin{block}{Cross-entropy}
-    In this case, $\x_i \in \{0, 1\}^p$ and $y_i \in [0, 1]$:
+    In this case, $y_i \in \{0, 1\}$:
     \[
-    \loss(\param) = \sum\limits_{i=1}^n y_i ln( f(\x_i, \theta) )
+    \loss(\param) = -\sum\limits_{i=1}^n y_i ln( f(\x_i, \theta) )
     \]
     This loss function is used in binary classification problems, where the network's output can be interpreted as a probability of belonging to a class.
   \end{block}
@@ -751,7 +794,7 @@ Gradient descent is an essential tool in optimization.
 
 
 \begin{block}{Leibniz notation}
-  Let us introduce variables, $x$, $y$ and $z$:
+  Let us introduce variables $x$, $y$ and $z$:
   \[x \xrightarrow{f_1} y \xrightarrow{f_2} z\]
 
   Then:
@@ -762,14 +805,26 @@ Gradient descent is an essential tool in optimization.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The backpropagation algorithm}
+
+  \begin{itemize}
+  \item The backpropagation algorithm is used in a neural network to efficiently compute the partial derivative of the loss with respect to each parameter of the network.
+  \item After a forward propagation, one can compute
+  \item One can trace the origins of the method to the sixties
+  \item It was first applied to NN in the eighties \cite{werbos_applications_1982, lecun_procedure_1985}
+  \end{itemize}
+
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Simple backpropagation example}
+%% \begin{frame}{Simple backpropagation example}
 
-\includegraphics[width=\textwidth]{../graphics/bp.png}
+%% \includegraphics[width=\textwidth]{../graphics/bp.png}
 
-\end{frame}
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Simple backpropagation example}
@@ -889,65 +944,45 @@ n, q \in \N^*\\
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Deep learning today and tomorrow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weights initialization}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application of fully-connected networks to image classification}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Images}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{block}{Definition}
+        \begin{itemize}
+        \item Classically, an image is a matrix of values belonging to $[0, \ldots, 255]$ (grey level images) or to $[0, \ldots, 255]^3$ (color images).
+        \item More generally, an image is a $q$-dimensional array of values belonging to $R^d$.
+        \end{itemize}
+      \end{block}
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=4cm]{../graphics/faune.png}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image as input to a fully-connected network}
 
-\frame{
-\frametitle{The triggering factor to the success of neural networks}
-
-\begin{itemize}
-
-\item Appropriate architectures: graphical processing units (GPUs)
-\item Optimized software
-\item Large annotated databases
-
-\end{itemize}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Practical considerations}
-
-For a deep-learning solution to work, you need:
-
-\begin{itemize}
-
-\item A lot of annotated data
-\item A lot of fiddling (different architectures; hyper-parameters)
-\item GPUs, at least from training
-
-\end{itemize}
-
-Deep learning can produce astonishing results \cite{nguyen_deep_2015}...
-\begin{figure}
-  \includegraphics[height=3cm]{../graphics/dl_easily_fooled.png}
-\end{figure}
-
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{The web giants}
-
-\begin{itemize}
-
-\item Google, Facebook, Microsoft, Amazon etc. are actively investing in deep-learning
-  \item Competition is intense
-  \item Most of them are sharing their deep learning libraries
-
-\end{itemize}
-
-}
-
-
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
