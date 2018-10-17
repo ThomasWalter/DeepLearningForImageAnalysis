@@ -989,36 +989,46 @@ n, q \in \N^*\\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Application of fully-connected networks to image classification}
+%% \section{Application of fully-connected networks to image classification}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Images}
+
+%%   \begin{columns}
+%%     \begin{column}{.5\textwidth}
+%%       \begin{block}{Definition}
+%%         \begin{itemize}
+%%         \item Classically, an image is a matrix of values belonging to $[0, \ldots, 255]$ (grey level images) or to $[0, \ldots, 255]^3$ (color images).
+%%         \item More generally, an image is a $q$-dimensional array of values belonging to $R^d$.
+%%         \end{itemize}
+%%       \end{block}
+
+%%     \end{column}
+
+%%     \begin{column}{.5\textwidth}
+%%       \begin{figure}
+%%         \centering
+%%         \includegraphics[width=4cm]{../graphics/faune.png}
+%%       \end{figure}
+
+%%     \end{column}
+%%   \end{columns}
+
+%% \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Images}
+\begin{frame}{Conclusion}
 
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-      \begin{block}{Definition}
-        \begin{itemize}
-        \item Classically, an image is a matrix of values belonging to $[0, \ldots, 255]$ (grey level images) or to $[0, \ldots, 255]^3$ (color images).
-        \item More generally, an image is a $q$-dimensional array of values belonging to $R^d$.
-        \end{itemize}
-      \end{block}
+  We have seen:
+  \begin{itemize}
+  \item What is an artificial neuron and an artifical neural network (NN)
+  \item The (potential) power of a NN
+  \item The backpropagation algorithm
+  \item NN learning basics
+  \end{itemize}
 
-    \end{column}
-
-    \begin{column}{.5\textwidth}
-      \begin{figure}
-        \centering
-        \includegraphics[width=4cm]{../graphics/faune.png}
-      \end{figure}
-
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Image as input to a fully-connected network}
+In the following, we will see how to process images using NNs.
 
 \end{frame}
 
