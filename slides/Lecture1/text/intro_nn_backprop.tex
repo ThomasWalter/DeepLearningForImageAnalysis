@@ -540,7 +540,7 @@ We can simply write:
   \begin{column}{.5\textwidth}
     \begin{itemize}
     \item Data is organized into arrays, linked with operators
-    \item A layer corresponds to an operator (potentially including an activation) between arrays as well as the resulting array.
+    \item A layer corresponds to an operator between arrays (and often an activation) as well as the resulting array.
     \end{itemize}
   \end{column}
 \end{columns}
@@ -819,27 +819,48 @@ Gradient descent is an essential tool in optimization.
 \end{frame}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Simple backpropagation example}
+
+\includegraphics[width=\textwidth]{../graphics/bp_simple.png}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Simple backpropagation example}
 
-%% \includegraphics[width=\textwidth]{../graphics/bp.png}
+%% \only<1>{\includegraphics[width=\textwidth]{../graphics/bp_simple_1.png}}
+%% \only<2>{\includegraphics[width=\textwidth]{../graphics/bp_simple_2.png}}
+%% \only<3>{\includegraphics[width=\textwidth]{../graphics/bp_simple_3.png}}
+%% \only<4>{\includegraphics[width=\textwidth]{../graphics/bp_simple_4.png}}
+%% \only<5>{\includegraphics[width=\textwidth]{../graphics/bp_simple_5.png}}
+%% \only<6>{\includegraphics[width=\textwidth]{../graphics/bp_simple_6.png}}
+%% \only<7>{\includegraphics[width=\textwidth]{../graphics/bp_simple_7.png}}
+%% \only<8>{\includegraphics[width=\textwidth]{../graphics/bp_simple_8.png}}
 
 %% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Simple backpropagation example}
 
-\only<1>{\includegraphics[width=\textwidth]{../graphics/bp_0.png}}
-\only<2>{\includegraphics[width=\textwidth]{../graphics/bp_1.png}}
-\only<3>{\includegraphics[width=\textwidth]{../graphics/bp_2.png}}
-\only<4>{\includegraphics[width=\textwidth]{../graphics/bp_3.png}}
-\only<5>{\includegraphics[width=\textwidth]{../graphics/bp_4.png}}
-\only<6>{\includegraphics[width=\textwidth]{../graphics/bp_5.png}}
-\only<7>{\includegraphics[width=\textwidth]{../graphics/bp_6.png}}
-\only<8>{\includegraphics[width=\textwidth]{../graphics/bp_7.png}}
+\includegraphics[width=\textwidth]{../graphics/bp.png}
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Backpropagation example}
+
+%% \only<1>{\includegraphics[width=\textwidth]{../graphics/bp_0.png}}
+%% \only<2>{\includegraphics[width=\textwidth]{../graphics/bp_1.png}}
+%% \only<3>{\includegraphics[width=\textwidth]{../graphics/bp_2.png}}
+%% \only<4>{\includegraphics[width=\textwidth]{../graphics/bp_3.png}}
+%% \only<5>{\includegraphics[width=\textwidth]{../graphics/bp_4.png}}
+%% \only<6>{\includegraphics[width=\textwidth]{../graphics/bp_5.png}}
+%% \only<7>{\includegraphics[width=\textwidth]{../graphics/bp_6.png}}
+%% \only<8>{\includegraphics[width=\textwidth]{../graphics/bp_7.png}}
+
+%% \end{frame}
 
 
 
@@ -849,15 +870,6 @@ Gradient descent is an essential tool in optimization.
 %%   \animategraphics[width=4cm, step]{1}{../graphics/bp_}{0}{7}
 
 %% \end{frame}
-
-
-
-
-
-
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -946,8 +958,34 @@ n, q \in \N^*\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Weights initialization}
+\begin{frame}{Network parameters initialization}
 
+\begin{block}{General idea}
+          Inputs of activation functions should be in an appropriate range (high gradient)
+\end{block}
+
+  \begin{columns}
+    \begin{column}{.4\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.7\textwidth]{../graphics/act_sigm.png}
+      \end{figure}
+
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{../graphics/network}
+      \end{figure}
+
+    \end{column}
+
+    \begin{column}{.6\textwidth}
+        \begin{itemize}
+        \item If all parameters are initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
+        \item Simple solution: random values from a normal or uniform distribution
+        \item More advanced solutions exist: \cite{lecun_efficient_2012,glorot_understanding_2010,he_delving_2015}
+        \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
