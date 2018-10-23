@@ -255,7 +255,16 @@ specific types of sounds/image.
 \end{enumerate}
 \end{frame}
 
-
+\begin{frame}{Vanilla (Standard) Autoencoder}
+\begin{figure}
+\includegraphics[width=.8\columnwidth]{../graphics/StandardAutoencoder}
+\caption{Vanilla Autoencoder.  Poor initialization can lead to local minima.}
+\end{figure}
+\begin{itemize}
+\item Rumelhart, Hinton, Williams [RHW88]: Random Initialization and gradient descent shows bad performance.
+\item Bengio, Lamblin, Popovici, Larochelle [BLP+07] [PCL06]: Stacking Autoencoders and tune with gradient descent shows good performance.
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}{Regularized Autoencoders}
@@ -269,7 +278,7 @@ A sparse autoencoder is simply an autoencoder whose training criterion involves 
 \end{itemize}
 \begin{figure}
 \includegraphics[width=.8\columnwidth]{../graphics/regularizers}
-\caption{Regularizers in Keras. There are Kernel and Bias Regularizer}
+\caption{Regularizers in Keras. Note: Kernel and bias regularizer are not the same.}
 \end{figure}
 \end{frame}
 
