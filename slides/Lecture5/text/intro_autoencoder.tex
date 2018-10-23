@@ -155,6 +155,11 @@ Autoencoders are neural networks whose purpose is twofold.
 \item An \emph{autoencoder} is a neural network that is trained to attempt to copy its input to its output.
 \item The network may be viewed as consisting of two parts: anencoder function $h = f (\X)$ and a decoder that produces a reconstruction $r = g(h)$.
 \item If an autoencoder succeeds to learn $g(f (\X)) = \X$ everywhere, then it is not especially useful (overfitting).
+\item The learning process can be described as minimizing the loss function:
+\begin{equation}
+\loss ( \X , g(f(\X))),
+\end{equation}
+where $\loss$ is a loss function, such as mean squared error.
 \end{itemize}
 \begin{figure}
 \centering
@@ -178,19 +183,6 @@ Autoencoders are neural networks whose purpose is twofold.
 \tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
-  \node[main,fill = green!50, scale=0.5] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
-  \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
-  \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f$};
-  \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
-  \end{tikzpicture}
-  \caption{$K < \nfeatures$: Undercomplete AE}
-\end{figure}
-
-\begin{figure}
-\begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
-\tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
   \node[main,fill = green!50, scale=2] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
   \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f$};
@@ -198,6 +190,20 @@ Autoencoders are neural networks whose purpose is twofold.
   \end{tikzpicture}
   \caption{$\nfeatures< K$: Overcomplete AE}
 \end{figure}
+
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
+  \node[main,fill = green!50, scale=0.5] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
+  \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
+  \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f$};
+  \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
+  \end{tikzpicture}
+  \caption{$K < \nfeatures$: Undercomplete AE}
+\end{figure}
+An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}.
 \end{frame}
 %\begin{figure}
 %\includegraphics[height=2.4cm]{../graphics/SallowUnderComplete}
@@ -212,6 +218,7 @@ Autoencoders are neural networks whose purpose is twofold.
 
 \subsection{Autoencoder}
 \begin{frame}{Dimensional reduction methods}
+When the decoder is linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA.
 \begin{figure}
 \includegraphics[width=.9\columnwidth]{../graphics/DimensionalityReduction}
 \end{figure}
@@ -248,21 +255,7 @@ specific types of sounds/image.
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Modern Autoencoder}
-\begin{itemize}
-\item Modern autoencoders have generalized the idea of an encoder and a decoderbeyond deterministic functions to stochastic mappings
-$p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
-\item 
-An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of thetraining data.
-\item
-The learning process can be described as minimizing the loss function:
-\begin{equation}
-\loss ( \X , g(f(\X))),
-\end{equation}
-where $\loss$ is a loss function, such as mean squared error.
-\item When the decoder is linear and $\loss$ is the mean squared error, an undercompleteautoencoder learns to span the same subspace as PCA.
-\end{itemize}
-\end{frame}
+
 
 
 \begin{frame}{Regularized Autoencoders}
@@ -273,12 +266,25 @@ A sparse autoencoder is simply an autoencoder whose training criterion involves 
 \begin{itemize}
 \item $L_1$ : Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||$
 \item $L_2$  Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||^2$
-\
 \end{itemize}
 \begin{figure}
 \includegraphics[width=.8\columnwidth]{../graphics/regularizers}
 \caption{Regularizers in Keras. There are Kernel and Bias Regularizer}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Sparse Autoencoders}
+Regularization of the representation learned by the Auto-Encoders.
+\begin{itemize}
+\item Enforcing most code coefficients to be close to 0 (to be inactive).
+\item Capturing a more robust representation of the manifold structure.
+\end{itemize}
+Common implementation
+\begin{itemize}
+\item Adding a sparsity regularizer loss to the autoencoder loss function.
+\item Various sparsity regularizers.
+\item Other existing methods: 
+\end{itemize}
 \end{frame}
 
 
@@ -330,19 +336,20 @@ TODO
 \end{frame}
 
 
-\begin{frame}{Sparse Autoencoders}
-Regularization of the representation learned by the Auto-Encoders.
+\begin{frame}{Modern Autoencoder}
 \begin{itemize}
-\item Enforcing most code coefficients to be close to 0 (to be inactive).
-\item Capturing a more robust representation of the manifold structure.
+\item Modern autoencoders have generalized the idea of an encoder and a decoderbeyond deterministic functions to stochastic mappings
+$p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
+%\item 
+%An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of the%training data.
+%\item
+%The learning process can be described as minimizing the loss function:
+%\begin{equation}
+%\loss ( \X , g(f(\X))),
+%\end{equation}
+%where $\loss$ is a loss function, such as mean squared error.
+%\item When the decoder is linear and $\loss$ is the mean squared error, an undercomplete%autoencoder learns to span the same subspace as PCA.
 \end{itemize}
-Common implementation
-\begin{itemize}
-\item Adding a sparsity regularizer loss to the autoencoder loss function.
-\item Various sparsity regularizers.
-\item Other existing methods: 
-\end{itemize}
-
 \end{frame}
 
 \begin{frame}{Variational Autoencoder}
