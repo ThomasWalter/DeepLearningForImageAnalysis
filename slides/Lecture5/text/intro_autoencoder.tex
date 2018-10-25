@@ -153,7 +153,8 @@ Autoencoders are neural networks whose purpose is twofold.
 \begin{frame}{Autoencoder}
 \begin{itemize}
 \item An \emph{autoencoder} is a neural network that is trained to attempt to copy its input to its output.
-\item The network may be viewed as consisting of two parts: anencoder function $h = f (\X)$ and a decoder that produces a reconstruction $r = g(h)$.
+\item The network may be viewed as consisting of two parts: anencoder function $h = f (\X)$ and a decoder that produces a reconstruction $r(\X) = g(h(\X))$.
+\item The composition of $f$ and $g$ is called the \emph{reconstruction function}
 \item If an autoencoder succeeds to learn $g(f (\X)) = \X$ everywhere, then it is not especially useful (overfitting).
 \item The learning process can be described as minimizing the loss function:
 \begin{equation}
@@ -517,6 +518,7 @@ where $k$ is the dimensionality of the distributions.
 \begin{frame}
 \begin{itemize}
 \item Tutorial on Variational Autoencoders,CARL DOERSCH
+\item http://jmlr.csail.mit.edu/papers/volume15/alain14a/alain14a.pdf
 \item http://web.stanford.edu/class/cs294a/sae/sparseAutoencoderNotes.pdf
 \item Contractive Auto-Encoders: Explicit Invariance During Feature Extraction.
 Salah Rifai, Pascal Vincent, Xavier Muller, Xavier Glorot et Yoshua Bengio, 2011.
