@@ -106,18 +106,19 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Classical approaches}
+\begin{frame}{Image processing approach}
+
+  \begin{block}{}
+    \begin{itemize}
+    \item Build a mathematical model for the objects you are interested in
+    \item Implement this model using image processing operators
+    \end{itemize}
+  \end{block}
 
 \begin{itemize}
-\item Build a mathematical model for the objects you are interested in
-\item Implement this model using image processing operators
+\item[+] This approach works correctly when the objects are not too complex.
+\item[-] If objects are difficult to model, machine learning methods can bring a solution.
 \end{itemize}
-
-\begin{itemize}
-\item This approach works correctly when the objects are not too complex.
-\item If objects are difficult to model, machine learning methods can bring a solution.
-\end{itemize}
-
 
 
 \end{frame}
@@ -126,33 +127,40 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Applying machine learning to images}
+\frametitle{Classical machine learning approach}
 
-\begin{columns}
-  \begin{column}{.5\textwidth}
-    \begin{block}{Classical approach}
+    \begin{block}{}
       \begin{itemize}
       \item Compute features from the image
       \item Apply machine learning to those features
       \end{itemize}
     \end{block}
 
-  \end{column}
+\begin{itemize}
+\item[+] Works well when you engineer the right features
+\item[-] You need an expert to define those features - and this can be a long process
+\item[-] You need annotated data
+\end{itemize}
 
-  \begin{column}{.5\textwidth}
-    \begin{block}{Modern neural networks approach}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Deep learning approach}
+
+  \begin{block}{Modern neural networks approach}
       \begin{itemize}
       \item Directly take as input the image pixels
       \item The network is supposed to build its own features
       \end{itemize}
     \end{block}
 
-  \end{column}
-\end{columns}
+  \begin{itemize}
+  \item[+] Good (impressive!) results
+  \item[-] You need a lot of annotated data
+  \end{itemize}
 
-
-}
-
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -180,7 +188,31 @@
 \item 2016: AlphaGo beats Lee Sedol, one of the best go players, in a 5-game match
 \end{itemize}
 
-  }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Deep learning applications with images}
+
+\begin{itemize}
+\item classification
+\item object localization
+\item semantic segmentation
+\item instance segmentation
+\item transformation (filtering, in-painting, editing, colorization…)
+\item quantification
+\item compression
+\item image caption generation
+\item 2D to 3D (stereo matching, 3D reconstruction, …)
+\item motion estimation
+\item Style transfer
+\item Anomalous image detection
+\item Image generation
+\end{itemize}
+
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,17 +237,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Application of fully-connected networks to image classification}
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{From neural layers to convolutional layers}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Most common artificial neuron}
+\frametitle{Artificial neuron}
 
 \begin{figure}
 \includegraphics[height=3cm]{neurone}
@@ -250,29 +275,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Dealing with images}
-
-Fully connected layers:
-
-\begin{itemize}
-
-\item scale badly to large size images
-
-\item do not take into account the local structure of images
-
-\end{itemize}
-
-
-}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
 \frametitle{Input image, input neurons}
 
-In the scalar case, each input pixel is considered as an input neuron.
+In the scalar case (single-valued images), each input pixel is considered as an input neuron.
 
 \vspace{10pt}
 
@@ -293,13 +298,107 @@ In the scalar case, each input pixel is considered as an input neuron.
 
 \end{columns}
 
-\vspace{10pt}
+}
 
-\begin{block}{}
-In the following slides, for illustration purposes, we will consider one-dimensional images
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image classification problem}
+
+  Classification problem:
+  \begin{itemize}
+  \item Input: image $\x$
+  \item Output: class $y \in \{ label_1, label_2, \ldots, label_q\}$
+  \end{itemize}
+
+\begin{block}{Class coding}
+  Often, classes are denoted by integers, but this is only a coding commodity. For instance, it would be meaningless to use a regression approach for this problem.
 \end{block}
 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Class coding}
+
+  If there are $q$ possible classes, then a class will be coded as a vector $\y$ of length $q$. If its class is $r$  then for $0 \leq i < q$:
+  \[
+\y[i] =
+    \begin{cases}
+      1, & \text{if}\ i=r \\
+      0, & \text{otherwise}
+    \end{cases}
+    \]
+
+  \begin{block}{Example with $4$ classes}
+    \begin{itemize}
+    \item
+    Label $0 \longmapsto [1,0,0,0]$
+    \item
+    Label $1 \longmapsto [0,1,0,0]$
+    \item
+    Label $2 \longmapsto [0,0,1,0]$
+    \item
+    Label $3 \longmapsto [0,0,0,1]$
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image classification with a neural network}
+
+  \begin{block}{Input}
+    Scalar image is transformed into a vector of length $p$.
+  \end{block}
+
+  \begin{block}{Output}
+    For $q$ classes, the output will be a vector of length $q$.
+  \end{block}
+
+  \begin{block}{Example: image of size $4 \times 2$, $4$ possible classes}
+
+  \end{block}
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{network}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Activation of the last layer}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Loss function for classification: cross-entropy}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Conclusion on fully-connected networks for image classification}
+
+Fully connected layers:
+
+\begin{itemize}
+
+\item scale badly to large size images
+
+\item do not take into account the local structure of images
+
+\end{itemize}
+
+
 }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{From fully-connected layers to convolutional layers}
+
+
 
 
 
@@ -307,6 +406,11 @@ In the following slides, for illustration purposes, we will consider one-dimensi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Towards convolutional layers}
+
+
+\begin{block}{}
+In the following slides, for illustration purposes, we will consider one-dimensional images
+\end{block}
 
 
 \begin{columns}
