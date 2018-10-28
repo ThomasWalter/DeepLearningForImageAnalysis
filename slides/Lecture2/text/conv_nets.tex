@@ -138,8 +138,8 @@
 
 \begin{itemize}
 \item[+] Works well when you engineer the right features
-\item[-] You need an expert to define those features - and this can be a long process
-\item[-] You need annotated data
+\item[-] An expert is required to define those features - and this can be a long process
+\item[-] Annotated data is required
 \end{itemize}
 
 
@@ -157,7 +157,7 @@
 
   \begin{itemize}
   \item[+] Good (impressive!) results
-  \item[-] You need a lot of annotated data
+  \item[-] A large amount of annotated data is required
   \end{itemize}
 
 \end{frame}
@@ -228,9 +228,17 @@
 
 \end{itemize}
 
-\begin{block}{}
+\begin{block}{Acronyms}
   Two acronyms are used for convolutional neural networks in the literature: \emph{CNN} and \emph{ConvNet}.
   \end{block}
+
+\begin{block}{Essential milestones}
+  \begin{itemize}
+  \item 1979: Neocognitron (CNN architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
+  \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
+  \item 2006, 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
+  \end{itemize}
+\end{block}
 
 }
 
@@ -356,11 +364,10 @@ In the scalar case (single-valued images), each input pixel is considered as an 
   \end{block}
 
   \begin{block}{Example: image of size $4 \times 2$, $4$ possible classes}
-
+    \begin{figure}
+      \includegraphics[width=0.5\textwidth]{network}
+    \end{figure}
   \end{block}
-\begin{figure}
-  \includegraphics[width=0.5\textwidth]{network}
-\end{figure}
 
 \end{frame}
 
@@ -390,6 +397,13 @@ Fully connected layers:
 \end{itemize}
 
 
+Today:
+
+\begin{itemize}
+\item Fully-connected networks are almost never used for image analysis.
+\item Fully-connected layers are only used in the middle (auto-encoders) or at the end (classification) of the pipeline.
+\end{itemize}
+
 }
 
 
@@ -397,9 +411,6 @@ Fully connected layers:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{From fully-connected layers to convolutional layers}
-
-
-
 
 
 
@@ -476,10 +487,6 @@ A convolutional layer can at the same time downsample the image by applying a sa
   \end{column}
 
 \end{columns}
-
-\begin{block}{}
-  Note that today, for reducing the layers size, max pooling layers are often preferred.
-  \end{block}
 
 
 }
@@ -591,6 +598,11 @@ An input image with $p$ channels (for instance à colour image with 3 channels) 
 
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Skip connections}
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
@@ -605,16 +617,16 @@ Many successful architectures, especially for image classification, follow the s
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{Example networks: fovea detection}
+%% \frame{
+%% \frametitle{Example networks: fovea detection}
 
-  \begin{center}
-  \includegraphics[width=\textwidth]{fovea_convnet2.png}
-\end{center}
+%%   \begin{center}
+%%   \includegraphics[width=\textwidth]{fovea_convnet2.png}
+%% \end{center}
 
-  }
+%%   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -634,11 +646,12 @@ Many successful architectures, especially for image classification, follow the s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Example: VGGnet}
+  \frametitle{VGGnet}
 
 
   \begin{itemize}
   \item Proposed by K. Simonyan and A. Zisserman from the University of Oxford \cite{simonyan_very_2014}
+  \item Runner-up in the ImageNet Large Scale Visual Recognition Competition (ILSVRC) in 2014.
 
   \item Number of parameters (VGG16): $138$ million.
 
@@ -646,8 +659,8 @@ Many successful architectures, especially for image classification, follow the s
 
   \begin{center}
     \begin{figure}
-    \includegraphics[width=0.5\textwidth]{vgg16.png}
-    \caption{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
+    \includegraphics[width=0.65\textwidth]{vgg16.png}
+    \caption{\tiny{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}}
     \end{figure}
 \end{center}
 
@@ -659,25 +672,70 @@ Many successful architectures, especially for image classification, follow the s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Example: GoogLeNet}
+  \frametitle{GoogLeNet (a.k.a. Inception v1)}
 
 
   \begin{itemize}
 
-  \item This network won the ImageNet Large Scale Visual Recognition Competition (ILSVRC) in 2014.
+  \item Winner of the ImageNet Large Scale Visual Recognition Competition (ILSVRC) in 2014.
 
   \item Number of parameters: \emph{only} $~5$ million.
 
-   \end{itemize}
+  \end{itemize}
 
-  \begin{center}
-  \includegraphics[width=\textwidth]{googlenet.png}
-\end{center}
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{googlenet.png}
+    \caption{\tiny{From \cite{szegedy_going_2014}}}
+\end{figure}
 
-  ResNet won the following year. One of its versions contains more than 1000 layers.
+  ResNet won the following year...
 
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Inception module}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\textwidth]{inception_module.png}
+  \caption{\tiny{From \cite{szegedy_going_2014}}}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ResNet}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+\begin{itemize}
+  \item Winner of the ImageNet Large Scale Visual Recognition Competition (ILSVRC) in 2015.
+  \item The authors tested up to 1202 layers. They reported no training difficulties, but overfitting \cite{he_deep_2015}
+\end{itemize}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{resnet_module.png}
+  \caption{Residual learning block \tiny{(from \cite{he_deep_2015})}}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{resnet.png}
+  \caption{Residual network with 34 layers \tiny{(from \cite{he_deep_2015})} }
+\end{figure}
+
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -687,7 +745,8 @@ Many successful architectures, especially for image classification, follow the s
 
 \begin{itemize}
 \item Small convolutions ($3\times3$)
-\item Increasing number of layers - more than 1000
+\item Dimension reduction using $1 \times 1$ convolutions
+\item Increasing number of layers
 \item Skip connections
 \end{itemize}
 
@@ -769,8 +828,6 @@ Deep learning is a very competitive domain, where code sharing is very common.
 
 \begin{block}{Keras}
   Keras is a very easy to use interface to Theano and Tensorflow.
-\\
-  See demonstration.
   \end{block}
 
 
@@ -812,6 +869,17 @@ Which images maximally activate a given neuron? \cite{girshick_rich_2014}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A revolution in image analysis}
+
+  \begin{itemize}
+  \item Deep learning has brought an undeniable break-through in image analysis (as in other fields)
+  \item A significant part of research efforts in image analysis today is base on deep learning
+  \item Its applications are ubiquitous
+  \end{itemize}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Limitations}
@@ -820,54 +888,18 @@ For a deep-learning solution to work, you need:
 
 \begin{itemize}
 
-\item A lot of annotated data
-\item A lot of fiddling (different architectures; hyper-parameters)
+\item Enough annotated data
+\item A lot of fiddling (different architectures; hyper-parameters; optimization)
 \item One (or, even better, several) powerful GPUs
 
 \end{itemize}
 
-Moreover, these models lack interpretability, and fitting them can be very time-consuming.
-
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Some missing topics}
-
-\begin{itemize}
-\item Transfer learning / domain adaptation
-\item Data augmentation
-\item Generative adversarial networks (GANs)
-\item Optimization, gradient descent, regularization
-\item ...
-\end{itemize}
-
-(These are not specific to ConvNets)
+Moreover, these models lack interpretability.
 
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Some useful pointers}
 
-\begin{itemize}
-  \item Course by G. Hinton on neural networks (coursera, youtube)
-\item Stanford course on convolutional neural networks: http://cs231n.github.io/
-\item Hardware recommendations: https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/
-\end{itemize}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion}
-
-
-
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

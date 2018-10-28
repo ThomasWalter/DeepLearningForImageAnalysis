@@ -749,6 +749,16 @@
 	pages = {85--117}
 }
 
+@article{fukushima_neural_1979,
+	title = {Neural {Network} {Model} for a {Mechanism} of {Pattern} {Recognition} {Unaffected} by {Shift} in {Position}- {Neocognitron}},
+	volume = {62},
+	number = {10},
+	journal = {ELECTRON. \& COMMUN. JAPAN},
+	author = {Fukushima, Kunihiko},
+	year = {1979},
+	pages = {11--18}
+}
+
 @inproceedings{ciresan_committee_2011,
 	title = {A committee of neural networks for traffic sign classification},
 	url = {http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6033458},
@@ -758,6 +768,40 @@
 	author = {Cireşan, Dan and Meier, Ueli and Masci, Jonathan and Schmidhuber, Jürgen},
 	year = {2011},
 	pages = {1918--1921}
+}
+
+@article{fukushima_neocognitron:_1980,
+	title = {Neocognitron: {A} self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position},
+	volume = {36},
+	issn = {0340-1200, 1432-0770},
+	shorttitle = {Neocognitron},
+	url = {http://link.springer.com/article/10.1007/BF00344251},
+	doi = {10.1007/BF00344251},
+	abstract = {A neural network model for a mechanism of visual pattern recognition is proposed in this paper. The network is self-organized by “learning without a teacher”, and acquires an ability to recognize stimulus patterns based on the geometrical similarity (Gestalt) of their shapes without affected by their positions. This network is given a nickname “neocognitron”. After completion of self-organization, the network has a structure similar to the hierarchy model of the visual nervous system proposed by Hubel and Wiesel. The network consits of an input layer (photoreceptor array) followed by a cascade connection of a number of modular structures, each of which is composed of two layers of cells connected in a cascade. The first layer of each module consists of “S-cells”, which show characteristics similar to simple cells or lower order hypercomplex cells, and the second layer consists of “C-cells” similar to complex cells or higher order hypercomplex cells. The afferent synapses to each S-cell have plasticity and are modifiable. The network has an ability of unsupervised learning: We do not need any “teacher” during the process of self-organization, and it is only needed to present a set of stimulus patterns repeatedly to the input layer of the network. The network has been simulated on a digital computer. After repetitive presentation of a set of stimulus patterns, each stimulus pattern has become to elicit an output only from one of the C-cell of the last layer, and conversely, this C-cell has become selectively responsive only to that stimulus pattern. That is, none of the C-cells of the last layer responds to more than one stimulus pattern. The response of the C-cells of the last layer is not affected by the pattern's position at all. Neither is it affected by a small change in shape nor in size of the stimulus pattern.},
+	language = {en},
+	number = {4},
+	urldate = {2017-01-04},
+	journal = {Biological Cybernetics},
+	author = {Fukushima, Kunihiko},
+	month = apr,
+	year = {1980},
+	pages = {193--202}
+}
+
+@article{lecun_backpropagation_1989,
+	title = {Backpropagation {Applied} to {Handwritten} {Zip} {Code} {Recognition}},
+	volume = {1},
+	issn = {0899-7667},
+	url = {http://www.mitpressjournals.org/doi/10.1162/neco.1989.1.4.541},
+	doi = {10.1162/neco.1989.1.4.541},
+	abstract = {The ability of learning networks to generalize can be greatly enhanced by providing constraints from the task domain. This paper demonstrates how such constraints can be integrated into a backpropagation network through the architecture of the network. This approach has been successfully applied to the recognition of handwritten zip code digits provided by the U.S. Postal Service. A single network learns the entire recognition operation, going from the normalized image of the character to the final classification.},
+	number = {4},
+	urldate = {2017-01-04},
+	journal = {Neural Computation},
+	author = {LeCun, Y. and Boser, B. and Denker, J. S. and Henderson, D. and Howard, R. E. and Hubbard, W. and Jackel, L. D.},
+	month = dec,
+	year = {1989},
+	pages = {541--551}
 }
 
 @inproceedings{ciresan_mitosis_2013,
@@ -783,6 +827,18 @@
 	author = {Simonyan, Karen and Zisserman, Andrew},
 	year = {2014},
 	file = {[PDF] arxiv.org:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/DIXNC3WH/Simonyan et Zisserman - 2014 - Very deep convolutional networks for large-scale i.pdf:application/pdf;Snapshot:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/9GFJC2W9/1409.html:text/html}
+}
+
+@article{fukushima_neocognitron_2003,
+	title = {Neocognitron for handwritten digit recognition},
+	volume = {51},
+	issn = {0925-2312, 1872-8286},
+	language = {английский},
+	journal = {Neurocomputing},
+	author = {Fukushima, K.},
+	year = {2003},
+	keywords = {Handwritten Digit, Multi-Layered Network, Neocognitron, Neural Network Model, Visual Pattern Recognition},
+	pages = {161--180}
 }
 
 @article{schlegl_unsupervised_2017,
@@ -991,4 +1047,65 @@
 	author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
 	year = {2014},
 	pages = {580--587}
+}
+
+@misc{noauthor_cresceptron:_nodate,
+	title = {Cresceptron: a self-organizing neural network which grows adaptively - {IEEE} {Conference} {Publication}},
+	url = {https://ieeexplore.ieee.org/abstract/document/287150},
+	urldate = {2018-10-28}
+}
+
+@inproceedings{chellapilla_high_2006,
+	title = {High {Performance} {Convolutional} {Neural} {Networks} for {Document} {Processing}},
+	url = {https://hal.inria.fr/inria-00112631/document},
+	abstract = {Convolutional neural networks (CNNs) are well known for producing state-of-the-art recognizers for document processing [1]. However, they can be difficult to implement and are usually slower than traditional multi-layer perceptrons (MLPs). We present three novel approaches to speeding up CNNs: a) unrolling convolution, b) using BLAS (basic linear algebra subroutines), and c) using GPUs (graphic processing units). Unrolled convolution converts the processing in each convolutional layer (both forward-propagation and back-propagation) into a matrix-matrix product. The matrix-matrix product representation of CNNs makes their implementation as easy as MLPs. BLAS is used to efficiently compute matrix products on the CPU. We also present a pixel shader based GPU implementation of CNNs. Results on character recognition problems indicate that unrolled convolution with BLAS produces a dramatic 2.4X−3.0X speedup. The GPU implementation is even faster and produces a 3.1X−4.1X speedup.},
+	language = {en},
+	urldate = {2018-10-28},
+	booktitle = {Tenth {International} {Workshop} on {Frontiers} in {Handwriting} {Recognition}},
+	publisher = {Suvisoft},
+	author = {Chellapilla, Kumar and Puri, Sidd and Simard, Patrice},
+	month = oct,
+	year = {2006}
+}
+
+@article{ciresan_deep_2010,
+	title = {Deep, {Big}, {Simple} {Neural} {Nets} for {Handwritten} {Digit} {Recognition}},
+	volume = {22},
+	issn = {0899-7667},
+	url = {https://doi.org/10.1162/NECO_a_00052},
+	doi = {10.1162/NECO_a_00052},
+	abstract = {Good old online backpropagation for plain multilayer perceptrons yields a very low 0.35\% error rate on the MNIST handwritten digits benchmark. All we need to achieve this best result so far are many hidden layers, many neurons per layer, numerous deformed training images to avoid overfitting, and graphics cards to greatly speed up learning.},
+	number = {12},
+	urldate = {2018-10-28},
+	journal = {Neural Computation},
+	author = {Cireşan, Dan Claudiu and Meier, Ueli and Gambardella, Luca Maria and Schmidhuber, Jürgen},
+	month = sep,
+	year = {2010},
+	pages = {3207--3220}
+}
+
+@article{szegedy_going_2014,
+	title = {Going {Deeper} with {Convolutions}},
+	url = {http://arxiv.org/abs/1409.4842},
+	abstract = {We propose a deep convolutional neural network architecture codenamed "Inception", which was responsible for setting the new state of the art for classification and detection in the ImageNet Large-Scale Visual Recognition Challenge 2014 (ILSVRC 2014). The main hallmark of this architecture is the improved utilization of the computing resources inside the network. This was achieved by a carefully crafted design that allows for increasing the depth and width of the network while keeping the computational budget constant. To optimize quality, the architectural decisions were based on the Hebbian principle and the intuition of multi-scale processing. One particular incarnation used in our submission for ILSVRC 2014 is called GoogLeNet, a 22 layers deep network, the quality of which is assessed in the context of classification and detection.},
+	urldate = {2018-10-28},
+	journal = {arXiv:1409.4842 [cs]},
+	author = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
+	month = sep,
+	year = {2014},
+	note = {arXiv: 1409.4842},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{he_deep_2015,
+	title = {Deep {Residual} {Learning} for {Image} {Recognition}},
+	url = {http://arxiv.org/abs/1512.03385},
+	abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers---8x deeper than VGG nets but still having lower complexity. An ensemble of these residual nets achieves 3.57\% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28\% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC \& COCO 2015 competitions, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
+	urldate = {2018-10-28},
+	journal = {arXiv:1512.03385 [cs]},
+	author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+	month = dec,
+	year = {2015},
+	note = {arXiv: 1512.03385},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
 }
