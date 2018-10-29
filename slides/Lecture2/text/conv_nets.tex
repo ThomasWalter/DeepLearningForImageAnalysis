@@ -104,6 +104,89 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database \tiny{\cite{lecun_gradient-based_1998}}}
+
+  \begin{itemize}
+  \item The Modified National Institute of Standards and Technology (MNIST) database contains $60\,000$ training images of hand-written digits, and $10,000$ test images.
+  \item Image size: $28 \times 28$
+  \item It has been used since 1998
+  \item Human performance on a similar database (NIST) is reported to be around $1.5\%$ error \cite{simard_efficient_1993}
+  \item Best methods, based on convolutional neural networks, give around $0.21\%$ test error.
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{mnist_examples.png}
+  \caption{\tiny{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)} }
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Pascal VOC project \tiny{\cite{everingham_pascal_2010, everingham_pascal_2014}}}
+
+  This project organized a challenge from 2005 to 2012, divided into several tasks, including an image classification task.
+
+  \begin{block}{Pascal VOC image classification task (2012)}
+    Train/val: $11\,540$ images where the presence of 20 categories of objects was annotated. The test dataset is unknown and tests are run online (still available).
+  \end{block}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pascal_examples.png}
+    \caption{\tiny{From \cite{everingham_pascal_2014}}}
+  \end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ImageNet project}
+
+Since 2010, ImageNet organizes and annual challenge: The ImageNet Large Scale Visual Recognition Challenge (ILSVRC), that constitutes a breakthrough in the design of image analysis challenges by its size.
+
+\begin{block}{Image classification task (since 2012)}
+  \begin{itemize}
+  \item
+  Training: $1\,281\,167$; validation: $50\,000$; test: $100\,000$.
+\item
+  $1\,000$ classes (90 dog breeds!).
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ImageNet projet}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+\centering
+  \includegraphics[width=0.38\textwidth]{ilsvrc_guitar2}\hspace{0.1em}
+  \includegraphics[width=0.38\textwidth]{ilsvrc_guitar3}\\
+  \includegraphics[width=0.57\textwidth]{ilsvrc_guitar1}\\
+  \includegraphics[width=0.57\textwidth]{ilsvrc_guitar4}\\
+  Examples from the \emph{acoustic guitar} class
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+  \centering
+  \includegraphics[height=0.75\textheight]{ImageNet_error_history}
+
+  \tiny{Source: Wikipedia}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image processing approach}
@@ -192,7 +275,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Deep learning applications with images}
+\begin{frame}{Deep learning image applications}
 
 \begin{itemize}
 \item classification
@@ -420,7 +503,8 @@ Today:
 
 
 \begin{block}{}
-In the following slides, for illustration purposes, we will consider one-dimensional images
+  For illustration purposes, in the following slides images and filters will be displayed as rows of neurons - these can be seen as 1D arrays or as sections of 2D arrays.
+
 \end{block}
 
 
@@ -449,9 +533,9 @@ In the following slides, for illustration purposes, we will consider one-dimensi
 
 \end{columns}
 
-\begin{block}<4->{}
-  A convolutional layer computes a convolution, plus a constant, of the precedent layer.
-\end{block}
+%% \begin{block}<4->{}
+%%   A convolutional layer computes a convolution, plus a constant, of the precedent layer.
+%% \end{block}
 
 
 }
@@ -545,23 +629,29 @@ A convolutional layer can at the same time downsample the image by applying a sa
 }
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Multi-valued images}
 
 
-An input image with $p$ channels (for instance à colour image with 3 channels) can be represented by an input layer of depth 3
+An input image with $p$ channels (for instance a colour image with 3 channels) can be represented by an input layer of depth 3
 
 \begin{center}
   \includegraphics[width=0.31\textwidth]{input_vector_image.png}
 \end{center}
 
-
-
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1D representations}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2D representations}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -569,7 +659,7 @@ An input image with $p$ channels (for instance à colour image with 3 channels) 
 
 \begin{itemize}
   \item Translation invariance
-  \item Efficient implementation using matrix operations and graphical processing units
+  \item Efficient implementation using matrix operations and Graphical Processing Units (GPUs)
 \end{itemize}
 
 }
@@ -582,21 +672,35 @@ An input image with $p$ channels (for instance à colour image with 3 channels) 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Max pooling}
+  \frametitle{Max pooling}
 
-\begin{itemize}
-\item Convolutional networks often contain subsampling steps. These can be done using strides of 2 or more within convolutional layers or, as it is common practice today, using \emph{max pooling} layers.
+  \begin{itemize}
+  \item Convolutional networks often contain subsampling steps. The most popular way of doing this today is by using \emph{max pooling} layers.
 
-\item Sampling is only applied along the spatial dimensions, not along the dimension of the filters.
+  \item Note however a current trend that consists in using convolutional layers with a stride of 2
+
+  \item Sampling is only applied along the spatial dimensions, not along the dimension of the filters.
 
   \end{itemize}
 
-\begin{center}
-  \includegraphics[width=0.41\textwidth]{max_pooling.png}
-\end{center}
+  \begin{center}
+    \includegraphics[width=0.41\textwidth]{max_pooling.png}
+  \end{center}
 
 
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dimension reduction}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Decomposed convolutions}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -750,6 +854,10 @@ Many successful architectures, especially for image classification, follow the s
 \item Skip connections
 \end{itemize}
 
+\begin{block}{}
+  VGG, GoogLeNet and ResNet (and their variants) are still among the most used architectures for image classification and other related tasks.
+\end{block}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -774,8 +882,6 @@ Many successful architectures, especially for image classification, follow the s
 }
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
@@ -790,10 +896,11 @@ Many successful architectures, especially for image classification, follow the s
   With standard libraries this is very simple. Prediction time is usually fast.
   \end{block}
 
+\begin{itemize}
+\item One can also start with a standard model and adapt it to a new situation (we will talk about \emph{domain adaptation} and \emph{transfer learning} later).
+\end{itemize}
 
 }
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -820,14 +927,15 @@ Deep learning is a very competitive domain, where code sharing is very common.
 
 \begin{itemize}
 \item Theano
-\item Torch
 \item Tensorflow
+\item Torch, PyTorch
 \item Caffe
+\item Microsoft Cognitive Toolkit (previously known as CNTK)
 \item MatConvNet
 \end{itemize}
 
 \begin{block}{Keras}
-  Keras is a very easy to use interface to Theano and Tensorflow.
+  Keras is a very easy to use interface to Tensorflow, Theano and CNTK.
   \end{block}
 
 
