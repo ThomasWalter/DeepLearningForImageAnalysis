@@ -557,8 +557,8 @@ We can simply write:
     \end{figure}
 
     \begin{block}{}
-      \[\x_i = \act_i(\W_i\x_i + \bias_i),\, i= 1, 2, 3 \]
-      \[\y = \act_4(\W_4 \x_4 + \bias_4)\]
+      \[\x^i = \act_i(\x^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+      \[y = \act_4(\x^4\W_4 + \bias_4)\]
     \end{block}
 
 \end{frame}
@@ -584,6 +584,20 @@ We can simply write:
   \end{itemize}
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Batch processing}
+
+  In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into an matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
+
+    \begin{block}{}
+      \[\X^i = \act_i(\X^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+      \[\y = \act_4(\X^4\W_4 + \bias_4)\]
+    \end{block}
+
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The power of neural networks}
 
@@ -810,7 +824,6 @@ Gradient descent is an essential tool in optimization.
 
   \begin{itemize}
   \item The backpropagation algorithm is used in a neural network to efficiently compute the partial derivative of the loss with respect to each parameter of the network.
-  \item After a forward propagation, one can compute
   \item One can trace the origins of the method to the sixties
   \item It was first applied to NN in the eighties \cite{werbos_applications_1982, lecun_procedure_1985}
   \end{itemize}
