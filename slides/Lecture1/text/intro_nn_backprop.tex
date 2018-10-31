@@ -557,7 +557,7 @@ We can simply write:
     \end{figure}
 
     \begin{block}{}
-      \[\x_i = \act_i(\W_i\x_i + \bias_i),\, i= 1, 2, 3 \]
+      \[\x_i = \act_i(\W_i\x_{i-1} + \bias_i),\, i= 1, 2, 3 \]
       \[\y = \act_4(\W_4 \x_4 + \bias_4)\]
     \end{block}
 
@@ -617,7 +617,7 @@ We can simply write:
 \begin{block}{}
   Let $f$ be a \textcolor{blue}{continuous} real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function (\emph{\small{the activation function}}).
 
-  Then there exist an integer $n$, real vectors $\{\mathbf{w}_i\}_{1 \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq n}$ and $\{v_i\}_{1 \leq n}$ such that for all $\x$ in $[0,1]^p$:
+  Then there exists an integer $n$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq n}$ and $\{v_i\}_{1 \leq i \leq n}$ such that for all $\x$ in $[0,1]^p$:
 
   \[
    \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
