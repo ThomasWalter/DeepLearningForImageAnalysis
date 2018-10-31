@@ -1,0 +1,170 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\input{../../setting.tex}
+\usepackage{physics}
+
+%% \usepackage{animate}
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+\title{MP10: Deep Learning for Image Analysis\\Course Introduction}
+\author{E. Decencière, Thomas Walter, Santiago Velasco-Forero}
+\date{MINES ParisTech\\
+  PSL Research University
+}
+\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+%% \frame{
+%% \frametitle{Contents}
+%% \tableofcontents[hidesubsections]
+%% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Program}
+
+\begin{block}{}
+  Lectures: 9h-12h30 (\alert{except on Monday: 9h30-12h30})\\
+  \hspace{4em}including invited speakers (11h30-12h30)\\
+  Practical sessions: 14h-17h30.
+\end{block}
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+{\tiny
+\begin{table}[]
+\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor[HTML]{00009B}
+{\color[HTML]{FFFFFF} Day} & {\color[HTML]{FFFFFF} Lecture}                                                                                              & {\color[HTML]{FFFFFF} Invited speaker}                                              \\ \hline
+Monday                     & \begin{tabular}[c]{@{}l@{}}Machine learning\\ Artificial neural networks\end{tabular}                                       & TBD                                                                                 \\ \hline
+Tuesday                    & \begin{tabular}[c]{@{}l@{}}Introduction to Convolutional Neural Networks\\ Application to image classification\end{tabular} & TeraPixel                                                                           \\ \hline
+Wednesday                  & \begin{tabular}[c]{@{}l@{}}Image transformations and semantic segmentation\\ Practical considerations\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Marc Huertas-Company\\ Obervatoire de Paris\end{tabular} \\ \hline
+Thursday                   & \begin{tabular}[c]{@{}l@{}}Instance segmentation\\ Applications in robotics\end{tabular}                                    & \begin{tabular}[c]{@{}l@{}}Bogdan Stanciulescu\\ MINES ParisTech\end{tabular}       \\ \hline
+Friday                     & Advanced techniques                                                                                                         & \begin{tabular}[c]{@{}l@{}}Pauline Luc\\ Facebook Research\end{tabular}             \\ \hline
+\end{tabular}
+\end{table}
+}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+%% {\scriptsize
+%% \begin{table}[]
+%% \begin{tabular}{|l|l|}
+%% \hline
+%% \rowcolor[HTML]{00009B}
+%% {\color[HTML]{FFFFFF} Day} & {\color[HTML]{FFFFFF} Lectures}                                                                                              \\ \hline
+%% Monday                     & \begin{tabular}[c]{@{}l@{}}Machine learning\\ Artificial neural networks\end{tabular}                                       \\ \hline
+%% Tuesday                    & \begin{tabular}[c]{@{}l@{}}Introduction to Convolutional Neural Networks\\ Application to image classification\end{tabular} \\ \hline
+%% Wednesday                  & \begin{tabular}[c]{@{}l@{}}Image transformations and semantic segmentation\\ Practical considerations\end{tabular}          \\ \hline
+%% Thursday                   & \begin{tabular}[c]{@{}l@{}}Instance segmentation\\ Applications in robotics\end{tabular}                                    \\ \hline
+%% Friday                     & Advanced techniques                                                                                                         \\ \hline
+%% \end{tabular}
+%% \end{table}
+%% }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Course Team}
+
+  {\scriptsize
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+
+    \begin{block}{Instructors}
+      \begin{itemize}
+      \item Etienne Decencière
+      \item Thomas Walter
+      \item Santiago Velasco-Forero
+      \item Bogdan Stanciulescu
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{Practical sessions software}
+      \begin{itemize}
+      \item José-Marcio Martins da Cruz
+      \end{itemize}
+    \end{block}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    \begin{block}{Teaching assistants}
+      \begin{itemize}
+      \item Bruno Fligliuzzi
+      \item Samy Blusseau
+      \item Robin Alais
+      \item Leonardo Gigli
+      \end{itemize}
+    \end{block}
+
+  \end{column}
+\end{columns}
+
+
+    }
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Grading}
+
+\begin{itemize}
+\item Continuous evaluation of practical work
+\item Exam (2h, Friday afternoon)
+\end{itemize}
+
+\end{frame}
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \section*{References}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \frame[allowframebreaks]{
+
+%% \scriptsize
+
+%% \frametitle{References}
+
+%% %\bibliographystyle{amsalpha}
+%% %\bibliographystyle{apalike}
+
+%% \bibliography{edf.bib}
+
+%% \normalsize
+
+%% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
