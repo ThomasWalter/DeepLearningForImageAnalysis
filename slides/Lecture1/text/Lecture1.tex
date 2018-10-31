@@ -2,7 +2,8 @@
 \input{../../setting.tex}
 
 
-\title{Deep Learning for Image Analysis - Introduction}
+\title{Deep Learning for Image Analysis - \\ 
+	   Lecture 1: An introduction to Machine Learning}
 \author{Thomas Walter, PhD}
 \date{Centre for Computational Biology (CBIO) \\
 	  MINES Paris-Tech, PSL Research University \\
@@ -65,7 +66,7 @@
 \begin{frame}{A short history of machine learning}
 \begin{itemize}
 	\item The theoretical foundations go back to the early 19th century (e.g. Bayesian theory and Least Squares). 
-	\item Even before machines came into play, there was a lot of interest in finding methods to derive rules from data (\emph{dta fitting}). These methods are part of what we call Machine Learning today (linear regression, Bayesian theory, Logistic regression, Linear discriminant analysis, Markov chains). 
+	\item Even before machines came into play, there was a lot of interest in finding methods to derive rules from data (\emph{data fitting}). These methods are part of what we call Machine Learning today (linear regression, Bayesian theory, Logistic regression, Linear discriminant analysis, Markov chains). 
 	\item In 1958, Rosenblatt published his \emph{Perceptron}. 
 \end{itemize}
 \end{frame}
@@ -109,7 +110,7 @@
   \subfloat[Prediction]{\includegraphics[width=0.8\textwidth]{../graphics/workflow_prediction.png}} 
 \end{figure}
 \begin{itemize}
-\item Training: to learn a model from the training set. Depending on the method, this can minutes, hours or days.
+\item Training: to learn a model from the training set. Depending on the method, this can take minutes, hours or days.
 \item Prediction: to apply the learned classifier to new data. This is usually computationally efficient. 
 \end{itemize}
 \end{frame}
@@ -174,7 +175,7 @@
 \includegraphics[width=0.9\textwidth]{../graphics/SPAM_mail.png}
 \end{figure}
 \begin{itemize}
-	\item This is a binary classification problem: $y \in \{0,1\}$ (0: junk, 1: not junk). 
+	\item This is a binary classification problem: $y \in \{0,1\}$ (0: junk, 1: normal). 
 	\item The features can be constructed in the following way: for each email annotated by the user, the words are listed. An email is described as a vector of frequencies of these words. 
 	\item The system learns then a function that assigns to each vector of measured word frequencies the label $y$. 
 \end{itemize}
@@ -218,13 +219,12 @@
 	&=& \param^T \featmap (x)
 	\end{eqnarray}
 	\item Parameter vector: $\param = (a_0, a_1, \ldots, a_m)^T$
-	\item Here, we do not only use the measurement $x$. We actually map $x$ to a higher dimensional space:
+	\item Here, the initial measurement $x$ is a scalar. In our model, we map $x$ to a higher dimensional space: 
 	\begin{eqnarray}
 		\featmap : \mathbb{R}^{\nfeatures} &\rightarrow & \mathbb{R}^Q \nonumber \\
 		x &\rightarrow & \featmap (x) = (1, x, x^2, \ldots, x^m)^T
 	\end{eqnarray}
-	In our example there is only one feature to start with: $P=1$. But high dimensional feature mappings are also commonly used for $P>1$. 
-	\item The model is linear in the parameters (but for $m>1$ not in the inputs). 
+	\item The model is linear in the parameters $\theta$ and linear in $\featmap$, but for $m>1$, the model is not linear in $x$. 
 \end{itemize}
 \end{frame}
 
@@ -311,10 +311,45 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Supervised Learning: Example algorithms}
-\subsection{Nearest Neighbor classification}
+
+% \begin{frame}{Example: classification of cells}
+% \begin{figure}[htb]
+% \includegraphics[width=0.8\textwidth]{../graphics/ComputationalPhenotyping.pdf}
+% \end{figure}
+
+% \begin{itemize}
+% 	\item In this example, we wish to classify cell images. 
+% 	\item For this, cells are first segmented and then described by a vector $x$ of features describing shape and texture. 
+% 	\item We are given a training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$, i.e. for each cell in the training set, we know its morphological class. 
+% 	\item The task is to infer a function $f$ from the training set that allows to assign one of these classes to new unseen objects.
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{Example: classification of cells}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/ComputationalPhenotyping.pdf}
+\end{figure}
+
+\begin{itemize}
+	\item In this example, we wish to classify cell images. 
+	\item For this, cells are first segmented and then represented by a vector $x \in \mathbb{R}^P$ of features describing shape and texture for each segmented object.
+	%\item We define a set of morphological, biologically meaningful classes. 
+	\item We are given a training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$, i.e. for each cell in the training set $x_i \in \mathbb{R}^P$, we know its morphological class $y_i$. 
+	\item The task is to infer a function $f$ from the training set that allows to assign one of these classes to new unseen objects.
+\end{itemize}
+\end{frame}
+
+%\subsection{Nearest Neighbor classification}
 \subsection{Random Forests}
+\begin{frame}
+	
+\end{frame}
+
 \subsection{Linear Discriminant Analysis (LDA)}
 \subsection{Support Vector Machines (SVM) and kernel methods}
+
+\section{Conclusion}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
