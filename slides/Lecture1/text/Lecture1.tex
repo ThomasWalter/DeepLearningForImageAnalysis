@@ -341,10 +341,48 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 
 %\subsection{Nearest Neighbor classification}
 \subsection{Random Forests}
-\begin{frame}
+
+\begin{frame}{Random Forest: Decision trees}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/CellClassification_RF.pdf}
+\end{figure}
+
+\begin{itemize}
+	\item Intuitive approach: applying a series of "rules" to the training data to recover the classes $\omega_i$ (e.g. "is the cell bright?", "is the cell elongated?", ... ) 	
+	\item Each rule (or decision) divides the set of objects into two subsets. 
+	\item The whole classifier is thus represented by a decision tree, i.e. a hierarchically organized set of binary decisions.
+\end{itemize}
 	
 \end{frame}
 
+\begin{frame}{Random Forest: Decision trees}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/RF2.pdf}
+\end{figure}
+
+\begin{itemize}
+	\item The decision tree corresponds to a partition of the feature space. 
+	\item The corresponding decision boundary can be very complex.
+	\item Classification of a new object: application of the binary decision rules and assignment of the leaf label.
+\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Random Forest: Decision trees}
+
+\begin{itemize}
+\item Such decision trees can be built from data in an optimal way, by repeated division of the feature space. 
+\item At every step, we split the data set into two, according to one feature. 
+\item The feature and the threshold are chosen automatically in such a way that the resulting groups have best “purity”.
+\item This can be achieved by minimizing the GINI impurity. For $K$ classes, GINI impurity is defined as:     
+\begin{equation}
+GI(s) &=& \sum_{R_m}=\frac{|R_m|}{N}GI(R_m)
+GI(R_m) &=& \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk})
+\end{equation}
+where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the probability of a sample in $R_m$ to belong to class $k$.
+\end{itemize}
+	
+\end{frame}
 \subsection{Linear Discriminant Analysis (LDA)}
 \subsection{Support Vector Machines (SVM) and kernel methods}
 
