@@ -382,8 +382,78 @@ where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the 
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Random Forests}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/Forest.pdf}
+\end{figure}
+
+\begin{itemize}
+	\item Decision trees can approximate very complicated decision boundaries, but they tend to fit to much to the data (overfitting). 
+	\item Random forests: set of decision trees, each learned on a different (randomly drawn) portion of the data and with different (randomly selected) features. 
+	\item Each tree gives a classification result. 
+	\item The final result is obtained by a majority vote. 
+\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Random Forests}
+
+\begin{itemize}
+	\item Because each tree is slightly different from the others, each tree learns a slightly different aspect of the training data. 
+	\item A classification method that exists in averaging the results of several classifiers (often weak classifiers), is called {\bf ensemble method}. 
+	\item The strategy of averaging is a form of regularization. 
+\end{itemize}
+	
+\end{frame}
 
 \subsection{Linear Discriminant Analysis (LDA)}
+
+\begin{frame}{The Bayes rule of classification 1/2}
+
+\begin{block}{Product and sum rules of probabilities}
+	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be there marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ be the conditional probability of $X$ given $Y$. 
+	\begin{itemize}
+		\item Product rule: 
+		\begin{equation}
+			P(X\,|\,Y) = P(X,Y)P(Y)
+		\end{equation}
+		\item Sum rule:
+		\begin{equation}
+			P(X) = \sum_Y P(X,Y)P(Y)
+		\end{equation}
+	\end{itemize}
+\end{block}
+
+From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
+
+\begin{equation}
+	P(Y \, | \, X) = \frac{P(X \, | \, Y)P(Y)}{P(X)} 
+\end{equation}
+
+\end{frame}
+
+\begin{frame}{The Bayes rule of classification 2/2}
+
+We assume that the measured features are continuous variables. In this case, similar rules hold, but we need to replace probabilities by probability densities. 
+
+\begin{block}{Bayes rule of classification}
+	With $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $Y \in \{\omega_1, \ldots, \omega_K\}$ a discrete set of class labels, the posterior probability $P(Y=\omega_k|x)$ can be written as:
+	\begin{equation}
+		P(Y=\omega_k \, | \, x) = \frac{p(x \, | \, Y=\omega_k) P(Y=\omega_k)}{p(x)}
+	\end{equation}
+	The Bayes rule of classification: \emph{choose the class that maximizes the posterior probability} $P(Y=\omega_k|x)$:
+	\begin{equation}
+		\omega^{\ast}(x) = \arg\max_k P(Y=\omega_k \, | \, x) = \arg\max_k p(x|\omega_k)P(\omega_k)
+	\end{equation}
+\end{block}
+
+The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
+
+Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities. 
+	
+\end{frame}
+
+
 \subsection{Support Vector Machines (SVM) and kernel methods}
 
 \section{Conclusion}
