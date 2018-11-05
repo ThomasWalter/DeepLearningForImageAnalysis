@@ -99,7 +99,7 @@
 \item Python: a high level interpreted language
 \item Numpy: a scientific computing libray
 \item Keras: a high level deep learning library
-\item Jupyter notebook: A web application allowing to run code on a user-friendly environment
+\item Jupyter notebook: A web application allowing to run code in a user-friendly environment
 \end{itemize}
 
 \end{frame}
@@ -133,10 +133,9 @@
 \begin{frame}
   \frametitle{Expressions}
 
+  A session in the interactive interpreter:
   \begin{block}{Examples of expressions}
 
-    %Une session dans l'interpr?teur interactif:
-    A session in the interactive interpreter:
     \begin{alltt}
       $>>>$ 2
 
@@ -159,8 +158,9 @@
 \begin{frame}
   \frametitle{Variables}
 
-  \begin{block}{Using variables}
     Variables are not declared:
+
+    \begin{block}{}
     \begin{alltt}
       $>>>$ a = 2
 
@@ -241,7 +241,7 @@
   \end{block}
 
 \begin{alertblock}{Lists are mutable}
-  You an modify or erase any list element.
+  New elements can  be added; existing elements can be modified of deleted.
 \end{alertblock}
 
 \end{frame}
@@ -254,39 +254,113 @@
   \frametitle{Functions (1)}
 
   \begin{block}{Declaring a function}
-    In the interpreter:
     \begin{alltt}
-      $>>>$ def f(a):        \# note the ':' (colon)
+      def f(a):        \# note the ':' (colon)
 
-      ...     return a*2   \# there are 4 spaces or 1 tab
+      ~~~~ return a*2   \# there are 4 spaces or 1 tab
 
-      \#     before the "return"
+      ~~~~ ~~~~ ~~~~ ~\#     before the "return"
+    \end{alltt}
+  \end{block}
 
-      ...
+  Indentation is \emph{critical}: it's part of the syntax.
+
+
+  \begin{block}{Execution}
+    \begin{alltt}
 
       $>>>$ f("abcd")
 
       'abcdabcd'
 
     \end{alltt}
-    Indentation is \emph{critical}: it's part of the syntax
   \end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Fonctions (2)}
+  \frametitle{Functions (2)}
   \begin{block}{Return value}
 
     \begin{alltt}
-      def theAddition( a , b ):
+      def theAddition(a, b):
 
       ~~~~ return a + b
     \end{alltt}
 
   \end{block}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A Python class}
+
+  A class in Python (as in many other object-oriented languages) is a container that can hold:
+  \begin{itemize}
+  \item Attributes (internal variables) and
+  \item Methods (internal functions).
+  \end{itemize}
+
+  A class is defined using the \emph{class} keyword.
+  \begin{block}{Example}
+    \begin{alltt}
+      class Bird:
+
+      ~~~~ def set\_name(self, given\_name):  \# class method
+
+      ~~~~ ~~~~ self.name = given\_name  \# instance attribute
+    \end{alltt}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Class instance}
+
+  The execution of the above code creates a class. It can be instantiated by calling it as a function:
+
+  \begin{block}{}
+    \begin{alltt}
+    >>> robin = Bird()
+
+    >>> robin.set\_name(``European robin'')
+    \end{alltt}
+  \end{block}
+
+  The result is an object or instance built according to the class model. The keyword \emph{self} represents the class instance.
+
+  Instance attributes should in fact be initialized in a special method, that is called when the class is instantiated:
+
+  \begin{block}{}
+    \begin{alltt}
+      class Bird:
+
+      ~~~~ def \_\_init\_\_(self, given\_name):
+
+      ~~~~ ~~~~ self.name = given\_name
+
+      \end{alltt}
+  \end{block}
+
+  \begin{block}{}
+    \begin{alltt}
+    >>> robin = Bird(``European robin'')
+
+    >>> robin.name
+
+    European robin
+    \end{alltt}
+  \end{block}
+
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Loops and tests}
@@ -390,22 +464,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Packages}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Packages}
+
+  A Python package is a module that brings new functions and classes when \emph{imported}.
+
+  The Python ecosystem offers thousands of packages.
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Packages}
-  \begin{block}{Importing packages}
+  \frametitle{Importing packages}
+  \begin{block}{}
     \begin{alltt}
       $>>>$ import numpy\\
       $>>>$ numpy.cos(0)\\
       1.0
     \end{alltt}
-    You can also use a short name for the package:
+  \end{block}
+
+  You can also use a short name for the package:
+
+  \begin{block}{}
     \begin{alltt}
-      $>>>$ import numpy as np\\
-      $>>>$ np.cos(0)\\
+      $>>>$ import numpy as \alert{np}\\
+      $>>>$ \alert{np}.cos(0)\\
       1.0
     \end{alltt}
-    For the lazy ones (bad practice, just for quick tests!):
+  \end{block}
+
+  For the lazy ones (bad practice, just for quick tests!):
+
+  \begin{block}{}
     \begin{alltt}
       $>>>$ from numpy import *\\
       $>>>$ cos(0)\\
@@ -415,68 +507,68 @@
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Files and paths}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Files}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \subsection{Files and paths}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}
+%%   \frametitle{Files}
 
-  \begin{block}{Reading and writing (text mode)}
-    To read the content of a text file:
-    \begin{alltt}
-      $>>>$ f = open( "hop.txt" , "r" )\\
-      $>>>$ for l in f.readlines():\\
-      ~~~~    print(l)
-    \end{alltt}
-    To write:
-    \begin{alltt}
-      $>>>$ f2 = open( "hop2.txt" , "w" )  \# "a" for "append"\\
-      $>>>$ f2.write( "Hello, world!" + str( 3.14 ) + "\textbackslash n" )\\
-      $>>>$ f2.close()                     \# optional
-    \end{alltt}
+%%   \begin{block}{Reading and writing (text mode)}
+%%     To read the content of a text file:
+%%     \begin{alltt}
+%%       $>>>$ f = open( "hop.txt" , "r" )\\
+%%       $>>>$ for l in f.readlines():\\
+%%       ~~~~    print(l)
+%%     \end{alltt}
+%%     To write:
+%%     \begin{alltt}
+%%       $>>>$ f2 = open( "hop2.txt" , "w" )  \# "a" for "append"\\
+%%       $>>>$ f2.write( "Hello, world!" + str( 3.14 ) + "\textbackslash n" )\\
+%%       $>>>$ f2.close()                     \# optional
+%%     \end{alltt}
 
-  \end{block}
-\end{frame}
+%%   \end{block}
+%% \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Paths}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}
+%%   \frametitle{Paths}
 
-  \begin{block}{Manipulating paths}
-    In the \textbf{os} package:
-    \begin{alltt}
-      $>>>$ import os\\
-      $>>>$ os.getcwd() \# current directory\\
-      `/home/romain'\\
-      $>>>$ os.path.join( os.getcwd() , "hop" , "hip" )\\
-      `/home/romain/hop/hip'
-    \end{alltt}
-  \end{block}
+%%   \begin{block}{Manipulating paths}
+%%     In the \textbf{os} package:
+%%     \begin{alltt}
+%%       $>>>$ import os\\
+%%       $>>>$ os.getcwd() \# current directory\\
+%%       `/home/name'\\
+%%       $>>>$ os.path.join( os.getcwd() , "hop" , "hip" )\\
+%%       `/home/name/hop/hip'
+%%     \end{alltt}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Paths (2)}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}
+%%   \frametitle{Paths (2)}
 
-  \begin{block}{Packages import paths}
-    In the file \texttt{/home/matthieu/Python/myOwnProgram.py}
-    \begin{alltt}
-      def hello():\
-      ~~~~    return "bonjour"
-    \end{alltt}
+%%   \begin{block}{Packages import paths}
+%%     In the file \texttt{/home/name/Python/myOwnProgram.py}
+%%     \begin{alltt}
+%%       def hello():\
+%%       ~~~~    return "bonjour"
+%%     \end{alltt}
 
-    In the main program, using the \textbf{sys} package:
-    \begin{alltt}
-      $>>>$ import sys\\
-      $>>>$ sys.path.append("/home/matthieu/Python")\\
-      $>>>$ import myOwnProgram\\
-      $>>>$ print(myOwnProgram.hello())\\
-      `bonjour'
-    \end{alltt}
-  \end{block}
+%%     In the main program, using the \textbf{sys} package:
+%%     \begin{alltt}
+%%       $>>>$ import sys\\
+%%       $>>>$ sys.path.append("/home/name/Python")\\
+%%       $>>>$ import myOwnProgram\\
+%%       $>>>$ print(myOwnProgram.hello())\\
+%%       `bonjour'
+%%     \end{alltt}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -487,11 +579,171 @@
 
 \begin{itemize}
 \item A python module for scientific computing
-\item Based on a powerfull multi-dimensional array object
+\item Based on a powerful multi-dimensional array object
 \item Efficient core coded in C++
 \end{itemize}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Numpy Arrays}
+
+  Vectors, matrices and tensors can be represented with numpy arrays.
+
+  \begin{block}{}
+  \begin{alltt}
+    $>>>$ import numpy as np
+
+    $>>>$ a = np.array([2, 0, 3])
+
+    $>>>$ print(a)
+
+    [2 0 3]
+
+    $>>>$ type(a)
+
+    <class 'numpy.ndarray'>
+
+    $>>>$ a.dtype  \# data type
+
+    dtype('int64')
+
+    $>>>$ a.ndim  \# number of dimensions
+
+    1
+
+    $>>>$ a.shape
+
+    (3, )
+
+
+  \end{alltt}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2D arrays}
+
+\begin{block}{}
+  \begin{alltt}
+    $>>>$ b = np.array([[2, 0, 4], [1, 3, 3]])
+
+    $>>>$ b
+
+  array([[2, 0, 4],
+    [1, 3, 3]])
+
+  $>>>$ b.ndim
+
+  2
+
+  $>>>$ b.shape
+
+  (2, 3)
+
+  $>>>$ b[1, 0]
+
+  1
+
+
+  \end{alltt}
+\end{block}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vector and matrix operations}
+
+By default, standard operators like *, -, + , / , are applied element-wise to arrays and vectors.
+
+  \begin{block}{}
+    \begin{alltt}
+      >>> a = np.array([3, 0, 2])
+
+      >>> b = np.array([1, 2, 3], [0, 1, 0])
+
+      >>> a*b
+
+  array([[3, 0, 6],
+       [0, 0, 0]])
+
+  >>> b*b
+
+  array([[1, 4, 9],
+         [0, 1, 0]])
+
+  >>> b* b.transpose()
+
+  Traceback (most recent call last):
+
+  File "<stdin>", line 1, in <module>
+
+  ValueError: operands could not be broadcast together with shapes (2,3) (3,2)
+  \end{alltt}
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix and vector operations}
+
+    \begin{block}{}
+    \begin{alltt}
+      >>> a = np.array([3, 0, 2])
+
+      >>> b = np.array([1, 2, 3], [0, 1, 0])
+
+      >>> np.matmul(b,a)
+
+      array([9, 0])
+
+      >>> np.matmul(b,b.transpose())
+
+      array([[14,  2],
+             [ 2,  1]])
+
+  \end{alltt}
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Choosing elements within an array}
+
+  \begin{block}{}
+    \begin{alltt}
+      >>> b = np.array([1, 2, 3], [0, 1, 0])
+
+      >>> b[1,1]
+
+      1
+
+      >>> b[1,:]
+
+      array([0, 1, 0])
+
+      >>> b[:,1]
+
+      array([2, 1])
+
+      >>> b[:,0:2]
+
+      array([[1, 2],
+        [0, 1]]
+
+    \end{alltt}
+  \end{block}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Jupyter notebook}
