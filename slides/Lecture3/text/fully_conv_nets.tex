@@ -48,65 +48,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \frame{
-%%   \frametitle{A few words about myself}
-
-%%   \begin{itemize}
-
-%%   \item Researcher on mathematical morphology and image processing
-
-%%   \item Main current application fields:
-%%     \begin{itemize}
-%%     \item Ophthalmology
-%%     \item Dermatology, cosmetology
-%%     \item Astronomy (2 years)
-%%     \end{itemize}
-%%   \item I have been using deep learning methods since 2015
-
-%%   \end{itemize}
-
-%%   \begin{block}{Acronyms}
-%%     \begin{itemize}
-%%     \item ANN = artificial neural network
-%%     \item CNN = convolutional neural network
-%%     \end{itemize}
-%%   \end{block}
-
-
-%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Recall from yesterday: image classification with NN}
 
+\begin{columns}
+
+  \begin{column}{.5\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{network.png}\\
+       Simple fully-connected neural network
+    \end{figure}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    Cross-entropy loss function used for classification tasks:
+    \[
+        \loss(\param) = -\sum\limits_{i=1}^n y_i ln( f(\x_i, \theta) )
+    \]
+  \end{column}
+\end{columns}
+
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Image Segmentation with NNs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Learning image transformations}
 
-\begin{itemize}
+  \begin{itemize}
+  \item An image classification task is a function from the set of considered images into a set of labels
+  \item In many applications, we want to transform an image into another image
+  \end{itemize}
 
-\item Computer vision has been one of the main application domains of NNs
-
-\item Image segmentation often is an important step in an image processing work flow
-
-\item Image segmentation has been a very active deep learning research field
-
-\end{itemize}
-
-
-\begin{block}{Image segmentation example}
-  \begin{figure}
-    \centering
-    \includegraphics[height=2.5cm]{pascal_moto}
-    \includegraphics[height=2.5cm]{pascal_moto_seg}
-    \tiny{Credit: images from the Pascal VOC database}
-  \end{figure}
-\end{block}
-
-}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,7 +113,7 @@
 \frametitle{Image-to-image NN}
 
 \begin{block}{Definition: image-to-image neural network}
-  An image-to-image NNs $F$ is a NN that transforms an image into an image of same size:
+  An image-to-image NNs $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
   \vspace{-1em}
   \begin{align*}
     F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
@@ -156,11 +131,6 @@
 
 \begin{block}{Bulge / disk decomposition}
   \begin{figure}
-    %% \includegraphics[width=2cm]{galaxy.png}
-    %% $\longrightarrow$
-    %% \includegraphics[width=2cm]{disk.png}
-    %% $+$
-    %% \includegraphics[width=2cm]{bulge.png}
     \includegraphics[width=8cm]{decomposition.png}\\
     \hfill {\tiny (Credits: Tuccillo, Huertas-Company, Velasco-Forero, Decencière)}
 \end{figure}
@@ -179,6 +149,46 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
+\frametitle{Image Segmentation with NNs}
+
+\begin{itemize}
+
+\item Computer vision has been one of the main application domains of NNs
+
+\item Image segmentation often is an important step in an image processing work flow
+
+\item Image segmentation has been a very active deep learning research field
+
+\end{itemize}
+
+
+\begin{block}{Image segmentation example}
+  \begin{figure}
+    \centering
+    \includegraphics[height=2.5cm]{pascal_moto}
+    \hspace{1em}
+    \includegraphics[height=2.5cm]{pascal_moto_seg}\\
+    \tiny{Credit: images from the Pascal VOC database}
+  \end{figure}
+\end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Other applications}
+
+\begin{itemize}
+\item Image filtering
+\item High dynamic range
+\item Style modification
+\item Super-resolution (image size increases)
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
 \frametitle{Image-to-image NNs architecture}
 
 \begin{itemize}
@@ -186,8 +196,6 @@
 \item Image-to-image NNs are based on convolutional layers
 
 \item If downsampling is used, the corresponding upsampling is needed
-
-\item The \alert{receptive field} of the network is an essential property
 
 \end{itemize}
 
@@ -211,7 +219,7 @@
 
 
 \begin{block}{Definition}
-  The \alert{receptive field} of a neuron in a NN is the set of input neurons that are linked to that neuron.
+  The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
 
   The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
 \end{block}
@@ -355,20 +363,19 @@ Answer: $1 + 2 \times (n+1)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{What is the size of the receptive field of U-Net}
+%% \frame{
+%% \frametitle{What is the size of the receptive field of U-Net}
 
 
-\begin{figure}
-\includegraphics[height=5cm]{unet}
-\end{figure}
+%% \begin{figure}
+%% \includegraphics[height=5cm]{unet}
+%% \end{figure}
 
+%% \pause
 
-\pause
-
-  \centering
-  Answer: $185 \times 185$
-}
+%%   \centering
+%%   Answer: $185 \times 185$
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -471,16 +478,16 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Partially supervised segmentation - learning to segment every thing}
+%% \frame{
+%%   \frametitle{Partially supervised segmentation - learning to segment every thing}
 
-  \begin{figure}
-    \includegraphics[width=8cm]{segment_every_thing.png}
-  \end{figure}
+%%   \begin{figure}
+%%     \includegraphics[width=8cm]{segment_every_thing.png}
+%%   \end{figure}
 
-\cite{hu_learning_2017}
+%% \cite{hu_learning_2017}
 
-  }
+%%   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -577,7 +584,7 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 
   \begin {itemize}
 \item Superpixels (e.g. \cite{farabet_learning_2013})
-\item Conditional random fields (e.g. \cite{krahenbuhl_efficient_2011})
+\item Conditional random fields
 \item Mathematical morphology
   \end{itemize}
 
