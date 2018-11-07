@@ -1,8 +1,6 @@
-from __future__ import print_function
 
 import numpy as np
-import tensorflow
-from tensorflow.python.keras import backend as K
+from keras import backend as K
 
 # import pdb
 
@@ -56,23 +54,3 @@ def jaccard1_coef(y_true, y_pred, smooth=SMOOTH):
 
 def jaccard1_loss(y_true, y_pred, smooth=SMOOTH):
     return 1 - jaccard1_coef(y_true, y_pred, smooth=SMOOTH)
-
-
-def diag_dist_loss(y_true, y_pred):
-    y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred)
-    return K.mean(0.5 - 0.5 * np.cos(np.pi * np.abs(y_true_f - y_pred_f)))
-
-
-def cross_loss(y_true, y_pred):
-    y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred)
-    # return K.mean(y_true_f + y_pred_f -2*y_true_f*y_pred_f)
-    return K.mean((y_true_f - y_pred_f)**4)
-
-
-def rmse(y_true, y_pred):
-    y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred)
-    # return K.mean(y_true_f + y_pred_f -2*y_true_f*y_pred_f)
-    return K.sqrt(K.mean(K.square(y_true_f - y_pred_f)))
