@@ -540,9 +540,162 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 \end{frame}
 
 \subsection{Support Vector Machines (SVM) and kernel methods}
+\begin{frame}{Support Vector Machines: principle}
+	\begin{figure}[htb]
+		\includegraphics[width=0.8\textwidth]{../graphics/SVM1.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Optimal placement of a linear decision boundary. 
+		\item Intuitive approach: place a "ribbon" instead of a single line, i.e. two parallel lines separated by a distance $d$.
+		\item Maximization of the width $d$ in order to push the separating hyperplane away from the two classes.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Support Vector Machines: linearly separable training set}
+	\begin{figure}[htb]
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Equation of a linear decision boundary $h: w^Tx + b = 0$. 
+		\item $w$: normal vector of the separating hyperplane.
+		\item $w^Tx + b  > 0$: $x$ is on the same side as the normal vector $w$ points to. 
+		\item $w^Tx + b  < 0$: $x$ is on the opposite side.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Support Vector Machines: linearly separable training set}
+	\begin{figure}[htb]
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item With the encoding $y\in\{-1,+1\}$, a sample is correctly classified if $y_i(w^Tx_i + b) > 0$. 
+		\item The distance between the two parallel lines $w^Tx + b = \pm 1$ is given by
+		\begin{equation}
+			d = \frac{2}{\|w\|}
+		\end{equation}
+		\item Maximizing of $d$ is equivalent to minimizing $\|w\|^2$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Support Vector Machines: linearly separable training set}
+	\begin{figure}[htb]
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item With this, the problem can be written as a {\bf convex optimization problem under constraints}: 
+		\begin{eqnarray*}
+			\mbox{minimize} & & \|w\|^2 \\
+			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 \quad i = 1, \ldots, N
+		\end{eqnarray*}
+		\item Convexity implies that there is no local minimum besides the global minimum. 
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{SVM for not linearly separable data}
+	\begin{figure}[htb]
+		\includegraphics[width=0.8\textwidth]{../graphics/SVM3.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item In reality, complex data is rarely linearly separable. 
+		\item Compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$.
+		\item Normal vector $w$: vector of feature weights.
+		\begin{equation*}
+			f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
+		\end{equation*}		
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{SVM for not linearly separable data}
+	\begin{itemize}
+		\item SVM correspond to the following constrained optimization problem:
+		\begin{eqnarray*}
+			\min_{w,\xi} & & \|w\|^2 + C \sum_{i=1}^{N}\xi_i\\
+			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 - \xi_i \quad i = 1, \ldots, N \\
+			& & \xi_i \geq 0 \quad i = 1, \ldots, N
+		\end{eqnarray*}
+		\item This problem can be efficiently solved with the Lagrange formalism (not shown).
+		\item We note that this corresponds to the formulation we have seen earlier: 
+		\begin{equation*}
+			\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
+		\end{equation*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Support Vector Machines: Kernel trick}
+	\begin{figure}[htb]
+		\includegraphics[width=0.7\textwidth]{../graphics/KernelTrick.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Limitation: linear decision boundaries
+		\item Solution: transform the features in a higher dimensional space. 
+		\item SVM: in-built mechanism to do such transformations efficiently.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{How to set hyperparameters}
+	\begin{itemize}
+		\item Training a classifier: finding automatically a large number of feature weights (SVM, LDA) or other parameters (RF) from annotated data.
+		\item Hyperparameters: a small number of parameters that are set to control the training process, such as the number of trees, or the regularization parameter $\lambda$ ($C$ in SVM). 
+		\item The question is: how can we find good hyperparameters?
+		\item Strategy: grid search. We choose the hyperparameters that perform best (i.e. that lead to the classifier with the best performance).
+		\item Problem: how can we measure the performance? 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to set hyperparameters: performance measurement}
+	\begin{itemize}
+		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy. 
+		\item<2-> Problem: Training error is a poor approximation of the test error. 
+		\begin{figure}[htb]
+			\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
+		\end{figure}
+		\item<3-> We need to estimate the test error (error on unseen samples)!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to set hyperparameters: estimation of the test error}
+	\begin{itemize}
+		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy. 
+		\item<2-> Problem: Training error is a poor approximation of the test error. 
+		\begin{figure}[htb]
+			\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
+		\end{figure}
+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to set hyperparameters: estimation of the test error}
+	\begin{itemize}
+		\item<1-> Second idea: to split the training set in two subsets $T_1$, $T_2$. We train on $T_1$, we test on $T_2$. 
+		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
+		\item<3-> Cross Validation: we split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing. 
+		\begin{figure}[htb]
+			\includegraphics[width=0.6\textwidth]{../graphics/CV1.pdf}
+		\end{figure}
+		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error). We can now choose the hyperparameter with the best accuracy.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to set hyperparameters: grid search}
+	\begin{figure}[htb]
+		\includegraphics[width=0.6\textwidth]{../graphics/CV2.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item If there are several parameters, we have 
+		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
+		\item<3-> Cross Validation: we split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing. 
+		\begin{figure}[htb]
+			\includegraphics[width=0.6\textwidth]{../graphics/CV1.pdf}
+		\end{figure}
+		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error). We can now choose the hyperparameter with the best accuracy.
+	\end{itemize}
+\end{frame}
 
 
 \section{Conclusion}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
