@@ -21,6 +21,16 @@
 \setbeamertemplate{section in toc}[square]
 \setbeamertemplate{items}[square]
 
+%% For image credits on image bottom right
+\usepackage[absolute,overlay]{textpos}
+\setbeamercolor{framesource}{fg=gray}
+\setbeamerfont{framesource}{size=\tiny}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+        \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
+
 \title{Fully convolutional neural networks}
 \author{E. Decencière}
 \date{MINES ParisTech\\
@@ -166,7 +176,7 @@
     \includegraphics[height=2.5cm]{pascal_moto}
     \hspace{1em}
     \includegraphics[height=2.5cm]{pascal_moto_seg}\\
-    \tiny{Credit: images from the Pascal VOC database}
+    \source{Pascal VOC database}
   \end{figure}
 \end{block}
 
@@ -280,8 +290,9 @@ Answer: $1 + 2 \times (n+1)$
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Image segmentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Binary segmentation}
+\subsection{Binary segmentation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -310,7 +321,7 @@ Answer: $1 + 2 \times (n+1)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Semantic segmentation}
+\subsection{Semantic segmentation}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -404,7 +415,7 @@ Answer: $1 + 2 \times (n+1)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Instance segmentation}
+\subsection{Instance segmentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
@@ -529,57 +540,60 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 
 %% }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Practical recommendations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Properties]{Properties of fully-convolutional neural networks}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Translation invariance}
+
+\begin{block}{}
+  Identical receptive fields produce identical outputs.
+\end{block}
+
+\pause
+
+\begin{itemize}
+\item If padding is used in the network, border effects can be important.
+\item Translation invariance is not always welcome!
+\item Position information can also be used in the network:
+  \begin{itemize}
+  \item Through masks or segmentations
+  \item Through pixel coordinates
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Modeling your problem}
+  \frametitle{Image size flexibility}
 
-  \begin{block}{Casting your problem into the right representation}
-    \begin {itemize}
-    \item Familiarize yourself with the training data (input and output images)
-    \item Choose the right representation for your images
-    \item Choose an architecture and train it
-    \item Analyze the results on the validation data (\alert{look} at the images!)
-    \item Do you need preprocessing? Data augmentation? Post-processing?
-    \item Iterate ...
-    \item Only at the end: test!
-    \end{itemize}
+  \begin{itemize}
+  \item A NN containing fully-connected layers can only process images of a given size
+  \item A translation invariant NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
+  \item Practical limit: the memory of the system
+  \end{itemize}
 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Robustness with respect to ground-truth errors}
+
+  \begin{block}{}
+This is more an empirical observation that a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
   \end{block}
 
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Preprocessing}
-
-  \begin {itemize}
-  \item Standard statistical preprocessing: not always useful, and sometimes problematic, when applied to images
-    \item Morphological operators
-  \end{itemize}
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Using CNNs]{Using fully-convolutional networks}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Data augmentation}
-
-  \begin {itemize}
-\item Geometrical transformations: similarities
-\item Elastic transformations
-\item Specific methods: articulated objects, \ldots
-\item Simulated data
-  \end{itemize}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Postprocessing for segmentation}
+  \frametitle{Post-processing for segmentation}
 
   \begin {itemize}
 \item Superpixels (e.g. \cite{farabet_learning_2013})
@@ -601,45 +615,21 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Practical example}
-    \begin{columns}[c]
-    \column{.5\textwidth}
-        \includegraphics[width=0.9\textwidth]{hst.jpg}\\
-        {\tiny (Credits: ESA/Hubble, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=34205833)}
-    \column{.5\textwidth}
-      How would you:
-      \begin{itemize}
-      \item segment the background?
-      \item segment the sources?
-      \item separate the sources?
-      \end{itemize}
+%% \begin{frame}{Practical example}
+%%     \begin{columns}[c]
+%%     \column{.5\textwidth}
+%%         \includegraphics[width=0.9\textwidth]{hst.jpg}\\
+%%         \source{ESA/Hubble, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=34205833}
+%%     \column{.5\textwidth}
+%%       How would you:
+%%       \begin{itemize}
+%%       \item segment the background?
+%%       \item segment the sources?
+%%       \item separate the sources?
+%%       \end{itemize}
 
-    \end{columns}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{What precision is needed for the ground-truth?}
-
-  \begin{itemize}
-  \item The ground truth boundaries do not need to be very precise
-  \item
-  \end{itemize}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Using a CNN}
-
-  \begin{itemize}
-  \item A fully convolutional neural network is translation invariant
-  \item Provided that the image size is compatible with network's subsampling process, in theory any image can be processed
-  \item Practical limit: the memory of the system
-  \end{itemize}
-
-}
+%%     \end{columns}
+%% \end{frame}
 
 
 
