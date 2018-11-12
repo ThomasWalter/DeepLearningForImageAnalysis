@@ -368,15 +368,6 @@
 	pages = {111--125}
 }
 
-@article{noauthor_khalimsky_2003,
-	title = {The {Khalimsky} topologies are precisely those simply connected topologies on {Zn} whose connected sets include all 2n-connected sets but no (3n - 1)-disconnected sets},
-	volume = {305},
-	number = {1–3},
-	journal = {Theoretical Computer Science},
-	year = {2003},
-	pages = {221 -- 235}
-}
-
 @book{bowden_friction_1964,
 	title = {The friction and lubrication of solids, part {II}},
 	publisher = {Clarendon, Oxford},
@@ -741,6 +732,49 @@
 	pages = {11--18}
 }
 
+@article{farabet_learning_2013,
+	title = {Learning {Hierarchical} {Features} for {Scene} {Labeling}},
+	volume = {35},
+	issn = {0162-8828},
+	doi = {10.1109/TPAMI.2012.231},
+	abstract = {Scene labeling consists of labeling each pixel in an image with the category of the object it belongs to. We propose a method that uses a multiscale convolutional network trained from raw pixels to extract dense feature vectors that encode regions of multiple sizes centered on each pixel. The method alleviates the need for engineered features, and produces a powerful representation that captures texture, shape, and contextual information. We report results using multiple postprocessing methods to produce the final labeling. Among those, we propose a technique to automatically retrieve, from a pool of segmentation components, an optimal set of components that best explain the scene; these components are arbitrary, for example, they can be taken from a segmentation tree or from any family of oversegmentations. The system yields record accuracies on the SIFT Flow dataset (33 classes) and the Barcelona dataset (170 classes) and near-record accuracy on Stanford background dataset (eight classes), while being an order of magnitude faster than competing approaches, producing a 320×240 image labeling in less than a second, including feature extraction.},
+	number = {8},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+	author = {Farabet, C. and Couprie, C. and Najman, L. and LeCun, Y.},
+	month = aug,
+	year = {2013},
+	keywords = {Context, Feature extraction, Image edge detection, Image segmentation, Labeling, image classification, image texture, trees (mathematics), deep learning, image labeling, Transforms, shape recognition, Barcelona dataset, SIFT flow dataset, Stanford background dataset, contextual information capturing, dense feature vector extraction, hierarchical feature learning, image pixel labeling, multiple size region encoding, multiscale convolutional network, near-record accuracy, object category, scene labeling, segmentation components, segmentation tree, shape information capturing, texture information capturing, Accuracy, Vectors, Convolutional networks, scene parsing},
+	pages = {1915--1929}
+}
+
+@article{lin_microsoft_2014,
+	title = {Microsoft {COCO}: {Common} {Objects} in {Context}},
+	shorttitle = {Microsoft {COCO}},
+	url = {http://arxiv.org/abs/1405.0312},
+	abstract = {We present a new dataset with the goal of advancing the state-of-the-art in object recognition by placing the question of object recognition in the context of the broader question of scene understanding. This is achieved by gathering images of complex everyday scenes containing common objects in their natural context. Objects are labeled using per-instance segmentations to aid in precise object localization. Our dataset contains photos of 91 objects types that would be easily recognizable by a 4 year old. With a total of 2.5 million labeled instances in 328k images, the creation of our dataset drew upon extensive crowd worker involvement via novel user interfaces for category detection, instance spotting and instance segmentation. We present a detailed statistical analysis of the dataset in comparison to PASCAL, ImageNet, and SUN. Finally, we provide baseline performance analysis for bounding box and segmentation detection results using a Deformable Parts Model.},
+	urldate = {2016-11-29},
+	journal = {arXiv:1405.0312 [cs]},
+	author = {Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Bourdev, Lubomir and Girshick, Ross and Hays, James and Perona, Pietro and Ramanan, Deva and Zitnick, C. Lawrence and Dollár, Piotr},
+	month = may,
+	year = {2014},
+	note = {arXiv: 1405.0312},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{li_fully_2016,
+	title = {Fully {Convolutional} {Instance}-aware {Semantic} {Segmentation}},
+	url = {http://arxiv.org/abs/1611.07709},
+	abstract = {We present the first fully convolutional end-to-end solution for instance-aware semantic segmentation task. It inherits all the merits of FCNs for semantic segmentation and instance mask proposal. It performs instance mask prediction and classification jointly. The underlying convolutional representation is fully shared between the two sub-tasks, as well as between all regions of interest. The proposed network is highly integrated and achieves state-of-the-art performance in both accuracy and efficiency. It wins the COCO 2016 segmentation competition by a large margin. The code would be released at {\textbackslash}url\{https://github.com/daijifeng001/TA-FCN\}.},
+	urldate = {2016-11-29},
+	journal = {arXiv:1611.07709 [cs]},
+	author = {Li, Yi and Qi, Haozhi and Dai, Jifeng and Ji, Xiangyang and Wei, Yichen},
+	month = nov,
+	year = {2016},
+	note = {arXiv: 1611.07709},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition},
+	file = {arXiv\:1611.07709 PDF:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/EMPAUK9Z/Li et al. - 2016 - Fully Convolutional Instance-aware Semantic Segmen.pdf:application/pdf;arXiv.org Snapshot:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/IH4NWAJC/1611.html:text/html}
+}
+
 @inproceedings{ciresan_committee_2011,
 	title = {A committee of neural networks for traffic sign classification},
 	url = {http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6033458},
@@ -811,6 +845,41 @@
 	file = {[PDF] arxiv.org:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/DIXNC3WH/Simonyan et Zisserman - 2014 - Very deep convolutional networks for large-scale i.pdf:application/pdf;Snapshot:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/9GFJC2W9/1409.html:text/html}
 }
 
+@inproceedings{pang_cell_2010,
+	title = {Cell {Nucleus} {Segmentation} in {Color} {Histopathological} {Imagery} {Using} {Convolutional} {Networks}},
+	doi = {10.1109/CCPR.2010.5659313},
+	abstract = {Recent studies have shown that convolutional networks can achieve a great deal of success in high-level vision problems such as objection recognition. In this paper, convolutional networks are used to solve a typical low-level image processing task, image segmentation. Here, the convolutional networks are trained using gradient descent techniques to solve the problem of segmenting the cell nuclei from the background in the histopathology images. Using a dataset with 58 H\&E stained breast cancer biopsy images, we find that the convolutional networks, with 3 hidden layers and 8 feature maps per hidden layer, provide superior performance to other pixel classification methods including FLDA and SVM. We also show two important properties of the convolutional networks as a segmentation method. First, as a machine learning approach, the convolution networks encode enough high-level domain-specific knowledge into the final segmentation strategy by learning the training data. Second, the convolutional networks can use appropriate amount of context information in segmenting by optimizing the weights of the filters in the networks through the learning process. In the end of this paper, several possible directions for future research are also proposed.},
+	booktitle = {2010 {Chinese} {Conference} on {Pattern} {Recognition} ({CCPR})},
+	author = {Pang, B. and Zhang, Y. and Chen, Q. and Gao, Z. and Peng, Q. and You, X.},
+	month = oct,
+	year = {2010},
+	keywords = {Image color analysis, Image segmentation, Labeling, Pixel, image classification, image colour analysis, medical image processing, learning (artificial intelligence), object recognition, Convolutional networks, Computer architecture, support vector machines, FLDA, SVM, breast cancer biopsy images, cell nucleus segmentation, color histopathological imagery, feature maps per hidden layer, gradient descent techniques, high level domain specific knowledge, high level vision problem, histopathology images, machine learning approach, objection recognition, pixel classification methods, typical low level image processing task, Machine learning, Microprocessors},
+	pages = {1--5},
+	file = {IEEE Xplore Abstract Record:/home/decencie/.mozilla/firefox/dv1q8ktg.default/zotero/storage/UF9B5NWP/5659313.html:text/html}
+}
+
+@article{he_mask_2017,
+	title = {Mask {R}-{CNN}},
+	url = {http://arxiv.org/abs/1703.06870},
+	abstract = {We present a conceptually simple, flexible, and general framework for object instance segmentation. Our approach efficiently detects objects in an image while simultaneously generating a high-quality segmentation mask for each instance. The method, called Mask R-CNN, extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition. Mask R-CNN is simple to train and adds only a small overhead to Faster R-CNN, running at 5 fps. Moreover, Mask R-CNN is easy to generalize to other tasks, e.g., allowing us to estimate human poses in the same framework. We show top results in all three tracks of the COCO suite of challenges, including instance segmentation, bounding-box object detection, and person keypoint detection. Without tricks, Mask R-CNN outperforms all existing, single-model entries on every task, including the COCO 2016 challenge winners. We hope our simple and effective approach will serve as a solid baseline and help ease future research in instance-level recognition. Code will be made available.},
+	urldate = {2017-03-23},
+	journal = {arXiv:1703.06870 [cs]},
+	author = {He, Kaiming and Gkioxari, Georgia and Dollár, Piotr and Girshick, Ross},
+	month = mar,
+	year = {2017},
+	note = {arXiv: 1703.06870},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@inproceedings{girshick_rich_2014,
+	title = {Rich {Feature} {Hierarchies} for {Accurate} {Object} {Detection} and {Semantic} {Segmentation}},
+	url = {http://www.cv-foundation.org/openaccess/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html},
+	urldate = {2017-03-23},
+	author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
+	year = {2014},
+	pages = {580--587}
+}
+
 @article{fukushima_neocognitron_2003,
 	title = {Neocognitron for handwritten digit recognition},
 	volume = {51},
@@ -821,6 +890,49 @@
 	year = {2003},
 	keywords = {Handwritten Digit, Multi-Layered Network, Neocognitron, Neural Network Model, Visual Pattern Recognition},
 	pages = {161--180}
+}
+
+@article{hu_learning_2017,
+	title = {Learning to {Segment} {Every} {Thing}},
+	url = {http://arxiv.org/abs/1711.10370},
+	abstract = {Existing methods for object instance segmentation require all training instances to be labeled with segmentation masks. This requirement makes it expensive to annotate new categories and has restricted instance segmentation models to {\textasciitilde}100 well-annotated classes. The goal of this paper is to propose a new partially supervised training paradigm, together with a novel weight transfer function, that enables training instance segmentation models over a large set of categories for which all have box annotations, but only a small fraction have mask annotations. These contributions allow us to train Mask R-CNN to detect and segment 3000 visual concepts using box annotations from the Visual Genome dataset and mask annotations from the 80 classes in the COCO dataset. We carefully evaluate our proposed approach in a controlled study on the COCO dataset. This work is a first step towards instance segmentation models that have broad comprehension of the visual world.},
+	urldate = {2017-12-05},
+	journal = {arXiv:1711.10370 [cs]},
+	author = {Hu, Ronghang and Dollár, Piotr and He, Kaiming and Darrell, Trevor and Girshick, Ross},
+	month = nov,
+	year = {2017},
+	note = {arXiv: 1711.10370},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{redmon_yolo9000:_2016,
+	title = {{YOLO}9000: {Better}, {Faster}, {Stronger}},
+	shorttitle = {{YOLO}9000},
+	url = {http://arxiv.org/abs/1612.08242},
+	abstract = {We introduce YOLO9000, a state-of-the-art, real-time object detection system that can detect over 9000 object categories. First we propose various improvements to the YOLO detection method, both novel and drawn from prior work. The improved model, YOLOv2, is state-of-the-art on standard detection tasks like PASCAL VOC and COCO. At 67 FPS, YOLOv2 gets 76.8 mAP on VOC 2007. At 40 FPS, YOLOv2 gets 78.6 mAP, outperforming state-of-the-art methods like Faster RCNN with ResNet and SSD while still running significantly faster. Finally we propose a method to jointly train on object detection and classification. Using this method we train YOLO9000 simultaneously on the COCO detection dataset and the ImageNet classification dataset. Our joint training allows YOLO9000 to predict detections for object classes that don't have labelled detection data. We validate our approach on the ImageNet detection task. YOLO9000 gets 19.7 mAP on the ImageNet detection validation set despite only having detection data for 44 of the 200 classes. On the 156 classes not in COCO, YOLO9000 gets 16.0 mAP. But YOLO can detect more than just 200 classes; it predicts detections for more than 9000 different object categories. And it still runs in real-time.},
+	urldate = {2018-01-08},
+	journal = {arXiv:1612.08242 [cs]},
+	author = {Redmon, Joseph and Farhadi, Ali},
+	month = dec,
+	year = {2016},
+	note = {arXiv: 1612.08242},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{liu_ssd:_2016,
+	title = {{SSD}: {Single} {Shot} {MultiBox} {Detector}},
+	volume = {9905},
+	shorttitle = {{SSD}},
+	url = {http://arxiv.org/abs/1512.02325},
+	doi = {10.1007/978-3-319-46448-0_2},
+	abstract = {We present a method for detecting objects in images using a single deep neural network. Our approach, named SSD, discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location. At prediction time, the network generates scores for the presence of each object category in each default box and produces adjustments to the box to better match the object shape. Additionally, the network combines predictions from multiple feature maps with different resolutions to naturally handle objects of various sizes. Our SSD model is simple relative to methods that require object proposals because it completely eliminates proposal generation and subsequent pixel or feature resampling stage and encapsulates all computation in a single network. This makes SSD easy to train and straightforward to integrate into systems that require a detection component. Experimental results on the PASCAL VOC, MS COCO, and ILSVRC datasets confirm that SSD has comparable accuracy to methods that utilize an additional object proposal step and is much faster, while providing a unified framework for both training and inference. Compared to other single stage methods, SSD has much better accuracy, even with a smaller input image size. For \$300{\textbackslash}times 300\$ input, SSD achieves 72.1\% mAP on VOC2007 test at 58 FPS on a Nvidia Titan X and for \$500{\textbackslash}times 500\$ input, SSD achieves 75.1\% mAP, outperforming a comparable state of the art Faster R-CNN model. Code is available at https://github.com/weiliu89/caffe/tree/ssd .},
+	urldate = {2018-01-08},
+	journal = {arXiv:1512.02325 [cs]},
+	author = {Liu, Wei and Anguelov, Dragomir and Erhan, Dumitru and Szegedy, Christian and Reed, Scott and Fu, Cheng-Yang and Berg, Alexander C.},
+	year = {2016},
+	note = {arXiv: 1512.02325},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition},
+	pages = {21--37}
 }
 
 @article{schlegl_unsupervised_2017,
@@ -1021,22 +1133,6 @@
 	pages = {2843--2851}
 }
 
-@inproceedings{girshick_rich_2014,
-	title = {Rich {Feature} {Hierarchies} for {Accurate} {Object} {Detection} and {Semantic} {Segmentation}},
-	url = {https://www.cv-foundation.org/openaccess/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html},
-	urldate = {2018-10-17},
-	booktitle = {{CVPR} 2014},
-	author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
-	year = {2014},
-	pages = {580--587}
-}
-
-@misc{noauthor_cresceptron:_nodate,
-	title = {Cresceptron: a self-organizing neural network which grows adaptively - {IEEE} {Conference} {Publication}},
-	url = {https://ieeexplore.ieee.org/abstract/document/287150},
-	urldate = {2018-10-28}
-}
-
 @inproceedings{chellapilla_high_2006,
 	title = {High {Performance} {Convolutional} {Neural} {Networks} for {Document} {Processing}},
 	url = {https://hal.inria.fr/inria-00112631/document},
@@ -1121,7 +1217,7 @@
 	author = {Lecun, Y. and Bottou, L. and Bengio, Y. and Haffner, P.},
 	month = nov,
 	year = {1998},
-	keywords = {2D shape variability, back-propagation, backpropagation, Character recognition, cheque reading, complex decision surface synthesis, convolution, convolutional neural network character recognizers, document recognition, document recognition systems, Feature extraction, field extraction, gradient based learning technique, gradient-based learning, graph transformer networks, GTN, handwritten character recognition, handwritten digit recognition task, Hidden Markov models, high-dimensional patterns, language modeling, Machine learning, Multi-layer neural network, multilayer neural networks, multilayer perceptrons, multimodule systems, Neural networks, optical character recognition, Optical character recognition software, Optical computing, Pattern recognition, performance measure minimization, Principal component analysis, segmentation recognition},
+	keywords = {Feature extraction, Pattern recognition, convolution, Machine learning, Neural networks, 2D shape variability, back-propagation, backpropagation, Character recognition, cheque reading, complex decision surface synthesis, convolutional neural network character recognizers, document recognition, document recognition systems, field extraction, gradient based learning technique, gradient-based learning, graph transformer networks, GTN, handwritten character recognition, handwritten digit recognition task, Hidden Markov models, high-dimensional patterns, language modeling, Multi-layer neural network, multilayer neural networks, multilayer perceptrons, multimodule systems, optical character recognition, Optical character recognition software, Optical computing, performance measure minimization, Principal component analysis, segmentation recognition},
 	pages = {2278--2324}
 }
 
@@ -1131,4 +1227,35 @@
 	author = {Simard, Patrice and LeCun, Yann and Denker, John S},
 	year = {1993},
 	pages = {50--58}
+}
+
+@article{deniz_segmentation_2018,
+	title = {Segmentation of the {Proximal} {Femur} from {MR} {Images} using {Deep} {Convolutional} {Neural} {Networks}},
+	volume = {8},
+	copyright = {2018 The Author(s)},
+	issn = {2045-2322},
+	url = {https://www.nature.com/articles/s41598-018-34817-6},
+	doi = {10.1038/s41598-018-34817-6},
+	abstract = {Magnetic resonance imaging (MRI) has been proposed as a complimentary method to measure bone quality and assess fracture risk. However, manual segmentation of MR images of bone is time-consuming, limiting the use of MRI measurements in the clinical practice. The purpose of this paper is to present an automatic proximal femur segmentation method that is based on deep convolutional neural networks (CNNs). This study had institutional review board approval and written informed consent was obtained from all subjects. A dataset of volumetric structural MR images of the proximal femur from 86 subjects were manually-segmented by an expert. We performed experiments by training two different CNN architectures with multiple number of initial feature maps, layers and dilation rates, and tested their segmentation performance against the gold standard of manual segmentations using four-fold cross-validation. Automatic segmentation of the proximal femur using CNNs achieved a high dice similarity score of 0.95 ± 0.02 with precision = 0.95 ± 0.02, and recall = 0.95 ± 0.03. The high segmentation accuracy provided by CNNs has the potential to help bring the use of structural MRI measurements of bone quality into clinical practice for management of osteoporosis.},
+	language = {En},
+	number = {1},
+	urldate = {2018-11-08},
+	journal = {Scientific Reports},
+	author = {Deniz, Cem M. and Xiang, Siyuan and Hallyburton, R. Spencer and Welbeck, Arakua and Babb, James S. and Honig, Stephen and Cho, Kyunghyun and Chang, Gregory},
+	month = nov,
+	year = {2018},
+	pages = {16485}
+}
+
+@article{szegedy_rethinking_2015,
+	title = {Rethinking the {Inception} {Architecture} for {Computer} {Vision}},
+	url = {http://arxiv.org/abs/1512.00567},
+	abstract = {Convolutional networks are at the core of most state-of-the-art computer vision solutions for a wide variety of tasks. Since 2014 very deep convolutional networks started to become mainstream, yielding substantial gains in various benchmarks. Although increased model size and computational cost tend to translate to immediate quality gains for most tasks (as long as enough labeled data is provided for training), computational efficiency and low parameter count are still enabling factors for various use cases such as mobile vision and big-data scenarios. Here we explore ways to scale up networks in ways that aim at utilizing the added computation as efficiently as possible by suitably factorized convolutions and aggressive regularization. We benchmark our methods on the ILSVRC 2012 classification challenge validation set demonstrate substantial gains over the state of the art: 21.2\% top-1 and 5.6\% top-5 error for single frame evaluation using a network with a computational cost of 5 billion multiply-adds per inference and with using less than 25 million parameters. With an ensemble of 4 models and multi-crop evaluation, we report 3.5\% top-5 error on the validation set (3.6\% error on the test set) and 17.3\% top-1 error on the validation set.},
+	urldate = {2018-11-08},
+	journal = {arXiv:1512.00567 [cs]},
+	author = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jonathon and Wojna, Zbigniew},
+	month = dec,
+	year = {2015},
+	note = {arXiv: 1512.00567},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
 }
