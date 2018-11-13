@@ -99,7 +99,10 @@
 \frametitle{Image definition}
 
 \begin{block}{Definition: image}
-  An 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function from $D = [0, \ldots p-1] \times [0, \ldots q-1]$ into $\R^d$ ($d \in \N^*$).
+  An 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
+\[
+[0, \ldots p-1] \times [0, \ldots q-1] \longmapsto \R^d~~~ (d \in \N^*)
+\]
 
   The set of these images is $\mathcal{I}^d$.
 \end{block}
@@ -123,11 +126,11 @@
 \frametitle{Image-to-image NN}
 
 \begin{block}{Definition: image-to-image neural network}
-  An image-to-image NNs $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
+  An image-to-image NN $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
   \vspace{-1em}
   \begin{align*}
     F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
-    & I               \longmapsto     N(I)
+    & I               \longmapsto     F(I)
   \end{align*}
   Note that the dimensions $d_1$ and $d_2$ of the value spaces can be different.
 \end{block}
@@ -203,16 +206,15 @@
 \begin{itemize}
 
 \item Image-to-image NNs are based on convolutional layers
-
 \item If downsampling is used, the corresponding upsampling is needed
 
 \end{itemize}
 
 \pause
 
-\begin{block}{Example: Pang network \cite{pang_cell_2010}}
+\begin{block}{Example: plain CNN \cite{pang_cell_2010}}
   \begin{figure}
-    \includegraphics[width=6cm]{plain_convnet.png}
+    \includegraphics[width=\textwidth]{plain_convnet.png}
   \end{figure}
 \end{block}
 
@@ -238,11 +240,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Receptive field of the Pang network}
+\frametitle{Receptive field of the plain CNN}
 
 \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
   \begin{figure}
-    \includegraphics[width=6cm]{plain_convnet.png}
+    \includegraphics[width=\textwidth]{plain_convnet.png}
   \end{figure}
 \end{block}
 
@@ -270,6 +272,17 @@ Answer: $1 + 2 \times (n+1)$
 \item In order to make the segments symmetric, each one is represented by a different channel
 
 \end{itemize}
+
+\begin{block}{Image segmentation example}
+  \begin{figure}
+    \centering
+    \includegraphics[height=2.5cm]{pascal_moto}
+    \hspace{1em}
+    \includegraphics[height=2.5cm]{pascal_moto_seg}\\
+    \source{Pascal VOC database}
+  \end{figure}
+\end{block}
+
 
 }
 
@@ -367,8 +380,37 @@ Answer: $1 + 2 \times (n+1)$
 \frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
 
 \begin{figure}
-\includegraphics[height=6cm]{unet}
+\includegraphics[height=7cm]{unet}
 \end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
+
+\begin{columns}
+  \begin{column}{.3\textwidth}
+\begin{figure}
+\includegraphics[width=\textwidth]{unet}
+\end{figure}
+
+  \end{column}
+
+  \begin{column}{.7\textwidth}
+
+    \begin{itemize}
+\item Activation of the last layer: soft-max
+\item Other activations: ReLU
+\item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
+  \[
+  L(\param) = \sum\limits_{M \in D} w(M)ln(\hat{y}_{l(M)}(M))
+  \]
+\end{itemize}
+
+  \end{column}
+\end{columns}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -573,6 +615,8 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
   \item A NN containing fully-connected layers can only process images of a given size
   \item A translation invariant NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
   \item Practical limit: the memory of the system
+    \pause
+  \item Note that as the input image gets larger, border effects become proportionally less present
   \end{itemize}
 
 }
@@ -582,7 +626,7 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
   \frametitle{Robustness with respect to ground-truth errors}
 
   \begin{block}{}
-This is more an empirical observation that a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
+This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
   \end{block}
 
 
@@ -603,16 +647,122 @@ This is more an empirical observation that a mathematical property, but fully-co
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{What loss to use?}
 
-  \begin{itemize}
-  \item Classical choice: mean squared error or cross-entropy
-  \item My recommendation: Dice or Jaccard losses
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Loss functions for image segmentation}
+
+
+\begin{block}{Notation}
+\begin{itemize}
+\item $\hat{\y} = (\hat{\y}_i)$: network output
+\item $\y = (\y_i)$: binary expected output
+\item We suppose that all $\hat{\y}_i$ are in $[0,1]$
+\item We want the $\hat{\y}$ to be \emph{as close as possible} to $y$
   \end{itemize}
+\end{block}
 
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{What cost function for image segmentation?}
+
+
+\begin{block}{Most commonly used cost functions}
+
+  \begin{itemize}
+  \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
+  \item Cross-entropy: $ -\sum\limits_i y_i\ln(\hat{y}_i) + (1-y_i)\ln(1-\hat{y}_i)$
+  \end{itemize}
+
+\end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Measures used in image processing}
+
+Let $A$ and $B$ be two sets, not simultaneously empty.
+
+\begin{block}{Dice coefficient}
+\[
+D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
+\]
+\end{block}
+
+\begin{block}{Jaccard index}
+\[
+J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+\]
+\end{block}
+
+\begin{block}{Properties}
+  \begin{itemize}
+   \item $\forall A, B: 0 \leq J(A, B) \leq D(A,B) \leq 1$
+  \item If $A=B$, then $D(A,B) = J(A,B) = 1$
+  \item If $ A \cap B = \emptyset$, then $D(A,B) = J(A,B) = 0$
+  \end{itemize}
+\end{block}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Generalization to $[0,1]$}
+
+$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+
+\begin{block}{Dice similarities}
+\[
+D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+\]
+\end{block}
+
+\begin{block}{Jaccard similarities}
+  \[
+  J(\y, \hat{\y}) = \frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+  \]
+\end{block}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Corresponding loss functions}
+
+$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+
+\begin{block}{Dice loss}
+  \[
+  d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+  \]
+\end{block}
+
+\begin{block}{Jaccard loss}
+  \[
+  j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+  \]
+\end{block}
+
+In practice, these two losses give similar results.
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion on loss functions}
+
+  \begin{itemize}
+  \item Use the Jaccard loss as base line for segmentation problems
+  \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity)
+  \item Working on specific losses enforcing structure might be an interesting route...
+  \end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Practical example}
@@ -639,10 +789,10 @@ This is more an empirical observation that a mathematical property, but fully-co
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{A solved problem?}
+  \frametitle{Image segmentation: a solved problem?}
 
   \begin {itemize}
-  \item Progress in image segmentation during the 5 last years has been enourmous
+  \item Progress in image segmentation since 2012 has been enourmous
   \item Several complex problems have now satisfactory solutions
   \item Training can be a problem (large annotated databases, difficult optimization)
   \item Some remaining challenges:
