@@ -75,7 +75,7 @@
   \begin{column}{.5\textwidth}
     Cross-entropy loss function used for classification tasks:
     \[
-        \loss(\param) = -\sum\limits_{i=1}^n y_i ln( f(\x_i, \theta) )
+        \loss(\param) = -\sum\limits_{i=1}^n y_i \ln( f(\x_i, \theta) )
     \]
   \end{column}
 \end{columns}
@@ -113,7 +113,7 @@
   \includegraphics[width=2cm]{mnist_example_5}
   \hfill
   \includegraphics[width=4cm]{berkeley_db_33066.jpg}
-  \caption{$28 \times 28$ grey level image $(d=1)$ from the MNIST dataset, and $481 \times 321$ colour image $(d=3)$ from the Berkeley segmentation dataset.}
+  \caption{$28 \times 28$ grey level image $(d=1)$ from the MNIST data set, and $481 \times 321$ colour image $(d=3)$ from the Berkeley segmentation data set.}
 \end{figure}
 \end{block}
 
@@ -404,7 +404,7 @@ Answer: $1 + 2 \times (n+1)$
 \item Other activations: ReLU
 \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
   \[
-  L(\param) = \sum\limits_{M \in D} w(M)ln(\hat{y}_{l(M)}(M))
+  L(\param) = \sum\limits_{M \in D} w(M)\ln(\hat{y}_{l(M)}(M))
   \]
 \end{itemize}
 
@@ -520,7 +520,7 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 
   \begin{itemize}
     \item 80 segmented categories from COCO database
-    \item 3000 visual concepts using box annotations from the Visual Genome dataset (100k images)
+    \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
     \end{itemize}
 
   \begin{figure}
@@ -635,6 +635,24 @@ This is more an empirical observation than a mathematical property, but fully-co
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Using CNNs]{Using fully-convolutional networks}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dealing with image sizes during training}
+
+\begin{itemize}[<+->]
+\item   In segmentation applications, original images are often of different sizes and possibly very large.
+\item   In theory, given the translation invariance of fully-convolutional NN, we could use them directly as input. In practice, we are limited by memory size.
+\item   Solution: extract fixed-sized crops from your training set:
+  \begin{itemize}
+  \item make them as large as possible, to reduce border effects
+  \item take a small batch size (1, 2, 4?)
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Post-processing for segmentation}
@@ -653,24 +671,22 @@ This is more an empirical observation than a mathematical property, but fully-co
 \frametitle{Loss functions for image segmentation}
 
 
-\begin{block}{Notation}
 \begin{itemize}
 \item $\hat{\y} = (\hat{\y}_i)$: network output
 \item $\y = (\y_i)$: binary expected output
 \item We suppose that all $\hat{\y}_i$ are in $[0,1]$
-\item We want the $\hat{\y}$ to be \emph{as close as possible} to $y$
+\item We want the $\hat{\y}$ to be \emph{as close as possible} to $\y$
   \end{itemize}
-\end{block}
 
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{What cost function for image segmentation?}
+\frametitle{Loss functions for image segmentation}
 
 
-\begin{block}{Most commonly used cost functions}
+\begin{block}{Most commonly used loss functions}
 
   \begin{itemize}
   \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
@@ -687,6 +703,8 @@ This is more an empirical observation than a mathematical property, but fully-co
 
 Let $A$ and $B$ be two sets, not simultaneously empty.
 
+\begin{columns}
+  \begin{column}{.7\textwidth}
 \begin{block}{Dice coefficient}
 \[
 D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
@@ -698,6 +716,16 @@ D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
 J(A,B) = \frac{|A \cap B|}{|A \cup B|}
 \]
 \end{block}
+
+
+  \end{column}
+
+  \begin{column}{.3\textwidth}
+    \includegraphics[width=\textwidth]{Intersection_of_sets_A_and_B}
+    \source{Public domain (Wikipedia.org)}
+  \end{column}
+\end{columns}
+
 
 \begin{block}{Properties}
   \begin{itemize}
@@ -716,13 +744,13 @@ J(A,B) = \frac{|A \cap B|}{|A \cup B|}
 
 $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-\begin{block}{Dice similarities}
+\begin{block}{Dice similarity}
 \[
 D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
 \]
 \end{block}
 
-\begin{block}{Jaccard similarities}
+\begin{block}{Jaccard similarity}
   \[
   J(\y, \hat{\y}) = \frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
   \]
@@ -753,6 +781,30 @@ In practice, these two losses give similar results.
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\frametitle{Corresponding loss functions - variants}
+
+$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+
+Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
+
+\begin{block}{Dice loss}
+  \[
+  d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
+  \]
+\end{block}
+
+\begin{block}{Jaccard loss}
+  \[
+  j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
+  \]
+\end{block}
+
+These variants seem to work similarly to the original version. To the extent of my knowledge, there have been no studies on their respective merits.
+
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on loss functions}
@@ -760,7 +812,7 @@ In practice, these two losses give similar results.
   \begin{itemize}
   \item Use the Jaccard loss as base line for segmentation problems
   \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity)
-  \item Working on specific losses enforcing structure might be an interesting route...
+  \item Working on specific losses enforcing structure might be an interesting research path...
   \end{itemize}
 \end{frame}
 
@@ -792,17 +844,25 @@ In practice, these two losses give similar results.
   \frametitle{Image segmentation: a solved problem?}
 
   \begin {itemize}
-  \item Progress in image segmentation since 2012 has been enourmous
+  \item Progress in image segmentation since 2012 has been enormous
   \item Several complex problems have now satisfactory solutions
   \item Training can be a problem (large annotated databases, difficult optimization)
-  \item Some remaining challenges:
-    \begin{itemize}
-      \item Making the training database as small as possible
-      \item Taking  {\it a priori} structural information into account
-      \end{itemize}
+  \item There are still challenges ahead...
    \end{itemize}
 
-  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Some research fields}
+
+  \begin{itemize}
+  \item Optimization
+  \item Specific losses
+  \item Making training databases as small as possible
+  \item Taking  {\it a priori} structural information into account
+  \end{itemize}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \frame{
