@@ -57,12 +57,12 @@
   For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
 \end{block}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
+\item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
 \item 1980's: the backpropagation algorithm (see, for example, the work of LeCun \cite{lecun_procedure_1985})
 \item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
-\item 2011-: super-human performances \cite{ciresan_committee_2011}
-\item 2012: Imagenet image classification won by a CNN \cite{krizhevsky_imagenet_2012}.
+\item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
 
 \end{itemize}
 
@@ -79,7 +79,7 @@
 \includegraphics[height=3cm]{../graphics/neuron}
 \end{figure}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item The human brain contains 100 billion ($10^{11}$) neurons
 \item A human neuron can have several thousand dendrites
 \item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dendrites) is larger than a threshold.
@@ -484,7 +484,7 @@ We will compute:
 
 \begin{block}{Definitions}
   \begin{itemize}
-  \item An (artificial) neural network is a computation graph, where:
+  \item An artificial neural network is a computation graph, where
    the nodes are artificial neurons
   \item The \alert{input layer} is the set of neurons without incoming edges.
   \item The \alert{output layer} is the set of neurons without outgoing edges.
@@ -771,7 +771,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
 
   A general form of the loss function is:
   \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \theta))
+  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
   \]
   where $d$ is some disparity function (the more similar its parameters, the smaller its value).
 
@@ -784,7 +784,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
 
   \begin{block}{Squared error}
     \[
-    \loss(\param) = \sum\limits_{i=1}^n (y_i - f(\x_i, \theta))^2
+    \loss(\param) = \sum\limits_{i=1}^n (y_i - f(\x_i, \param))^2
     \]
     This loss function is mainly used in regression problems. However, it has also been used for binary classification problems.
   \end{block}
@@ -792,7 +792,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
   \begin{block}{Cross-entropy}
     In this case, $y_i \in \{0, 1\}$:
     \[
-    \loss(\param) = -\sum\limits_{i=1}^n y_i \ln( f(\x_i, \theta) )
+    \loss(\param) = -\sum\limits_{i=1}^n y_i \log( f(\x_i, \param) )
     \]
     This loss function is used in binary classification problems, where the network's output can be interpreted as a probability of belonging to a class.
   \end{block}
@@ -831,7 +831,7 @@ Gradient descent is an essential tool in optimization.
 
   \begin{column}{.5\textwidth}
     \[
-    \theta_{t+1} = \theta_t - \gamma\nabla \loss(\theta_t)
+    \param_{t+1} = \param_t - \gamma\nabla \loss(\param_t)
     \]
   \end{column}
 \end{columns}
@@ -845,7 +845,7 @@ Gradient descent is an essential tool in optimization.
 
   In practice:
   \[
-  \forall e \in [0, \ldots, E-1]: \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
+  \forall e \in [0, \ldots, E-1]:\quad \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
   \]
 
 \begin{itemize}
@@ -856,29 +856,54 @@ Gradient descent is an essential tool in optimization.
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Stochastic gradient descent}
+\begin{frame}{Towards stochastic gradient descent}
 
   The loss function we initially defined depends on the whole training set:
   \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \theta))
+  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
   \]
 
-  If $n$ is very large, its computation is not feasible. In \alert{stochastic gradient descent}, we apply the following algorithm:
+\pause
 
-  \begin{block}{Stochastic gradient descent algorithm}
-    \[
-    for e \in [0, \ldots, E-1]:\\
-    ~~~~ for i \in [0, \ldots, n-1]:\\
-    ~~~~ ~~~~x
+  \begin{itemize}[<+->]
+  \item If $n$ is very large, its computation is not feasible.
+  \item A computation on the whole training set leads to a single update of the model parameters - convergence can therefore be slow.
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stochastic gradient descent}
+
+  In \alert{stochastic gradient descent}, the parameters are updated for each sample $i$.
+
+\begin{itemize}[<+->]
+\item
+  First, the loss is computed
+
+  \[
+  \loss(\param_t) = d(y_i, f(\x_i, \param_t))
+  \]
+\item
+  The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
+\item finally the parameters are updated:
+
+  \[
+    \param_{t+1} = \param_t - \gamma\nabla \loss(\param_t)
     \]
-  \end{block}
+  \item
+    Note that the learning rate $\gamma$ can have a different value.
+\end{itemize}
+
+
+
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent applied to neural networks}
 
-  In the case of neural networks, the loss $\loss$ depends on each parameter $\theta_i$ via the composition of several simple functions. In order to compute the gradient $\nabla_{\param}\loss$ we will make extensive use of the chain rule theorem.
+  In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several simple functions. In order to compute the gradient $\nabla_{\param}\loss$ we will make extensive use of the chain rule theorem.
 
   \begin{block}{Chain rule theorem}
     Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:   :
