@@ -59,7 +59,7 @@
 
 \begin{itemize}
 \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-\item 1980's: the backpropagation algorithm (see, for example, the work of Le Cun \cite{lecun_procedure_1985})
+\item 1980's: the backpropagation algorithm (see, for example, the work of LeCun \cite{lecun_procedure_1985})
 \item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
 \item 2011-: super-human performances \cite{ciresan_committee_2011}
 \item 2012: Imagenet image classification won by a CNN \cite{krizhevsky_imagenet_2012}.
@@ -82,7 +82,7 @@
 \begin{itemize}
 \item The human brain contains 100 billion ($10^{11}$) neurons
 \item A human neuron can have several thousand dendrites
-\item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dentrites) is larger than a threshold.
+\item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dendrites) is larger than a threshold.
 \end{itemize}
 
 }
@@ -293,14 +293,14 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{An artificial neuron as a classifier}
+\subsection{Artificial neuron as a classifier}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{What can an artifical neuron compute?}
+\frametitle{What can an artificial neuron compute?}
 
 \begin{figure}
 \includegraphics[height=3cm]{../graphics/neurone}
@@ -330,7 +330,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \end{figure}
 
 \begin{itemize}
-\item $p=2$ : 2 dimensional inputs (can be represented on a screen!)
+\item $p=2$ : 2-dimensional inputs (can be represented on a screen!)
 \item Activation: binary
 \item Classification problem
 \end{itemize}
@@ -398,17 +398,24 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
   \begin{column}{.5\textwidth}
 
-\begin{block}{Artificial neuron compact representation}
-    \begin{figure}
-      \includegraphics[height=2cm]{../graphics/neurone_representation_compacte}
-    \end{figure}
-\end{block}
+\begin{figure}
+\includegraphics[height=4cm]{../graphics/circles_H}
+\end{figure}
 
   \end{column}
 \end{columns}
 
-
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Artificial neuron compact representation}
+
+    \begin{figure}
+      \includegraphics[height=3cm]{../graphics/neurone_representation_compacte}
+    \end{figure}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Artificial neural networks}
@@ -439,21 +446,49 @@ We can simply write:
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computation graph}
+
+\begin{block}{Definition}
+  A computation graph is a directly acyclic graph such that:
+  \begin{itemize}
+  \item A node is a mathematical operator
+  \item To each edge is associated a value
+  \item Each node can compute the values of its output edges from the values of its input edges
+    \begin{itemize}
+    \item Nodes without input edges are \emph{input nodes}. They represent the input values of the graph.
+    \item Similarly, output values can be held in the \emph{output nodes}.
+    \end{itemize}
+  \end{itemize}
+\end{block}
+
+Computing a \emph{forward pass} through the graph means choosing its values, and then progressively computing the values of all edges.
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computation graph example}
+We will compute:
+  \[
+  \sigma(w_1x + w_2y + b)
+  \]
+  where $\sigma$ is the sigmoid function: $\sigma = \frac{1}{1 + e^{-x}}$
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Neural network (NN)}
 
 \begin{block}{Definitions}
   \begin{itemize}
-  \item An (artificial) neural network is a directed graph, where:
-    \begin{itemize}
-    \item the nodes are articial neurons and
-    \item the edges are connections between the neurons.
-    \end{itemize}
+  \item An (artificial) neural network is a computation graph, where:
+   the nodes are artificial neurons
   \item The \alert{input layer} is the set of neurons without incoming edges.
-  \item The \alert{ouput layer} is the set of neurons without outgoing edges.
+  \item The \alert{output layer} is the set of neurons without outgoing edges.
   \end{itemize}
-
 
 \end{block}
 
@@ -463,7 +498,6 @@ We can simply write:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Feed-forward neural networks}
-
 
 \begin{block}{Definition}
   \begin{itemize}
@@ -588,12 +622,23 @@ We can simply write:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Batch processing}
 
-  In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into an matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
+  In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
 
-    \begin{block}{}
-      \[\X^i = \act_i(\X^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
-      \[\y = \act_4(\X^4\W_4 + \bias_4)\]
-    \end{block}
+  \begin{block}{}
+    \[\X^i = \act_i(\X^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+    \[\y = \act_4(\X^4\W_4 + \bias_4)\]
+  \end{block}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mini-batch processing}
+
+  \begin{itemize}[<+->]
+  \item   When dealing with large databases (large $n$ and sometimes large $p$) for practical reasons the network cannot process the whole set in a single pass.
+  \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
+\end{itemize}
 
 
 \end{frame}
@@ -655,7 +700,7 @@ This means that function $f$ can be approximated with a neural network containin
 \begin{itemize}
   \item an input layer of size $p$;
   \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\mathbf{w}_i$ and biases $b_i$;
-  \item an output layer containing a single neuron, with weigths $v_i$ (and an identity activation function).
+  \item an output layer containing a single neuron, with weights $v_i$ (and an identity activation function).
 \end{itemize}
 
 }
@@ -747,7 +792,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
   \begin{block}{Cross-entropy}
     In this case, $y_i \in \{0, 1\}$:
     \[
-    \loss(\param) = -\sum\limits_{i=1}^n y_i ln( f(\x_i, \theta) )
+    \loss(\param) = -\sum\limits_{i=1}^n y_i \ln( f(\x_i, \theta) )
     \]
     This loss function is used in binary classification problems, where the network's output can be interpreted as a probability of belonging to a class.
   \end{block}
@@ -761,7 +806,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
 \begin{block}{Definition}
   Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\gamma$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
   \[
-  \forall i \in \N: \param_{i+1} = \param_i - \gamma \nabla \loss(\param_i)
+  \forall e \in \N: \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
   \]
 \end{block}
 
@@ -793,6 +838,42 @@ Gradient descent is an essential tool in optimization.
 
 \end{frame}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Gradient descent: stopping criteria}
+
+  In practice:
+  \[
+  \forall e \in [0, \ldots, E-1]: \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
+  \]
+
+\begin{itemize}
+\item Choose $E$ (the number of \alert{epochs}) based on experience
+\item Track the quality of the model using a validation dataset and stop when the validation loss does not improve
+\end{itemize}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stochastic gradient descent}
+
+  The loss function we initially defined depends on the whole training set:
+  \[
+  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \theta))
+  \]
+
+  If $n$ is very large, its computation is not feasible. In \alert{stochastic gradient descent}, we apply the following algorithm:
+
+  \begin{block}{Stochastic gradient descent algorithm}
+    \[
+    for e \in [0, \ldots, E-1]:\\
+    ~~~~ for i \in [0, \ldots, n-1]:\\
+    ~~~~ ~~~~x
+    \]
+  \end{block}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent applied to neural networks}
@@ -834,46 +915,46 @@ Gradient descent is an essential tool in optimization.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Simple backpropagation example}
+\begin{frame}<handout>{Simple backpropagation example}
 
 \includegraphics[width=\textwidth]{../graphics/bp_simple.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Simple backpropagation example}
+\begin{frame}<beamer>{Simple backpropagation example}
 
-%% \only<1>{\includegraphics[width=\textwidth]{../graphics/bp_simple_1.png}}
-%% \only<2>{\includegraphics[width=\textwidth]{../graphics/bp_simple_2.png}}
-%% \only<3>{\includegraphics[width=\textwidth]{../graphics/bp_simple_3.png}}
-%% \only<4>{\includegraphics[width=\textwidth]{../graphics/bp_simple_4.png}}
-%% \only<5>{\includegraphics[width=\textwidth]{../graphics/bp_simple_5.png}}
-%% \only<6>{\includegraphics[width=\textwidth]{../graphics/bp_simple_6.png}}
-%% \only<7>{\includegraphics[width=\textwidth]{../graphics/bp_simple_7.png}}
-%% \only<8>{\includegraphics[width=\textwidth]{../graphics/bp_simple_8.png}}
+\only<1>{\includegraphics[width=\textwidth]{../graphics/bp_simple_1.png}}
+\only<2>{\includegraphics[width=\textwidth]{../graphics/bp_simple_2.png}}
+\only<3>{\includegraphics[width=\textwidth]{../graphics/bp_simple_3.png}}
+\only<4>{\includegraphics[width=\textwidth]{../graphics/bp_simple_4.png}}
+\only<5>{\includegraphics[width=\textwidth]{../graphics/bp_simple_5.png}}
+\only<6>{\includegraphics[width=\textwidth]{../graphics/bp_simple_6.png}}
+\only<7>{\includegraphics[width=\textwidth]{../graphics/bp_simple_7.png}}
+\only<8>{\includegraphics[width=\textwidth]{../graphics/bp_simple_8.png}}
 
-%% \end{frame}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Simple backpropagation example}
+\begin{frame}<handout>{A more complex backpropagation example}
 
 \includegraphics[width=\textwidth]{../graphics/bp.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Backpropagation example}
+\begin{frame}<beamer>{Backpropagation example}
 
-%% \only<1>{\includegraphics[width=\textwidth]{../graphics/bp_0.png}}
-%% \only<2>{\includegraphics[width=\textwidth]{../graphics/bp_1.png}}
-%% \only<3>{\includegraphics[width=\textwidth]{../graphics/bp_2.png}}
-%% \only<4>{\includegraphics[width=\textwidth]{../graphics/bp_3.png}}
-%% \only<5>{\includegraphics[width=\textwidth]{../graphics/bp_4.png}}
-%% \only<6>{\includegraphics[width=\textwidth]{../graphics/bp_5.png}}
-%% \only<7>{\includegraphics[width=\textwidth]{../graphics/bp_6.png}}
-%% \only<8>{\includegraphics[width=\textwidth]{../graphics/bp_7.png}}
+\only<1>{\includegraphics[width=\textwidth]{../graphics/bp_0.png}}
+\only<2>{\includegraphics[width=\textwidth]{../graphics/bp_1.png}}
+\only<3>{\includegraphics[width=\textwidth]{../graphics/bp_2.png}}
+\only<4>{\includegraphics[width=\textwidth]{../graphics/bp_3.png}}
+\only<5>{\includegraphics[width=\textwidth]{../graphics/bp_4.png}}
+\only<6>{\includegraphics[width=\textwidth]{../graphics/bp_5.png}}
+\only<7>{\includegraphics[width=\textwidth]{../graphics/bp_6.png}}
+\only<8>{\includegraphics[width=\textwidth]{../graphics/bp_7.png}}
 
-%% \end{frame}
+\end{frame}
 
 
 
@@ -893,9 +974,9 @@ Gradient descent is an essential tool in optimization.
 
 Setup:
 \begin{eqnarray*}
-n, q \in \N^*\\
-\x \in \R^n \\
-\W \in \R^q \times \R^n \\
+p, q \in \N^*\\
+\x \in \R^p \\
+\W \in \R^q \times \R^p \\
 \bias, \mathbf{t}, \y \in \R^q \\
 \loss \in \R
 \end{eqnarray*}
@@ -995,7 +1076,7 @@ n, q \in \N^*\\
         \begin{itemize}
         \item If all parameters are initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
         \item Simple solution: random values from a normal or uniform distribution
-        \item More advanced solutions exist: \cite{lecun_efficient_2012,glorot_understanding_2010,he_delving_2015}
+        \item More advanced solutions exist: \cite{lecun_efficient_1998,glorot_understanding_2010,he_delving_2015}
         \end{itemize}
     \end{column}
   \end{columns}
@@ -1035,7 +1116,7 @@ n, q \in \N^*\\
 
   We have seen:
   \begin{itemize}
-  \item What is an artificial neuron and an artifical neural network (NN)
+  \item What is an artificial neuron and an artificial neural network (NN)
   \item The (potential) power of a NN
   \item The backpropagation algorithm
   \item NN learning basics
