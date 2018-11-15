@@ -62,7 +62,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -168,7 +168,7 @@
        inkscape:export-xdpi="300"
        inkscape:connector-curvature="0"
        id="path4555-3-4"
-       d="m 441.04677,114.00748 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
+       d="m 435.04677,114.00748 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
        style="fill:#008040;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <text
        inkscape:export-ydpi="300"
@@ -176,13 +176,13 @@
        sodipodi:linespacing="125%"
        id="text4766"
        y="120.18965"
-       x="473.25861"
+       x="467.25861"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          y="120.18965"
-         x="473.25861"
+         x="467.25861"
          id="tspan4768"
-         sodipodi:role="line">conv 3x3, simoid</tspan></text>
+         sodipodi:role="line">conv 3x3, sigmoid</tspan></text>
     <text
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -279,7 +279,7 @@
        inkscape:export-xdpi="300"
        inkscape:connector-curvature="0"
        id="path4555-3-4-93"
-       d="m 441.73643,86.16265 0,10 15,0 0,5 10,-10 -10,-9.999996 0,4.999996 z"
+       d="m 435.73643,86.16265 0,10 15,0 0,5 10,-10 -10,-9.999996 0,4.999996 z"
        style="fill:#000080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <text
        inkscape:export-ydpi="300"
@@ -287,20 +287,20 @@
        sodipodi:linespacing="125%"
        id="text4766-6"
        y="92.344833"
-       x="473.9483"
+       x="467.9483"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          y="92.344833"
-         x="473.9483"
+         x="467.9483"
          id="tspan4768-8"
          sodipodi:role="line">conv 3x3, ReLU</tspan></text>
     <rect
-       y="70.839951"
-       x="426.83997"
-       height="66.871819"
-       width="140.3201"
+       y="70.84626"
+       x="420.84628"
+       height="66.8592"
+       width="142.46266"
        id="rect4203"
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.67990863;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.60784314" />
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.69252563;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.60784314" />
     <g
        id="g4855"
        transform="matrix(0,-0.32,0.32,0,3.9716661,256.45921)">

@@ -75,7 +75,7 @@
   \begin{column}{.5\textwidth}
     Cross-entropy loss function used for classification tasks:
     \[
-        \loss(\param) = -\sum\limits_{i=1}^n y_i \ln( f(\x_i, \theta) )
+        \loss(\param) = -\sum\limits_{i=1}^n y_i \log( f(\x_i, \theta) )
     \]
   \end{column}
 \end{columns}
@@ -198,7 +198,6 @@
 
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Image-to-image NNs architecture}
@@ -237,10 +236,15 @@
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+  \includegraphics[width=\textwidth]{receptive_field.png}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Receptive field of the plain CNN}
+\frametitle{Example}
 
 \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
   \begin{figure}
@@ -404,7 +408,7 @@ Answer: $1 + 2 \times (n+1)$
 \item Other activations: ReLU
 \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
   \[
-  L(\param) = \sum\limits_{M \in D} w(M)\ln(\hat{y}_{l(M)}(M))
+  L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
   \]
 \end{itemize}
 
@@ -595,7 +599,7 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 
 \pause
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item If padding is used in the network, border effects can be important.
 \item Translation invariance is not always welcome!
 \item Position information can also be used in the network:
@@ -690,7 +694,7 @@ This is more an empirical observation than a mathematical property, but fully-co
 
   \begin{itemize}
   \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
-  \item Cross-entropy: $ -\sum\limits_i y_i\ln(\hat{y}_i) + (1-y_i)\ln(1-\hat{y}_i)$
+  \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)$
   \end{itemize}
 
 \end{block}
@@ -853,12 +857,12 @@ These variants seem to work similarly to the original version. To the extent of 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Some research fields}
+\begin{frame}{Some research subjects}
 
   \begin{itemize}
-  \item Optimization
-  \item Specific losses
+  \item Optimization - a very general, and essential, subject
   \item Making training databases as small as possible
+  \item Specific losses
   \item Taking  {\it a priori} structural information into account
   \end{itemize}
 
