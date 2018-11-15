@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="fully_connected_layer.svg">
+   sodipodi:docname="fully_connected_layer.svg"
+   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture2/graphics/fully_connected_layer.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -33,7 +36,8 @@
      inkscape:window-height="1176"
      inkscape:window-x="65"
      inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     showborder="false">
     <inkscape:grid
        id="grid4155"
        type="xygrid" />
@@ -48,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

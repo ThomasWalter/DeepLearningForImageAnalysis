@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="stride3.svg"
-   inkscape:export-filename="/home/decencie/Documents/svn_docs/Deep_learning/images/stride1.png"
+   inkscape:export-filename="/home/decencie/Documents/svn_docs/Deep_learning/images/stride3.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <sodipodi:namedview
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.42"
-     inkscape:cx="192.65404"
+     inkscape:cx="21.175167"
      inkscape:cy="759.13481"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -36,7 +36,8 @@
      inkscape:window-height="1176"
      inkscape:window-x="65"
      inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     showborder="false">
     <inkscape:grid
        type="xygrid"
        id="grid4155" />

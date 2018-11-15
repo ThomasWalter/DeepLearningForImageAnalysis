@@ -16,9 +16,9 @@
    inkscape:version="0.91 r13725"
    viewBox="0 0 800 600"
    sodipodi:docname="fovea_convnet2.svg"
-   inkscape:export-filename="/home/decencie/Documents/svn_docs/Deep_learning/images/plain_convnet.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture2/graphics/fovea_convnet2.png"
+   inkscape:export-xdpi="400"
+   inkscape:export-ydpi="400">
   <defs
      id="defs3710" />
   <sodipodi:namedview
@@ -28,8 +28,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1009789"
-     inkscape:cx="250.10234"
+     inkscape:zoom="2.05"
+     inkscape:cx="376.65855"
      inkscape:cy="460.3385"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
@@ -39,7 +39,8 @@
      inkscape:window-height="1176"
      inkscape:window-x="65"
      inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     showborder="false">
     <inkscape:grid
        type="xygrid"
        id="grid4520" />
@@ -52,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -140,16 +141,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="635.13043"
-       y="184.26086"
+       x="597.08167"
+       y="186.21208"
        id="text4766"
        sodipodi:linespacing="125%"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"><tspan
          sodipodi:role="line"
          id="tspan4768"
-         x="635.13043"
-         y="184.26086">conv 3x3, ReLU</tspan></text>
+         x="597.08167"
+         y="186.21208"
+         style="font-size:15px">conv 3x3, ReLU</tspan></text>
     <path
        style="fill:#aa4400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 121.89159,108.0592 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
@@ -160,16 +162,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="635.13043"
-       y="210.26086"
+       x="618.05725"
+       y="210.74867"
        id="text4785"
        sodipodi:linespacing="125%"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"><tspan
          sodipodi:role="line"
          id="tspan4787"
-         x="635.13043"
-         y="210.26086">max pooling</tspan></text>
+         x="618.05725"
+         y="210.74867"
+         style="font-size:15px">max pooling</tspan></text>
     <path
        style="fill:#aa4400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 716.46537,202.17439 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
@@ -273,7 +276,7 @@
        id="rect4518-6-3-5-5-9-2"
        width="75.981491"
        height="17.213203"
-       x="609.39075"
+       x="617.39075"
        y="105.75285"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400" />
@@ -300,10 +303,11 @@
        id="rect4528-9"
        width="4.559145"
        height="17.278666"
-       x="716.85712"
-       y="104.88549"
+       x="111.24525"
+       y="-745.776"
        inkscape:export-xdpi="400"
-       inkscape:export-ydpi="400" />
+       inkscape:export-ydpi="400"
+       transform="matrix(0,1,-1,0,0,0)" />
     <path
        style="fill:#07e700;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 716.67814,227.35169 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
@@ -313,14 +317,14 @@
        inkscape:export-ydpi="400" />
     <path
        style="fill:#07e700;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 689.39168,108.31068 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
+       d="m 697.39168,108.31068 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
        id="path4555-3-4-9-9-36-0"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400" />
     <path
        style="fill:#07e700;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 725.06544,108.52344 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
+       d="m 753.06544,108.52344 0,10 15,0 0,5 10,-10 -10,-10 0,5 z"
        id="path4555-3-4-9-9-36-6"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="400"
@@ -330,23 +334,25 @@
        id="rect4528-9-2"
        width="4.6423888"
        height="7.4328313"
-       x="755.95026"
-       y="107.90771"
+       x="111.30293"
+       y="-789.98785"
        inkscape:export-xdpi="400"
-       inkscape:export-ydpi="400" />
+       inkscape:export-ydpi="400"
+       transform="matrix(0,1,-1,0,0,0)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="636.10565"
-       y="234.1463"
+       x="596.59344"
+       y="236.58533"
        id="text4785-8"
        sodipodi:linespacing="125%"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"><tspan
          sodipodi:role="line"
          id="tspan4787-7"
-         x="636.10565"
-         y="234.1463">fully connected</tspan></text>
+         x="596.59344"
+         y="236.58533"
+         style="font-size:15px">fully connected</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -378,31 +384,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-138.76762"
-       y="722.37531"
+       x="730.86774"
+       y="126.54034"
        id="text4644-8-2"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"><tspan
          sodipodi:role="line"
-         x="-138.76762"
-         y="722.37531"
+         x="730.86774"
+         y="126.54034"
          style="font-size:10px"
          id="tspan4568">16</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-131.0896"
-       y="761.43103"
+       x="782.67322"
+       y="126.87561"
        id="text4644-8-2-9"
        sodipodi:linespacing="125%"
-       transform="matrix(0,-1,1,0,0,0)"
        inkscape:export-xdpi="400"
        inkscape:export-ydpi="400"><tspan
          sodipodi:role="line"
-         x="-131.0896"
-         y="761.43103"
+         x="782.67322"
+         y="126.87561"
          style="font-size:10px"
          id="tspan4590">2</tspan></text>
     <text
@@ -435,5 +439,20 @@
          x="-126.22237"
          y="335.34323"
          style="font-size:7.64305687px">32 x 32</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:15.28611374px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-128.53944"
+       y="614.85541"
+       id="text4644-8-3-7-2"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:export-xdpi="400"
+       inkscape:export-ydpi="400"><tspan
+         sodipodi:role="line"
+         id="tspan4646-2-6-5-4"
+         x="-128.53944"
+         y="614.85541"
+         style="font-size:7.64305687px">16 x 16</tspan></text>
   </g>
 </svg>
