@@ -137,14 +137,16 @@ where $G_{ii}$ is the sum of the squares of the gradients of $\theta_i$ up to ti
 $\texttt{RMS}$ is the root mean squared error  (RMS)  of gradient for $\texttt{RMS}(g)_{i}$ or of parameter updates for $\texttt{RMS}(\partial \theta)_{i}$ 
 \end{frame}
 
-
-\begin{frame}{Momentum}
-The momentum algorithm accumulates the exponentially decaying moving average of past gradients (called as velocity) and uses it as the direction in which to take the next step. Momentum is given by mass times velocity, which is equal to velocity if we’re using unit mass. The momentum update is given by:
+\begin{frame}{TODO ADAM}
 \end{frame}
 
-\begin{frame}{Nesterov Momemtum}
-Thus, it might be better to compute the gradient from that point onward
-\end{frame}
+%\begin{frame}{Momentum}
+%The momentum algorithm accumulates the exponentially decaying moving average of past gradients (called as velocity) and uses it as the direction in which to take the next step. Momentum is given by mass times velocity, which is equal to velocity if we’re using unit mass. The momentum update is given by:
+%\end{frame}
+
+%\begin{frame}{Nesterov Momemtum}
+%Thus, it might be better to compute the gradient from that point onward
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -356,8 +358,8 @@ P_{\delta}(\x,y) = \frac{1}{\nsize}\sum_{i=1}^{\nsize}\delta(\x=\x_i,y=y_i)
 Using the empirical distribution $P_{\delta}$, we can now approximated the expected risk, by the called \emph{empirical risk}
 \begin{equation}\label{RM}
 R_{\delta}(\texttt{Model} ) = \int \loss(y,\texttt{Model} (\x)) dP_{\alert{\delta}}(\x,y) = \frac{1}{\nsize}\sum_{i=1}^{\nsize}\loss(\texttt{Model}(\x_i),y_i)
-\end{equation}
-Learning the function f by minimizing \eqref{RM} is known as the Empirical Risk Minimization (ERM) principle \cite{vapnik98} (Vapnik, 1998). If the number of parameters are comparable to $\nsize$, one trivial way to minimize \eqref{RM} is to \alert{memorize} the whole set of training data (overfitting).
+\end{equation} \\
+Learning the function $f$ by minimizing \eqref{RM} is known as the Empirical Risk Minimization (ERM) principle \cite{vapnik98} (Vapnik, 1998). If the number of parameters are comparable to $\nsize$, one trivial way to minimize \eqref{RM} is to \alert{memorize} the whole set of training data (overfitting).
 \end{frame}
 
 \begin{frame}{Vicinal Risk Minimization (VRM)}
@@ -373,8 +375,11 @@ where $v$ is \emph{vicinity distribution} that measure the probability for a "vi
 \alert{which is equivalent to augmenting the training data with additive Gaussian noise}
 \end{frame}
 
-\begin{frame}
-TODO include KERAS CODE OF GAUSSIAN LAYER!
+\begin{frame}{Keras Gaussian Layer}
+\begin{figure}
+\includegraphics[width=.95 \columnwidth]{../graphics/GaussianNoiseLayer}
+\caption{Gaussian vicinities in Keras}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Why Data-augmentation?}
@@ -388,7 +393,10 @@ TODO include KERAS CODE OF GAUSSIAN LAYER!
 \end{frame}
 
 \begin{frame}
-TODO include KERAS CODE OF Data Augmentation!
+\begin{figure}
+\includegraphics[width=.99 \columnwidth]{../graphics/DataGeneratorKeras}
+\caption{Data Generator in Keras}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Regularisation}
