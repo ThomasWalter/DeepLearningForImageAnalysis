@@ -137,14 +137,16 @@ where $G_{ii}$ is the sum of the squares of the gradients of $\theta_i$ up to ti
 $\texttt{RMS}$ is the root mean squared error  (RMS)  of gradient for $\texttt{RMS}(g)_{i}$ or of parameter updates for $\texttt{RMS}(\partial \theta)_{i}$ 
 \end{frame}
 
-
-\begin{frame}{Momentum}
-The momentum algorithm accumulates the exponentially decaying moving average of past gradients (called as velocity) and uses it as the direction in which to take the next step. Momentum is given by mass times velocity, which is equal to velocity if we’re using unit mass. The momentum update is given by:
+\begin{frame}{TODO ADAM}
 \end{frame}
 
-\begin{frame}{Nesterov Momemtum}
-Thus, it might be better to compute the gradient from that point onward
-\end{frame}
+%\begin{frame}{Momentum}
+%The momentum algorithm accumulates the exponentially decaying moving average of past gradients (called as velocity) and uses it as the direction in which to take the next step. Momentum is given by mass times velocity, which is equal to velocity if we’re using unit mass. The momentum update is given by:
+%\end{frame}
+
+%\begin{frame}{Nesterov Momemtum}
+%Thus, it might be better to compute the gradient from that point onward
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,9 +156,21 @@ Thus, it might be better to compute the gradient from that point onward
 \begin{itemize}
 \item[A]{Local minima / Global minima}
 \item[B]{Saddle Point (Plateaus or Flat Regions)}
+\item[C]{Vanishing Gradient}
+\item[D]{Overfitting}
+\item[E]{Initialization issues}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Difficulties in Deep Network Optimisation}
+\begin{itemize}
+\item[A]{Local minima / Global minima}
+\item[B]{Saddle Point (Plateaus or Flat Regions)}
 \end{itemize}
 \includegraphics[width=.45\columnwidth]{../graphics/LocalGlobalMinimum}
-\includegraphics[width=.45\columnwidth]{../graphics/challenges1}
+\includegraphics[width=.45\columnwidth]{../graphics/challenges1} \\
+\includegraphics[width=.45\columnwidth]{../graphics/BigLearningRate}
 \end{frame}
 
 \begin{frame}
@@ -164,7 +178,7 @@ Thus, it might be better to compute the gradient from that point onward
 \includegraphics[width=.5\columnwidth]{../graphics/VGG56Loss}
 \caption{Loss Function for VGG56}
 \end{figure}
-Reference: \textbf{Visualizing the Loss Landscape of Neural Net}, Hao Li, Zheng Xu, Gavin Taylor, and Tom Goldstein, 2017
+Reference: \textbf{Visualizing the Loss Landscape of Neural Net} \cite{li2017visualizing}
 \end{frame}
 
 
@@ -183,6 +197,7 @@ Reference: \textbf{Visualizing the Loss Landscape of Neural Net}, Hao Li, Zheng 
 \includegraphics[width=.75\columnwidth]{../graphics/KerasClip}
 \end{figure}
 \end{enumerate}
+On the difficulty of training Recurrent Neural Networks, \cite{pascanu2013difficulty}
 \end{frame}
 
 \begin{frame}{Fighting against Vanishing Gradient}
@@ -192,6 +207,8 @@ Reference: \textbf{Visualizing the Loss Landscape of Neural Net}, Hao Li, Zheng 
 \includegraphics[width=.65 \columnwidth]{../graphics/shortcut}
 \end{figure}
 \end{enumerate}
+\textbf{Visualizing the Loss Landscape of Neural Net}, \cite{li2017visualizing}
+
 \end{frame}
 
 \begin{frame}{Fighting against Vanishing Gradient}
@@ -227,6 +244,7 @@ where $\mu_{B}$ and $\sigma^2_B$ are respectively the mini-batch mean and varian
 \item Moving values to zero (activation works better!) 
 \item If we use a high learning rate in a traditional neural network, then the gradients could explode or vanish. Large learning rates can scale the parameters which could amplify the gradients, thus leading to an explosion. But if we do batch normalization, small changes in parameter to one layer do not get propagated to other layers. This makes it possible to use higher learning rates for the optimizers, which otherwise would not have been possible. It also makes gradient propagation in the network more stable.
 \end{itemize}
+\cite{ioffe2015batch}  \cite{mishkin2015all}
 \end{frame}
 
 
@@ -323,11 +341,17 @@ Overfitting : Prediction with more variance but less bias
 \end{columns}
 \end{frame}
 
-\begin{frame}{1. Early Stopping}
+\begin{frame}{1. Early Stopping / ReduceLROnPlateau / Learning Rate Scheduler}
 \begin{figure}
 \includegraphics[width=.75 \columnwidth]{../graphics/EarlyStopping}
 \end{figure}
-TODO: Include KERAS CODE (BACKEND)
+\end{frame}
+
+\begin{frame}{1. Early Stopping / ReduceLROnPlateau / Learning Rate Scheduler}
+\begin{figure}
+\includegraphics[width=1 \columnwidth]{../graphics/CallBacksKeras}
+\caption{Callbacks in Keras}
+\end{figure}
 \end{frame}
 
 \begin{frame}{2. We need more data!}
@@ -356,12 +380,12 @@ P_{\delta}(\x,y) = \frac{1}{\nsize}\sum_{i=1}^{\nsize}\delta(\x=\x_i,y=y_i)
 Using the empirical distribution $P_{\delta}$, we can now approximated the expected risk, by the called \emph{empirical risk}
 \begin{equation}\label{RM}
 R_{\delta}(\texttt{Model} ) = \int \loss(y,\texttt{Model} (\x)) dP_{\alert{\delta}}(\x,y) = \frac{1}{\nsize}\sum_{i=1}^{\nsize}\loss(\texttt{Model}(\x_i),y_i)
-\end{equation}
-Learning the function f by minimizing \eqref{RM} is known as the Empirical Risk Minimization (ERM) principle \cite{vapnik98} (Vapnik, 1998). If the number of parameters are comparable to $\nsize$, one trivial way to minimize \eqref{RM} is to \alert{memorize} the whole set of training data (overfitting).
+\end{equation} \\
+Learning the function $f$ by minimizing \eqref{RM} is known as the Empirical Risk Minimization (ERM) principle \cite{vapnik98} (Vapnik, 1998). If the number of parameters are comparable to $\nsize$, one trivial way to minimize \eqref{RM} is to \alert{memorize} the whole set of training data (overfitting).
 \end{frame}
 
 \begin{frame}{Vicinal Risk Minimization (VRM)}
-$P_{\delta}$ is only one of the possibility to approximate the true distribution $P$. (Chapelle et al., 2000) proposed to approximate $P$ by:
+$P_{\delta}$ is only one of the possibility to approximate the true distribution $P$. \cite{chapelle2001vicinal} proposed to approximate $P$ by:
 \begin{equation*}
 P_{v}(\x,y) = \frac{1}{\nsize}\sum_{i=1}^{\nsize}v(\tilde{\x},\tilde{y}, |\x_i,y_i)
 \end{equation*}
@@ -373,8 +397,11 @@ where $v$ is \emph{vicinity distribution} that measure the probability for a "vi
 \alert{which is equivalent to augmenting the training data with additive Gaussian noise}
 \end{frame}
 
-\begin{frame}
-TODO include KERAS CODE OF GAUSSIAN LAYER!
+\begin{frame}{Keras Gaussian Layer}
+\begin{figure}
+\includegraphics[width=.95 \columnwidth]{../graphics/GaussianNoiseLayer}
+\caption{Gaussian vicinities in Keras}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Why Data-augmentation?}
@@ -388,7 +415,10 @@ TODO include KERAS CODE OF GAUSSIAN LAYER!
 \end{frame}
 
 \begin{frame}
-TODO include KERAS CODE OF Data Augmentation!
+\begin{figure}
+\includegraphics[width=.99 \columnwidth]{../graphics/DataGeneratorKeras}
+\caption{Data Generator in Keras}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Regularisation}
@@ -405,7 +435,7 @@ TODO include KERAS CODE OF Data Augmentation!
 \begin{itemize}
 \item Remember: given $\nsize$ i.i.d. obsevations $\x_1,\x_2,\ldots,\x_\nsize$ each of them with variance equal to $\sigma^2$. 
 \item What is the variance of $\bar{\x}=\frac{1}{\nsize} \sum_{i=1}^{\nsize} \x_i $? \pause $\frac{\sigma^2}{\nsize}$
-\item Hint: Train model on different training sets, and use the mean of the prediction as final model of prediction.
+\item \alert{Hint}: Train model on different training sets, and use the mean of predictions as final model of prediction.
 \end{itemize}
 \end{frame}
 
@@ -421,7 +451,7 @@ TODO include KERAS CODE OF Data Augmentation!
 \item Dropout forces to learn more robust features that are useful in conjunction with many different random subsets.
 \item With $H$ hidden units, each of which can be dropped, we have $2^H$ possible models!
 \end{itemize}
-Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I.,  Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
+Dropout: a simple way to prevent neural networks from overfitting. \cite{srivastava2014dropout} 2014
 \end{frame}
 
 \begin{frame}{Dropout}
@@ -435,14 +465,40 @@ at training time.}
 \end{frame}
 
 
-\begin{frame}
-TODO include KERAS CODE OF Dropout!
+\begin{frame}{Dropout}
+\begin{figure}
+\includegraphics[width=.99 \columnwidth]{../graphics/DropoutKeras}
+\caption{Dropout in Keras. Layer with a dropout of $p=.5$}
+\end{figure}
 \end{frame}
 	
+\begin{frame}{Initialization}
+\begin{enumerate}
+\item After the success of CNNs in IVSRC 2012 (\cite{krizhevsky2012imagenet}), initialization with Gaussian
+noise with mean equal to zero and standard deviation set to 0.01 and adding bias equal to one
+for some layers become very popular. But, as mentioned before, it is not possible to train very
+deep network from scratch with it \cite{simonyan2014very}). The problem is caused by the
+activation (and/or) gradient magnitude in final layers (\cite{he2016deep}).
+% If each layer, not properly initialized, scales input by k, the final scale would be k L, where L is a number of layers.  
+Values of $k > 1$ lead to extremely large values of output layers, $k < 1$ leads to a diminish
+\item \cite{glorot2010understanding}  proposed a formula for estimating the standard deviation on the basis of
+the number of input and output channels of the layers under assumption of no non-linearity between
+layers. Despite invalidity of the assumption, Glorot initialization works well.	
+\item Orthogonal : Independently, Saxe et al. \cite{saxe2013exact}  showed that orthonormal matrix initialization works much better
+for linear networks than Gaussian noise, which is only approximate orthogonal. It also work for
+networks with non-linearities.
+\end{enumerate}
+All you need is a good init, ICML, 2016 \cite{mishkin2015all}
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliography{slides_deep3.bib}
+\end{frame}
 
 \end{document}
