@@ -64,10 +64,17 @@
 \end{frame}
 
 \begin{frame}{A short history of machine learning}
+\begin{figure}[htb]
+  \centering
+  \subfloat{\includegraphics[height=0.23\textheight]{../graphics/Mark_1_perceptron.jpeg}}\hspace{2cm}
+  \subfloat{\includegraphics[height=0.23\textheight]{../graphics/perceptron.jpg}} 
+  \caption{The Mark I Perceptron}
+\end{figure}
+\vspace{-.5cm}
 \begin{itemize}
 	\item The theoretical foundations go back to the early 19th century (e.g. Bayesian theory and Least Squares). 
 	\item Even before machines came into play, there was a lot of interest in finding methods to derive rules from data (\emph{data fitting}). These methods are part of what we call Machine Learning today (linear regression, Bayesian theory, Logistic regression, Linear discriminant analysis, Markov chains). 
-	\item In 1958, Rosenblatt published his \emph{Perceptron}. 
+	\item In 1958, Rosenblatt published his \emph{Perceptron} (basically a linear classifier), which is seen as the predecessor of Neural Networks.
 \end{itemize}
 \end{frame}
 
@@ -102,6 +109,20 @@
 	\item In \textbf{unsupervised learning}, there are no annotations $y_i$. We aim at inferring \textbf{patterns} from the data (clusters, latent variables). 
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Different settings in Machine Learning}
+	 \begin{figure}[htb]
+   		\centering
+   		\subfloat{\includegraphics[height=0.3\textheight]{../graphics/Figure_supervised.pdf}} \hspace{1cm}
+   		\subfloat{\includegraphics[height=0.3\textheight]{../graphics/Figure_unsupervised.pdf}} 
+   		\caption{Supervised and unsupervised learning}
+	 \end{figure}
+	\begin{itemize}
+		\item In {\bf supervised learning}, we start from annotated data (here annotation is illustrated by the color), and we wish to learn a decision boundary that allows us to tell these classes apart.
+		\item In {\bf unsupervised learning}, we start with a point clouds and we wish to identify classes directly from their distribution. 
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Training and prediction}
 \begin{figure}[htb]
@@ -341,6 +362,11 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 
 %\subsection{Nearest Neighbor classification}
 \subsection{Random Forests}
+\begin{frame}[plain,c]
+\begin{center}
+\Huge Random Forests
+\end{center}
+\end{frame}
 
 \begin{frame}{Random Forest: Decision trees}
 \begin{figure}[htb]
@@ -352,20 +378,17 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 	\item Each rule (or decision) divides the set of objects into two subsets. 
 	\item The whole classifier is thus represented by a decision tree, i.e. a hierarchically organized set of binary decisions.
 \end{itemize}
-	
 \end{frame}
 
 \begin{frame}{Random Forest: Decision trees}
 \begin{figure}[htb]
 \includegraphics[width=0.8\textwidth]{../graphics/RF2.pdf}
 \end{figure}
-
 \begin{itemize}
 	\item The decision tree corresponds to a partition of the feature space. 
-	\item The corresponding decision boundaries can be very complex and adapts to the training set.
+	\item The corresponding decision boundaries can be very complex and adapt to the training set.
 	\item Classification of a new object: application of the binary decision rules and assignment of the leaf label.
-\end{itemize}
-	
+\end{itemize}	
 \end{frame}
 
 \begin{frame}{Random Forest: Decision trees}
@@ -382,40 +405,54 @@ where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the 
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Random Forest: GINI impurity}
+\begin{figure}[htb]
+\includegraphics[width=0.7\textwidth]{../graphics/RF_GINI.pdf}
+\end{figure}
+Here, we obtain for the GINI impurity:
+\begin{eqnarray*}
+GI(R_1) &=&  \frac{1}{10} \cdot \frac{9}{10} + \frac{5}{10} \cdot \frac{5}{10} + \frac{4}{10} \cdot \frac{6}{10} = 0.58 \\
+GI(R_2) &=&  \frac{0}{7}\cdot \frac{7}{7} + \frac{4}{7} \cdot \frac{3}{7} + \frac{3}{7} \cdot \frac{4}{7} = 0.49 \\
+GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
+\end{eqnarray*}
+\end{frame}
+
 \begin{frame}{Random Forests}
 \begin{figure}[htb]
 \includegraphics[width=0.8\textwidth]{../graphics/Forest.pdf}
 \end{figure}
-
 \begin{itemize}
 	\item Decision trees can approximate very complicated decision boundaries, but they tend to fit to much to the data (overfitting). 
 	\item Random forests: set of decision trees, each learned on a different (randomly drawn) portion of the data and with different (randomly selected) features. 
 	\item Each tree gives a classification result. 
 	\item The final result is obtained by a majority vote. 
 \end{itemize}
-	
 \end{frame}
 
 \begin{frame}{Random Forests}
-
 \begin{itemize}
 	\item Because each tree is slightly different from the others, each tree learns a slightly different aspect of the training data. 
 	\item A classification method that exists in averaging the results of several classifiers (often weak classifiers), is called {\bf ensemble method}. 
 	\item The strategy of averaging is a form of regularization. 
-\end{itemize}
-	
+	\item In practice, model averaging is very popular in the deep learning field. Often, one averages simply the output of several networks to obtain a more robust classifier.
+\end{itemize}	
 \end{frame}
 
 \subsection{Linear Discriminant Analysis (LDA)}
+\begin{frame}[plain,c]
+\begin{center}
+\Huge Linear Discriminant Analysis
+\end{center}
+\end{frame}
+
 
 \begin{frame}{The Bayes rule of classification 1/3}
-
 \begin{block}{Product and sum rules of probabilities}
-	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be there marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ be the conditional probability of $X$ given $Y$. 
+	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be their marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ the conditional probability of $X$ given $Y$. 
 	\begin{itemize}
 		\item Product rule: 
 		\begin{equation}
-			P(X\,|\,Y) = P(X,Y)P(Y)
+			P(X,Y) = P(X\,|\,Y)P(Y)
 		\end{equation}
 		\item Sum rule:
 		\begin{equation}
@@ -423,13 +460,10 @@ where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the 
 		\end{equation}
 	\end{itemize}
 \end{block}
-
 From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
-
 \begin{equation}
 	P(Y \, | \, X) = \frac{P(X \, | \, Y)P(Y)}{P(X)} 
 \end{equation}
-
 \end{frame}
 
 \begin{frame}{The Bayes rule of classification 2/3}
@@ -437,7 +471,7 @@ From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
 We assume that the measured features are continuous variables. Almost identical rules hold in this case, but we need to replace probabilities by probability densities. 
 
 \begin{block}{Bayes rule of classification}
-	With $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $Y \in \{\omega_1, \ldots, \omega_K\}$ a discrete set of class labels, the posterior probability $P(Y=\omega_k\,|\,x)$ can be written as:
+	Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $Y \in \{\omega_1, \ldots, \omega_K\}$ a discrete set of class labels. The posterior probability $P(Y=\omega_k\,|\,x)$ can be written as:
 	\begin{equation}
 		P(Y=\omega_k \, | \, x) = \frac{p(x \, | \, Y=\omega_k) P(Y=\omega_k)}{p(x)}
 	\end{equation}
@@ -455,7 +489,8 @@ We assume that the measured features are continuous variables. Almost identical 
 \begin{itemize}
 \item The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
 \item Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities. 
-\item This rule is important because it gives the best possible classifier, given that the feature distributions $p(x\,|\,Y=\omega_k)$ and the class probabilities $P(Y=\omega_k)$ are known. However, this is normally not the case: these distributions need to be estimated from the training data.
+\item This rule is important because it gives the best possible classifier, given that the feature distributions $p(x\,|\,Y=\omega_k)$ and the class probabilities $P(Y=\omega_k)$ are known. 
+\item However, this is normally not the case: these distributions need to be estimated from the training data.
 
 \end{itemize}
 
@@ -503,9 +538,9 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) leads to
 % \end{equation*}
 
 If we further assume that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$), we obtain {\bf Linear Discriminant Analysis, LDA}:
-\begin{equation}\label{equ:lda:lda}
+\begin{equation*}
 \log{\frac{P(\omega_1)}{P(\omega_2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
-\end{equation}
+\end{equation*}
 \end{frame}
 
 \begin{frame}{Comparison LDA vs. closest mean 1/2}
@@ -521,7 +556,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 		x^T(\mu_1 - \mu_2) + b &>& 0
 		\end{eqnarray*}
 	\end{itemize}
-	\item We see that the only term that depends on $x$ is linear and corresponds to a projection of $x$ to the difference vector of the two class means $\mu_1$ and $\mu_2$. 
+	\item We see that the only term that depends on $x$ is linear and corresponds to a projection of $x$ onto the difference vector of the two class means $\mu_1$ and $\mu_2$. 
 \end{itemize}
 \end{frame}
 
@@ -532,7 +567,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\begin{itemize}
 		\item The expression for LDA classification is:
 		\begin{equation*}
-			x^T\Sigma^{-1}(\mu_1-\mu_2) > 0
+			x^T\Sigma^{-1}(\mu_1-\mu_2) + b > 0
 		\end{equation*}
 		\item We thus see that the only difference is that we take the covariance matrix $\Sigma$ into account. 
 		\item The normal vector of the separating hyperplane is thus not $(\mu_1-\mu_2)$ but $\Sigma^{-1}(\mu_1-\mu_2)$.
@@ -540,6 +575,12 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 \end{frame}
 
 \subsection{Support Vector Machines (SVM) and kernel methods}
+\begin{frame}[plain,c]
+\begin{center}
+\Huge Support Vector Machines
+\end{center}
+\end{frame}
+
 \begin{frame}{Support Vector Machines: principle}
 	\begin{figure}[htb]
 		\includegraphics[width=0.8\textwidth]{../graphics/SVM1.pdf}
@@ -594,15 +635,15 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 
 \begin{frame}{SVM for not linearly separable data}
 	\begin{figure}[htb]
-		\includegraphics[width=0.8\textwidth]{../graphics/SVM3.pdf}
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM3.pdf}
 	\end{figure}
 	\begin{itemize}
 		\item In reality, complex data is rarely linearly separable. 
-		\item Compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$.
-		\item Normal vector $w$: vector of feature weights.
-		\begin{equation*}
-			f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
-		\end{equation*}		
+		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$.
+		%\item Normal vector $w$: vector of feature weights.
+		%\begin{equation*}
+		%	f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
+		%\end{equation*}		
 	\end{itemize}
 \end{frame}
 
@@ -639,12 +680,12 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 		\item Training a classifier: finding automatically a large number of feature weights (SVM, LDA) or other parameters (RF) from annotated data.
 		\item Hyperparameters: a small number of parameters that are set to control the training process, such as the number of trees, or the regularization parameter $\lambda$ ($C$ in SVM). 
 		\item The question is: how can we find good hyperparameters?
-		\item Strategy: grid search. We choose the hyperparameters that perform best (i.e. that lead to the classifier with the best performance).
+		\item Strategy: grid search. We choose the set of hyperparameters that perform best (i.e. that lead to the classifier with the best performance).
 		\item Problem: how can we measure the performance? 
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{How to set hyperparameters: performance measurement}
+\begin{frame}{Assessment of performance}
 	\begin{itemize}
 		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy. 
 		\item<2-> Problem: Training error is a poor approximation of the test error. 
@@ -657,24 +698,14 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 
 \begin{frame}{How to set hyperparameters: estimation of the test error}
 	\begin{itemize}
-		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy. 
-		\item<2-> Problem: Training error is a poor approximation of the test error. 
-		\begin{figure}[htb]
-			\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
-		\end{figure}
-
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{How to set hyperparameters: estimation of the test error}
-	\begin{itemize}
 		\item<1-> Second idea: to split the training set in two subsets $T_1$, $T_2$. We train on $T_1$, we test on $T_2$. 
 		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
-		\item<3-> Cross Validation: we split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing. 
+		\item<3-> Third idea: Cross Validation. We split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing. 
 		\begin{figure}[htb]
-			\includegraphics[width=0.6\textwidth]{../graphics/CV1.pdf}
+			\includegraphics[width=0.65\textwidth]{../graphics/CV1.pdf}
 		\end{figure}
-		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error). We can now choose the hyperparameter with the best accuracy.
+		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error). 
+		\item<5-> Hyperparameter selection: we can now choose the hyperparameter with the best accuracy.
 	\end{itemize}
 \end{frame}
 
@@ -683,19 +714,53 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 		\includegraphics[width=0.6\textwidth]{../graphics/CV2.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item If there are several parameters, we have 
-		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
-		\item<3-> Cross Validation: we split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing. 
+		\item If there are several parameters, we can perform this for every combination of values (grid search). 
+		\item Alternatively, we can use random hyperparameter values. 
+		\item Problem: time-consuming.
+		\item Ad hoc strategies to reduce the computation time: coarse-to-fine strategy.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance evaluation with optimized hyperparameters}
+	\begin{itemize}
+		\item<1-> If we optimize the hyperparameters in this way, the final performance might be over-optimistic (we have chosen the hyperparameters that give best performance for the test set, i.e. we have used the test set to set the parameters). 
+		\item<2-> Solution: nested cross validation.
 		\begin{figure}[htb]
-			\includegraphics[width=0.6\textwidth]{../graphics/CV1.pdf}
+			\includegraphics[width=0.6\textwidth]{../graphics/CV3.pdf}
 		\end{figure}
-		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error). We can now choose the hyperparameter with the best accuracy.
+		\item<3-> Nested cross validation is extremely time consuming.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance evaluation in deep learning}
+	\begin{itemize}
+		\item In the context of deep learning with long training times, we often do not use cross validation.
+		\item Split the training set into 3:
+		\begin{itemize}
+			\item {\bf Training set}: used to obtain the classifier for a given set of hyperparameters.
+			\item {\bf Validation set}: used to find good hyperparameters.
+			\item {\bf Test set}: used to evaluate performance. 
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 
 \section{Conclusion}
-
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict an output variable $y$ from an input variable $x$.
+		\item What lessons can we learn with respect to Neural Networks from the techniques presented:
+		\begin{itemize}
+			\item From RF: regularization by model averaging
+			\item From LDA: notion of posterior probabilities, i.e. $P(y|x)$.
+			\item From SVM: formulation of the training by minimizing a global loss function containing an error and a regularization term: 
+			\begin{equation*}
+				\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
+			\end{equation*}
+		\end{itemize}
+		\item Image Classification: these methods work all on a feature representation of the images (i.e. the input is a vector $x \in \mathbb{R}^P$).
+	\end{itemize}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
