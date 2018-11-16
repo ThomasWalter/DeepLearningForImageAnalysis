@@ -1,3 +1,4 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer} 
 \documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
 \input{../../setting.tex}
 
@@ -110,7 +111,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Different settings in Machine Learning}
+\begin{frame}{Classification vs. Clustering}
 	 \begin{figure}[htb]
    		\centering
    		\subfloat{\includegraphics[height=0.3\textheight]{../graphics/Figure_supervised.pdf}} \hspace{1cm}
@@ -749,16 +750,21 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 \begin{frame}{Conclusion}
 	\begin{itemize}
 		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict an output variable $y$ from an input variable $x$.
-		\item What lessons can we learn with respect to Neural Networks from the techniques presented:
-		\begin{itemize}
-			\item From RF: regularization by model averaging
-			\item From LDA: notion of posterior probabilities, i.e. $P(y|x)$.
-			\item From SVM: formulation of the training by minimizing a global loss function containing an error and a regularization term: 
-			\begin{equation*}
-				\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
-			\end{equation*}
-		\end{itemize}
-		\item Image Classification: these methods work all on a feature representation of the images (i.e. the input is a vector $x \in \mathbb{R}^P$).
+		\item Different views:
+			\begin{itemize}
+				\item Probabilistic view: we maximize the posterior probability.
+				\item Discriminant view: we optimize the separation of classes.
+			\end{itemize}
+		\item Ultimately, we with to minimize the error, but we need to regularize the predicting function.
+		\item Forms of regularization we have seen so far:
+			\begin{itemize}
+				\item Regularization by model averaging (e.g. RF)
+				\item Minimizing a global loss function containing an error and a regularization term: 
+				\begin{equation*}
+					\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
+				\end{equation*}
+			\end{itemize}
+		\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
 	\end{itemize}
 \end{frame}
 
