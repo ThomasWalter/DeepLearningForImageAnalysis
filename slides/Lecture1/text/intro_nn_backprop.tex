@@ -1,5 +1,5 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer} 
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -74,7 +74,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Neuron}
+\frametitle{Biological neuron}
 
 \begin{figure}
 \includegraphics[height=3cm]{neuron}
@@ -100,6 +100,8 @@
 \begin{block}{General principle}
 An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
 \end{block}
+
+\pause
 
 \begin{itemize}
 \item The first artificial neuron model was proposed by \cite{mcculloch_logical_1943}
@@ -259,7 +261,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Activation: rectified linear unit}
+  \frametitle{Activation: rectified linear unit (ReLU)}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -289,6 +291,11 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
     \end{itemize}
   \end{block}
 
+\pause
+
+  \begin{alertblock}{}
+    ReLU is the most commonly used activation function.
+  \end{alertblock}
 
 
 }
@@ -463,7 +470,7 @@ We can simply write:
   \end{itemize}
 \end{block}
 
-Computing a \emph{forward pass} through the graph means choosing its values, and then progressively computing the values of all edges.
+Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
 
 
 \end{frame}
@@ -497,6 +504,10 @@ Computing a \emph{forward pass} through the graph means choosing its values, and
   \item The \alert{input layer} is the set of neurons without incoming edges.
   \item The \alert{output layer} is the set of neurons without outgoing edges.
   \end{itemize}
+
+  \pause
+
+  NB: Neural networks with cycles, know as recurrent neural networks, also exist.
 
 \end{block}
 
@@ -554,7 +565,7 @@ Computing a \emph{forward pass} through the graph means choosing its values, and
 \frametitle{Fully-connected network}
 
 \begin{itemize}
-\item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous and following layers
+\item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
   \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are 2D dimensional array (a matrix) of size $q \times r$
 \item A NN is said to be fully connected if all its hidden layers are fully connected
 \end{itemize}
@@ -602,6 +613,10 @@ Computing a \emph{forward pass} through the graph means choosing its values, and
       \[\x^i = \act_i(\x^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
       \[y = \act_4(\x^4\W_4 + \bias_4)\]
     \end{block}
+
+    \pause
+
+    What would happen if all activation functions $\act_i$ were equal to the identity function?
 
 \end{frame}
 
@@ -684,10 +699,10 @@ Computing a \emph{forward pass} through the graph means choosing its values, and
 \begin{block}{}
   Let $f$ be a \textcolor{blue}{continuous} real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function (\emph{\small{the activation function}}).
 
-  Then there exists an integer $n$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq n}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq n}$ and $\{v_i\}_{1 \leq i \leq n}$ such that for all $\x$ in $[0,1]^p$:
+  Then there exists an integer $q$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq q}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq q}$ and $\{v_i\}_{1 \leq i \leq q}$ such that for all $\x$ in $[0,1]^p$:
 
   \[
-   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+   \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
 \end{block}
@@ -701,13 +716,13 @@ A first version of this theorem, using sigmoidal activation functions, was propo
 \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-   \left| f(\x) - \sum\limits_{i=1}^n v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+   \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
 This means that function $f$ can be approximated with a neural network containing:
 \begin{itemize}
   \item an input layer of size $p$;
-  \item a hidden layer containing $n$ neurons with activation function $\act$, weights $\mathbf{w}_i$ and biases $b_i$;
+  \item a hidden layer containing $q$ neurons with activation function $\act$, weights $\mathbf{w}_i$ and biases $b_i$;
   \item an output layer containing a single neuron, with weights $v_i$ (and an identity activation function).
 \end{itemize}
 
@@ -894,13 +909,13 @@ Gradient descent is an essential tool in optimization.
   \]
 \item
   The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
-\item finally the parameters are updated:
+\item Finally the parameters are updated:
 
   \[
     \param_{t+1} = \param_t - \gamma\nabla \loss(\param_t)
     \]
   \item
-    Note that the learning rate $\gamma$ can have a different value.
+    Note that the learning rate $\gamma$ can have a different value than in straightforward gradient descent.
 \end{itemize}
 
 
@@ -937,7 +952,7 @@ Gradient descent is an essential tool in optimization.
 \begin{frame}{The backpropagation algorithm}
 
   \begin{itemize}
-  \item The backpropagation algorithm is used in a neural network to efficiently compute the partial derivative of the loss with respect to each parameter of the network.
+  \item The backpropagation algorithm is used in a neural network to efficiently compute the partial derivatives of the loss with respect to each parameter of the network.
   \item One can trace the origins of the method to the sixties
   \item It was first applied to NN in the eighties \cite{werbos_applications_1982, lecun_procedure_1985}
   \end{itemize}

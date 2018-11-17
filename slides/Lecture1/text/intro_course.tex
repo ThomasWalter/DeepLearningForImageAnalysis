@@ -2,6 +2,8 @@
 \input{../../setting.tex}
 \usepackage{physics}
 
+\graphicspath{{../graphics/}}
+
 %% \usepackage{animate}
 
 \AtBeginSection[]{
@@ -43,27 +45,48 @@
 \frame{
   \frametitle{About the lecturers}
 
+\begin{columns}
+  \begin{column}{.2\textwidth}
+\vfill
+\includegraphics[width=\textwidth]{Thomas_Walter_Heidelberg.jpg}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{velascoforero}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{ed.jpg}
 
-  \begin{block}{Thomas Walter}
+  \end{column}
+  \begin{column}{.8\textwidth}
+
+    \begin{block}{Thomas Walter \hfill \scriptsize{\url{http://members.cbio.mines-paristech.fr/\~twalter}}}
+      \scriptsize{
     \begin{itemize}
     \item Researcher on bioimage informatics
     \item Main application fields: High Content Screening (HCS), as a method to systematically study biological processes by analyzing cellular phenotypes
     \end{itemize}
+    }
   \end{block}
 
-  \begin{block}{Santiago Velasco-Forero}
+  \begin{block}{Santiago Velasco-Forero  \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~velasco}}}
+      \scriptsize{
     \begin{itemize}
     \item Researcher on image processing, pattern recognition, multivariate statistics, graph-based data/image analysis
     \item Main application fields: Remote Sensing, cosmetology, astronomy, hyperspectral imaging.
     \end{itemize}
+    }
   \end{block}
 
-    \begin{block}{Etienne Decencière}
+    \begin{block}{Etienne Decencière \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~decenciere}}}
+      \scriptsize{
     \begin{itemize}
     \item Researcher on mathematical morphology and image processing
     \item Main application fields: Ophthalmology, dermatology, cosmetology, astronomy
     \end{itemize}
+    }
   \end{block}
+
+  \end{column}
+\end{columns}
+
 
 
 }
@@ -74,7 +97,7 @@
   {\scriptsize
 
 \begin{columns}
-  \begin{column}{.5\textwidth}
+  \begin{column}{.45\textwidth}
 
     \begin{block}{Instructors}
       \begin{itemize}
@@ -93,13 +116,14 @@
 
   \end{column}
 
-  \begin{column}{.5\textwidth}
+  \begin{column}{.55\textwidth}
     \begin{block}{Teaching assistants}
       \begin{itemize}
-      \item Bruno Fligliuzzi
-      \item Peter Naylor
-      \item Robin Alais
-      \item Leonardo Gigli
+        \item Monday: Joseph Boyd, Kaiwen Cheng
+      \item Tuesday: Leonardo Gigli
+      \item Wednesday: Peter Naylor, Robin Alais
+      \item Thursday: Bogdan Stanciulescu
+      \item Friday: Bruno Fligliuzzi
       \end{itemize}
     \end{block}
 
@@ -129,10 +153,10 @@
 \hline
 \rowcolor[HTML]{00009B}
 {\color[HTML]{FFFFFF} Day} & {\color[HTML]{FFFFFF} Lecture}                                                                                              & {\color[HTML]{FFFFFF} Invited speaker}                                              \\ \hline
-Monday                     & \begin{tabular}[c]{@{}l@{}}Machine learning\\ Artificial neural networks\end{tabular}                                       & TBD                                                                                 \\ \hline
-Tuesday                    & \begin{tabular}[c]{@{}l@{}}Introduction to Convolutional Neural Networks\\ Application to image classification\end{tabular} & TeraPixel                                                                           \\ \hline
-Wednesday                  & \begin{tabular}[c]{@{}l@{}}Image transformations and semantic segmentation\\ Practical considerations\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Marc Huertas-Company\\ Obervatoire de Paris\end{tabular} \\ \hline
-Thursday                   & \begin{tabular}[c]{@{}l@{}}Instance segmentation\\ Applications in robotics\end{tabular}                                    & \begin{tabular}[c]{@{}l@{}}Bogdan Stanciulescu\\ MINES ParisTech\end{tabular}       \\ \hline
+Monday                     & \begin{tabular}[c]{@{}l@{}}Machine learning\\ Artificial neural networks\end{tabular}                                       &                                                                                \\ \hline
+Tuesday                    & \begin{tabular}[c]{@{}l@{}}Introduction to Convolutional Neural Networks\\ Application to image classification\end{tabular} & \begin{tabular}[c]{@{}l@{}}Pierre Fillard\\ Terapixel \end{tabular}                                                                           \\ \hline
+Wednesday                  & \begin{tabular}[c]{@{}l@{}}Image transformations and semantic segmentation\\ Optimisation\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Marc Huertas-Company\\ Paris Observatory \end{tabular} \\ \hline
+Thursday                   & \begin{tabular}[c]{@{}l@{}}Practical considerations\\ Applications in robotics\end{tabular}                                    & \begin{tabular}[c]{@{}l@{}}Bogdan Stanciulescu\\ MINES ParisTech\end{tabular}       \\ \hline
 Friday                     & Advanced techniques                                                                                                         & \begin{tabular}[c]{@{}l@{}}Pauline Luc\\ Facebook Research\end{tabular}             \\ \hline
 \end{tabular}
 \end{table}
@@ -154,7 +178,7 @@ Friday                     & Advanced techniques                                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Main notations}
   \begin{eqnarray*}
-    n, p, q & \hspace{1em} & \text{Integer scalars} \\
+    i, j, n, p, q & \hspace{1em} & \text{Integer scalars} \\
     x, y, z & \hspace{1em} & \text{Real scalars} \\
     \x, \y & \hspace{1em} & \text{Real vectors} \\
     \X, \W & \hspace{1em} & \text{Matrices} \\
