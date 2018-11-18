@@ -507,7 +507,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
   \pause
 
-  NB: Neural networks with cycles, know as recurrent neural networks, also exist.
+  NB: Neural networks with cycles, known as recurrent neural networks, also exist.
 
 \end{block}
 
@@ -637,7 +637,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
     \end{itemize}
   \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
   \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
-  \item<8-> Total: $305$ parameters
+  \item<8-> Total: $301$ parameters
   \end{itemize}
 
 }
@@ -1052,7 +1052,7 @@ p, q \in \N^*\\
     \begin{eqnarray*}
       \pdv{\mathbf{t}}{\W} &=& \x^t \\
       \pdv{\mathbf{t}}{\bias} &=& 1 \\
-      \pdv{\y}{\mathbf{t}} &=& \act'
+      \pdv{\y}{\mathbf{t}} &=& \act'(\mathbf{t})
     \end{eqnarray*}
   \end{column}
 \end{columns}
