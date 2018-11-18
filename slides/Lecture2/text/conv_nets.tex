@@ -85,26 +85,12 @@
     \end{column}
   \end{columns}
 
-  \begin{alertblock}{}
-    Designing computer vision systems that are able to extract semantic information from an image is a difficult task.
-  \end{alertblock}
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Extracting semantic information from an image}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
-      \begin{itemize}
-      \item Where is the phone? (localization task)
-      \item How many mugs are there? (quantification task)
-      \item Is there a window in the room?
-      \item At what time of the day was the photograph taken?
-      \end{itemize}
-    \end{column}
-
     \begin{column}{.5\textwidth}
       \begin{figure}[ht]
         \centering
@@ -112,6 +98,20 @@
       \end{figure}
 
     \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Where is the phone? (localization task)
+      \item How many mugs are there? (quantification task)
+      \item Is there a window in the room?
+      \item At what time of the day was the photograph taken?
+      \end{itemize}
+      \pause
+  \begin{alertblock}{}
+    Designing computer vision systems that are able to extract semantic information from an image is a difficult task.
+  \end{alertblock}
+
+    \end{column}
+
   \end{columns}
 
 \end{frame}
@@ -119,7 +119,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The role of annotated image databases}
 
-  Image databases including \emph{annotations} (typically some kind of high level information) are essential to the development of machine learning methods for image analysis.
+  Image databases including \emph{annotations} (typically some kind of high level information) are essential to the development of \emph{supervised} machine learning methods for image analysis.
 
   \begin{block}{Annotations}
     \begin{itemize}
@@ -214,12 +214,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image processing approach}
 
+\begin{columns}
+  \begin{column}{.5\textwidth}
   \begin{block}{}
     \begin{itemize}
     \item Build a geometrical model for the objects of interest
     \item Implement this model using image processing operators
     \end{itemize}
   \end{block}
+
+  \pause
+
+  \end{column}
+  \begin{column}{.5\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{zhang_MA}\\
+  \scriptsize{Detail of eye fundus image with microaneurysms to be detected}
+  \source{\cite{zhang_application_2011}}
+
+  \end{column}
+\end{columns}
+
+\pause
 
   \begin{itemize}
   \item[+] This approach works correctly when the objects are not too complex.
@@ -235,6 +251,8 @@
 \frame{
   \frametitle{Classical machine learning approach}
 
+\begin{columns}
+  \begin{column}{.35\textwidth}
   \begin{block}{}
     \begin{itemize}
     \item Compute features from the image
@@ -242,8 +260,19 @@
     \end{itemize}
   \end{block}
 
+  \end{column}
+\pause
+\begin{column}{.65\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{zhang_EX}\\
+  \scriptsize{Exudates segmentation: original image, ground-truth and candidates with associated probabilities obtained with machine learning }
+    \source{\cite{zhang_exudate_2014}}
+  \end{column}
+\end{columns}
+\vspace{1em}
+\pause
   \begin{itemize}
-  \item[+] Works well when you engineer the right features
+  \item[+] Works well with the right features
   \item[-] An expert is required to define those features - and this can be a long process
   \item[-] Annotated data is required
   \end{itemize}
@@ -463,21 +492,37 @@
 \begin{frame}{Image classification with a neural network}
 
   \begin{block}{Input}
-    The image is transformed into a vector of length $p$.
+    The input image, containing $p$ pixels, is transformed into a vector of length $p$.
   \end{block}
 
   \begin{block}{Output}
     For $q$ classes, the output will be a vector of length $q$.
   \end{block}
 
+\pause
+
   \begin{block}{Example: image of size $4 \times 2$, $4$ possible classes}
-    \begin{figure}
-      \includegraphics[width=0.5\textwidth]{network}
-    \end{figure}
+    \centering
+      \includegraphics[width=0.6\textwidth]{network}
   \end{block}
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image classification using fully-connected layers}
+
+    \centering
+      \includegraphics[width=0.6\textwidth]{network}
+
+      \begin{itemize}[<+->]
+      \item A small image contains at least $100\,000$ pixels
+      \item The number of parameters between two layers of that size is $10^5 \times (10^5 + 1)$!
+      \item This approach is not feasible...
+      \item Moreover, this approach does not take into account the local structure of images.
+      \end{itemize}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Activations}
@@ -552,7 +597,7 @@
   \pause
 
   \begin{alertblock}{}
-    To avoid numerical problems, each $\hat{\y}_i$ must be strictly positive. Therefore when used in a NN a softmax operator has to be preceded by a convenient operator, such as a sigmoid or a softmax.
+    For this to work, each $\hat{\y}_i$ must be strictly positive. Therefore when used in a NN the cross-entropy has to be preceded by a convenient operator, such as a sigmoid or a softmax.
   \end{alertblock}
 
   \pause
@@ -805,6 +850,8 @@ Dilated convolutions are used the increase the size of the receptive field of th
     \end{figure}
   \end{center}
 
+This network is used for image classification tasks.
+
 \end{frame}
 
 
@@ -818,9 +865,7 @@ Dilated convolutions are used the increase the size of the receptive field of th
   \frametitle{Max pooling}
 
   \begin{itemize}
-  \item Convolutional networks often contain subsampling steps. The most popular way of doing this today is by using \emph{max pooling} layers with stride 2.
-
-  \item Note however a current trend that consists in using convolutional layers with a stride of 2
+  \item Convolutional networks often contain subsampling steps. A common way of doing this today is by using \emph{max pooling} layers with stride 2.
 
   \item Sampling is only applied along the spatial dimensions, not along the dimension of the filters.
 
@@ -829,6 +874,12 @@ Dilated convolutions are used the increase the size of the receptive field of th
   \begin{center}
     \includegraphics[width=0.41\textwidth]{max_pooling.png}
   \end{center}
+
+  \pause
+
+  Note however a current trend that consists in using convolutional layers with a stride of 2
+
+
 
 }
 
