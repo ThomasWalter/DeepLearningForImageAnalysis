@@ -317,9 +317,9 @@ Another way of preventing overfitting without increasing the number of samples, 
 \begin{frame}{Generalization: strategies}
 \begin{itemize}
 \item Many ML algorithms can be written as an optimization problem:
-\begin{equation}
+\begin{equation*}
 \param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
-\end{equation}
+\end{equation*}
 Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the annotations in the training set, minimizing the regularization term $\mathcal{R}(\param)$ aims at avoiding the model to adapt too much to the training data, leading to simpler models. We have seen the $L_2$ norm, but there are many other options for $\mathcal{R}$. 
 \item Other regularization strategies include:
 \begin{itemize}

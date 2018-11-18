@@ -1,0 +1,2 @@
+rm *.aux *.bcf *.log *.out *.xml *.bbl *.blg *.nav *.pdf *.snm *.toc
+
