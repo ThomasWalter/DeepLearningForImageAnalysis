@@ -122,6 +122,79 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Representation visualization}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{Visualization of image representation}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_last_layer.pdf}
+\end{figure}
+\begin{itemize}
+	\item CNNs learn representations of the images. Here, we call the representation the last layer prior to classification. 
+	\item We can now collect these representations $x^{l_{max}}$ for all images in the training set. 
+	\item In order to visualize these representations, we seek low dimensional representations of these high dimensional vectors. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{t-SNE (sketch) 1/2}
+\begin{itemize}
+	\item Many low dimensional representations: PCA, ICA, $\ldots$
+	\item A recent technique that is widely used in this field is called \emph{t-Distributed Stochastic Neighbor Embedding (t-SNE)} \cite{Maaten:2008}. 
+	\item Let $\{x_i\}_{0\leq i < N}$ be the set of representations for all images in the training set. 
+	\item We define the pairwise probabilities $p_{ij}$ that $x_i$ and $x_j$ are neighbors (which depends on $\|x_i-x_j\|$). 
+	\item We now seek a low-dimensional space for which these neighborhood probabilities $q_{ij}$ are conserved. 
+	\item This is achieved by minimizing for each point $x_i$ the Kulback-Leibler divergence between the distributions $P_i$ (distribution of $p_{ij}$) and $Q_i$ (distribution of $q_{ij}$)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{t-SNE (sketch) 2/2}
+\begin{itemize}
+	\item The cost $C$ that is minimized: 
+	\begin{equation}
+		C = \sum_i KL(P_i\|Q_i) = \sum_i \sum_j -p_{ij}\log{\frac{p_{ij}}{q_{ij}}}
+	\end{equation}
+	\item If $x_i$ and $x_j$ are close in the original space, the algorithm will try to push $q_{ij}$ to become close to $x_{ij}$. 
+	\item If $x_i$ and $x_j$ are far in the original space, only a small contribution is to be expected in any case. 
+	\item For this reason, t-SNE is known to respect local structure.  	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{t-SNE map: example (cell images)}
+\begin{figure}[htb]
+  \centering
+  \subfloat{\includegraphics[width=0.45\textwidth]{../graphics/Vis_tsne.pdf}}\hspace{1cm}
+  \subfloat{\includegraphics[width=0.45\textwidth]{../graphics/Vis_tsne2.pdf}} 
+\end{figure}
+\end{frame}
+
+\begin{frame}{t-SNE map: ImageNet}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.45\textwidth]{../graphics/Vis_tsne_imagenet1.pdf}
+  \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{t-SNE map: ImageNet}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.45\textwidth]{../graphics/Vis_tsne_imagenet2.pdf}
+  \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{t-SNE map: ImageNet}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.45\textwidth]{../graphics/Vis_tsne_imagenet3.pdf}
+  \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
+\end{figure}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Visualization of the loss function}
 \frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
