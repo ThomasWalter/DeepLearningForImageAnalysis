@@ -1,5 +1,5 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer} 
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -341,9 +341,9 @@
   \item image caption generation
   \item 2D to 3D (stereo matching, 3D reconstruction, …)
   \item motion estimation
-  \item Style transfer
-  \item Anomalous image detection
-  \item Image generation
+  \item style transfer
+  \item anomalous image detection
+  \item image generation
   \end{itemize}
 
 
@@ -591,7 +591,7 @@
   \begin{block}{}
     For $\y$ in $[0, 1]^d$ and $\hat{\y}$ in $]0, 1]^d$:
         \[
-        H(\y, \hat{\y}) = \sum_{i=1}^d \y_i \log(\hat{\y}_i)
+        H(\y, \hat{\y}) = - \sum_{i=1}^d \y_i \log(\hat{\y}_i)
         \]
   \end{block}
 
