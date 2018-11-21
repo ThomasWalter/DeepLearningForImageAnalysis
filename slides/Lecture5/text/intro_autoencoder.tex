@@ -124,7 +124,9 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
 \end{frame}
 \begin{frame}{Autoencoders}
 Autoencoders are neural networks whose purpose is twofold.
-\begin{enumerate}\item To compress some input data by transforming it from the input domain to another space,known as the \emph{latent space} (code). 
+\begin{enumerate}
+\item To compress some input data by transforming it from the input domain to another space,
+known as the \emph{latent space} (code). 
 \item To take this latent representation and transform it back to the original space, such that the output is similar to the input.
 \end{enumerate}
 %\begin{figure}
@@ -153,7 +155,8 @@ Autoencoders are neural networks whose purpose is twofold.
 \begin{frame}{Autoencoder}
 \begin{itemize}
 \item An \emph{autoencoder} is a neural network that is trained to attempt to copy its input to its output.
-\item The network may be viewed as consisting of two parts: anencoder function $h = f (\X)$ and a decoder that produces a reconstruction $r(\X) = g(h(\X))$.
+\item The network may be viewed as consisting of two parts: an
+encoder function $h = f (\X)$ and a decoder that produces a reconstruction $r(\X) = g(h(\X))$.
 \item The composition of $f$ and $g$ is called the \emph{reconstruction function}
 \item If an autoencoder succeeds to learn $g(f (\X)) = \X$ everywhere, then it is not especially useful (overfitting).
 \item The learning process can be described as minimizing the loss function:
@@ -269,7 +272,8 @@ specific types of sounds/image.
 
 
 \begin{frame}{Regularized Autoencoders}
-A sparse autoencoder is simply an autoencoder whose training criterion involves asparsity penalty $\Omega(h)$ on the code layer $h$, in addition to the reconstruction error:
+A sparse autoencoder is simply an autoencoder whose training criterion involves a
+sparsity penalty $\Omega(h)$ on the code layer $h$, in addition to the reconstruction error:
 \begin{equation}
 \loss ( \X , g(f(\X)))+\Omega(h)
 \end{equation}
@@ -348,17 +352,20 @@ TODO
 
 \begin{frame}{Modern Autoencoder}
 \begin{itemize}
-\item Modern autoencoders have generalized the idea of an encoder and a decoderbeyond deterministic functions to stochastic mappings
+\item Modern autoencoders have generalized the idea of an encoder and a decoder
+beyond deterministic functions to stochastic mappings
 $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 %\item 
-%An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of the%training data.
+%An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of the
+%training data.
 %\item
 %The learning process can be described as minimizing the loss function:
 %\begin{equation}
 %\loss ( \X , g(f(\X))),
 %\end{equation}
 %where $\loss$ is a loss function, such as mean squared error.
-%\item When the decoder is linear and $\loss$ is the mean squared error, an undercomplete%autoencoder learns to span the same subspace as PCA.
+%\item When the decoder is linear and $\loss$ is the mean squared error, an undercomplete
+%autoencoder learns to span the same subspace as PCA.
 \end{itemize}
 \end{frame}
 
@@ -407,7 +414,7 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{ Training via maximum likelihood}
+\begin{frame}{Training via maximum likelihood}
 Assume we would like to compute the likelihood of an image $\x$ from the training set:
 \begin{eqnarray*}
 \mathcal{L}(\x) &=&\log(p(\x)) \\
@@ -493,12 +500,24 @@ Backpropagation is not possible through random sampling!
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Galaxy Embedding}
+
+\begin{frame}{Example Latent Space for MNIST}
 \begin{figure}
-\includegraphics[width=.5\columnwidth]{../graphics/GalaxyEmbedding}
-\caption{Jeffrey Regier et al, A deep generative model for astronomical images of galaxies}
+\includegraphics[width=.75\columnwidth]{../graphics/LatentMNIST}
 \end{figure}
 \end{frame}
+
+%\begin{frame}{Galaxy Embedding}
+%\begin{figure}
+%\includegraphics[width=.5\columnwidth]{../graphics/GalaxyEmbedding}
+%\caption{Jeffrey Regier et al, A deep generative model for astronomical images of galaxies}
+%\end{figure}
+%\end{frame}
+
+
+
+
+
 \begin{frame}{Applications for Autoencoders}
 \begin{enumerate}
 \item Information retrieval using deep auto-encoders (semantic hashing)
@@ -512,6 +531,130 @@ KL(\mathcal{N}(\mu_0,\Sigma_0)) || \mathcal{N}(\mu_1,\Sigma_1))=\\
 \end{eqnarray*}
 where $k$ is the dimensionality of the distributions.
 \end{frame}
+
+\begin{frame}{Generative Adversarial Networks (GANs)}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = yellow!50] (Noise) [label=below: Noise ] {$\epsilon$};
+   \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(z)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Fake data] { $\hat{\x}$ };
+    \node[main, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+   \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$z$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {$P_z(z)$};
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+\end{figure}
+\pause
+The goal is to optimize the follow expression, $\min_{G} \max _{D} V(D,G)$.
+%for a given loss function $\loss(\cdot,\cdot)$.\\ 
+\alert{We are looking the best generator for the best discriminator}.
+\end{frame}
+
+\begin{frame}{Generative Adversarial Networks (GANs)}
+We require that the discriminator $D$ recognizes examples from the $P_{\texttt{real}}(\x)$ distribution,
+\begin{equation*}
+\mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  \quad \quad \alert{\texttt{Decision over Real Data}}
+\end{equation*} where $\mathbb{E}$ denotes the expectation. This term comes from the ``1" class  of the log-loss function. \\
+Additionally, we would like to tricking the discriminator via a good generator $G$. Thus, the term comes from  ``0" class of the log-loss function:
+\begin{equation*}
+\mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]  \quad \quad  \alert{\texttt{Decision over Fake Data}}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Optimal Discriminator? Optimal Generator?}
+We define:
+\begin{equation*}
+V(G,D):= \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)] + \mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]
+\end{equation*}
+What should be an optimal discriminator? \pause
+\begin{equation*}
+D^* = \argmax_{D} V(G,D)
+\end{equation*}
+Now, given this optimal discriminator $D^*$, what should be an optimal generator? \pause
+\begin{equation*}
+G^* = \argmin_{G} V(G,D^*)
+\end{equation*}
+Minimax Game \cite{}
+\end{frame}
+
+\begin{frame}
+\begin{eqnarray*}
+&& \min_{G} \max _{D} V(D,G) := \\
+&= &\mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]  \\
+&&\texttt{by Radon-Nikodym Theorem} \\
+&=& \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{\alert{{g}(\x)}}}[ \log (1-\alert{D(x)})]  
+\end{eqnarray*}
+An optimal generator should give $P_{g(\x)}=P_{\texttt{real}}(\x)$, and in this case:
+
+
+\begin{equation}
+\end{equation}
+\end{frame}
+
+\begin{frame}{Adversarial Example}
+%For adversaries, an ideal adversarial attack is to construct a perturbed input $\x_{adv}$ with minimal distance to $\x$ to fool the DNN
+%model, and yet its human user would still visually consider the adversarial input $\x_{adv}$ similar to or the same as the benign input $x$.
+Given a benign sample $\x$, an adversarial example $\x_{adv}$ is generated by adding a small perturbation to $\x$ (i.e. $\x_{adv}=\x+\epsilon$), so that $\x_{adv}$ is misclassified by the targeted classifier $g$.
+
+Formal definition:
+(Adversarial example (Wang et al., 2016)). Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x_{adv}$ an adversarial example 
+if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x_{adv})$ and $||\x - \x_{adv}|| \leq \delta$.
+This is, $\x_{adv}$ could be called a \emph{counter example}.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[width=.285\columnwidth]{../graphics/Adversarial0} \textbf{+}
+\includegraphics[width=.285\columnwidth]{../graphics/Noise} \textbf{=}  
+\includegraphics[width=.285\columnwidth]{../graphics/Adversarial2}
+\caption{$\x$ + $\epsilon$ =  $\x_{adv}$}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=.45\columnwidth]{../graphics/ClassX} 
+\includegraphics[width=.45\columnwidth]{../graphics/ClassXadv} 
+\caption{Prediction for: $\x$ and $\x_{adv}$}
+\end{figure}
+\end{frame}
+
+%\begin{frame}
+%\begin{figure}
+%\includegraphics[width=.55\columnwidth]{../graphics/Adversarial2}
+%\end{figure}
+%From Explaining and Harnessing Adversarial Examples by Goodfellow et al.
+%\end{frame}
+
+%\begin{frame}
+%\begin{figure}
+%\includegraphics[width=.35\columnwidth]{../graphics/Noise}
+%\end{figure}
+%From Explaining and Harnessing Adversarial Examples by Goodfellow et al.
+%\end{frame}
+
+\begin{frame}{Adversarial Examples}
+\textbf{Fast Gradient Sign Method}
+Their perturbation can be expressed as
+\begin{equation}
+\eta =\epsilon sign(\nabla_{\x} J_{\param} (\x,\loss))
+\end{equation}
+where $\epsilon$ is the magnitude of the perturbation.
+The generated adversarial example $\x'$ is calculated as $\x'=\x+\eta$.
+This perturbation can be computed by using back-propagation.
+\end{frame}
+
+\begin{frame}{Universal Perturbation}
+\begin{figure}
+\includegraphics[width=.55\columnwidth]{../graphics/UniversalPerturbation}
+\caption{ ?Universal adversarial perturbations}
+\end{figure}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{References}
