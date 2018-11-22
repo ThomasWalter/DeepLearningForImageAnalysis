@@ -457,7 +457,7 @@ GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
 		\end{equation}
 		\item Sum rule:
 		\begin{equation}
-			P(X) = \sum_Y P(X,Y)P(Y)
+			P(X) = \sum_Y P(X,Y) = \sum(P(X|Y)P(Y)
 		\end{equation}
 	\end{itemize}
 \end{block}
@@ -755,7 +755,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 				\item Probabilistic view: we maximize the posterior probability.
 				\item Discriminant view: we optimize the separation of classes.
 			\end{itemize}
-		\item Ultimately, we with to minimize the error, but we need to regularize the predicting function.
+		\item Ultimately, we wish to minimize the error, but we need to regularize the predicting function.
 		\item Forms of regularization we have seen so far:
 			\begin{itemize}
 				\item Regularization by model averaging (e.g. RF)
