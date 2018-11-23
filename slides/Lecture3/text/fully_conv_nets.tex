@@ -73,10 +73,16 @@
   \end{column}
 
   \begin{column}{.5\textwidth}
-    Cross-entropy loss function used for classification tasks:
+    The cross-entropy loss function used for classification tasks:
     \[
-        \loss(\param) = -\sum\limits_{i=1}^n y_i \log( f(\x_i, \theta) )
-    \]
+        \loss(\param) = \sum\limits_{i=1}^n H(\y, f(\x_i, \param))
+        \]
+
+        where the cross-entropy $H$ is defined as:
+
+        \[
+        H(\y, \hat{\y}) = -\sum\limits_{i=1}^q \y_i \log( \hat{\y_i})
+        \]
   \end{column}
 \end{columns}
 
