@@ -1,4 +1,3 @@
-# practical sessions
+# Practical sessions
 
-Jupyter notebooks are to placed directly in this folder.
-
+Practical sessions material for the "Deep Learning for Image Analysis" course.
