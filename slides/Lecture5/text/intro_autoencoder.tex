@@ -23,7 +23,7 @@
 \setbeamertemplate{section in toc}[square]
 \setbeamertemplate{items}[square]
 
-\title{Autoencoders}
+\title{Introduction to Autoencoders, GANs and Adversarial Examples}
 \author{Santiago VELASCO-FORERO \\ \href{http://cmm.ensmp.fr/~velasco/}{http://cmm.ensmp.fr/~velasco/}}
 \date{MINES ParisTech\\
   PSL Research University\\
@@ -122,6 +122,9 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
   \end{tikzpicture}
 \end{figure}
 \end{frame}
+
+
+
 \begin{frame}{Autoencoders}
 Autoencoders are neural networks whose purpose is twofold.
 \begin{enumerate}
@@ -137,7 +140,7 @@ known as the \emph{latent space} (code).
 \begin{figure}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 36mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 36mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[main, fill = blue!50] (alpha) [label=below: Original ] {$\x$};
   \node[main,fill = green!50] (z) [right=of alpha,label=below:Latent Space] { $z$};
@@ -151,7 +154,7 @@ known as the \emph{latent space} (code).
 \end{frame}
 
 
-\section{Autoencoder}
+\section{Autoencoders}
 \begin{frame}{Autoencoder}
 \begin{itemize}
 \item An \emph{autoencoder} is a neural network that is trained to attempt to copy its input to its output.
@@ -168,7 +171,7 @@ where $\loss$ is a loss function, such as mean squared error.
 \begin{figure}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[main, fill = blue!50] (alpha) [label=below: Original] {$\x$};
   \node[main,fill = green!50] (z) [right=of alpha,label=below:Latent Space] { $z$};
@@ -184,7 +187,7 @@ where $\loss$ is a loss function, such as mean squared error.
 
 \begin{figure}
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
   \node[main,fill = green!50, scale=2] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
@@ -197,11 +200,11 @@ where $\loss$ is a loss function, such as mean squared error.
 
 \begin{figure}
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
+  \node[circle, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
   \node[main,fill = green!50, scale=0.5] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
-  \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
+  \node[circle,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f$};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
   \end{tikzpicture}
@@ -220,13 +223,23 @@ An autoencoder whose code dimension is less than the input dimension is called \
 %\caption{ (c)Sallow Over Complete (d)Deep Over Complete}
 %\end{figure}
 
-\subsection{Autoencoder}
+
 \begin{frame}{Dimensional reduction methods}
 When the decoder is linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA.
 \begin{figure}
 \includegraphics[width=.9\columnwidth]{../graphics/DimensionalityReduction}
 \end{figure}
 \end{frame}
+
+
+\begin{frame}
+\begin{figure}
+\includegraphics[width=.95\columnwidth]{../graphics/LatentSpaceIntuition0}
+\caption{Latent Space Intuition. Source: \texttt{https://www.jeremyjordan.me/variational-autoencoders/}}
+\end{figure}
+\end{frame}
+
+
 
 \begin{frame}{Autoencoder vs general data compression methods}
 \begin{itemize}
@@ -240,12 +253,13 @@ specific types of sounds/image.
 
 
 
-\begin{frame}{Motivation: Nonlinear dimensionality reduction}
-\begin{figure}
-\includegraphics[width=.8\columnwidth]{../graphics/ManifoldLearning}
-\caption{TODO: Manifold Learning}
-\end{figure}
-\end{frame}
+
+%\begin{frame}{Motivation: Nonlinear dimensionality reduction}
+%\begin{figure}
+%\includegraphics[width=.8\columnwidth]{../graphics/ManifoldLearning}
+%\caption{TODO: Manifold Learning}
+%\end{figure}
+%\end{frame}
 
 \subsection{Type of Autoencoder}
 \begin{frame}{Type of Autoencoders:}
@@ -265,10 +279,25 @@ specific types of sounds/image.
 \caption{Vanilla Autoencoder.  Poor initialization can lead to local minima.}
 \end{figure}
 \begin{itemize}
-\item Rumelhart, Hinton, Williams [RHW88]: Random Initialization and gradient descent shows bad performance.
-\item Bengio, Lamblin, Popovici, Larochelle [BLP+07] [PCL06]: Stacking Autoencoders and tune with gradient descent shows good performance.
+\item \cite{rumelhart1986learning}: Random Initialization and gradient descent shows bad performance.
+\item \cite{bengio2007greedy} \cite{vincent2010stacked}: Stacking Autoencoders and tune with gradient descent shows good performance.
 \end{itemize}
 \end{frame}
+
+%\begin{frame}{Autoencoder}
+%\begin{figure}
+%\begin{tikzpicture}
+%\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
+%\tikzstyle{connect}=[-latex, thick]
+%  \node[circle, fill = blue!50] (Data) [label=below: Real Data ] {$\x$};
+%  \node[main,fill = green!50, scale=1] (z) [right=of Data,label=below: $\mathbb{R}^K$] { $z$};
+%  \node[circle,fill = blue!50] (xout) [right= of z,label=below: Real Data ] {$\hat{\x}$ };
+%  \draw[thick,->] (Data) -- (z) node[midway,sloped,above] {$f$};
+%  \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
+%  \end{tikzpicture}
+%\end{figure}
+%Loss function in computing by assuming the correct prediction is the input. i.e,  $\loss(\hat{y},y)=\loss (f(g(\x)), \x)$
+%  \end{frame}
 
 
 \begin{frame}{Regularized Autoencoders}
@@ -302,40 +331,40 @@ Common implementation
 \end{frame}
 
 
-\begin{frame}{Contractive Autoencoders}
-The \emph{contractive autoencoder} introduces a regularizer on the code $h = f(\X)$, encouraging the derivatives of $f$ to be as small as possible:
-\begin{equation}
-\Omega(h)=\lambda \left \lVert \frac{\partial f(\X)}{\partial \X} \right \lVert ^2_{F}
-\end{equation}
-TODO
-\begin{figure}
-\includegraphics[width=.5\columnwidth]{../graphics/Contractive}
-\end{figure}
-\end{frame}
+%\begin{frame}{Contractive Autoencoders}
+%The \emph{contractive autoencoder} introduces a regularizer on the code $h = f(\X)$, encouraging the derivatives of $f$ to be as small as possible:
+%\begin{equation}
+%\Omega(h)=\lambda \left \lVert \frac{\partial f(\X)}{\partial \X} \right \lVert ^2_{F}
+%\end{equation}
+%%TODO
+%\begin{figure}
+%\includegraphics[width=.5\columnwidth]{../graphics/Contractive}
+%\end{figure}
+%\end{frame}
 
-\begin{frame}{Denoising Autoencoders (DAE)}
+\begin{frame}{Denoising Autoencoders (DAE)\cite{vincent2008extracting}}
 \begin{equation}
 \loss ( \X , g(f(\tilde{\X}))),
 \end{equation}
 where $\tilde{\X}$ is a corrupted copy of $\X$ by some form of noise.
-An overcomplete autoencoder with high capacity can end up learning an
-identity function where input=output.
-Add noise to
+An over-complete autoencoder with high capacity can end up learning an
+identity function where input=output. Add noise to avoid overfitting.
 
 \begin{figure}
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
+  \node[circle, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
   \node[main, fill = yellow!50] (Noise) [right=of alpha,label=below: Noise ] {$\epsilon$};
   \node[main,fill = green!50, scale=1] (z) [right=of Noise,label=below: $\mathbb{R}^K$] { $z$};
-  \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
+  \node[circle,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
   \draw[thick,->] (alpha) -- (Noise) node[midway,sloped,above] {$+$};
    \draw[thick,->] (Noise) -- (z) node[midway,sloped,above] {$f$};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
   \end{tikzpicture}
 \end{figure}
 \end{frame}
+
 
 \begin{frame}{Interpretation: Manifold Learning}
 \begin{figure}
@@ -346,7 +375,6 @@ Add noise to
 \item a corrupted example is obtained by applying a perturbation of original example
 \item The model should learn to \emph{project them back} to the manifold
 \end{itemize}
-TODO
 \end{frame}
 
 
@@ -369,15 +397,17 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \end{itemize}
 \end{frame}
 
+\subsection{Variational Autoencoder}
+
 \begin{frame}{Variational Autoencoder}
 \begin{figure}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = blue!50] (alpha) [label=below:Original] {$\x$};
+  \node[circle, fill = blue!50] (alpha) [label=below:Original] {$\x$};
   \node[main,fill = green!50] (z) [right=of alpha,label=below:Latent] { $z$};
-  \node[main,fill = blue!50] (xout) [right= of z,label=below: Decoding] {$\x$ };
+  \node[circle,fill = blue!50] (xout) [right= of z,label=below: Decoding] {$\x$ };
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$p_{\theta}(z|\x)$};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$p_{\theta}(\x|z)$};
   \end{tikzpicture}
@@ -390,17 +420,16 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \end{frame}
 
 
-\subsection{Variational Autoencoder}
 \begin{frame}{Variational Autoencoder}
 \begin{figure}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = blue!50] (alpha) [label=below:Original] {$\x$};
+  \node[circle, fill = blue!50] (alpha) [label=below:Original] {$\x$};
   \node[main,fill = yellow!50] (zsampling) [right=of alpha,label=below:Gaussian Modeling] { $\mu_{z}(\x),\sigma_{z}(\x)$};
   \node[main,fill = green!50] (z) [right=of zsampling,label=below:Latent] { $z$};
-  \node[main,fill = blue!50] (xout) [right= of z,label=below: Decoding] {$\x$ };
+  \node[circle,fill = blue!50] (xout) [right= of z,label=below: Decoding] {$\x$ };
   \draw[thick,->] (alpha) -- (zsampling) node[midway,sloped,above] {$q_{\theta}(z|\x)$};
   \draw[thick,->,dashed] (zsampling) -- (z) node[midway,sloped,above] {Sampling};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$p_{\theta}(\x|z)$};
@@ -409,9 +438,16 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \begin{itemize}
 \item Gaussian modeling (diagonal covariance matrix to avoid problems in high dimensionality)
 \item Training via maximum likelihood of $p(\x)$
-\item Learning the parameters $\theta$'s via backpropagation?
+\item Learning the parameters $\theta$s via backpropagation?
 %\item Loss function?
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[width=.95\columnwidth]{../graphics/LatentSpaceIntuition}
+\caption{Latent Space Intuition (\alert{Variational Case}). Source: \texttt{https://www.jeremyjordan.me/variational-autoencoders/}}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Training via maximum likelihood}
@@ -430,7 +466,6 @@ Assume we would like to compute the likelihood of an image $\x$ from the trainin
 
 
 \begin{frame}
-$ \texttt{TODO CHECK}$
 \begin{eqnarray*}
  \mathcal{L}(\x) \geq \mathcal{L}^{lvb}(\x) &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)}) \\
  &=& \sum_{z} q(z|\x) \log(\frac{p(\x | z) p(z)}{q(z|\x)}) \\
@@ -447,12 +482,12 @@ $ \texttt{TODO CHECK}$
 \begin{frame}{Reparametrization trick}
 Backpropagation is not possible through random sampling!
 \begin{figure}
-\begin{tikzpicture}[thick,scale=0.6, every node/.style={scale=0.6}]
-\tikzstyle{main}=[circle, minimum size = 5mm, thick, draw =black!80, node distance = 4mm]
+\begin{tikzpicture}[thick,scale=1, every node/.style={scale=1}]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 4mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = gray!50] (x) [] {$\x$};
+  \node[circle, fill = gray!50] (x) [] {$\x$};
    \node[main, fill = gray!50] (theta) [above=of x] {$\theta=[\mu,\Sigma]$};
-   \node[main, fill = blue!50] (z) [right=of theta] {$z \sim q(z|\theta,\x)$};
+   \node[main, fill = yellow!50] (z) [right=of theta] {$z \sim q(z|\theta,\x)$};
    \node[main, fill = gray!50] (f) [right=of z] {$f$};
   %\node[main,fill = yellow!50] (zsampling) [right=of alpha,label=below:Gaussian Modeling] { $\mu_{z}(\x),\sigma_{z}(\x)$};
   %\node[main,fill = green!50] (z) [right=of zsampling,label=below:Latent] { $z$};
@@ -467,12 +502,12 @@ Backpropagation is not possible through random sampling!
 \end{figure}
 \pause
 \begin{figure}
-\begin{tikzpicture}[thick,scale=0.6, every node/.style={scale=0.6}]
-\tikzstyle{main}=[circle, minimum size = 5mm, thick, draw =black!80, node distance = 4mm]
+\begin{tikzpicture}[thick,scale=1, every node/.style={scale=1}]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 4mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = gray!50] (x) [] {$\x$};
+  \node[circle, fill = gray!50] (x) [] {$\x$};
    \node[main, fill = gray!50] (theta) [above=of x] {$\theta=[\mu,\Sigma]$};
-   \node[main, fill = blue!50] (epsilon) [above=of theta] {$\epsilon \sim p(\epsilon)$};
+   \node[main, fill = yellow!50] (epsilon) [above=of theta] {$\epsilon \sim p(\epsilon)$};
    \node[main, fill = gray!50] (z) [right=of theta] {$z = g(\theta,\x,\epsilon)$};
    \node[main, fill = gray!50] (f) [right=of z] {$f$};
   %\node[main,fill = yellow!50] (zsampling) [right=of alpha,label=below:Gaussian Modeling] { $\mu_{z}(\x),\sigma_{z}(\x)$};
@@ -482,6 +517,7 @@ Backpropagation is not possible through random sampling!
   \draw[thick,->] (theta) -- (z) node[midway,sloped,above] {};
    \draw[thick,->] (epsilon) -- (z) node[midway,sloped,above] {};
   \draw[thick,->] (z) -- (f) node[midway,sloped,above] {};
+  % \draw[thick,->, draw=red!50] (z) -- (theta) node[midway,sloped,above] {$\frac{\partial \mu }{\partial z}$};
   %\draw[thick,->,dashed] (zsampling) -- (z) node[midway,sloped,above] {Sampling};
   %\draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$p_{\theta}(\x|z)$};
   \end{tikzpicture}
@@ -489,7 +525,10 @@ Backpropagation is not possible through random sampling!
 \end{figure}
 \end{frame}
 
-\section{Applications for Autoencoders}
+
+
+
+%\section{Applications for Autoencoders}
 
 \begin{frame}
 \begin{itemize}
@@ -500,6 +539,14 @@ Backpropagation is not possible through random sampling!
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Dimensionality Reduction by AE}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/VAEMNIST}
+\caption{\textbf{Left}: AE, \textbf{Center}: Only KL in VAC, \textbf{Right}: VAE}
+\end{figure}
+Source: \texttt{https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf}
+\end{frame}
 
 \begin{frame}{Example Latent Space for MNIST}
 \begin{figure}
@@ -518,29 +565,50 @@ Backpropagation is not possible through random sampling!
 
 
 
-\begin{frame}{Applications for Autoencoders}
-\begin{enumerate}
-\item Information retrieval using deep auto-encoders (semantic hashing)
-\end{enumerate}
+%\begin{frame}{Applications for Autoencoders}
+%\begin{enumerate}
+%\item Information retrieval using deep auto-encoders (semantic hashing)
+%\begin{figure}
+%\includegraphics[width=.75\columnwidth]{../graphics/LatentMNIST}
+%\end{figure}
+%\end{enumerate}
+%\end{frame}
+
+%\begin{frame}{KL-divergence between two multivariate Gaussian distributions}
+%\begin{eqnarray*}
+%KL(\mathcal{N}(\mu_0,\Sigma_0)) || \mathcal{N}(\mu_1,\Sigma_1))=\\
+% \frac{1}{2} \left ( \tr (\Sigma_1^{-1}\Sigma_0)+(\mu_1-\mu_0)^T \Sigma_1^{-1}(\mu_1-\mu_0)-k+\log \left ( \frac{\det \Sigma_1}{\det \Sigma_0}\right )\right )
+%\end{eqnarray*}
+%where $k$ is the dimensionality of the distributions.
+%\end{frame}
+
+
+\section{Generative Adversarial Networks}
+
+\begin{frame}{Unsupervised learning: Generative Models}
+Given an unlabeled dataset $(\X)$, we would like to learn:
+\alert{How to generate a new observations from the same distribution (unknown) of dataset?}
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 30mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = white!50] (alpha) [label=below: $\X$ ] {\includegraphics[width=.2\columnwidth]{../graphics/Generative1}};
+  \node[main,fill = white!50] (xout) [right= of alpha,label=below: $\mathbf{x}_{\texttt{new}}$] {\includegraphics[width=.2\columnwidth]{../graphics/Generative2}};
+  \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Generative model};
+  \end{tikzpicture}
+\end{figure}
 \end{frame}
 
-\begin{frame}{KL-divergence between two multivariate Gaussian distributions}
-\begin{eqnarray*}
-KL(\mathcal{N}(\mu_0,\Sigma_0)) || \mathcal{N}(\mu_1,\Sigma_1))=\\
- \frac{1}{2} \left ( \tr (\Sigma_1^{-1}\Sigma_0)+(\mu_1-\mu_0)^T \Sigma_1^{-1}(\mu_1-\mu_0)-k+\log \left ( \frac{\det \Sigma_1}{\det \Sigma_0}\right )\right )
-\end{eqnarray*}
-where $k$ is the dimensionality of the distributions.
-\end{frame}
-
-\begin{frame}{Generative Adversarial Networks (GANs)}
+\begin{frame}{Generative Adversarial Networks (GANs) \cite{goodfellow2014generative}}
 \begin{figure}
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[main, fill = yellow!50] (Noise) [label=below: Noise ] {$\epsilon$};
    \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(z)$] { \texttt{Generator}};
   \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Fake data] { $\hat{\x}$ };
-    \node[main, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+    \node[circle, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
    \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
   \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
   \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
@@ -550,10 +618,10 @@ where $k$ is the dimensionality of the distributions.
   \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
   \end{tikzpicture}
 \end{figure}
-\pause
-The goal is to optimize the follow expression, $\min_{G} \max _{D} V(D,G)$.
+%\pause
+%The goal is to optimize the follow expression, $\min_{G} \max _{D} V(D,G)$.
 %for a given loss function $\loss(\cdot,\cdot)$.\\ 
-\alert{We are looking the best generator for the best discriminator}.
+%\alert{We are looking the best generator for the best discriminator}.
 \end{frame}
 
 \begin{frame}{Generative Adversarial Networks (GANs)}
@@ -567,7 +635,8 @@ Additionally, we would like to tricking the discriminator via a good generator $
 \end{equation*}
 \end{frame}
 
-\begin{frame}{Optimal Discriminator? Optimal Generator?}
+\begin{frame}{Generative Adversarial Networks (GANs)}
+Questions: Optimal Discriminator? Optimal Generator?
 We define:
 \begin{equation*}
 V(G,D):= \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)] + \mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]
@@ -580,32 +649,236 @@ Now, given this optimal discriminator $D^*$, what should be an optimal generator
 \begin{equation*}
 G^* = \argmin_{G} V(G,D^*)
 \end{equation*}
-Minimax Game \cite{}
+This is called the \emph{minimax formulation}, since the generator and discriminator are playing a \emph{zero-sum game} against each other:
+\begin{equation}
+\min_{G} \max _{D} V(D,G)
+\end{equation}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Generative Adversarial Networks (GANs)}
 \begin{eqnarray*}
 && \min_{G} \max _{D} V(D,G) := \\
 &= &\mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]  \\
 &&\texttt{by Radon-Nikodym Theorem} \\
 &=& \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{\alert{{g}(\x)}}}[ \log (1-\alert{D(x)})]  
 \end{eqnarray*}
-An optimal generator should give $P_{g(\x)}=P_{\texttt{real}}(\x)$, and in this case:
-
-
-\begin{equation}
-\end{equation}
+An optimal generator $G^{*}$ should give $P_{g(\x)}=P_{\texttt{real}}(\x)$. \\
+Now, given a generator $G$, we can compute the optimal discriminator by:
+\begin{eqnarray*}
+\frac{\partial V(G,D)(\x)}{\partial D(\x)} &=& P_{\texttt{real}}(\x)\frac{1}{D(\x)} + P_{g}(\x)\frac{1}{1-D(\x)} \\
+&=& \frac{P_{\texttt{real}}(\x)-(P_{\texttt{real}}(\x)+P_{\texttt{g}}(\x)) D(\x)}{D(\x)(1-D(\x))}
+\end{eqnarray*}
+Setting $\frac{\partial V(G,D)(\x)}{\partial D(\x)}=0$, we obtain $D^{*}(\x)=\frac{P_{\texttt{real}}(\x)}{P_{\texttt{real}(\x)+P_{g}(\x)}}$
 \end{frame}
 
-\begin{frame}{Adversarial Example}
-%For adversaries, an ideal adversarial attack is to construct a perturbed input $\x_{adv}$ with minimal distance to $\x$ to fool the DNN
-%model, and yet its human user would still visually consider the adversarial input $\x_{adv}$ similar to or the same as the benign input $x$.
-Given a benign sample $\x$, an adversarial example $\x_{adv}$ is generated by adding a small perturbation to $\x$ (i.e. $\x_{adv}=\x+\epsilon$), so that $\x_{adv}$ is misclassified by the targeted classifier $g$.
+\begin{frame}{Global Optimal on Generative Adversarial Networks (GANs)}
+\begin{eqnarray*}
+V(G,D)= \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{{g}(\x)}}[ \log (1-D(\x))] \\
+= \int_{\x} P_{\texttt{real}}(\x) \log D(\x) + P_{g(\x)}  \log (1-D(\x))  d\x 
+\end{eqnarray*}
+We are interested in compute
+$V(G^{*},D^{*})= \pause \alert{2 \log (1/2)}$
+\end{frame}
 
-Formal definition:
-(Adversarial example (Wang et al., 2016)). Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x_{adv}$ an adversarial example 
-if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x_{adv})$ and $||\x - \x_{adv}|| \leq \delta$.
-This is, $\x_{adv}$ could be called a \emph{counter example}.
+
+\begin{frame}{Training GANs: Training the Discriminator:}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = white!50] (Noise) [label=below: Noise ] {$\epsilon$};
+   \node[main,fill = white!50, scale=1] (Generator) [right=of Noise, label=below: $G(z)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Fake data] { $\hat{\x}$ };
+    \node[circle, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+   \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$z$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {$P_z(z)$};
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+  \caption{Only Discriminator should be updated}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Training GANs: Training the Generator}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = yellow!50] (Noise) [label=below: Noise ] {$\epsilon$};
+   \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(z)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Fake data] { $\hat{\x}$ };
+    \node[circle, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+   \node[main, fill = white!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$z$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {$P_z(z)$};
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+  \caption{Discriminator should be set to "non-trainable" weights}
+
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{How to Train a GAN?)}
+\alert{Bad news: GANs are hard to train}.
+\textbf{ Tips and tricks to make GANs work}
+\url{https://github.com/soumith/ganhacks}
+\begin{itemize}
+\item Use others loss functions.
+\item Avoid Sparse Gradients: ReLU, MaxPool
+\item Use Deep Convolutional Generative Adversarial Networks when you can. It works!
+\item Use SGD for discriminator and ADAM for generator
+\item Use Dropouts in G in both train and test phase
+\item ...
+\end{itemize}
+\alert{``In theory, there is no difference between theory and practice. In practice, there is."}
+\end{frame}
+
+\begin{frame}{High-resolution GANs}
+Progressive Growing of GANs for Improved Quality, Stability, and Variation \cite{karras2017progressive}
+\url{https://www.youtube.com/watch?v=G06dEcZ-QTg}
+\end{frame}
+
+\begin{frame}{Applications of GANs: Earn money!}\pause
+23-25 Oct, 2018:  Auction house "Christies" sold a portrait for 432,000 dollars that had been generated by a GANs
+ \begin{figure}
+\includegraphics[width=.95\columnwidth]{../graphics/Christie}
+\end{figure}
+\end{frame}
+
+\begin{frame}{GANs to improve simulations}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = yellow!50] (Noise) [label=below: Simulation ] {$\mathbf{z}_{sim}$};
+   \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(z)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Improved data] { $\hat{\x}$ };
+    \node[circle, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+   \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$z$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {$P_z(z)$};
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+  \caption{In this case, \texttt{Generator} is called \texttt{Refiner}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Application: Refine simulations}
+ \begin{figure}
+\includegraphics[width=.95\columnwidth]{../graphics/Refiner}
+\caption{Learning from Simulated and Unsupervised Images through Adversarial Training \cite{shrivastava2017learning}}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Conditional Generative Adversarial Networks (cGANs)}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[main, fill = yellow!50] (Noise) [label=below: Noise ] {$\epsilon$};
+  \node[main, fill = blue!50] (Label) [below=of Noise, label=below: Label ] {$y$};
+   \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(z/y)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Fake data] { $\hat{\x}$ };
+    \node[circle, fill = blue!50] (Data) [above=of Fake,label=below: $\mathbb{R}^\nfeatures$ ] {Real data $\x$};
+   \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{real}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$z$};
+   \draw[thick,->] (Label) -- (Generator) node[midway,sloped,above] {$y$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {};%$P_{z/y}(z/y)$
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Example: cGANs}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/FACEAGING}
+\caption{Face aging with conditional generative adversarial networks} \cite{antipov2017face}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Pix2Pix transformation}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/PixtoPix}
+\caption{Example of Pix2Pix, a.k.a. image-to-image translation, \cite{isola2017image}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{GANs for Pix2Pix}
+\begin{figure}
+\begin{tikzpicture}
+\tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+  \node[circle, fill = blue!50] (Noise) {$\mathbf{y}_i$};
+   \node[main,fill = green!50, scale=1] (Generator) [right=of Noise, label=below: $G(y)$] { \texttt{Generator}};
+  \node[main,fill = green!50] (Fake) [right= of Generator,label=below: Translated data] { $\hat{\mathbf{y}}_i$ };
+    \node[circle, fill = blue!50] (Data) [above=of Fake ] {$\x_i$};
+   \node[main, fill = red!50] (Discriminator) [right=of Fake,label=below: $D(\x)$ ] {Discriminator};
+  \node(Output) [text width=1cm] [right=of Discriminator]{1 real 0 fake};
+  \draw[thick,->] (Data) -- (Discriminator) node[midway,sloped,above] {$P_{\texttt{1}}(\x)$};
+   \draw[thick,->] (Noise) -- (Generator) node[midway,sloped,above] {$y$};
+  \draw[thick,->] (Generator) -- (Fake) node[midway,sloped,above] {};
+  \draw[thick,->] (Fake) -- (Discriminator) node[midway,sloped,above] {$$};
+  \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
+  \end{tikzpicture}
+  \caption{Training data are pairs of image: $(\x_i,\mathbf{y}_i)$ for $i \in 1,\ldots,\nsize$. In this case, \texttt{Generator} is called \texttt{Translator}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Target Domain Transformation}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/PairUnPair}
+\caption{ \emph{Left}:  Image to Image translation, \emph{Right}: Source to Target domain transform}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Cycle-Consistent Adversarial Networks}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/DomainTransformation}
+\caption{Unpaired image-to-image translation \cite{zhu2017unpaired}}
+\end{figure}
+%https://github.com/LynnHo/CycleGAN-Tensorflow-PyTorch
+\end{frame}
+
+\begin{frame}{Cycle-Consistent Adversarial Networks}
+We have to train two GANs for Pix2Pix transform:
+\begin{itemize}
+\item First: GANs to translate data from domain one $\X_1$ to domain two represented by $\X_2$, denoted by $V(G_1,D_1,\X_1,\X_2)$
+\item Second: GANs to translate data from domain one $\X_2$ to domain two represented by $\X_1$, denoted by $V(G_2,D_2,\X_2,\X_1)$
+\pause
+\item Include: a Cycle consistency loss $V_{cyc}$ to force that the composition of two \texttt{Generators} to reconstruct input image, i.e $G_1(G_2(\X_2))\approx\X_2$ and  $G_2(G_1(\X_1))\approx\X_1$ 
+\end{itemize}
+In general the full objective is:
+\begin{eqnarray*}
+\loss(G_1,G_2,D_1,D_2)=V(G_1,D_1,\X_1,\X_2)+V(G_2,D_2,\X_2,\X_1)\\
++\lambda V_{cyc}(G_1,G_2)
+\end{eqnarray*}
+\end{frame}
+
+\section{Adversarial Examples}
+\begin{frame}{Adversarial Examples \cite{Adversarial}}
+%For adversaries, an ideal adversarial attack is to construct a perturbed input $\x^{adv}$ with minimal distance to $\x$ to fool the DNN
+%model, and yet its human user would still visually consider the adversarial input $\x^{adv}$ similar to or the same as the benign input $x$.
+%Given a benign sample $\x$, an adversarial example $\x^{adv}$ is generated by adding a small perturbation to $\x$ (i.e. $\x^{adv}=\x+\epsilon$), so that $\x^{adv}$ is misclassified by the targeted classifier $g$.
+\begin{itemize}
+\item Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example 
+if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x^{adv})$ and $||\x - \x^{adv}|| \leq \delta$.
+\item An human user would still visually consider the adversarial input $\x^{adv}$ similar to or the same as the benign input $x$
+\item Usually, we are interested in adversarial for benign sample $\x$, i.e., sample were the model gives a correct predictions.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -613,15 +886,22 @@ This is, $\x_{adv}$ could be called a \emph{counter example}.
 \includegraphics[width=.285\columnwidth]{../graphics/Adversarial0} \textbf{+}
 \includegraphics[width=.285\columnwidth]{../graphics/Noise} \textbf{=}  
 \includegraphics[width=.285\columnwidth]{../graphics/Adversarial2}
-\caption{$\x$ + $\epsilon$ =  $\x_{adv}$}
+\caption{$\x$ + $\epsilon$ =  $\x^{adv}$}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=.45\columnwidth]{../graphics/ClassX} 
 \includegraphics[width=.45\columnwidth]{../graphics/ClassXadv} 
-\caption{Prediction for: $\x$ and $\x_{adv}$}
+\caption{VGG19 Prediction for: $\x$ and $\x^{adv}$}
 \end{figure}
 \end{frame}
+
+%\begin{frame}
+%Formal definition:
+%(Adversarial example (Wang et al., 2016)). Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example 
+%if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x^{adv})$ and $||\x - \x^{adv}|| \leq \delta$.
+%This is, $\x^{adv}$ could be called a \emph{counter example}.
+%\end{frame}
 
 %\begin{frame}
 %\begin{figure}
@@ -637,42 +917,79 @@ This is, $\x_{adv}$ could be called a \emph{counter example}.
 %From Explaining and Harnessing Adversarial Examples by Goodfellow et al.
 %\end{frame}
 
-\begin{frame}{Adversarial Examples}
-\textbf{Fast Gradient Sign Method}
+\begin{frame}{Gradient based Methods}
+\begin{itemize}
+\item Fast Gradient Sign Method \cite{Adversarial}
 Their perturbation can be expressed as
 \begin{equation}
-\eta =\epsilon sign(\nabla_{\x} J_{\param} (\x,\loss))
+\eta =\epsilon \cdot sign(\nabla_{\x} \loss (\x,y_{\texttt{true}}))
 \end{equation}
 where $\epsilon$ is the magnitude of the perturbation.
-The generated adversarial example $\x'$ is calculated as $\x'=\x+\eta$.
+The generated adversarial example $\x^{adv}$ is calculated as $\x^{adv}=\x+\eta$.\\
 This perturbation can be computed by using back-propagation.
+\item Iterative Gradient Sign Method \cite{kurakin2016adversarial}
+$\x_{0}^{adv}=\x$, iteratively repeat $\x_{t+1}^{adv}=\texttt{CLIP} (\x_{t}^{adv} + \epsilon \cdot sign(\nabla_{\x_{t}^{adv}} \loss (\x_{t}^{adv},y_{\texttt{true}}))$)
+\end{itemize}
+\pause
+\alert{To avoid overfitting! and obtain more robust model.... Adversarial Training = Data Augmentation with adversarial examples}
 \end{frame}
+
+%\begin{frame}{Iterative Gradient Sign Method \cite{kurakin2016adversarial}}
+%$\x_{0}^{adv}=\x$, iteratively repeat $\x_{t+1}^{adv}=\texttt{CLIP} (\x_{t}^{adv} + \epsilon \cdot sign(\nabla_{\x_{t}^{adv}} \loss (\x_{t}^{adv},y_{\texttt{true}}))$)
+%\end{frame}
 
 \begin{frame}{Universal Perturbation}
 \begin{figure}
-\includegraphics[width=.55\columnwidth]{../graphics/UniversalPerturbation}
-\caption{ ?Universal adversarial perturbations}
+\includegraphics[width=.45\columnwidth]{../graphics/UniversalPerturbation}
+\caption{Universal adversarial perturbations \cite{moosavi2017universal}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{White box Attacks}
+\begin{figure}
+\includegraphics[width=.95\columnwidth]{../graphics/WhiteBoxAttack}
+\caption{White Box Attacks \cite{akhtar2018threat}}
 \end{figure}
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{References}
-\begin{frame}
-\begin{itemize}
-\item Tutorial on Variational Autoencoders,CARL DOERSCH
-\item http://jmlr.csail.mit.edu/papers/volume15/alain14a/alain14a.pdf
-\item http://web.stanford.edu/class/cs294a/sae/sparseAutoencoderNotes.pdf
-\item Contractive Auto-Encoders: Explicit Invariance During Feature Extraction.
-Salah Rifai, Pascal Vincent, Xavier Muller, Xavier Glorot et Yoshua Bengio, 2011.
-%https://arxiv.org/pdf/1606.05908.pdf
-\end{itemize}
+\begin{frame}{Job Offers: Master Internships}
+\begin{enumerate}
+\item Cycle-Consistent Adversarial Networks for Biological Images (Mines + L'Oreal)
+\begin{figure}
+\includegraphics[width=.55\columnwidth]{../graphics/Stage1}
+\end{figure}
+\item Learning to Count by Deep Learning for Biological Images (Mines + LOreal)
+\begin{figure}
+\includegraphics[width=.55\columnwidth]{../graphics/Stage2}
+\end{figure}
+\end{enumerate}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Job Offers: Master Internships}
+\begin{enumerate}
+\item Deep Detection with temporal information on Material Science (Mines + Safran)
+\begin{figure}
+\includegraphics[width=.55\columnwidth]{../graphics/Stage3}
+\end{figure}
+\item Unsupervised Deep Learning Model for Manifold Data (PostDoc), Mines+Thales)
+\begin{figure}
+\includegraphics[width=.55\columnwidth]{../graphics/Stage4}
+\caption{Image from: \texttt{Latent Space Oddity: On the Curvature of Deep Generative Models}}
+\end{figure}
+\end{enumerate}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliography{slides_deep.bib}
+\end{frame}
 
 \end{document}
