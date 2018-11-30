@@ -170,6 +170,13 @@
 	pages = {311--326}
 }
 
+@inproceedings{zhang_application_2011,
+	title = {Application of the {Morphological} {Ultimate} {Opening} to the {Detection} of {Microaneurysms} on {Eye} {Fundus} {Images} from {Clinical} {Databases}},
+	booktitle = {{ICS}'13},
+	author = {zhang, xiwei and thibault, guillaume and decenciere, etienne},
+	year = {2011}
+}
+
 @article{levoy_efficient_1990,
 	title = {Efficient {Ray} {Tracing} of {Volume} {Data}},
 	volume = {9},
@@ -1260,4 +1267,62 @@
 	year = {2015},
 	note = {arXiv: 1512.00567},
 	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{zhang_exudate_2014,
+	title = {Exudate detection in color retinal images for mass screening of diabetic retinopathy},
+	volume = {18},
+	issn = {1361-8415},
+	url = {http://www.sciencedirect.com/science/article/pii/S1361841514000693},
+	doi = {10.1016/j.media.2014.05.004},
+	abstract = {The automatic detection of exudates in color eye fundus images is an important task in applications such as diabetic retinopathy screening. The presented work has been undertaken in the framework of the TeleOphta project, whose main objective is to automatically detect normal exams in a tele-ophthalmology network, thus reducing the burden on the readers. A new clinical database, e-ophtha EX, containing precisely manually contoured exudates, is introduced. As opposed to previously available databases, e-ophtha EX is very heterogeneous. It contains images gathered within the OPHDIAT telemedicine network for diabetic retinopathy screening. Image definition, quality, as well as patients condition or the retinograph used for the acquisition, for example, are subject to important changes between different examinations. The proposed exudate detection method has been designed for this complex situation. We propose new preprocessing methods, which perform not only normalization and denoising tasks, but also detect reflections and artifacts in the image. A new candidates segmentation method, based on mathematical morphology, is proposed. These candidates are characterized using classical features, but also novel contextual features. Finally, a random forest algorithm is used to detect the exudates among the candidates. The method has been validated on the e-ophtha EX database, obtaining an AUC of 0.95. It has been also validated on other databases, obtaining an AUC between 0.93 and 0.95, outperforming state-of-the-art methods.},
+	number = {7},
+	urldate = {2018-11-18},
+	journal = {Medical Image Analysis},
+	author = {Zhang, Xiwei and Thibault, Guillaume and Decencière, Etienne and Marcotegui, Beatriz and Laÿ, Bruno and Danno, Ronan and Cazuguel, Guy and Quellec, Gwénolé and Lamard, Mathieu and Massin, Pascale and Chabouis, Agnès and Victor, Zeynep and Erginay, Ali},
+	month = oct,
+	year = {2014},
+	keywords = {Exudates segmentation, Diabetic retinopathy screening, e-Ophtha EX database, Mathematical morphology},
+	pages = {1026--1043}
+}
+
+@article{luc_semantic_2016,
+	title = {Semantic {Segmentation} using {Adversarial} {Networks}},
+	url = {http://arxiv.org/abs/1611.08408},
+	abstract = {Adversarial training has been shown to produce state of the art results for generative image modeling. In this paper we propose an adversarial training approach to train semantic segmentation models. We train a convolutional semantic segmentation network along with an adversarial network that discriminates segmentation maps coming either from the ground truth or from the segmentation network. The motivation for our approach is that it can detect and correct higher-order inconsistencies between ground truth segmentation maps and the ones produced by the segmentation net. Our experiments show that our adversarial training approach leads to improved accuracy on the Stanford Background and PASCAL VOC 2012 datasets.},
+	urldate = {2018-11-18},
+	journal = {arXiv:1611.08408 [cs]},
+	author = {Luc, Pauline and Couprie, Camille and Chintala, Soumith and Verbeek, Jakob},
+	month = nov,
+	year = {2016},
+	note = {arXiv: 1611.08408},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{lerme_fully_2016,
+	series = {Special {Issue} on {ICPR} 2014 {Awarded} {Papers}},
+	title = {A fully automatic method for segmenting retinal artery walls in adaptive optics images},
+	volume = {72},
+	issn = {0167-8655},
+	url = {http://www.sciencedirect.com/science/article/pii/S0167865515003621},
+	doi = {10.1016/j.patrec.2015.10.011},
+	abstract = {Adaptive optics imaging of the retina has recently proven its capability to image micrometric structures such as blood vessels, involved in common ocular diseases. In this paper, we propose an approach for automatically segmenting the walls of retinal arteries in the images acquired with this technology. The walls are modeled as four curves approximately parallel to a previously detected reference line located near the vessel center (axial reflection). These curves are first initialized using a tracking procedure and then more accurately positioned using an active contour model embedding a parallelism constraint. We consider both healthy and pathological subjects in the same framework and show that the proposed method applies in all cases. Extensive experiments are also proposed, by analyzing the robustness of the axial reflections detection, the influence of the tracking parameters as well as the performance of the tracking and the active contour model. Noticeably, the results show a good robustness for detecting axial reflections and a moderate influence of the tracking parameters. Compared to a naive initialization, the active contour model coupled with the tracking also offers faster convergence and better accuracy while keeping an overall error smaller or very near the inter-physicians error.},
+	urldate = {2018-11-27},
+	journal = {Pattern Recognition Letters},
+	author = {Lermé, Nicolas and Rossant, Florence and Bloch, Isabelle and Paques, Michel and Koch, Edouard and Benesty, Jonathan},
+	month = mar,
+	year = {2016},
+	keywords = {Mathematical morphology, Active contour model, Adaptive optics, Retina imaging},
+	pages = {72--81}
+}
+
+@incollection{goodfellow_generative_2014,
+	title = {Generative {Adversarial} {Nets}},
+	url = {http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf},
+	urldate = {2018-11-30},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems} 27},
+	publisher = {Curran Associates, Inc.},
+	author = {Goodfellow, Ian and Pouget-Abadie, Jean and Mirza, Mehdi and Xu, Bing and Warde-Farley, David and Ozair, Sherjil and Courville, Aaron and Bengio, Yoshua},
+	year = {2014},
+	pages = {2672--2680}
 }

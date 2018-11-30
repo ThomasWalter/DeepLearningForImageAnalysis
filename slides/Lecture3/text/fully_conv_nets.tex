@@ -6,13 +6,13 @@
 
 \AtBeginSection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsection, hideothersubsections]
+    \tableofcontents[currentsection, hideothersubsections]
   \end{frame}
 }
 
 \AtBeginSubsection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+    \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
   \end{frame}
 }
 
@@ -27,7 +27,7 @@
 \setbeamerfont{framesource}{size=\tiny}
 \newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
     \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
-        \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
     \end{beamercolorbox}
 \end{textblock*}}
 
@@ -50,8 +50,8 @@
 \frame{\titlepage}
 
 \frame{
-\frametitle{Contents}
-\tableofcontents[hidesubsections]
+  \frametitle{Contents}
+  \tableofcontents[hidesubsections]
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,29 +62,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Recall from yesterday: image classification with NN}
 
-\begin{columns}
+  \begin{columns}
 
-  \begin{column}{.5\textwidth}
-    \begin{figure}[ht]
-      \centering
-      \includegraphics[width=\textwidth]{network.png}\\
-       Simple fully-connected neural network
-    \end{figure}
-  \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{network.png}\\
+        Simple fully-connected neural network
+      \end{figure}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
-    The cross-entropy loss function used for classification tasks:
-    \[
-        \loss(\param) = \sum\limits_{i=1}^n H(\y, f(\x_i, \param))
-        \]
+    \begin{column}{.5\textwidth}
+      The cross-entropy loss function used for classification tasks:
+      \[
+      \loss(\param) = \sum\limits_{i=1}^n H(\y, f(\x_i, \param))
+      \]
 
-        where the cross-entropy $H$ is defined as:
+      where the cross-entropy $H$ is defined as:
 
-        \[
-        H(\y, \hat{\y}) = -\sum\limits_{i=1}^q \y_i \log( \hat{\y_i})
-        \]
-  \end{column}
-\end{columns}
+      \[
+      H(\y, \hat{\y}) = -\sum\limits_{i=1}^q \y_i \log( \hat{\y_i})
+      \]
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
@@ -102,26 +102,26 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Image definition}
+  \frametitle{Image definition}
 
-\begin{block}{Definition: image}
-  An 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
-\[
-[0, \ldots p-1] \times [0, \ldots q-1] \longmapsto \R^d~~~ (d \in \N^*)
-\]
+  \begin{block}{Definition: image}
+    An 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
+    \[
+      [0, \ldots p-1] \times [0, \ldots q-1] \longmapsto \R^d~~~ (d \in \N^*)
+      \]
 
-  The set of these images is $\mathcal{I}^d$.
-\end{block}
+      The set of these images is $\mathcal{I}^d$.
+  \end{block}
 
-\begin{block}{Examples}
-  \begin{figure}
-  \hfill
-  \includegraphics[width=2cm]{mnist_example_5}
-  \hfill
-  \includegraphics[width=4cm]{berkeley_db_33066.jpg}
-  \caption{$28 \times 28$ grey level image $(d=1)$ from the MNIST data set, and $481 \times 321$ colour image $(d=3)$ from the Berkeley segmentation data set.}
-\end{figure}
-\end{block}
+  \begin{block}{Examples}
+    \begin{figure}
+      \hfill
+      \includegraphics[width=2cm]{mnist_example_5}
+      \hfill
+      \includegraphics[width=4cm]{berkeley_db_33066.jpg}
+      \caption{$28 \times 28$ grey level image $(d=1)$ from the MNIST data set, and $481 \times 321$ colour image $(d=3)$ from the Berkeley segmentation data set.}
+    \end{figure}
+  \end{block}
 
 
 }
@@ -129,116 +129,116 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Image-to-image NN}
+  \frametitle{Image-to-image NN}
 
-\begin{block}{Definition: image-to-image neural network}
-  An image-to-image NN $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
-  \vspace{-1em}
-  \begin{align*}
-    F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
-    & I               \longmapsto     F(I)
-  \end{align*}
-  Note that the dimensions $d_1$ and $d_2$ of the value spaces can be different.
-\end{block}
+  \begin{block}{Definition: image-to-image neural network}
+    An image-to-image NN $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
+    \vspace{-1em}
+    \begin{align*}
+      F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
+      & I               \longmapsto     F(I)
+    \end{align*}
+    Note that the dimensions $d_1$ and $d_2$ of the value spaces can be different.
+  \end{block}
 
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Examples}
+  \frametitle{Examples}
 
-\begin{block}{Bulge / disk decomposition}
-  \begin{figure}
-    \includegraphics[width=8cm]{decomposition.png}\\
-    \hfill {\tiny (Credits: Tuccillo, Huertas-Company, Velasco-Forero, Decencière)}
-\end{figure}
-\end{block}
+  \begin{block}{Bulge / disk decomposition}
+    \begin{figure}
+      \includegraphics[width=8cm]{decomposition.png}\\
+      \hfill {\tiny (Credits: Tuccillo, Huertas-Company, Velasco-Forero, Decencière)}
+    \end{figure}
+  \end{block}
 
-\pause
+  \pause
 
-\begin{block}{Deblurring network \cite{hradis_convolutional_2015}}
-  \begin{figure}
-  \includegraphics[width=4cm]{deblurring_hradis.png}
-\end{figure}
-\end{block}
+  \begin{block}{Deblurring network \cite{hradis_convolutional_2015}}
+    \begin{figure}
+      \includegraphics[width=4cm]{deblurring_hradis.png}
+    \end{figure}
+  \end{block}
 
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Image Segmentation with NNs}
+  \frametitle{Image Segmentation with NNs}
 
-\begin{itemize}
+  \begin{itemize}
 
-\item Image segmentation often is an important step in an image processing work flow
+  \item Image segmentation often is an important step in an image processing work flow
 
-\item Image segmentation has been a very active deep learning research field
+  \item Image segmentation has been a very active deep learning research field
 
-\end{itemize}
+  \end{itemize}
 
 
-\begin{block}{Image segmentation example}
-  \begin{figure}
-    \centering
-    \includegraphics[height=2.5cm]{pascal_moto}
-    \hspace{1em}
-    \includegraphics[height=2.5cm]{pascal_moto_seg}\\
-    \source{Pascal VOC database}
-  \end{figure}
-\end{block}
+  \begin{block}{Image segmentation example}
+    \begin{figure}
+      \centering
+      \includegraphics[height=2.5cm]{pascal_moto}
+      \hspace{1em}
+      \includegraphics[height=2.5cm]{pascal_moto_seg}\\
+      \source{Pascal VOC database}
+    \end{figure}
+  \end{block}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Other applications}
 
-\begin{itemize}
-\item Image filtering
-\item High dynamic range
-\item Style modification
-\item Super-resolution (image size increases)
-\item Motion estimation
-\end{itemize}
+  \begin{itemize}
+  \item Image filtering
+  \item High dynamic range
+  \item Style modification
+  \item Super-resolution (image size increases)
+  \item Motion estimation
+  \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Image-to-image NNs architecture}
+  \frametitle{Image-to-image NNs architecture}
 
-\begin{itemize}
+  \begin{itemize}
 
-\item Image-to-image NNs are based on convolutional layers
-\item If downsampling is used, the corresponding upsampling is needed
+  \item Image-to-image NNs are based on convolutional layers
+  \item If downsampling is used, the corresponding upsampling is needed
 
-\end{itemize}
+  \end{itemize}
 
-\pause
+  \pause
 
-\begin{block}{Example: plain CNN \cite{pang_cell_2010}}
-  \begin{figure}
-    \includegraphics[width=\textwidth]{plain_convnet.png}
-  \end{figure}
-\end{block}
+  \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Receptive field}
+  \frametitle{Receptive field}
 
-\begin{block}{Definition: links between neurons}
-  In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
-\end{block}
+  \begin{block}{Definition: links between neurons}
+    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
+  \end{block}
 
 
-\begin{block}{Definition}
-  The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
+  \begin{block}{Definition}
+    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
 
-  The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
-\end{block}
+    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
+  \end{block}
 
 }
 
@@ -250,48 +250,48 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Example}
+  \frametitle{Example}
 
-\begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-  \begin{figure}
-    \includegraphics[width=\textwidth]{plain_convnet.png}
-  \end{figure}
-\end{block}
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
 
-\vspace{1em}
+  \vspace{1em}
 
-\pause
+  \pause
 
-\centering
-Answer: $1 + 2 \times (n+1)$
+  \centering
+  Answer: $1 + 2 \times (n+1)$
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{The specific case of image segmentation}
+  \frametitle{The specific case of image segmentation}
 
-\begin{block}{Definition: image segmentation}
-  Let $I$ be an image defined on $D$. A segmentation of $I$ is a partition of $D$. In practice the regions of the segmentation should correspond to the objects in $I$, which is application dependant.
-\end{block}
+  \begin{block}{Definition: image segmentation}
+    Let $I$ be an image defined on $D$. A segmentation of $I$ is a partition of $D$. In practice the regions of the segmentation should correspond to the objects in $I$, which is application dependant.
+  \end{block}
 
 
-\begin{itemize}
+  \begin{itemize}
 
-\item A partition is often represented as a labelled image
+  \item A partition is often represented as a labelled image
 
-\item In order to make the segments symmetric, each one is represented by a different channel
+  \item In order to make the segments symmetric, each one is represented by a different channel
 
-\end{itemize}
+  \end{itemize}
 
-\begin{block}{Image segmentation example}
-  \begin{figure}
-    \centering
-    \includegraphics[height=2.5cm]{pascal_moto}
-    \hspace{1em}
-    \includegraphics[height=2.5cm]{pascal_moto_seg}\\
-    \source{Pascal VOC database}
-  \end{figure}
-\end{block}
+  \begin{block}{Image segmentation example}
+    \begin{figure}
+      \centering
+      \includegraphics[height=2.5cm]{pascal_moto}
+      \hspace{1em}
+      \includegraphics[height=2.5cm]{pascal_moto_seg}\\
+      \source{Pascal VOC database}
+    \end{figure}
+  \end{block}
 
 
 }
@@ -300,16 +300,16 @@ Answer: $1 + 2 \times (n+1)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Some vocabulary on segmentation}
+  \frametitle{Some vocabulary on segmentation}
 
-\begin{itemize}
+  \begin{itemize}
 
-\item \textbf{Object detection / localization}: bounding box around the object(s).
-\item \textbf{Binary segmentation}: segmentation in 2 classes, background and object.
-\item \textbf{Semantic segmentation}: a label is given to each pixel, according to the object it belongs to.
-\item \textbf{Instance segmentation}: identify each separate object, even if they belong to the same class.
+  \item \textbf{Object detection / localization}: bounding box around the object(s).
+  \item \textbf{Binary segmentation}: segmentation in 2 classes, background and object.
+  \item \textbf{Semantic segmentation}: a label is given to each pixel, according to the object it belongs to.
+  \item \textbf{Instance segmentation}: identify each separate object, even if they belong to the same class.
 
-\end{itemize}
+  \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -387,39 +387,39 @@ Answer: $1 + 2 \times (n+1)$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
+  \frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
 
-\begin{figure}
-\includegraphics[height=7cm]{unet}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=7cm]{unet}
+  \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
+  \frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
 
-\begin{columns}
-  \begin{column}{.3\textwidth}
-\begin{figure}
-\includegraphics[width=\textwidth]{unet}
-\end{figure}
+  \begin{columns}
+    \begin{column}{.3\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{unet}
+      \end{figure}
 
-  \end{column}
+    \end{column}
 
-  \begin{column}{.7\textwidth}
+    \begin{column}{.7\textwidth}
 
-    \begin{itemize}
-\item Activation of the last layer: soft-max
-\item Other activations: ReLU
-\item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
-  \[
-  L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
-  \]
-\end{itemize}
+      \begin{itemize}
+      \item Activation of the last layer: soft-max
+      \item Other activations: ReLU
+      \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
+        \[
+        L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
+        \]
+      \end{itemize}
 
-  \end{column}
-\end{columns}
+    \end{column}
+  \end{columns}
 
 }
 
@@ -442,11 +442,11 @@ Answer: $1 + 2 \times (n+1)$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
+  \frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
 
-\begin{figure}
-\includegraphics[width=9cm]{segnet_archi}
-\end{figure}
+  \begin{figure}
+    \includegraphics[width=9cm]{segnet_archi}
+  \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -460,10 +460,10 @@ Answer: $1 + 2 \times (n+1)$
   \item For many segmentation applications, they are overkill
     \begin{itemize}
     \item But you can reduce the number of filters or the number of layers
-      \end{itemize}
+    \end{itemize}
   \end{itemize}
 
-  }
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -473,18 +473,18 @@ Answer: $1 + 2 \times (n+1)$
 \frame{
   \frametitle{COCO: common objects in context \cite{lin_microsoft_2014}}
 
-\begin{itemize}
+  \begin{itemize}
   \item $2$ million objects, from $80$ categories, in $300\,000$ images
-\end{itemize}
+  \end{itemize}
 
 
-\begin{figure}
-\includegraphics[height=3.4cm]{coco_ex_horses}
-\includegraphics[height=3.4cm]{coco_ex_salle_de_bain}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3.4cm]{coco_ex_horses}
+    \includegraphics[height=3.4cm]{coco_ex_salle_de_bain}
+  \end{figure}
 
-\begin{block}{}
-Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft) \cite{li_fully_2016}
+  \begin{block}{}
+    Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft) \cite{li_fully_2016}
   \end{block}
 
 }
@@ -492,16 +492,16 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{COCO instance segmentation challenge: examples of 2016 winner results}
+  \frametitle{COCO instance segmentation challenge: examples of 2016 winner results}
 
-\begin{figure}
-  \includegraphics[width=4.5cm]{COCO_test2015_000000003241.png}
-  \hspace{1cm}
-\includegraphics[width=4.5cm]{COCO_test2015_000000004178.png}\\
-\includegraphics[width=4.5cm]{COCO_test2015_000000006147.png}
-\hspace{1cm}
-\includegraphics[width=4.5cm]{COCO_test2015_000000016177.png}
-\end{figure}
+  \begin{figure}
+    \includegraphics[width=4.5cm]{COCO_test2015_000000003241.png}
+    \hspace{1cm}
+    \includegraphics[width=4.5cm]{COCO_test2015_000000004178.png}\\
+    \includegraphics[width=4.5cm]{COCO_test2015_000000006147.png}
+    \hspace{1cm}
+    \includegraphics[width=4.5cm]{COCO_test2015_000000016177.png}
+  \end{figure}
 
 }
 
@@ -522,22 +522,22 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
     \includegraphics[width=9cm]{mask_r_cnn_examples.png}
   \end{figure}
 
-  }
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Partially supervised segmentation - \cite{hu_learning_2017}}
 
   \begin{itemize}
-    \item 80 segmented categories from COCO database
-    \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
-    \end{itemize}
+  \item 80 segmented categories from COCO database
+  \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
+  \end{itemize}
 
   \begin{figure}
     \includegraphics[width=12cm]{segm_every_thing_method.png}
   \end{figure}
 
-  }
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \frame{
@@ -569,10 +569,10 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
   \end{figure}
 
   \begin{block}<2->{Meanwhile, on the object detection field...}
-  \begin{itemize}
+    \begin{itemize}
     \item YOLO: you look only once \cite{redmon_yolo9000:_2016}
     \item SSD: single shot detector \cite{liu_ssd:_2016}
-  \end{itemize}
+    \end{itemize}
   \end{block}
 
 }
@@ -599,21 +599,21 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Translation invariance}
 
-\begin{block}{}
-  Identical receptive fields produce identical outputs.
-\end{block}
+  \begin{block}{}
+    Identical receptive fields produce identical outputs.
+  \end{block}
 
-\pause
+  \pause
 
-\begin{itemize}[<+->]
-\item If padding is used in the network, border effects can be important.
-\item Translation invariance is not always welcome!
-\item Position information can also be used in the network:
-  \begin{itemize}
-  \item Through masks or segmentations
-  \item Through pixel coordinates
+  \begin{itemize}[<+->]
+  \item If padding is used in the network, border effects can be important.
+  \item Translation invariance is not always welcome!
+  \item Position information can also be used in the network:
+    \begin{itemize}
+    \item Through masks or segmentations
+    \item Through pixel coordinates
+    \end{itemize}
   \end{itemize}
-\end{itemize}
 
 \end{frame}
 
@@ -636,7 +636,7 @@ Winner 2016: Fully Convolutional Instance-aware Semantic Segmentation (Microsoft
   \frametitle{Robustness with respect to ground-truth errors}
 
   \begin{block}{}
-This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
+    This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
   \end{block}
 
 
@@ -650,16 +650,16 @@ This is more an empirical observation than a mathematical property, but fully-co
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dealing with image sizes during training}
 
-\begin{itemize}[<+->]
-\item   In segmentation applications, original images are often of different sizes and possibly very large.
-\item   In theory, given the translation invariance of fully-convolutional NN, we could use them directly as input. In practice, we are limited by memory size.
-\item   Solution: extract fixed-sized crops from your training set:
-  \begin{itemize}
-  \item make them as large as possible, to reduce border effects
-  \item take a small batch size (1, 2, 4?)
-  \end{itemize}
+  \begin{itemize}[<+->]
+  \item   In segmentation applications, original images are often of different sizes and possibly very large.
+  \item   In theory, given the translation invariance of fully-convolutional NN, we could use them directly as input. In practice, we are limited by memory size.
+  \item   Solution: extract fixed-sized crops from your training set:
+    \begin{itemize}
+    \item make them as large as possible, to reduce border effects
+    \item take a small batch size (1, 2, 4?)
+    \end{itemize}
 
-\end{itemize}
+  \end{itemize}
 
 \end{frame}
 
@@ -668,9 +668,9 @@ This is more an empirical observation than a mathematical property, but fully-co
   \frametitle{Post-processing for segmentation}
 
   \begin {itemize}
-\item Superpixels (e.g. \cite{farabet_learning_2013})
-\item Conditional random fields
-\item Mathematical morphology
+  \item Superpixels (e.g. \cite{farabet_learning_2013})
+  \item Conditional random fields
+  \item Mathematical morphology
   \end{itemize}
 
 }
@@ -678,140 +678,140 @@ This is more an empirical observation than a mathematical property, but fully-co
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Loss functions for image segmentation}
+  \frametitle{Loss functions for image segmentation}
 
-
-\begin{itemize}
-\item $\hat{\y} = (\hat{\y}_i)$: network output
-\item $\y = (\y_i)$: binary expected output
-\item We suppose that all $\hat{\y}_i$ are in $[0,1]$
-\item We want the $\hat{\y}$ to be \emph{as close as possible} to $\y$
-  \end{itemize}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Loss functions for image segmentation}
-
-
-\begin{block}{Most commonly used loss functions}
 
   \begin{itemize}
-  \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
-  \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)$
+  \item $\hat{\y} = (\hat{\y}_i)$: network output
+  \item $\y = (\y_i)$: binary expected output
+  \item We suppose that all $\hat{\y}_i$ are in $[0,1]$
+  \item We want the $\hat{\y}$ to be \emph{as close as possible} to $\y$
   \end{itemize}
 
-\end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Measures used in image processing}
-
-Let $A$ and $B$ be two sets, not simultaneously empty.
-
-\begin{columns}
-  \begin{column}{.7\textwidth}
-\begin{block}{Dice coefficient}
-\[
-D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
-\]
-\end{block}
-
-\begin{block}{Jaccard index}
-\[
-J(A,B) = \frac{|A \cap B|}{|A \cup B|}
-\]
-\end{block}
-
-
-  \end{column}
-
-  \begin{column}{.3\textwidth}
-    \includegraphics[width=\textwidth]{Intersection_of_sets_A_and_B}
-    \source{Public domain (Wikipedia.org)}
-  \end{column}
-\end{columns}
-
-
-\begin{block}{Properties}
-  \begin{itemize}
-   \item $\forall A, B: 0 \leq J(A, B) \leq D(A,B) \leq 1$
-  \item If $A=B$, then $D(A,B) = J(A,B) = 1$
-  \item If $ A \cap B = \emptyset$, then $D(A,B) = J(A,B) = 0$
-  \end{itemize}
-\end{block}
-
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Generalization to $[0,1]$}
+  \frametitle{Loss functions for image segmentation}
 
-$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-\begin{block}{Dice similarity}
-\[
-D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
-\]
-\end{block}
+  \begin{block}{Most commonly used loss functions}
 
-\begin{block}{Jaccard similarity}
-  \[
-  J(\y, \hat{\y}) = \frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
-  \]
-\end{block}
+    \begin{itemize}
+    \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
+    \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)$
+    \end{itemize}
+
+  \end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Measures used in image processing}
+
+  Let $A$ and $B$ be two sets, not simultaneously empty.
+
+  \begin{columns}
+    \begin{column}{.7\textwidth}
+      \begin{block}{Dice coefficient}
+        \[
+        D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
+        \]
+      \end{block}
+
+      \begin{block}{Jaccard index}
+        \[
+        J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+        \]
+      \end{block}
+
+
+    \end{column}
+
+    \begin{column}{.3\textwidth}
+      \includegraphics[width=\textwidth]{Intersection_of_sets_A_and_B}
+      \source{Public domain (Wikipedia.org)}
+    \end{column}
+  \end{columns}
+
+
+  \begin{block}{Properties}
+    \begin{itemize}
+    \item $\forall A, B: 0 \leq J(A, B) \leq D(A,B) \leq 1$
+    \item If $A=B$, then $D(A,B) = J(A,B) = 1$
+    \item If $ A \cap B = \emptyset$, then $D(A,B) = J(A,B) = 0$
+    \end{itemize}
+  \end{block}
 
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Corresponding loss functions}
+  \frametitle{Generalization to $[0,1]$}
 
-$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-\begin{block}{Dice loss}
-  \[
-  d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
-  \]
-\end{block}
+  \begin{block}{Dice similarity}
+    \[
+    D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+    \]
+  \end{block}
 
-\begin{block}{Jaccard loss}
-  \[
-  j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
-  \]
-\end{block}
+  \begin{block}{Jaccard similarity}
+    \[
+    J(\y, \hat{\y}) = \frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+    \]
+  \end{block}
 
-In practice, these two losses give similar results.
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Corresponding loss functions}
+
+  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+
+  \begin{block}{Dice loss}
+    \[
+    d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+    \]
+  \end{block}
+
+  \begin{block}{Jaccard loss}
+    \[
+    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+    \]
+  \end{block}
+
+  In practice, these two losses give similar results.
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Corresponding loss functions - variants}
+  \frametitle{Corresponding loss functions - variants}
 
-$\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
+  Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
-\begin{block}{Dice loss}
-  \[
-  d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
-  \]
-\end{block}
+  \begin{block}{Dice loss}
+    \[
+    d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
+    \]
+  \end{block}
 
-\begin{block}{Jaccard loss}
-  \[
-  j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
-  \]
-\end{block}
+  \begin{block}{Jaccard loss}
+    \[
+    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
+    \]
+  \end{block}
 
-These variants seem to work similarly to the original version. To the extent of my knowledge, there have been no studies on their respective merits.
+  These variants seem to work similarly to the original version. To the extent of my knowledge, there have been no studies on their respective merits.
 
 }
 
@@ -849,6 +849,25 @@ These variants seem to work similarly to the original version. To the extent of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Deep learning: a long history}
+
+  \begin{block}{}
+    For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
+  \end{block}
+
+  \begin{itemize}[<+->]
+  \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
+  \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
+  \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
+  \item 2006-: 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
+  \item 2010: Availability of large databases (ImageNet, ...)
+  \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
+ \item 2014: Generative adversarial networks  \cite{goodfellow_generative_2014}
+  \end{itemize}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Image segmentation: a solved problem?}
@@ -858,7 +877,7 @@ These variants seem to work similarly to the original version. To the extent of 
   \item Several complex problems have now satisfactory solutions
   \item Training can be a problem (large annotated databases, difficult optimization)
   \item There are still challenges ahead...
-   \end{itemize}
+  \end{itemize}
 
 }
 
@@ -895,16 +914,16 @@ These variants seem to work similarly to the original version. To the extent of 
 
 \frame[allowframebreaks]{
 
-\scriptsize
+  \scriptsize
 
-\frametitle{References}
+  \frametitle{References}
 
-%\bibliographystyle{amsalpha}
-%\bibliographystyle{apalike}
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
 
-\bibliography{edf.bib}
+  \bibliography{edf.bib}
 
-\normalsize
+  \normalsize
 
 }
 
