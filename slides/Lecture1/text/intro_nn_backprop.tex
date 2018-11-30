@@ -1,5 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -46,28 +45,28 @@
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \section{Introduction}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{Artificial neural networks and deep learning history}
+%% \frame{
+%% \frametitle{Artificial neural networks and deep learning history}
 
 
-\begin{block}{}
-  For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
-\end{block}
+%% \begin{block}{}
+%%   For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
+%% \end{block}
 
-\begin{itemize}[<+->]
-\item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-\item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
-\item 1980's: the backpropagation algorithm (see, for example, the work of LeCun \cite{lecun_procedure_1985})
-\item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
-\item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
+%% \begin{itemize}[<+->]
+%% \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
+%% \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
+%% \item 1980's: the backpropagation algorithm (see, for example, the work of LeCun \cite{lecun_procedure_1985})
+%% \item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
+%% \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
 
-\end{itemize}
+%% \end{itemize}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Artificial neuron}
@@ -991,7 +990,7 @@ Gradient descent is an essential tool in optimization.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Backpropagation example}
+\begin{frame}<beamer>{A more complex backpropagation example}
 
 \only<1>{\includegraphics[width=\textwidth]{bp_0.png}}
 \only<2>{\includegraphics[width=\textwidth]{bp_1.png}}
@@ -1007,11 +1006,9 @@ Gradient descent is an essential tool in optimization.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Simple backpropagation example}
+\begin{frame}{Backpropagation with numerical values}
 
-%%   \animategraphics[width=4cm, step]{1}{bp_}{0}{7}
-
-%% \end{frame}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
