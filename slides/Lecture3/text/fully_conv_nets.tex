@@ -105,7 +105,7 @@
   \frametitle{Image definition}
 
   \begin{block}{Definition: image}
-    An 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
+    A 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
     \[
       [0, \ldots p-1] \times [0, \ldots q-1] \longmapsto \R^d~~~ (d \in \N^*)
       \]
@@ -204,14 +204,21 @@
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{From classification nets to image-to-image nets}
 
-      \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_classif.png}
-      \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{VGG16: an example network for image classification}
+
+  \begin{center}
+    \begin{figure}
+      \includegraphics[width=0.75\textwidth]{vgg16.png}
+      \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
+    \end{figure}
+  \end{center}
+
+This network is used for image classification tasks.
 
 \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,7 +269,7 @@
 
   \begin{itemize}
 
-  \item Image-to-image netss are based on convolutional layers
+  \item Image-to-image nets are based on convolutional layers
   \item If downsampling is used, the corresponding upsampling is needed
 
   \end{itemize}
@@ -509,10 +516,8 @@
   \begin{itemize}
   \item These architectures easily contain a number of parameters of the order of $10^7$ (28 million for U-Net)
   \item Their optimization might be difficult
-  \item For many segmentation applications, they are overkill
-    \begin{itemize}
-    \item But you can reduce the number of filters or the number of layers
-    \end{itemize}
+  \item But you can reduce the number of filters or the number of layers
+
   \end{itemize}
 
 }
@@ -578,10 +583,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Partially supervised segmentation - \cite{hu_learning_2017}}
+  \frametitle{Partially supervised segmentation - \cite{hu_learning_2018}}
 
   \begin{itemize}
-  \item 80 segmented categories from COCO database
+  \item 80 segmented categories from COCO database (320k images)
   \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
   \end{itemize}
 
@@ -604,30 +609,30 @@
 %%   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Current (?) trends for instance segmentation}
+%% \frame{
+%%   \frametitle{Current (?) trends for instance segmentation}
 
-  \begin{itemize}
+%%   \begin{itemize}
 
-  \item Region proposal +
-  \item Fully convolutional (very deep) network +
-  \item (Post-processing)
+%%   \item Region proposal +
+%%   \item Fully convolutional (very deep) network +
+%%   \item (Post-processing)
 
-  \end{itemize}
+%%   \end{itemize}
 
-  \begin{figure}
-    \includegraphics[width=9.5cm]{r_cnn.png}
-    \caption{Regions with CNN features (R-CNN) (from \cite{girshick_rich_2014})}
-  \end{figure}
+%%   \begin{figure}
+%%     \includegraphics[width=9.5cm]{r_cnn.png}
+%%     \caption{Regions with CNN features (R-CNN) (from \cite{girshick_rich_2014})}
+%%   \end{figure}
 
-  \begin{block}<2->{Meanwhile, on the object detection field...}
-    \begin{itemize}
-    \item YOLO: you look only once \cite{redmon_yolo9000:_2016}
-    \item SSD: single shot detector \cite{liu_ssd:_2016}
-    \end{itemize}
-  \end{block}
+%%   \begin{block}<2->{Meanwhile, on the object detection field...}
+%%     \begin{itemize}
+%%     \item YOLO: you look only once \cite{redmon_yolo9000:_2016}
+%%     \item SSD: single shot detector \cite{liu_ssd:_2016}
+%%     \end{itemize}
+%%   \end{block}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -902,23 +907,23 @@
 \section{Conclusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Deep learning: a long history}
+%% \begin{frame}{Deep learning: a long history}
 
-  \begin{block}{}
-    For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
-  \end{block}
+%%   \begin{block}{}
+%%     For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
+%%   \end{block}
 
-  \begin{itemize}[<+->]
-  \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-  \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
-  \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
-  \item 2006-: 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
-  \item 2010: Availability of large databases (ImageNet, ...)
-  \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
- \item 2014: Generative adversarial networks  \cite{goodfellow_generative_2014}
-  \end{itemize}
+%%   \begin{itemize}[<+->]
+%%   \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
+%%   \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
+%%   \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
+%%   \item 2006-: 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
+%%   \item 2010: Availability of large databases (ImageNet, ...)
+%%   \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
+%%  \item 2014: Generative adversarial networks  \cite{goodfellow_generative_2014}
+%%   \end{itemize}
 
-\end{frame}
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
