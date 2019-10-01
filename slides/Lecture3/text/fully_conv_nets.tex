@@ -60,33 +60,33 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Recall from yesterday: image classification with NN}
+%% \begin{frame}{Recall from yesterday: image classification with NN}
 
-  \begin{columns}
+%%   \begin{columns}
 
-    \begin{column}{.5\textwidth}
-      \begin{figure}[ht]
-        \centering
-        \includegraphics[width=\textwidth]{network.png}\\
-        Simple fully-connected neural network
-      \end{figure}
-    \end{column}
+%%     \begin{column}{.5\textwidth}
+%%       \begin{figure}[ht]
+%%         \centering
+%%         \includegraphics[width=\textwidth]{network.png}\\
+%%         Simple fully-connected neural network
+%%       \end{figure}
+%%     \end{column}
 
-    \begin{column}{.5\textwidth}
-      The cross-entropy loss function used for classification tasks:
-      \[
-      \loss(\param) = \sum\limits_{i=1}^n H(\y, f(\x_i, \param))
-      \]
+%%     \begin{column}{.5\textwidth}
+%%       The cross-entropy loss function used for classification tasks:
+%%       \[
+%%       \loss(\param) = \sum\limits_{i=1}^n H(\y, f(\x_i, \param))
+%%       \]
 
-      where the cross-entropy $H$ is defined as:
+%%       where the cross-entropy $H$ is defined as:
 
-      \[
-      H(\y, \hat{\y}) = -\sum\limits_{i=1}^q \y_i \log( \hat{\y_i})
-      \]
-    \end{column}
-  \end{columns}
+%%       \[
+%%       H(\y, \hat{\y}) = -\sum\limits_{i=1}^q \y_i \log( \hat{\y_i})
+%%       \]
+%%     \end{column}
+%%   \end{columns}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -204,13 +204,65 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_classif.png}
+      \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_classif.png}
+      \end{figure}
+
+      \pause
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf.png}
+      \end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf1.png}
+      \end{figure}
+
+      \pause
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf2.png}
+      \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
+      \end{figure}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Image-to-image NNs architecture}
+  \frametitle{Image-to-image nets architecture}
 
   \begin{itemize}
 
-  \item Image-to-image NNs are based on convolutional layers
+  \item Image-to-image netss are based on convolutional layers
   \item If downsampling is used, the corresponding upsampling is needed
 
   \end{itemize}
