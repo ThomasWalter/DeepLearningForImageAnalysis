@@ -132,7 +132,7 @@
   \frametitle{Image-to-image NN}
 
   \begin{block}{Definition: image-to-image neural network}
-    An image-to-image NN $F$ is a NN that transforms an image into an image of same size\footnote{In some applications the output size is different from the input size, but for the sake of simplicity we will not consider this case here}:
+    An image-to-image NN $F$ is a NN that transforms an image into an image of same size:
     \vspace{-1em}
     \begin{align*}
       F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
@@ -267,21 +267,20 @@ This network is used for image classification tasks.
 \frame{
   \frametitle{Image-to-image nets architecture}
 
-  \begin{itemize}
-
-  \item Image-to-image nets are based on convolutional layers
-  \item If downsampling is used, the corresponding upsampling is needed
-
-  \end{itemize}
-
-  \pause
-
   \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
     \begin{figure}
       \includegraphics[width=\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
+  \pause
+
+  \begin{itemize}
+
+  \item Image-to-image nets are based on convolutional layers
+  \item If downsampling is used, the corresponding upsampling is needed
+
+  \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -455,32 +454,32 @@ This network is used for image classification tasks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
+%% \frame{
+%%   \frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
 
-  \begin{columns}
-    \begin{column}{.3\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{unet}
-      \end{figure}
+%%   \begin{columns}
+%%     \begin{column}{.3\textwidth}
+%%       \begin{figure}
+%%         \includegraphics[width=\textwidth]{unet}
+%%       \end{figure}
 
-    \end{column}
+%%     \end{column}
 
-    \begin{column}{.7\textwidth}
+%%     \begin{column}{.7\textwidth}
 
-      \begin{itemize}
-      \item Activation of the last layer: soft-max
-      \item Other activations: ReLU
-      \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
-        \[
-        L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
-        \]
-      \end{itemize}
+%%       \begin{itemize}
+%%       \item Activation of the last layer: soft-max
+%%       \item Other activations: ReLU
+%%       \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
+%%         \[
+%%         L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
+%%         \]
+%%       \end{itemize}
 
-    \end{column}
-  \end{columns}
+%%     \end{column}
+%%   \end{columns}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -757,7 +756,7 @@ This network is used for image classification tasks.
 
     \begin{itemize}
     \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
-    \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)$
+    \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i)$
     \end{itemize}
 
   \end{block}
