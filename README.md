@@ -6,8 +6,4 @@ Deep learning has achieved formidable results in the image analysis field in rec
 
 This course aims at providing the students with the theoretical and practical basis for understanding and using deep learning for image analysis applications.
 
-2018 session: November 19-23
-
-## Practical information
-
-Lab (afternoon): L.117
+2019 session: November 18-22
