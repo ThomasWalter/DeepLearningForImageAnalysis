@@ -1,4 +1,5 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -434,17 +435,38 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 \frame{
 \frametitle{Notations}
 
-\begin{figure}
-\includegraphics[height=3cm]{neurone_representation_compacte}
-\end{figure}
+\begin{columns}
 
+  \begin{column}{.5\textwidth}
+\begin{figure}
+\includegraphics[height=2cm]{neurone_representation_compacte}
+\end{figure}
+\end{column}
+
+  \begin{column}{.5\textwidth}
   With
   \[
-  \mathbf{w} = (w_1, \ldots, w_p)^T
+  \mathbf{w} =
+  \begin{pmatrix}
+    w_1 \\
+    \vdots \\
+    w_p
+  \end{pmatrix}
+  = (w_1, \ldots, w_p)^T
   \]
+  and
   \[
-  \x = (x_1, \ldots, x_p)^T
+  \x =
+  \begin{pmatrix}
+    x_1 \\
+    \vdots \\
+    x_p
+  \end{pmatrix}
+  = (x_1, \ldots, x_p)^T
   \]
+\end{column}
+
+\end{columns}
 
 We can simply write:
 \[
