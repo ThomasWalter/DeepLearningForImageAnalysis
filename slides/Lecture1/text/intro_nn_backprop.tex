@@ -1,5 +1,5 @@
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+%\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -21,6 +21,16 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc}[square]
 \setbeamertemplate{items}[square]
+
+%% For image credits on image bottom right
+\usepackage[absolute,overlay]{textpos}
+\setbeamercolor{framesource}{fg=gray}
+\setbeamerfont{framesource}{size=\tiny}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
 
 \title{Artificial neural networks and backpropagation}
 \author{E. Decencière}
@@ -476,10 +486,10 @@ We can simply write:
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Computation graph}
+\begin{frame}{Computational graph}
 
 \begin{block}{Definition}
-  A computation graph is a directly acyclic graph such that:
+  A computational graph is a directly acyclic graph such that:
   \begin{itemize}
   \item A node is a mathematical operator
   \item To each edge is associated a value
@@ -498,7 +508,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Computation graph example}
+\begin{frame}{Computational graph example}
   We will compute:
   \[
   \sigma(w_1x + w_2y + b)
@@ -520,7 +530,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 \begin{block}{Definitions}
   \begin{itemize}
-  \item An artificial neural network is a computation graph, where
+  \item An artificial neural network is a computational graph, where
    the nodes are artificial neurons
   \item The \alert{input layer} is the set of neurons without incoming edges.
   \item The \alert{output layer} is the set of neurons without outgoing edges.
@@ -810,6 +820,11 @@ where $\mathcal{R}(\param)$ is a regularization term.
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Loss functions}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Loss function}
 
@@ -819,6 +834,8 @@ where $\mathcal{R}(\param)$ is a regularization term.
   \]
   where $d$ is some disparity function (the more similar its parameters, the smaller its value).
 
+The choice of the loss function is tightly linked to the application.
+
 \end{frame}
 
 
@@ -826,38 +843,72 @@ where $\mathcal{R}(\param)$ is a regularization term.
 \begin{frame}{Loss function: examples}
 
 
-  \begin{block}{Squared error}
+  \begin{block}{Typical choice for regression problems: the squared error}
     \[
     \loss(\param) = \sum\limits_{i=1}^n (y_i - f(\x_i, \param))^2
     \]
-    This loss function is mainly used in regression problems.
   \end{block}
 
-  \begin{block}{Binary cross-entropy}
+  \begin{block}{For binary classification problems: Binary cross-entropy}
     In this case, $y_i \in \{0, 1\}$:
     \[
     \loss(\param) = -\sum\limits_{i=1}^n \Big(y_i \log( f(\x_i, \param)) + (1 - y_i) \log(1 - f(\x_i, \param))\Big)
     \]
-    This loss function is used in binary classification problems, where the network's output can be interpreted as a probability of belonging to a class.
+
   \end{block}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How to minimize the loss?}
+
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      \begin{figure}
+        \includegraphics[height=5cm]{3d-gradient-cos.png}
+        \source{By MartinThoma, CC0, https://commons.wikimedia.org/}
+      \end{figure}
+    \end{column}
+
+
+    \begin{column}{.4\textwidth}
+      \begin{block}{Definition: gradient}
+        Let $\loss $ be a derivable function from $\R^n$ into $\R$. Its gradient $\nabla\loss$ is:
+        \[
+        \nabla \loss (x) =
+        \begin{pmatrix}
+          \frac{\partial \loss}{\partial \x_1}(x) \\
+          \vdots \\
+          \frac{\partial \loss}{\partial \x_n}(x)
+        \end{pmatrix}
+        \]
+
+      \end{block}
+    \end{column}
+  \end{columns}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gradient descent}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent}
 
 \begin{block}{Definition}
-  Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\gamma$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
+  Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
   \[
-  \forall e \in \N: \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
+  \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
   \]
 \end{block}
 
 \begin{block}{Property}
-  If $\gamma$ is small enough, then:
+  For a given $t$, if $\lr$ is small enough, then:
   \[
-  \loss(\param_{i+1}) \leq \loss(\param_i)
+  \loss(\param_{t+1}) \leq \loss(\param_t)
   \]
 \end{block}
 
@@ -875,7 +926,7 @@ Gradient descent is an essential tool in optimization.
 
   \begin{column}{.5\textwidth}
     \[
-    \param_{t+1} = \param_t - \gamma\nabla \loss(\param_t)
+    \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
     \]
   \end{column}
 \end{columns}
@@ -889,7 +940,7 @@ Gradient descent is an essential tool in optimization.
 
   In practice:
   \[
-  \forall e \in [0, \ldots, E-1]:\quad \param_{e+1} = \param_e - \gamma \nabla \loss(\param_e)
+  \forall t \in [0, \ldots, E-1]:\quad \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
   \]
 
 \begin{itemize}
@@ -910,7 +961,7 @@ Gradient descent is an essential tool in optimization.
 \pause
 
   \begin{itemize}[<+->]
-  \item If $n$ is very large, its computation is not feasible.
+  \item If $n$ is very large, its computation is impractical.
   \item A computation on the whole training set leads to a single update of the model parameters - convergence can therefore be slow.
   \end{itemize}
 
@@ -933,16 +984,20 @@ Gradient descent is an essential tool in optimization.
 \item Finally the parameters are updated:
 
   \[
-    \param_{t+1} = \param_t - \gamma\nabla \loss(\param_t)
+    \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
     \]
   \item
-    Note that the learning rate $\gamma$ can have a different value than in straightforward gradient descent.
+    Note that the learning rate $\lr$ can have a different value than in straightforward gradient descent.
 \end{itemize}
 
 
 
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Backpropagation}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent applied to neural networks}
@@ -1118,6 +1173,10 @@ p, q \in \N^*\\
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Weights initialization}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Network parameters initialization}
 
@@ -1178,6 +1237,10 @@ p, q \in \N^*\\
 %% \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conclusion}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion}
 
@@ -1187,6 +1250,12 @@ p, q \in \N^*\\
   \item The (potential) power of a NN
   \item The backpropagation algorithm
   \item NN learning basics
+  \end{itemize}
+
+  Next steps:
+  \begin{itemize}
+    \item Optimization
+    \item Application to image classification
   \end{itemize}
 
 In the following, we will see how to process images using NNs.
