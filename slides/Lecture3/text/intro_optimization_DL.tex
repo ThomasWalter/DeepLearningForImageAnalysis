@@ -85,6 +85,26 @@
 
 \section{Optimizers}
 
+\begin{frame}{Intuition: Gradient Descent \cite{Cauchy47}}
+Goal: Minimize $f(x)$ (evaluate \alert{as few times as possible} the function $f$)\\
+The Taylor series of a real $f(x)$ that is infinitely differentiable at a real $x+\epsilon$ is the power series
+\begin{eqnarray*}
+f(x+\epsilon)=f(x)+f'(x)\epsilon+\frac{f''(x)}{2}\epsilon^2+\dots \\
+\approx f(x)+f'(x)\epsilon
+\end{eqnarray*},
+by considering $\epsilon= -\eta f'(x)$ for small $\eta$, we have
+\begin{eqnarray*}
+f(x- \eta f'(x)) \approx f(x)-f'(x)\eta f'(x) =   f(x)-\eta f'(x)^ 2  \\
+f(x-\eta f'(x)) < f(x)
+\end{eqnarray*}
+Intuitively, since the first-order approximation is good only for small $\epsilon$, we want to choose a small $\eta > 0$ to make $\epsilon$ small in magnitude.
+Thus, if our goal is to minimise $f$, we can update
+\begin{equation}
+x_{i+1}=x_i-\eta f'(x)
+\end{equation}
+where $\eta \in \mathbb{R}^{+}$ is called \emph{learning rate}.
+\end{frame}
+
 \begin{frame}{Gradient Descent \cite{Cauchy47}}
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
@@ -100,17 +120,8 @@
 \caption{pseudocode gradient descent }
 \label{alg:seq}
 \end{algorithm}
+Who is $f$ in deep learning? $\mathbb{E}_{\alert{(\mathcal{X},\mathcal{Y})}} [\loss_{\param}(\x,y)]$ for a given loss function $\loss$ 
 \end{frame}
-
-\begin{frame}{Difficulties in Deep Network Optimisation}
-\begin{itemize}
-\item[A]{Local minima / Global minima}
-\item[B]{Saddle Point (Plateaus or Flat Regions)}
-\end{itemize}
-\includegraphics[width=.45\columnwidth]{../graphics/LocalGlobalMinimum}
-\includegraphics[width=.45\columnwidth]{../graphics/challenges1} \\
-\end{frame}
-
 
 \begin{frame}{SGD \cite{robbins1985stochastic}}
 \begin{algorithm}[H]
@@ -119,8 +130,8 @@
 \STATE \textbf{initialize} time step $t=0$, parameter vector $\param_{t=0} \in \mathbb{R}^\nfeatures$,
 \REPEAT
 \STATE t=t+1
-\STATE $\X_t=\texttt{SelectBatch} (\X)$ \begin{tiny}\texttt{Select a batch from data, whole data, only one, ... } \end{tiny}
-\STATE $\mathbf{g}_t = \nabla f_i(\X_t,\param_{t-1})$  \begin{tiny}\texttt{Return parameter gradient}\end{tiny}
+\STATE $\alert{\X_t=\texttt{SelectBatch} (\X)}$ \begin{tiny}\texttt{Select a batch from data, whole data, only one, ... } \end{tiny}
+\STATE $\mathbf{g}_t = \nabla f_i(\alert{\X_t},\param_{t-1})$  \begin{tiny}\texttt{Return parameter gradient}\end{tiny}
 \STATE $\param_t=\param_{t-1}  - \eta \mathbf{g}_t$
 \UNTIL stopping criterion is met
 \RETURN optimized parameters $\param_i$
@@ -144,6 +155,17 @@ for the entire training dataset.
 \item Same learning rate applies to all parameter updates
 \item Highly non-convex error functions common for neural networks is avoiding getting trapped in their numerous suboptimal local minima.
 \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Difficulties in Deep Network Optimisation}
+\begin{itemize}
+\item[A]{Local minima / Global minima}
+\item[B]{Saddle Point (Plateaus or Flat Regions)}
+\end{itemize}
+\includegraphics[width=.45\columnwidth]{../graphics/LocalGlobalMinimum}
+\includegraphics[width=.45\columnwidth]{../graphics/challenges1} \\
+
 \end{frame}
 
 
@@ -193,13 +215,13 @@ New problems.... new ideas!
 \item Fixing the Exponential Moving Decay \cite{dozat2016deep}
 \item Cyclical Learning Rates \cite{smith2017cyclical}
 \item Decay with restarts  \cite{loshchilov2016sgdr}
-\begin{figure}
-\includegraphics[width=.225\columnwidth]{../graphics/triangular}
-\includegraphics[width=.225\columnwidth]{../graphics/triangular2}\\
-\includegraphics[width=.225\columnwidth]{../graphics/LRRestarts}
-\includegraphics[width=.225\columnwidth]{../graphics/Snapshot}
-\caption{Schedules: Triangular  / Triangular with exponential decay / Exponential Decay with Restarts / Snapshot }
-\end{figure}
+%\begin{figure}
+%\includegraphics[width=.225\columnwidth]{../graphics/triangular}
+%\includegraphics[width=.225\columnwidth]{../graphics/triangular2}\\
+%\includegraphics[width=.225\columnwidth]{../graphics/LRRestarts}
+%\includegraphics[width=.225\columnwidth]{../graphics/Snapshot}
+%\caption{Schedules: Triangular  / Triangular with exponential decay / Exponential Decay with Restarts / Snapshot }
+%\end{figure}
 \item Snapshot Ensembles: Train 1, Get M for free \cite{huang2017snapshot}
 %\item Learning with Random Learning Rates \cite{Blier2018}
 \item Don't Decay the Learning Rate, Increase the batch size \cite{smith2018don}
@@ -218,7 +240,7 @@ New problems.... new ideas!
 \begin{figure}
 \includegraphics[width=.95\columnwidth]{../graphics/KerasSGD}
 \end{figure}
-Practical Work 1:  Cyclic LR
+%Practical Work 1:  Cyclic LR
 \end{frame}
 
 
