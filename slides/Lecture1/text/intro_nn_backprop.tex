@@ -1262,31 +1262,36 @@ p, q \in \N^*\\
 \begin{frame}{Network parameters initialization}
 
 \begin{block}{General idea}
-          Inputs of activation functions should be in an appropriate range (high gradient)
+          Inputs of activation functions should be in a range such that gradients are high.
 \end{block}
 
   \begin{columns}
-    \begin{column}{.4\textwidth}
+    \begin{column}{.3\textwidth}
       \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.7\textwidth]{act_sigm.png}
-      \end{figure}
-
-      \begin{figure}[ht]
-        \centering
-        \includegraphics[width=\textwidth]{network}
+        \includegraphics[width=\textwidth]{act_sigm.png}
       \end{figure}
 
     \end{column}
 
-    \begin{column}{.6\textwidth}
-        \begin{itemize}
-        \item If all parameters are initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
-        \item Simple solution: random values from a normal or uniform distribution
-        \item More advanced solutions exist: \cite{lecun_efficient_1998,glorot_understanding_2010,he_delving_2015}
-        \end{itemize}
+    \begin{column}{.7\textwidth}
+      \begin{itemize}
+      \item Bias are set to zero
+      \item Empirical solutions are based on a gaussian distribution of the weights, with \textit{small} standard deviation.
+      \item If all parameters are initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
+      \end{itemize}
     \end{column}
   \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Network parameters initialization: current practice}
+
+      \begin{itemize}
+        \item \cite{glorot_understanding_2010}: they empirically show that a standard deviation of $1/\sqrt n$ gives good results (where $n$ is the number of inputs of a neuron)
+          \item \cite{he_delving_2015}: in the case of ReLU activations, they recommend a $2/\sqrt  n$ standard deviation
+        \end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
