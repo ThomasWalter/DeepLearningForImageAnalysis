@@ -1,5 +1,5 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-%\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -509,7 +509,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph example}
-  We will compute:
+  Computational graph of:
   \[
   \sigma(w_1x + w_2y + b)
   \]
@@ -519,7 +519,10 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 \pause
 
   \centering
-  \includegraphics[width=0.6\textwidth]{compu_graph}
+  \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+  \pause
+  The graph can be represented at different levels of detail:
+  \includegraphics[width=0.6\textwidth]{comp_graph}
 
 
 \end{frame}
@@ -563,9 +566,9 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 \begin{figure}
   \includegraphics[height=3cm]{network.png}
+  \source{(from http://www.jtoy.net)}
 \end{figure}
 
-{\small(from http://www.jtoy.net)}
 
 }
 
@@ -1037,6 +1040,18 @@ Gradient descent is an essential tool in optimization.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The backpropagation algorithm: intuition}
+
+  \begin{itemize}
+  \item Given a computational graph, the main idea is to compute the local partial derivatives during a forward pass
+    \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter is computed
+  \end{itemize}
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<handout>{Simple backpropagation example}
@@ -1060,32 +1075,98 @@ Gradient descent is an essential tool in optimization.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<handout>{A more complex backpropagation example}
+\begin{frame}{Backpropation through a neuron}
 
-\includegraphics[width=\textwidth]{bp.png}
+\includegraphics[width=\textwidth]{bp_2_1_neuron.png}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exercise}
+
+\includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{A more complex backpropagation example}
+\begin{frame}<beamer>{Exercise: solution}
 
-\only<1>{\includegraphics[width=\textwidth]{bp_0.png}}
-\only<2>{\includegraphics[width=\textwidth]{bp_1.png}}
-\only<3>{\includegraphics[width=\textwidth]{bp_2.png}}
-\only<4>{\includegraphics[width=\textwidth]{bp_3.png}}
-\only<5>{\includegraphics[width=\textwidth]{bp_4.png}}
-\only<6>{\includegraphics[width=\textwidth]{bp_5.png}}
-\only<7>{\includegraphics[width=\textwidth]{bp_6.png}}
-\only<8>{\includegraphics[width=\textwidth]{bp_7.png}}
+\includegraphics[width=\textwidth]{bp_2_1_neuron_exo_sol.png}
 
 \end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Backpropagation with numerical values}
+\begin{frame}{Exercise}
+
+\includegraphics[width=\textwidth]{bp_relu_exo.png}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Exercise: solution}
+
+\includegraphics[width=\textwidth]{bp_relu_exo_sol.png}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exercise}
+
+\includegraphics[width=\textwidth]{bp_relu_exo2.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Exercise: solution}
+
+\includegraphics[width=\textwidth]{bp_relu_exo2_sol.png}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exercise}
+
+\includegraphics[width=\textwidth]{bp_split.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Exercise: solution}
+
+\includegraphics[width=\textwidth]{bp_split_sol.png}
+
+\end{frame}
+
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}<handout>{A more complex backpropagation example}
+
+%% \includegraphics[width=\textwidth]{bp.png}
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}<beamer>{A more complex backpropagation example}
+
+%% \only<1>{\includegraphics[width=\textwidth]{bp_0.png}}
+%% \only<2>{\includegraphics[width=\textwidth]{bp_1.png}}
+%% \only<3>{\includegraphics[width=\textwidth]{bp_2.png}}
+%% \only<4>{\includegraphics[width=\textwidth]{bp_3.png}}
+%% \only<5>{\includegraphics[width=\textwidth]{bp_4.png}}
+%% \only<6>{\includegraphics[width=\textwidth]{bp_5.png}}
+%% \only<7>{\includegraphics[width=\textwidth]{bp_6.png}}
+%% \only<8>{\includegraphics[width=\textwidth]{bp_7.png}}
+
+%% \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1238,7 +1319,7 @@ p, q \in \N^*\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Conclusion}
+\section{Conclusion}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1258,7 +1339,6 @@ p, q \in \N^*\\
     \item Application to image classification
   \end{itemize}
 
-In the following, we will see how to process images using NNs.
 
 \end{frame}
 
