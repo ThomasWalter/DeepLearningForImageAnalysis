@@ -16,7 +16,7 @@
    id="svg1055"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="bp_relu_exo.svg"
-   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture1/graphics/bp_2_1_neuron_exo.png"
+   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture1/graphics/bp_relu_exo.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <sodipodi:namedview
@@ -33,11 +33,11 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      showborder="false"
-     inkscape:window-width="1863"
-     inkscape:window-height="1145"
-     inkscape:window-x="57"
-     inkscape:window-y="27"
-     inkscape:window-maximized="1">
+     inkscape:window-width="796"
+     inkscape:window-height="413"
+     inkscape:window-x="641"
+     inkscape:window-y="319"
+     inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
        id="grid1600" />
