@@ -1,4 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -168,11 +168,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Image Segmentation with NNs}
+  \frametitle{Image segmentation with NNs}
 
   \begin{itemize}
 
-  \item Image segmentation often is an important step in an image processing work flow
+  \item Image segmentation is often an important step in an image processing work flow
 
   \item Image segmentation has been a very active deep learning research field
 
@@ -205,6 +205,13 @@
 \end{frame}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{From classification to segmentation}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{VGG16: an example network for image classification}
 
@@ -215,7 +222,6 @@
     \end{figure}
   \end{center}
 
-This network is used for image classification tasks.
 
 \end{frame}
 
@@ -260,12 +266,14 @@ This network is used for image classification tasks.
       \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
       \end{figure}
 
+This strategy is very inefficient.
+
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Image-to-image nets architecture}
+  \frametitle{The simplest image-to-image architecture}
 
   \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
     \begin{figure}
@@ -282,6 +290,25 @@ This network is used for image classification tasks.
 
   \end{itemize}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Going back to the original image size}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Upsampling}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transposed convolutions}
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -443,7 +470,6 @@ This network is used for image classification tasks.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{
   \frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
 
@@ -452,52 +478,6 @@ This network is used for image classification tasks.
   \end{figure}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% \frame{
-%%   \frametitle{Notes on  the U-Net architecture \cite{ronneberger_u-net:_2015}}
-
-%%   \begin{columns}
-%%     \begin{column}{.3\textwidth}
-%%       \begin{figure}
-%%         \includegraphics[width=\textwidth]{unet}
-%%       \end{figure}
-
-%%     \end{column}
-
-%%     \begin{column}{.7\textwidth}
-
-%%       \begin{itemize}
-%%       \item Activation of the last layer: soft-max
-%%       \item Other activations: ReLU
-%%       \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
-%%         \[
-%%         L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
-%%         \]
-%%       \end{itemize}
-
-%%     \end{column}
-%%   \end{columns}
-
-%% }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% \frame{
-%% \frametitle{What is the size of the receptive field of U-Net}
-
-
-%% \begin{figure}
-%% \includegraphics[height=5cm]{unet}
-%% \end{figure}
-
-%% \pause
-
-%%   \centering
-%%   Answer: $185 \times 185$
-%% }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
   \frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
@@ -697,6 +677,94 @@ This network is used for image classification tasks.
 
 
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{U-Net}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
+
+  \begin{figure}
+    \includegraphics[width=\textwidth]{unet_lo}
+  \end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{U-Net main ideas}
+
+      \begin{figure}
+        \includegraphics[width=0.86\textwidth]{unet_lo}
+      \end{figure}
+
+
+      \begin{itemize}
+      \item Encoding branch inspired by classification nets
+      \item Decoding branch is symmetrical
+      \item Skip connections
+      \end{itemize}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{U-Net details}
+
+  \begin{columns}
+    \begin{column}{.4\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{unet_lo}
+      \end{figure}
+
+    \end{column}
+
+    \begin{column}{.6\textwidth}
+
+      \begin{itemize}
+      \item Activation of the last layer: soft-max
+      \item Other activations: ReLU
+      \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
+        \[
+        L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
+        \]
+      \end{itemize}
+
+    \end{column}
+  \end{columns}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{U-Net improvements}
+
+  \begin{itemize}
+  \item Convolutions with stride 2 instead of max-pooling the encoder
+  \item Transposed convolutions instead  of simple up-sampling in the decoder
+  \item Using an already optimized classification network as backbone for the encoder
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \frame{
+%% \frametitle{What is the size of the receptive field of U-Net}
+
+
+%% \begin{figure}
+%% \includegraphics[height=5cm]{unet_lo}
+%% \end{figure}
+
+%% \pause
+
+%%   \centering
+%%   Answer: $185 \times 185$
+%% }
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Using CNNs]{Using fully-convolutional networks}
