@@ -1,4 +1,4 @@
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 \usepackage{tikz}
@@ -22,6 +22,16 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc}[square]
 \setbeamertemplate{items}[square]
+
+%% For image credits on image bottom right
+\usepackage[absolute,overlay]{textpos}
+\setbeamercolor{framesource}{fg=gray}
+\setbeamerfont{framesource}{size=\tiny}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
 
 \title{Introduction to Autoencoders, GANs and Adversarial Examples}
 \author{Santiago VELASCO-FORERO \\ \href{http://cmm.ensmp.fr/~velasco/}{http://cmm.ensmp.fr/~velasco/}}
@@ -110,7 +120,7 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
 
 \begin{frame}{Unsupervised learning: Generative Models}
 Given an unlabeled dataset $(\X)$, we would like to learn:
-\alert{How to generate a new observations from the same distribution (unknown) of dataset?}
+\alert{How to generate a new observation from the same distribution (unknown) of dataset?}
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -126,11 +136,11 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
 
 
 \begin{frame}{Autoencoders}
-Autoencoders are neural networks whose purpose is twofold.
+Autoencoders are neural networks whose purpose is twofold:
 \begin{enumerate}
 \item To compress some input data by transforming it from the input domain to another space,
-known as the \emph{latent space} (code). 
-\item To take this latent representation and transform it back to the original space, such that the output is similar to the input.
+known as the \emph{latent space} (code).
+\item To take this latent representation and transform it back to the original space, such that the output is \emph{similar} to the input.
 \end{enumerate}
 %\begin{figure}
 %\includegraphics[height=2.4cm]{../graphics/SallowUnderComplete}
@@ -148,8 +158,13 @@ known as the \emph{latent space} (code).
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {Encoder Network};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {Decoder Network};
   \end{tikzpicture}
-  \caption{Loss function for a given input vector is usually their reconstruction error, i.e.,$\loss(\x)= ( \x-\hat{\x} )^2$}
 \end{figure}
+
+The loss function for a given input vector is usually the reconstruction error:
+\[
+\loss(\x) = \norm{ \x-\hat{\x}}
+\]
+
 
 \end{frame}
 
@@ -179,7 +194,6 @@ where $\loss$ is a loss function, such as mean squared error.
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f $};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
   \end{tikzpicture}
-  \caption{General Autoencoder structure}
 \end{figure}
 \end{frame}
 
@@ -210,7 +224,6 @@ where $\loss$ is a loss function, such as mean squared error.
   \end{tikzpicture}
   \caption{$K < \nfeatures$: Undercomplete AE}
 \end{figure}
-An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}.
 \end{frame}
 %\begin{figure}
 %\includegraphics[height=2.4cm]{../graphics/SallowUnderComplete}
@@ -225,27 +238,27 @@ An autoencoder whose code dimension is less than the input dimension is called \
 
 
 \begin{frame}{Dimensional reduction methods}
-When the decoder is linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA.
+When the decoder is linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA (principal component analysis).
 \begin{figure}
 \includegraphics[width=.9\columnwidth]{../graphics/DimensionalityReduction}
 \end{figure}
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{Latent space intuition}
 \begin{figure}
 \includegraphics[width=.95\columnwidth]{../graphics/LatentSpaceIntuition0}
-\caption{Latent Space Intuition. Source: \texttt{https://www.jeremyjordan.me/variational-autoencoders/}}
+\source{https://www.jeremyjordan.me/variational-autoencoders/}
 \end{figure}
 \end{frame}
 
 
 
-\begin{frame}{Autoencoder vs general data compression methods}
+\begin{frame}{Autoencoder vs. general data compression methods}
 \begin{itemize}
-\item Autoencoder are data-dependent
-\item MP3 or JPEG compression algorithm make general assumptions about "sound/images?, but not about
-specific types of sounds/image.
+\item Autoencoders are data-dependent
+\item MP3 or JPEG compression algorithm make general assumptions about sounds/images, but not about
+specific types of sounds/images.
 \item Autoencoders are lossy.
 \item Autoencoders are learnt for a specific application.
 \end{itemize}
@@ -326,7 +339,7 @@ Common implementation
 \begin{itemize}
 \item Adding a sparsity regularizer loss to the autoencoder loss function.
 \item Various sparsity regularizers.
-\item Other existing methods: 
+\item Other existing methods:
 \end{itemize}
 \end{frame}
 
@@ -383,7 +396,7 @@ identity function where input=output. Add noise to avoid overfitting.
 \item Modern autoencoders have generalized the idea of an encoder and a decoder
 beyond deterministic functions to stochastic mappings
 $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
-%\item 
+%\item
 %An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of the
 %training data.
 %\item
@@ -397,6 +410,7 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \end{itemize}
 \end{frame}
 
+
 \subsection{Variational Autoencoder}
 
 \begin{frame}{Variational Autoencoder}
@@ -406,8 +420,8 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
 \tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 16mm]
 \tikzstyle{connect}=[-latex, thick]
   \node[circle, fill = blue!50] (alpha) [label=below:Original] {$\x$};
-  \node[main,fill = green!50] (z) [right=of alpha,label=below:Latent] { $z$};
-  \node[circle,fill = blue!50] (xout) [right= of z,label=below: Decoding] {$\x$ };
+  \node[main,fill = green!50] (z) [right=of alpha,label=below: Latent] { $z$};
+  \node[circle,fill = blue!50] (xout) [right=of z,label=below: Decoding] {$\x$ };
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$p_{\theta}(z|\x)$};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$p_{\theta}(\x|z)$};
   \end{tikzpicture}
@@ -474,7 +488,7 @@ Assume we would like to compute the likelihood of an image $\x$ from the trainin
   &=& \underbrace{\EV_{q(z|\x)} \log(p(\x | z))}_{\texttt{Expected Reconstruction}} - \underbrace{D_{KL}(q(z|\x),p(z))}_{\texttt{Regularization $\mathcal{N}(0,1)$}}\\
 \end{eqnarray*}
 \begin{itemize}
-\item First term implies the use of many realization of sampling process (in practice we only a few of samples per training example!)
+\item First term implies the use of many realization of sampling process (in practice we only have a few of samples per training example!)
 \item Second term is simply a formula for diagonal multivariate Gaussian distribution.
 \end{itemize}
 \end{frame}
@@ -620,7 +634,7 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
 \end{figure}
 %\pause
 %The goal is to optimize the follow expression, $\min_{G} \max _{D} V(D,G)$.
-%for a given loss function $\loss(\cdot,\cdot)$.\\ 
+%for a given loss function $\loss(\cdot,\cdot)$.\\
 %\alert{We are looking the best generator for the best discriminator}.
 \end{frame}
 
@@ -660,7 +674,7 @@ This is called the \emph{minimax formulation}, since the generator and discrimin
 && \min_{G} \max _{D} V(D,G) := \\
 &= &\mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{z \sim P_{z}(z)}[ \log (1-D(G(z)))]  \\
 &&\texttt{by Radon-Nikodym Theorem} \\
-&=& \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{\alert{{g}(\x)}}}[ \log (1-\alert{D(x)})]  
+&=& \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{\alert{{g}(\x)}}}[ \log (1-\alert{D(x)})]
 \end{eqnarray*}
 An optimal generator $G^{*}$ should give $P_{g(\x)}=P_{\texttt{real}}(\x)$. \\
 Now, given a generator $G$, we can compute the optimal discriminator by:
@@ -674,7 +688,7 @@ Setting $\frac{\partial V(G,D)(\x)}{\partial D(\x)}=0$, we obtain $D^{*}(\x)=\fr
 \begin{frame}{Global Optimal on Generative Adversarial Networks (GANs)}
 \begin{eqnarray*}
 V(G,D)= \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{{g}(\x)}}[ \log (1-D(\x))] \\
-= \int_{\x} P_{\texttt{real}}(\x) \log D(\x) + P_{g(\x)}  \log (1-D(\x))  d\x 
+= \int_{\x} P_{\texttt{real}}(\x) \log D(\x) + P_{g(\x)}  \log (1-D(\x))  d\x
 \end{eqnarray*}
 We are interested in compute
 $V(G^{*},D^{*})= \pause \alert{2 \log (1/2)}$
@@ -725,7 +739,7 @@ $V(G^{*},D^{*})= \pause \alert{2 \log (1/2)}$
 \end{frame}
 
 
-\begin{frame}{How to Train a GAN?)}
+\begin{frame}{How to Train a GAN?}
 \alert{Bad news: GANs are hard to train}.
 \textbf{ Tips and tricks to make GANs work}
 \url{https://github.com/soumith/ganhacks}
@@ -812,7 +826,7 @@ Progressive Growing of GANs for Improved Quality, Stability, and Variation \cite
 
 \begin{frame}{Pix2Pix transformation}
 \begin{figure}
-\includegraphics[width=.75\columnwidth]{../graphics/PixtoPix}
+\includegraphics[width=.75\columnwidth]{../graphics/PixToPix}
 \caption{Example of Pix2Pix, a.k.a. image-to-image translation, \cite{isola2017image}}
 \end{figure}
 \end{frame}
@@ -859,7 +873,7 @@ We have to train two GANs for Pix2Pix transform:
 \item First: GANs to translate data from domain one $\X_1$ to domain two represented by $\X_2$, denoted by $V(G_1,D_1,\X_1,\X_2)$
 \item Second: GANs to translate data from domain one $\X_2$ to domain two represented by $\X_1$, denoted by $V(G_2,D_2,\X_2,\X_1)$
 \pause
-\item Include: a Cycle consistency loss $V_{cyc}$ to force that the composition of two \texttt{Generators} to reconstruct input image, i.e $G_1(G_2(\X_2))\approx\X_2$ and  $G_2(G_1(\X_1))\approx\X_1$ 
+\item Include: a Cycle consistency loss $V_{cyc}$ to force that the composition of two \texttt{Generators} to reconstruct input image, i.e $G_1(G_2(\X_2))\approx\X_2$ and  $G_2(G_1(\X_1))\approx\X_1$
 \end{itemize}
 In general the full objective is:
 \begin{eqnarray*}
@@ -874,7 +888,7 @@ In general the full objective is:
 %model, and yet its human user would still visually consider the adversarial input $\x^{adv}$ similar to or the same as the benign input $x$.
 %Given a benign sample $\x$, an adversarial example $\x^{adv}$ is generated by adding a small perturbation to $\x$ (i.e. $\x^{adv}=\x+\epsilon$), so that $\x^{adv}$ is misclassified by the targeted classifier $g$.
 \begin{itemize}
-\item Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example 
+\item Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example
 if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x^{adv})$ and $||\x - \x^{adv}|| \leq \delta$.
 \item An human user would still visually consider the adversarial input $\x^{adv}$ similar to or the same as the benign input $x$
 \item Usually, we are interested in adversarial for benign sample $\x$, i.e., sample were the model gives a correct predictions.
@@ -884,21 +898,21 @@ if there exists $x$, an example drawn from the benign data distribution, such th
 \begin{frame}
 \begin{figure}
 \includegraphics[width=.285\columnwidth]{../graphics/Adversarial0} \textbf{+}
-\includegraphics[width=.285\columnwidth]{../graphics/Noise} \textbf{=}  
+\includegraphics[width=.285\columnwidth]{../graphics/Noise} \textbf{=}
 \includegraphics[width=.285\columnwidth]{../graphics/Adversarial2}
 \caption{$\x$ + $\epsilon$ =  $\x^{adv}$}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=.45\columnwidth]{../graphics/ClassX} 
-\includegraphics[width=.45\columnwidth]{../graphics/ClassXadv} 
+\includegraphics[width=.45\columnwidth]{../graphics/ClassX}
+\includegraphics[width=.45\columnwidth]{../graphics/ClassXadv}
 \caption{VGG19 Prediction for: $\x$ and $\x^{adv}$}
 \end{figure}
 \end{frame}
 
 %\begin{frame}
 %Formal definition:
-%(Adversarial example (Wang et al., 2016)). Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example 
+%(Adversarial example (Wang et al., 2016)). Given a ML model $f(\cdot)$ and \emph{a small perturbation $\delta$}, we call $\x^{adv}$ an adversarial example
 %if there exists $x$, an example drawn from the benign data distribution, such that $f(\x)\neq f(\x^{adv})$ and $||\x - \x^{adv}|| \leq \delta$.
 %This is, $\x^{adv}$ could be called a \emph{counter example}.
 %\end{frame}
@@ -953,8 +967,8 @@ $\x_{0}^{adv}=\x$, iteratively repeat $\x_{t+1}^{adv}=\texttt{CLIP} (\x_{t}^{adv
 \end{frame}
 
 
-\begin{frame}{Job Offers: Master Internships}
-\end{frame}
+%% \begin{frame}{Job Offers: Master Internships}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
