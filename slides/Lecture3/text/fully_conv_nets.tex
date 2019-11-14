@@ -1,4 +1,4 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -94,8 +94,19 @@
 
   \begin{itemize}
   \item An image classification task is a function from the set of considered images into a set of labels
+      \begin{figure}
+      \includegraphics[width=0.35\textheight]{image_classif.png}
+      \end{figure}
   \item In many applications, we want to transform an image into another image
+      \begin{figure}
+      \includegraphics[width=0.35\textheight]{image_transf0.png}
+      \end{figure}
   \end{itemize}
+
+
+      \pause
+
+
 
 \end{frame}
 
@@ -104,11 +115,8 @@
 \frame{
   \frametitle{Image definition}
 
-  \begin{block}{Definition: image}
-    A 2-dimensional image $I$ of size $p \times q$ ($p, q \in \N^*$) is a function:
-    \[
-      [0, \ldots p-1] \times [0, \ldots q-1] \longmapsto \R^d~~~ (d \in \N^*)
-      \]
+  \begin{block}{Definition}
+ Here an image is a 2D array of size $p \times q$. Each array element belongs to $\R^d$. The dimension of the value space $d$, is often called the \alert{number of channels} of the image.
 
       The set of these images is $\mathcal{I}^d$.
   \end{block}
@@ -132,13 +140,13 @@
   \frametitle{Image-to-image NN}
 
   \begin{block}{Definition: image-to-image neural network}
-    An image-to-image NN $F$ is a NN that transforms an image into an image of same size:
+    An image-to-image NN is a function that transforms an image into an image of same size:
     \vspace{-1em}
     \begin{align*}
       F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
-      & I               \longmapsto     F(I)
+      & I               \longmapsto     J
     \end{align*}
-    Note that the dimensions $d_1$ and $d_2$ of the value spaces can be different.
+    Note that the number of channels of input and output images can be different.
   \end{block}
 
 }
@@ -168,7 +176,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Image segmentation with NNs}
+  \frametitle{Image segmentation}
 
   \begin{itemize}
 
@@ -179,7 +187,7 @@
   \end{itemize}
 
 
-  \begin{block}{Image segmentation example}
+  \begin{block}{Example}
     \begin{figure}
       \centering
       \includegraphics[height=2.5cm]{pascal_moto}
@@ -202,6 +210,8 @@
   \item Motion estimation
   \end{itemize}
 
+  In the following, we will focus on images segmentation.
+
 \end{frame}
 
 
@@ -217,7 +227,8 @@
 
   \begin{center}
     \begin{figure}
-      \includegraphics[width=0.75\textwidth]{vgg16.png}
+      \centering
+      \includegraphics[width=0.65\textwidth]{vgg16.png}
       \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
     \end{figure}
   \end{center}
@@ -281,19 +292,35 @@ This strategy is very inefficient.
     \end{figure}
   \end{block}
 
-  \pause
-
-  \begin{itemize}
-
-  \item Image-to-image nets are based on convolutional layers
-  \item If downsampling is used, the corresponding upsampling is needed
-
-  \end{itemize}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back1.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back2.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back.png}
+    \end{figure}
 
 \end{frame}
 
@@ -301,12 +328,17 @@ This strategy is very inefficient.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Upsampling}
 
+    \begin{figure}
+      \includegraphics[height=\textheight]{upsampling.png}
+    \end{figure}
+
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transposed convolutions}
+%% \begin{frame}{Transposed convolutions}
 
-\end{frame}
+%% \end{frame}
 
 
 
@@ -328,13 +360,25 @@ This strategy is very inefficient.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Illustration}
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Illustration}
 
-  \includegraphics[width=\textwidth]{receptive_field.png}
+  \begin{figure}
+  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
+  \end{figure}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
+\frame<beamer>{
   \frametitle{Example}
 
   \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
@@ -350,6 +394,16 @@ This strategy is very inefficient.
   \centering
   Answer: $1 + 2 \times (n+1)$
 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<handout>{
+  \frametitle{Example}
+
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -398,7 +452,7 @@ This strategy is very inefficient.
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Image segmentation}
+% \section{Image segmentation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Binary segmentation}
 
@@ -689,6 +743,11 @@ This strategy is very inefficient.
   \begin{figure}
     \includegraphics[width=\textwidth]{unet_lo}
   \end{figure}
+
+  \begin{itemize}
+  \item Size and number of channels of input images?
+  \item Segmentation into how many regions?
+  \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -787,17 +846,18 @@ This strategy is very inefficient.
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Post-processing for segmentation}
+%% \frame{
+%%   \frametitle{Post-processing for segmentation}
 
-  \begin {itemize}
-  \item Superpixels (e.g. \cite{farabet_learning_2013})
-  \item Conditional random fields
-  \item Mathematical morphology
-  \end{itemize}
+%%   \begin {itemize}
+%%   \item Superpixels (e.g. \cite{farabet_learning_2013})
+%%   \item Conditional random fields
+%%   \item Mathematical morphology
+%%   \end{itemize}
 
-}
+%% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -949,6 +1009,28 @@ This strategy is very inefficient.
   \item Working on specific losses enforcing structure might be an interesting research path...
   \end{itemize}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Applying fully-convolutional networks}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=0.35\textheight]{unet_lo}
+\end{figure}
+
+
+\begin{block}{Case study}
+Suppose that we have satisfactorily optimized this U-Net model, using images of size $512 \times 512$ during training. Now I want to apply this model to a new image, of size $1000 \times 1000$. How should I proceed?
+\end{block}
+
+\begin{itemize}
+\item Resize the image?
+\item Cut it into $512 \times 512$ crops, predict and stitch the results together?
+\end{itemize}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Practical example}
