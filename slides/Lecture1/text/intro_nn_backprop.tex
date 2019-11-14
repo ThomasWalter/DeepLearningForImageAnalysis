@@ -326,8 +326,8 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
 \begin{block}{}
   In $\R^p$ ,
-  $b + \sum\limits_{i=0}^p w_ix_i = 0$
-  corresponds to a hyperplane. For a given point
+  $b + \sum\limits_{i=1}^p w_ix_i = 0$
+  corresponds to a hyperplane $H$. For a given point
   $\x = \{x_0, \ldots, x_p\}$,
   decisions are made according to the side of the hyperplane it belongs to.
 \end{block}
@@ -423,6 +423,10 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
   \end{column}
 \end{columns}
 
+\begin{block}{Intuition}
+  Combining several neurons one can build complex classifiers.
+\end{block}
+
 }
 
 
@@ -489,7 +493,7 @@ We can simply write:
 \begin{frame}{Computational graph}
 
 \begin{block}{Definition}
-  A computational graph is a directly acyclic graph such that:
+  A computational graph is a direct acyclic graph such that:
   \begin{itemize}
   \item A node is a mathematical operator
   \item To each edge is associated a value
@@ -519,13 +523,22 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 \pause
 
   \centering
-  \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+  \includegraphics[width=0.7\textwidth]{comp_graph2}\\
   \pause
   The graph can be represented at different levels of detail:
-  \includegraphics[width=0.6\textwidth]{comp_graph}
-
+  \includegraphics[width=0.7\textwidth]{comp_graph}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Differentiable programming}
+
+  \begin{block}{Definition}
+    Differentiable programming refers to the use of computational graphs such that all operators are differentiable. Automatic differentiation then allows to use gradient descent for optimization.
+  \end{block}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -627,7 +640,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
   \begin{column}{.5\textwidth}
     \begin{itemize}
     \item Data is organized into arrays, linked with operators
-    \item A layer corresponds to an operator between arrays (and often an activation) as well as the resulting array.
+    \item A layer corresponds to an operator between arrays.
     \end{itemize}
   \end{column}
 \end{columns}
@@ -655,7 +668,29 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
+\frame<handout>{
+  \frametitle{Number of parameters}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{nn_representation.png}
+  \end{figure}
+
+  \begin{itemize}
+  \item How many parameters does the above network contain?
+  %% \item<2-> First hidden layer:\\
+  %%   %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
+  %%   \begin{itemize}
+  %%   \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
+  %%   \end{itemize}
+  %% \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
+  %% \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
+  %% \item<8-> Total: $301$ parameters
+  \end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
   \frametitle{Number of parameters}
 
   \begin{figure}
@@ -769,7 +804,7 @@ This means that function $f$ can be approximated with a neural network containin
 
   \begin{itemize}
   \item The number of neurons increases very rapidly with the complexity of the function
-  \item Empirical evidence has shown that multi-layer architectures give better results
+  \item Empirical evidence has shown that \alert{multi-layer architectures give better results}
   \end{itemize}
 
   \begin{block}<2->{}
