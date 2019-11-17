@@ -17,6 +17,8 @@
 \useinnertheme{rounded}
 \usecolortheme{rose}
 
+\usepackage[absolute,overlay]{textpos}
+
 \usepackage{xcolor}
 \definecolor{lightblue}{RGB}{0,200,255}
 
@@ -266,37 +268,75 @@
 \end{frame}
 
 \begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
 \begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_1.png}
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_1.png}
 \end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 0.67$
+\end{column}
+\end{columns}
 For $m=1$, the model is linear in its inputs. The solution is not capable of modeling the measured data points; we get a poor approximation of the original function. The family of functions we have used was not complex enough to model the true data distribution. We also speak of \textbf{underfitting}.
+%\begin{textblock}{0}(.9\textwidth,\paperheight)
+%  Test
+% \end{textblock}
 \end{frame}
 
 \begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
 \begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_3.png}
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_3.png}
 \end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 1.72$
+\end{column}
+\end{columns}
 For $m=3$, we obtain a solution that seems to be quite right: it is sufficiently complex to model the true data distribution, but not too complex to model the small variations which are due to noise.
 \end{frame}
 
 \begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
 \begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_11.png}
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_11.png}
 \end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 \approx 10^7$
+\end{column}
+\end{columns}
 For $m=11$, we obtain a solution that has zero error (the function passes through every point of the training set). But the coefficients with large absolute values that cancel each other precisely on the training points lead to a highly unstable function. We speak of \textbf{overfitting} and \textbf{poor generalization}.
 \end{frame}
 
 \begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
 \begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/polyfit_degree_11_N60.png}
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_11_N60.png}
 \end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 5647$
+\end{column}
+\end{columns}
 One way of reducing overfitting is to increase the number of samples. Even if the function is complex, it cannot be “too wild”, as it has to find a compromise between many training samples. This however implies the annotation (or measurement) of more samples.
 \end{frame}
 
 \begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
 \begin{figure}[htb]
-\includegraphics[width=0.6\textwidth]{../graphics/ridge_regression_11_10.png}
+	\includegraphics[width=0.75\textwidth]{../graphics/ridge_regression_11_10.png}
 \end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 0.41$
+\end{column}
+\end{columns}
 Another way of preventing overfitting without increasing the number of samples, is to add a penalization term in the optimization procedure. This is also known as \textbf{regularization}:
 \begin{equation}
 	\loss = \sum_{i=1}^N (y_i - \param^T \featmap (x_i))^2 + \lambda \| \param \|^2
@@ -318,12 +358,12 @@ Another way of preventing overfitting without increasing the number of samples, 
 \begin{itemize}
 \item Many ML algorithms can be written as an optimization problem:
 \begin{equation*}
-\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
+\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
 \end{equation*}
 Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the annotations in the training set, minimizing the regularization term $\mathcal{R}(\param)$ aims at avoiding the model to adapt too much to the training data, leading to simpler models. We have seen the $L_2$ norm, but there are many other options for $\mathcal{R}$.
 \item Other regularization strategies include:
 \begin{itemize}
-\item Model averaging (ensemble methods)
+\item Model averaging (ensemble methods), dropout
 \item Artificial or actual increase of training data
 \item Adversarial training
 \end{itemize}
@@ -333,6 +373,7 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Supervised Learning: Example algorithms}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
 % \begin{frame}{Example: classification of cells}
 % \begin{figure}[htb]
@@ -375,7 +416,7 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \end{figure}
 
 \begin{itemize}
-	\item Intuitive approach: applying a series of "rules" to the training data to recover the classes $\omega_i$ (e.g. "is the cell bright?", "is the cell elongated?", ... )
+	\item Intuitive approach: applying a series of "rules" to the training data to recover the classes $\y_i$ (e.g. "is the cell bright?", "is the cell elongated?", ... )
 	\item Each rule (or decision) divides the set of objects into two subsets.
 	\item The whole classifier is thus represented by a decision tree, i.e. a hierarchically organized set of binary decisions.
 \end{itemize}
@@ -397,26 +438,27 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \item Such decision trees can be built from data in an optimal way, by repeated division of the feature space.
 \item At every step, we split the data set into two, according to one feature.
 \item The feature and the threshold are chosen automatically in such a way that the resulting groups have best "purity".
-\item This can be achieved by minimizing the GINI impurity. For $K$ classes, GINI impurity is defined as:
-\begin{eqnarray*}
-GI(R_m) &=& \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk}) \\
-GI(s) &=& \sum_{R_m}=\frac{|R_m|}{N}GI(R_m)
-\end{eqnarray*}
-where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the probability of a sample in $R_m$ to belong to class $k$.
+\item This can be achieved by minimizing the Gini impurity (GI) or entropy. 
+% For $K$ classes, GINI impurity is defined as:
+% \begin{eqnarray*}
+% GI(R_m) &=& \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk}) \\
+% GI(s) &=& \sum_{R_m}=\frac{|R_m|}{N}GI(R_m)
+% \end{eqnarray*}
+% where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the probability of a sample in $R_m$ to belong to class $k$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Random Forest: GINI impurity}
-\begin{figure}[htb]
-\includegraphics[width=0.7\textwidth]{../graphics/RF_GINI.pdf}
-\end{figure}
-Here, we obtain for the GINI impurity:
-\begin{eqnarray*}
-GI(R_1) &=&  \frac{1}{10} \cdot \frac{9}{10} + \frac{5}{10} \cdot \frac{5}{10} + \frac{4}{10} \cdot \frac{6}{10} = 0.58 \\
-GI(R_2) &=&  \frac{0}{7}\cdot \frac{7}{7} + \frac{4}{7} \cdot \frac{3}{7} + \frac{3}{7} \cdot \frac{4}{7} = 0.49 \\
-GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
-\end{eqnarray*}
-\end{frame}
+% \begin{frame}{Random Forest: GINI impurity}
+% \begin{figure}[htb]
+% \includegraphics[width=0.7\textwidth]{../graphics/RF_GINI.pdf}
+% \end{figure}
+% Here, we obtain for the GINI impurity:
+% \begin{eqnarray*}
+% GI(R_1) &=&  \frac{1}{10} \cdot \frac{9}{10} + \frac{5}{10} \cdot \frac{5}{10} + \frac{4}{10} \cdot \frac{6}{10} = 0.58 \\
+% GI(R_2) &=&  \frac{0}{7}\cdot \frac{7}{7} + \frac{4}{7} \cdot \frac{3}{7} + \frac{3}{7} \cdot \frac{4}{7} = 0.49 \\
+% GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
+% \end{eqnarray*}
+% \end{frame}
 
 \begin{frame}{Random Forests}
 \begin{figure}[htb]
@@ -447,7 +489,7 @@ GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
 \end{frame}
 
 
-\begin{frame}{The Bayes rule of classification 1/3}
+\begin{frame}{The Bayes rule of classification 1/4}
 \begin{block}{Product and sum rules of probabilities}
 	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be their marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ the conditional probability of $X$ given $Y$.
 	\begin{itemize}
@@ -461,36 +503,47 @@ GI(s) &=&  \frac{10}{17}\cdot R_1 + \frac{7}{17}\cdot R_2 = 0.54
 		\end{equation}
 	\end{itemize}
 \end{block}
+Example: the probability that I am eaten be a shark in Australia is the probability to be in Australia times the probability to be eaten by a shark given that I am in Australia. 
+\end{frame}
+
+\begin{frame}{The Bayes rule of classification 2/4}
+
 From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
 \begin{equation}
 	P(Y \, | \, X) = \frac{P(X \, | \, Y)P(Y)}{P(X)}
 \end{equation}
+
+This rule holds for discrete variables, but almost identical rules hold in the case of continuous variables: we need to replace probabilities by probability densities (as the probability of observing one particular value of a continuous variable is often close to 0).
+
+% Here, we assume that $Y$ is a discrete variable (classes) and $X$ is a continuous variable (measurements). We thus obtain: 
+% \begin{equation}
+% 	P(Y \, | \, X) = \frac{p(X \, | \, Y)P(Y)}{p(X)}
+% \end{equation}
+
 \end{frame}
 
-\begin{frame}{The Bayes rule of classification 2/3}
-
-We assume that the measured features are continuous variables. Almost identical rules hold in this case, but we need to replace probabilities by probability densities.
+\begin{frame}{The Bayes rule of classification 3/4}
 
 \begin{block}{Bayes rule of classification}
-	Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $Y \in \{\omega_1, \ldots, \omega_K\}$ a discrete set of class labels. The posterior probability $P(Y=\omega_k\,|\,x)$ can be written as:
+	\textbf{Posterior probability}: Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $y \in \{1 \ldots, K\}$ a discrete set of class labels. The posterior probability $P(y=k\,|\,x)$ can be written as:
 	\begin{equation}
-		P(Y=\omega_k \, | \, x) = \frac{p(x \, | \, Y=\omega_k) P(Y=\omega_k)}{p(x)}
+		P(y=k \, | \, x) = \frac{p(x \, | \, y=k) P(y=k)}{p(x)}
 	\end{equation}
-	The Bayes rule of classification: \emph{choose the class that maximizes the posterior probability} $P(Y=\omega_k|x)$:
+	\textbf{The Bayes rule of classification}: \emph{choose the class that maximizes the posterior probability} $P(y=k|x)$:
 	\begin{equation}
-		\omega^{\ast}(x) = \arg\max_k P(Y=\omega_k \, | \, x) = \arg\max_k p(x\,|\,Y=\omega_k)P(Y=\omega_k)
+		\hat{y}(x) = \arg\max_k P(y=k \, | \, x) = \arg\max_k p(x\,|\,y=k)P(y=k)
 	\end{equation}
 \end{block}
 
 \end{frame}
 
 
-\begin{frame}{The Bayes rule of classification 3/3}
+\begin{frame}{The Bayes rule of classification 4/4}
 
 \begin{itemize}
 \item The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
 \item Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities.
-\item This rule is important because it gives the best possible classifier, given that the feature distributions $p(x\,|\,Y=\omega_k)$ and the class probabilities $P(Y=\omega_k)$ are known.
+\item This rule is important because it gives the best possible classifier, given that the class dependent feature distributions $p(x\,|\,y=k)$ and the class probabilities $P(y=k)$ are known.
 \item However, this is normally not the case: these distributions need to be estimated from the training data.
 
 \end{itemize}
@@ -499,15 +552,15 @@ We assume that the measured features are continuous variables. Almost identical 
 
 \begin{frame}{The Bayes rule for classification in the binary case}
 
-For simplicity, we assume the case of binary classification, i.e. $\Omega = \{\omega_1, \omega_2\}$. The Bayes rule for classification states that we should choose $\omega_1$ if:
+For simplicity, we assume the case of binary classification, i.e. $y \in \{1, 2\}$. The Bayes rule for classification states that we should choose class $1$ if:
 
 \begin{equation*}
-\frac{p(x|\omega_1)P(\omega_1)}{p(x|\omega_2)P(\omega_2)} > 1
+\frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} > 1
 \end{equation*}
 \\
 We can apply the $log$ to both sides of the equation. We obtain the following expression for the Bayes rule of classification:
 \begin{equation}\label{equ:lda:condition}
-\log{ \frac{p(x|\omega_1)P(\omega_1)}{p(x|\omega_2)P(\omega_2)} } > 0
+\log{ \frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} } > 0
 \end{equation}
 
 \end{frame}
@@ -518,62 +571,52 @@ We can apply the $log$ to both sides of the equation. We obtain the following ex
 \end{figure}
 We assume that features are normally distributed for each of the classes:
 \begin{equation}\label{equ:lda:normal}
-p(x|\omega_k)=\frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma_k|^{\frac{1}{2}}}e^{-\frac{1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)}
+p(x|y=k)=\frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma_k|^{\frac{1}{2}}}e^{-\frac{1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)}
 \end{equation}
 \end{frame}
 
 \begin{frame}{Linear Discriminant Analysis (LDA)}
-Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) leads to {\bf Quadratic discriminant analysis (QDA)}:
-\begin{eqnarray*}
-&& \log{\frac{P(\omega_1)}{P(\omega_2)}} +
-\frac{1}{2}\log{\frac{|\Sigma_2|}{|\Sigma_1|}}
-- \frac{1}{2}(x-\mu_1)^T\Sigma_1^{-1}(x-\mu_1) \nonumber \\
-&+& \frac{1}{2}(x-\mu_2)^T\Sigma_2^{-1}(x-\mu_2) > 0
-\end{eqnarray*}
-
-% \begin{equation*}
-% \log{\frac{P(\omega_1)}{P(\omega_2)}} +
-% \frac{1}{2}\log{\frac{|\Sigma_2|}{|\Sigma_1|}}
-% - \frac{1}{2}(x-\mu_1)^T\Sigma_1^{-1}(x-\mu_1)
-% + \frac{1}{2}(x-\mu_2)^T\Sigma_2^{-1}(x-\mu_2) > 0
-% \end{equation*}
-
-If we further assume that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$), we obtain {\bf Linear Discriminant Analysis, LDA}:
+Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the additional assumption that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$, we obtain {\bf Linear Discriminant Analysis, LDA}:
 \begin{equation*}
-\log{\frac{P(\omega_1)}{P(\omega_2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
+\log{\frac{P(y=1)}{P(y=2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
 \end{equation*}
-\end{frame}
-
-\begin{frame}{Comparison LDA vs. closest mean 1/2}
 \begin{itemize}
-	\item Closest Mean Classifier:
-	\begin{itemize}
-		\item Calculate the mean value for each of the classes (from the training set).
-		\item Rule: for a new vector $x \in \mathbb{R}^P$ assign the class with the closest mean, i.e. choose class $\omega_1$ if :
-		\begin{eqnarray*}
-		\|x - \mu_1\| &<& \|x - \mu_2\| \\
-		(x-\mu_1)^T(x-\mu_1) - (x-\mu_2)^T(x-\mu_2) &<& 0 \\
-		x^T(\mu_2 - \mu_1) + \frac{1}{2}(\|\mu_1\|^2 - \|\mu_2\|^2) &<& 0 \\
-		x^T(\mu_1 - \mu_2) + b &>& 0
-		\end{eqnarray*}
-	\end{itemize}
-	\item We see that the only term that depends on $x$ is linear and corresponds to a projection of $x$ onto the difference vector of the two class means $\mu_1$ and $\mu_2$.
-\end{itemize}
+	\item We see that this is a linear classifier: $x$ is multiplied with $\Sigma^{-1}(\mu_1-\mu_2)$. 
+	\item We also see that the classifier involves inversion of the covariance matrix. 
+	\item $LDA$ is an old technique, but it is still used in practice. 
+\end{itemize} 
 \end{frame}
 
-\begin{frame}{Comparison LDA vs. closest mean 2/2}
-	\begin{figure}[htb]
-		\includegraphics[width=0.8\textwidth]{../graphics/LDA_projection.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item The expression for LDA classification is:
-		\begin{equation*}
-			x^T\Sigma^{-1}(\mu_1-\mu_2) + b > 0
-		\end{equation*}
-		\item We thus see that the only difference is that we take the covariance matrix $\Sigma$ into account.
-		\item The normal vector of the separating hyperplane is thus not $(\mu_1-\mu_2)$ but $\Sigma^{-1}(\mu_1-\mu_2)$.
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Comparison LDA vs. closest mean 1/2}
+% \begin{itemize}
+% 	\item Closest Mean Classifier:
+% 	\begin{itemize}
+% 		\item Calculate the mean value for each of the classes (from the training set).
+% 		\item Rule: for a new vector $x \in \mathbb{R}^P$ assign the class with the closest mean, i.e. choose class $\omega_1$ if :
+% 		\begin{eqnarray*}
+% 		\|x - \mu_1\| &<& \|x - \mu_2\| \\
+% 		(x-\mu_1)^T(x-\mu_1) - (x-\mu_2)^T(x-\mu_2) &<& 0 \\
+% 		x^T(\mu_2 - \mu_1) + \frac{1}{2}(\|\mu_1\|^2 - \|\mu_2\|^2) &<& 0 \\
+% 		x^T(\mu_1 - \mu_2) + b &>& 0
+% 		\end{eqnarray*}
+% 	\end{itemize}
+% 	\item We see that the only term that depends on $x$ is linear and corresponds to a projection of $x$ onto the difference vector of the two class means $\mu_1$ and $\mu_2$.
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Comparison LDA vs. closest mean 2/2}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.8\textwidth]{../graphics/LDA_projection.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item The expression for LDA classification is:
+% 		\begin{equation*}
+% 			x^T\Sigma^{-1}(\mu_1-\mu_2) + b > 0
+% 		\end{equation*}
+% 		\item We thus see that the only difference is that we take the covariance matrix $\Sigma$ into account.
+% 		\item The normal vector of the separating hyperplane is thus not $(\mu_1-\mu_2)$ but $\Sigma^{-1}(\mu_1-\mu_2)$.
+% 	\end{itemize}
+% \end{frame}
 
 \subsection{Support Vector Machines (SVM) and kernel methods}
 \begin{frame}[plain,c]
@@ -595,13 +638,24 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 
 \begin{frame}{Support Vector Machines: linearly separable training set}
 	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM_1a.pdf}
 	\end{figure}
 	\begin{itemize}
 		\item Equation of a linear decision boundary $h: w^Tx + b = 0$.
-		\item $w$: normal vector of the separating hyperplane.
+		\item $w$: normal vector of the separating hyperplane. $b$ is called the bias. 
+		\item $w^Tx$ is the scalar product of some weight vector with the features. 
+		\item For normalized features, the entries of $w$ reflect the feature importance (the weight which is given to the corresponding feature.)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Support Vector Machines: linearly separable training set}
+	\begin{figure}[htb]
+		\includegraphics[width=0.7\textwidth]{../graphics/SVM_1a.pdf}
+	\end{figure}
+	\begin{itemize}
 		\item $w^Tx + b  > 0$: $x$ is on the same side as the normal vector $w$ points to.
 		\item $w^Tx + b  < 0$: $x$ is on the opposite side.
+		\item With the encoding $y\in\{-1,+1\}$, a sample is correctly classified if $y_i(w^Tx_i + b) > 0$.
 	\end{itemize}
 \end{frame}
 
@@ -610,7 +664,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item With the encoding $y\in\{-1,+1\}$, a sample is correctly classified if $y_i(w^Tx_i + b) > 0$.
+		\item The ribbon is defined by two parallel lines, for which $w^Tx + b = 1$ 
 		\item The distance between the two parallel lines $w^Tx + b = \pm 1$ is given by
 		\begin{equation}
 			d = \frac{2}{\|w\|}
@@ -619,12 +673,13 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{itemize}
 \end{frame}
 
+
 \begin{frame}{Support Vector Machines: linearly separable training set}
 	\begin{figure}[htb]
 		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item With this, the problem can be written as a {\bf convex optimization problem under constraints}:
+		\item With this, the problem can be written as a \textbf{convex optimization problem under constraints}:
 		\begin{eqnarray*}
 			\mbox{minimize} & & \|w\|^2 \\
 			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 \quad i = 1, \ldots, N
@@ -640,7 +695,14 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{figure}
 	\begin{itemize}
 		\item In reality, complex data is rarely linearly separable.
-		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$.
+		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (we omit the constraints):
+		\begin{equation*}
+			\min_{w,\xi} \|w\|^2 + C \sum_{i=1}^{N}\xi_i
+		\end{equation*}
+		\item We note that this corresponds to the general formulation we have seen before.
+ 		% \begin{equation*}
+ 		% 	\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
+ 		% \end{equation*}
 		%\item Normal vector $w$: vector of feature weights.
 		%\begin{equation*}
 		%	f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
@@ -648,21 +710,21 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{SVM for not linearly separable data}
-	\begin{itemize}
-		\item SVM correspond to the following constrained optimization problem:
-		\begin{eqnarray*}
-			\min_{w,\xi} & & \|w\|^2 + C \sum_{i=1}^{N}\xi_i\\
-			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 - \xi_i \quad i = 1, \ldots, N \\
-			& & \xi_i \geq 0 \quad i = 1, \ldots, N
-		\end{eqnarray*}
-		\item This problem can be efficiently solved with the Lagrange formalism (not shown).
-		\item We note that this corresponds to the formulation we have seen earlier:
-		\begin{equation*}
-			\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
-		\end{equation*}
-	\end{itemize}
-\end{frame}
+% \begin{frame}{SVM for not linearly separable data}
+% 	\begin{itemize}
+% 		\item SVM correspond to the following constrained optimization problem:
+% 		\begin{eqnarray*}
+% 			\min_{w,\xi} & & \|w\|^2 + C \sum_{i=1}^{N}\xi_i\\
+% 			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 - \xi_i \quad i = 1, \ldots, N \\
+% 			& & \xi_i \geq 0 \quad i = 1, \ldots, N
+% 		\end{eqnarray*}
+% 		\item This problem can be efficiently solved with the Lagrange formalism (not shown).
+% 		\item We note that this corresponds to the formulation we have seen earlier:
+% 		\begin{equation*}
+% 			\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
+% 		\end{equation*}
+% 	\end{itemize}
+% \end{frame}
 
 \begin{frame}{Support Vector Machines: Kernel trick}
 	\begin{figure}[htb]
@@ -675,8 +737,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}{How to set hyperparameters}
+\begin{frame}{How to set hyperparameters ... }
 	\begin{itemize}
 		\item Training a classifier: finding automatically a large number of feature weights (SVM, LDA) or other parameters (RF) from annotated data.
 		\item Hyperparameters: a small number of parameters that are set to control the training process, such as the number of trees, or the regularization parameter $\lambda$ ($C$ in SVM).
@@ -686,10 +747,26 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Assessment of performance}
+\begin{frame}{Model evaluation}
+	\begin{figure}[htb]
+		\includegraphics[width=0.9\textwidth]{../graphics/ModelEvaluation.pdf}
+	\end{figure}
 	\begin{itemize}
-		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy.
-		\item<2-> Problem: Training error is a poor approximation of the test error.
+		\item First, we need suitable metrics to evaluate a model's performance.
+		\item The following metrics are used often:
+		\begin{eqnarray*}
+		\text{recall} &=& \frac{TP}{TP + FN} \\
+		\text{precision} &=& \frac{TP}{TP + FP} \\
+		\text{accuracy} &=& \frac{TP + TN}{TP + TN + FP + FN} \\
+		%F1 = &=& 2 \cdot \frac{\text{recall}\cdot\text{precision}}{\text{recall} + \text{precision}}
+		\end{eqnarray*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance Assessment for a trained classifier}
+	\begin{itemize}
+		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy on the same training set $T$ (empirical risk, training error). 
+		\item<2-> Problem: Training error is a poor approximation of the test error: a classifier might have good performance on the training set, but poor performance on the test set.
 		\begin{figure}[htb]
 			\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
 		\end{figure}
@@ -697,7 +774,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{How to set hyperparameters: estimation of the test error}
+\begin{frame}{Performance Assessment for a trained classifier}
 	\begin{itemize}
 		\item<1-> Second idea: to split the training set in two subsets $T_1$, $T_2$. We train on $T_1$, we test on $T_2$.
 		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
@@ -712,7 +789,7 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 
 \begin{frame}{How to set hyperparameters: grid search}
 	\begin{figure}[htb]
-		\includegraphics[width=0.6\textwidth]{../graphics/CV2.pdf}
+		\includegraphics[width=0.8\textwidth]{../graphics/CV2.pdf}
 	\end{figure}
 	\begin{itemize}
 		\item If there are several parameters, we can perform this for every combination of values (grid search).
@@ -725,43 +802,68 @@ If we further assume that the covariance matrices of the classes are equal, i.e.
 \begin{frame}{Performance evaluation with optimized hyperparameters}
 	\begin{itemize}
 		\item<1-> If we optimize the hyperparameters in this way, the final performance might be over-optimistic (we have chosen the hyperparameters that give best performance for the test set, i.e. we have used the test set to set the parameters).
-		\item<2-> Solution: nested cross validation.
+		\item<2-> Solution: We split the training set in 3: 
+		\begin{itemize}
+			\item {\bf Training set}: used to obtain the classifier for a given set of hyperparameters.
+			\item {\bf Validation set}: used to find good hyperparameters.
+			\item {\bf Test set}: used to evaluate performance.
+		\end{itemize}		
 		\begin{figure}[htb]
-			\includegraphics[width=0.6\textwidth]{../graphics/CV3.pdf}
+			\includegraphics[width=0.9\textwidth]{../graphics/CV3_single.pdf}
 		\end{figure}
-		\item<3-> Nested cross validation is extremely time consuming.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Performance evaluation in deep learning}
 	\begin{itemize}
-		\item In the context of deep learning with long training times, we often do not use cross validation.
-		\item Split the training set into 3:
-		\begin{itemize}
-			\item {\bf Training set}: used to obtain the classifier for a given set of hyperparameters.
-			\item {\bf Validation set}: used to find good hyperparameters.
-			\item {\bf Test set}: used to evaluate performance.
-		\end{itemize}
+		\item<1-> If we want to use make of the entire training set, we will perform nested cross validation:
+ 		\begin{figure}[htb]
+ 			\includegraphics[width=0.8\textwidth]{../graphics/CV3.pdf}
+ 		\end{figure}
+		\item<2-> Nested cross validation is extremely time consuming.
+		\item<3-> In the context of deep learning with long training times, nested cross validation is rarely used.
 	\end{itemize}
 \end{frame}
 
+% \begin{frame}{Performance evaluation with optimized hyperparameters}
+% 	\begin{itemize}
+% 		\item<1-> If we optimize the hyperparameters in this way, the final performance might be over-optimistic (we have chosen the hyperparameters that give best performance for the test set, i.e. we have used the test set to set the parameters).
+% 		\item<2-> Solution: nested cross validation.
+% 		\begin{figure}[htb]
+% 			\includegraphics[width=0.6\textwidth]{../graphics/CV3.pdf}
+% 		\end{figure}
+% 		\item<3-> Nested cross validation is extremely time consuming.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Performance evaluation in deep learning}
+% 	\begin{itemize}
+% 		\item In the context of deep learning with long training times, we often do not use cross validation.
+% 		\item Split the training set into 3:
+% 		\begin{itemize}
+% 			\item {\bf Training set}: used to obtain the classifier for a given set of hyperparameters.
+% 			\item {\bf Validation set}: used to find good hyperparameters.
+% 			\item {\bf Test set}: used to evaluate performance.
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{frame}
 
 \section{Conclusion}
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict an output variable $y$ from an input variable $x$.
+		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict some output variable $y$ from inputs $x$.
 		\item Different views:
 			\begin{itemize}
 				\item Probabilistic view: we maximize the posterior probability.
 				\item Discriminant view: we optimize the separation of classes.
 			\end{itemize}
-		\item Ultimately, we wish to minimize the error, but we need to regularize the predicting function.
+		\item Compromise: we want to minimize the error and regularize $f$.
 		\item Forms of regularization we have seen so far:
 			\begin{itemize}
 				\item Regularization by model averaging (e.g. RF)
 				\item Minimizing a global loss function containing an error and a regularization term:
 				\begin{equation*}
-					\param ^{\ast} = \argmin_{\param} \loss (\param) + \mathcal{R}(\param)
+					\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
 				\end{equation*}
 			\end{itemize}
 		\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
