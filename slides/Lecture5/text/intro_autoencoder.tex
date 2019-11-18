@@ -170,16 +170,17 @@ The loss function for a given input vector is usually the reconstruction error:
 
 
 \section{Autoencoders}
+
 \begin{frame}{Autoencoder}
 \begin{itemize}
 \item An \emph{autoencoder} is a neural network that is trained to attempt to copy its input to its output.
 \item The network may be viewed as consisting of two parts: an
-encoder function $h = f (\X)$ and a decoder that produces a reconstruction $r(\X) = g(h(\X))$.
+encoder function $z = f (\x)$ and a decoder that produces a reconstruction $r(\x) = g(f(\x))$.
 \item The composition of $f$ and $g$ is called the \emph{reconstruction function}
-\item If an autoencoder succeeds to learn $g(f (\X)) = \X$ everywhere, then it is not especially useful (overfitting).
-\item The learning process can be described as minimizing the loss function:
+\item If an autoencoder succeeds to learn $g(f (\x)) = \x$ everywhere, then it is not especially useful (overfitting).
+\item The learning process consists in minimizing the loss function:
 \begin{equation}
-\loss ( \X , g(f(\X))),
+\loss ( \x , g(f(\x))),
 \end{equation}
 where $\loss$ is a loss function, such as mean squared error.
 \end{itemize}
@@ -196,6 +197,7 @@ where $\loss$ is a loss function, such as mean squared error.
   \end{tikzpicture}
 \end{figure}
 \end{frame}
+
 
 \begin{frame}{Over/Under complete autoencoders}
 
@@ -216,9 +218,9 @@ where $\loss$ is a loss function, such as mean squared error.
 \begin{tikzpicture}
 \tikzstyle{main}=[rectangle, minimum size = 10mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
-  \node[circle, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
+\node[main, fill = blue!50] (alpha) [label=below: $\mathbb{R}^\nfeatures$ ] {$\x$};
   \node[main,fill = green!50, scale=0.5] (z) [right=of alpha,label=below: $\mathbb{R}^K$] { $z$};
-  \node[circle,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
+  \node[main,fill = blue!50] (xout) [right= of z,label=below: $\mathbb{R}^\nfeatures$] {$\hat{\x}$ };
   \draw[thick,->] (alpha) -- (z) node[midway,sloped,above] {$f$};
   \draw[thick,->] (z) -- (xout) node[midway,sloped,above] {$g$};
   \end{tikzpicture}
@@ -238,31 +240,31 @@ where $\loss$ is a loss function, such as mean squared error.
 
 
 \begin{frame}{Dimensional reduction methods}
-When the decoder is linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA (principal component analysis).
-\begin{figure}
-\includegraphics[width=.9\columnwidth]{../graphics/DimensionalityReduction}
-\end{figure}
+When the encoder and decoder are linear and $\loss$ is the mean squared error, an undercomplete autoencoder learns to span the same subspace as PCA (principal component analysis).
+%% \begin{figure}
+%% \includegraphics[width=.9\columnwidth]{../graphics/DimensionalityReduction}
+%% \end{figure}
 \end{frame}
 
 
 \begin{frame}{Latent space intuition}
 \begin{figure}
-\includegraphics[width=.95\columnwidth]{../graphics/LatentSpaceIntuition0}
+\includegraphics[width=\textwidth]{../graphics/LatentSpaceIntuition0}
 \source{https://www.jeremyjordan.me/variational-autoencoders/}
 \end{figure}
 \end{frame}
 
 
 
-\begin{frame}{Autoencoder vs. general data compression methods}
-\begin{itemize}
-\item Autoencoders are data-dependent
-\item MP3 or JPEG compression algorithm make general assumptions about sounds/images, but not about
-specific types of sounds/images.
-\item Autoencoders are lossy.
-\item Autoencoders are learnt for a specific application.
-\end{itemize}
-\end{frame}
+%% \begin{frame}{Autoencoder vs. general data compression methods}
+%% \begin{itemize}
+%% \item Autoencoders are data-dependent
+%% \item MP3 or JPEG compression algorithm make general assumptions about sounds/images, but not about
+%% specific types of sounds/images.
+%% %\item Autoencoders are lossy.
+%% \item Autoencoders are learnt for a specific application
+%% \end{itemize}
+%% \end{frame}
 
 
 
@@ -288,13 +290,13 @@ specific types of sounds/images.
 
 \begin{frame}{Vanilla (Standard) Autoencoder}
 \begin{figure}
-\includegraphics[width=.8\columnwidth]{../graphics/StandardAutoencoder}
-\caption{Vanilla Autoencoder.  Poor initialization can lead to local minima.}
+\includegraphics[width=\columnwidth]{../graphics/StandardAutoencoder}
+%\caption{Vanilla Autoencoder.  Poor initialization can lead to local minima.}
 \end{figure}
-\begin{itemize}
-\item \cite{rumelhart1986learning}: Random Initialization and gradient descent shows bad performance.
-\item \cite{bengio2007greedy} \cite{vincent2010stacked}: Stacking Autoencoders and tune with gradient descent shows good performance.
-\end{itemize}
+%% \begin{itemize}
+%% \item \cite{rumelhart1986learning}: Random Initialization and gradient descent shows bad performance.
+%% \item \cite{bengio2007greedy} \cite{vincent2010stacked}: Stacking Autoencoders and tune with gradient descent shows good performance.
+%% \end{itemize}
 \end{frame}
 
 %\begin{frame}{Autoencoder}
@@ -314,17 +316,17 @@ specific types of sounds/images.
 
 
 \begin{frame}{Regularized Autoencoders}
-A sparse autoencoder is simply an autoencoder whose training criterion involves a
-sparsity penalty $\Omega(h)$ on the code layer $h$, in addition to the reconstruction error:
+A regularized autoencoder is simply an autoencoder whose training criterion involves a
+regularity penalty $\Omega(f)$ on the code layer $f$, in addition to the reconstruction error:
 \begin{equation}
-\loss ( \X , g(f(\X)))+\Omega(h)
+\loss ( \x , g(f(\x)))+\Omega(f)
 \end{equation}
 \begin{itemize}
-\item $L_1$ : Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||$
-\item $L_2$  Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||^2$
+\item $L_1$: Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||$
+\item $L_2$:  Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||^2$
 \end{itemize}
 \begin{figure}
-\includegraphics[width=.8\columnwidth]{../graphics/regularizers}
+\includegraphics[width=\columnwidth]{../graphics/regularizers}
 \caption{Regularizers in Keras. Note: Kernel and bias regularizer are not the same.}
 \end{figure}
 \end{frame}
@@ -339,7 +341,7 @@ Common implementation
 \begin{itemize}
 \item Adding a sparsity regularizer loss to the autoencoder loss function.
 \item Various sparsity regularizers.
-\item Other existing methods:
+%% \item Other existing methods:
 \end{itemize}
 \end{frame}
 
@@ -360,6 +362,7 @@ Common implementation
 \loss ( \X , g(f(\tilde{\X}))),
 \end{equation}
 where $\tilde{\X}$ is a corrupted copy of $\X$ by some form of noise.
+
 An over-complete autoencoder with high capacity can end up learning an
 identity function where input=output. Add noise to avoid overfitting.
 
@@ -379,34 +382,23 @@ identity function where input=output. Add noise to avoid overfitting.
 \end{frame}
 
 
-\begin{frame}{Interpretation: Manifold Learning}
-\begin{figure}
-\includegraphics[width=.5\columnwidth]{../graphics/Manifold}
-\end{figure}
-\begin{itemize}
-\item training data lies nearby a low-dimensional manifold.
-\item a corrupted example is obtained by applying a perturbation of original example
-\item The model should learn to \emph{project them back} to the manifold
-\end{itemize}
-\end{frame}
+%% \begin{frame}{Interpretation: Manifold Learning}
+%% \begin{figure}
+%% \includegraphics[width=.5\columnwidth]{../graphics/Manifold}
+%% \end{figure}
+%% \begin{itemize}
+%% \item training data lies nearby a low-dimensional manifold.
+%% \item a corrupted example is obtained by applying a perturbation of original example
+%% \item The model should learn to \emph{project them back} to the manifold
+%% \end{itemize}
+%% \end{frame}
 
 
 \begin{frame}{Modern Autoencoder}
 \begin{itemize}
 \item Modern autoencoders have generalized the idea of an encoder and a decoder
 beyond deterministic functions to stochastic mappings
-$p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
-%\item
-%An autoencoder whose code dimension is less than the input dimension is called \texttt{undercomplete}. Goal: to capture the most salient features of the
-%training data.
-%\item
-%The learning process can be described as minimizing the loss function:
-%\begin{equation}
-%\loss ( \X , g(f(\X))),
-%\end{equation}
-%where $\loss$ is a loss function, such as mean squared error.
-%\item When the decoder is linear and $\loss$ is the mean squared error, an undercomplete
-%autoencoder learns to span the same subspace as PCA.
+$p_{\texttt{encoder}}(z|\x)$ and $p_{\texttt{decoder}}(\x|z)$.
 \end{itemize}
 \end{frame}
 
@@ -450,48 +442,48 @@ $p_{\texttt{encoder}}(h|\X)$ and $p_{\texttt{decoder}}(\X|h)$.
   \end{tikzpicture}
 \end{figure}
 \begin{itemize}
-\item Gaussian modeling (diagonal covariance matrix to avoid problems in high dimensionality)
+\item Gaussian modeling %(diagonal covariance matrix to avoid problems in high dimensionality)
 \item Training via maximum likelihood of $p(\x)$
-\item Learning the parameters $\theta$s via backpropagation?
+\item Learning the parameters $\theta$ via backpropagation?
 %\item Loss function?
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Latent space intuition (variational case)}
 \begin{figure}
-\includegraphics[width=.95\columnwidth]{../graphics/LatentSpaceIntuition}
-\caption{Latent Space Intuition (\alert{Variational Case}). Source: \texttt{https://www.jeremyjordan.me/variational-autoencoders/}}
+\includegraphics[width=\columnwidth]{../graphics/LatentSpaceIntuition}
+\source{https://www.jeremyjordan.me/variational-autoencoders/}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Training via maximum likelihood}
-Assume we would like to compute the likelihood of an image $\x$ from the training set:
-\begin{eqnarray*}
-\mathcal{L}(\x) &=&\log(p(\x)) \\
-&=& \sum_{z} q(z|\x) \log(p(\x)) \\
-&=& \sum_{z} q(z|\x) \log(\frac{p(z,\x)}{p(z | \x)}) \\
-&=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) q(z|\x)}{q(z|\x) p(z | \x)}) \\
-&=&  \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)}) + \sum_{z} q(z|\x) \log(\frac{q(z|\x) }{p(z|\x)}) \\
-&=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)})+ \underbrace{D_{KL}(q(z|\x),p(z|\x))}_{\text{how good is the approximation.}}\\
-&=& \mathcal{L}^{lvb}(\x)+D_{KL}(q(z|\x),p(z|\x)) \\
-&\geq& \mathcal{L}^{lvb}(\x)
-\end{eqnarray*}
-\end{frame}
+%% \begin{frame}{Training via maximum likelihood}
+%% Assume we would like to compute the likelihood of an image $\x$ from the training set:
+%% \begin{eqnarray*}
+%% \mathcal{L}(\x) &=&\log(p(\x)) \\
+%% &=& \sum_{z} q(z|\x) \log(p(\x)) \\
+%% &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x)}{p(z | \x)}) \\
+%% &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) q(z|\x)}{q(z|\x) p(z | \x)}) \\
+%% &=&  \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)}) + \sum_{z} q(z|\x) \log(\frac{q(z|\x) }{p(z|\x)}) \\
+%% &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)})+ \underbrace{D_{KL}(q(z|\x),p(z|\x))}_{\text{how good is the approximation.}}\\
+%% &=& \mathcal{L}^{lvb}(\x)+D_{KL}(q(z|\x),p(z|\x)) \\
+%% &\geq& \mathcal{L}^{lvb}(\x)
+%% \end{eqnarray*}
+%% \end{frame}
 
 
-\begin{frame}
-\begin{eqnarray*}
- \mathcal{L}(\x) \geq \mathcal{L}^{lvb}(\x) &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)}) \\
- &=& \sum_{z} q(z|\x) \log(\frac{p(\x | z) p(z)}{q(z|\x)}) \\
- &=& \sum_{z} q(z|\x) \log(\frac{p(\x | z)}{q(z|\x)}) +  \sum_{z} q(z|\x) \log(\frac{p(z)}{q(z|\x)}) \\
- &=& \EV_{q(z|\x)} \log(p(\x | z)) -D_{KL}(q(z|\x),p(z))\\
-  &=& \underbrace{\EV_{q(z|\x)} \log(p(\x | z))}_{\texttt{Expected Reconstruction}} - \underbrace{D_{KL}(q(z|\x),p(z))}_{\texttt{Regularization $\mathcal{N}(0,1)$}}\\
-\end{eqnarray*}
-\begin{itemize}
-\item First term implies the use of many realization of sampling process (in practice we only have a few of samples per training example!)
-\item Second term is simply a formula for diagonal multivariate Gaussian distribution.
-\end{itemize}
-\end{frame}
+%% \begin{frame}
+%% \begin{eqnarray*}
+%%  \mathcal{L}(\x) \geq \mathcal{L}^{lvb}(\x) &=& \sum_{z} q(z|\x) \log(\frac{p(z,\x) }{q(z|\x)}) \\
+%%  &=& \sum_{z} q(z|\x) \log(\frac{p(\x | z) p(z)}{q(z|\x)}) \\
+%%  &=& \sum_{z} q(z|\x) \log(\frac{p(\x | z)}{q(z|\x)}) +  \sum_{z} q(z|\x) \log(\frac{p(z)}{q(z|\x)}) \\
+%%  &=& \EV_{q(z|\x)} \log(p(\x | z)) -D_{KL}(q(z|\x),p(z))\\
+%%   &=& \underbrace{\EV_{q(z|\x)} \log(p(\x | z))}_{\texttt{Expected Reconstruction}} - \underbrace{D_{KL}(q(z|\x),p(z))}_{\texttt{Regularization $\mathcal{N}(0,1)$}}\\
+%% \end{eqnarray*}
+%% \begin{itemize}
+%% \item First term implies the use of many realization of sampling process (in practice we only have a few of samples per training example!)
+%% \item Second term is simply a formula for diagonal multivariate Gaussian distribution.
+%% \end{itemize}
+%% \end{frame}
 
 \begin{frame}{Reparametrization trick}
 Backpropagation is not possible through random sampling!
@@ -544,7 +536,7 @@ Backpropagation is not possible through random sampling!
 
 %\section{Applications for Autoencoders}
 
-\begin{frame}
+\begin{frame}{Applications of autoencoders}
 \begin{itemize}
 \item Data denosing
 \item Dimensionality Reduction
@@ -559,12 +551,12 @@ Backpropagation is not possible through random sampling!
 \includegraphics[width=.75\columnwidth]{../graphics/VAEMNIST}
 \caption{\textbf{Left}: AE, \textbf{Center}: Only KL in VAC, \textbf{Right}: VAE}
 \end{figure}
-Source: \texttt{https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf}
+\source{https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf}
 \end{frame}
 
-\begin{frame}{Example Latent Space for MNIST}
+\begin{frame}{Example: latent space for MNIST}
 \begin{figure}
-\includegraphics[width=.75\columnwidth]{../graphics/LatentMNIST}
+\includegraphics[height=0.9\textheight]{../graphics/LatentMNIST}
 \end{figure}
 \end{frame}
 
