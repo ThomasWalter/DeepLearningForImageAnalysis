@@ -368,7 +368,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
+\frame<beamer>{
 \frametitle{Gaussian clouds}
 
 \begin{figure}
@@ -392,7 +392,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
+\frame<beamer>{
 \frametitle{Circles}
 
 \begin{figure}
@@ -439,12 +439,6 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Artificial neural networks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Basic architectures}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
 \frametitle{Notations}
@@ -488,6 +482,12 @@ We can simply write:
 \]
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Artificial neural networks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Basic architectures}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph}
@@ -657,8 +657,8 @@ Computing a \emph{forward pass} through the graph means choosing its input value
     \end{figure}
 
     \begin{block}{}
-      \[\x^i = \act_i(\x^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
-      \[y = \act_4(\x^4\W_4 + \bias_4)\]
+      \[\x^i = \act_i(\W_i\x^{i-1} + \bias_i),\, i= 1, 2, 3 \]
+      \[y = \act_4(\W_4\x^4 + \bias_4)\]
     \end{block}
 
     \pause
@@ -717,8 +717,8 @@ Computing a \emph{forward pass} through the graph means choosing its input value
   In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
 
   \begin{block}{}
-    \[\X^i = \act_i(\X^{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
-    \[\y = \act_4(\X^4\W_4 + \bias_4)\]
+    \[\X^i = \act_i(\W_i\X^{i-1} + \bias_i),\, i= 1, 2, 3 \]
+    \[\y = \act_4(\W_4\X^4 + \bias_4)\]
   \end{block}
 
 
@@ -805,6 +805,7 @@ This means that function $f$ can be approximated with a neural network containin
   \begin{itemize}
   \item The number of neurons increases very rapidly with the complexity of the function
   \item Empirical evidence has shown that \alert{multi-layer architectures give better results}
+    \item The theorem does not say how to optimize the architecture or the parameters for a given learning task
   \end{itemize}
 
   \begin{block}<2->{}
@@ -1312,8 +1313,8 @@ p, q \in \N^*\\
     \begin{column}{.7\textwidth}
       \begin{itemize}
       \item Bias are set to zero
+      \item If weights are also initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
       \item Empirical solutions are based on a gaussian distribution of the weights, with \textit{small} standard deviation.
-      \item If all parameters are initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
       \end{itemize}
     \end{column}
   \end{columns}
@@ -1381,6 +1382,35 @@ p, q \in \N^*\\
 
 
 \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Practical sessions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Procedure for setting up the practical sessions environment}
+
+\scriptsize
+
+    \begin{enumerate}
+    \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
+    \item Create (if necessary) a Google account. Log in.
+    \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
+    \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
+    \end{enumerate}
+
+    Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
+
+    The following days, the new notebooks will be available from:
+
+    \centering
+
+    \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
+
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
