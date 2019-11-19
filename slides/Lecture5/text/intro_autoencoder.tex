@@ -1,4 +1,4 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 \usepackage{tikz}
@@ -322,8 +322,8 @@ regularity penalty $\Omega(f)$ on the code layer $f$, in addition to the reconst
 \loss ( \x , g(f(\x)))+\Omega(f)
 \end{equation}
 \begin{itemize}
-\item $L_1$: Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||$
-\item $L_2$:  Cost function = Loss Function $+ \frac{\lambda}{2 m } \sum ||w||^2$
+\item $L_1$:  $ \Omega(f) = \lambda \sum ||w||$
+\item $L_2$:  $ \Omega(f) = \lambda \sum ||w||^2$
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\columnwidth]{../graphics/regularizers}
@@ -337,12 +337,19 @@ Regularization of the representation learned by the Auto-Encoders.
 \item Enforcing most code coefficients to be close to 0 (to be inactive).
 \item Capturing a more robust representation of the manifold structure.
 \end{itemize}
-Common implementation
-\begin{itemize}
-\item Adding a sparsity regularizer loss to the autoencoder loss function.
-\item Various sparsity regularizers.
-%% \item Other existing methods:
-\end{itemize}
+
+\begin{block}{$L_1$ sparcity constraint}
+  \[
+  \loss( \x , g(f(\x))) + \lambda \sum_i |z_i|
+  \]
+\end{block}
+%% Common implementation
+%% \begin{itemize}
+%% \item Adding a sparsity regularizer loss to the autoencoder loss function.
+%% \item Various sparsity regularizers.
+%% %% \item Other existing methods:
+%% \end{itemize}
+
 \end{frame}
 
 
@@ -380,6 +387,22 @@ identity function where input=output. Add noise to avoid overfitting.
   \end{tikzpicture}
 \end{figure}
 \end{frame}
+
+
+\begin{frame}{DAE example}
+
+  In \cite{vincent2008extracting} the noise consists in setting to zero each pixel with a given probability $p$. Typical values are $0.3$ or $0.5$.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{../graphics/dae_ex}
+\end{figure}
+
+
+
+\end{frame}
+
+
 
 
 %% \begin{frame}{Interpretation: Manifold Learning}
