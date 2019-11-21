@@ -17,7 +17,7 @@
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    viewBox="0 0 800 600"
    sodipodi:docname="going_back2.svg"
-   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture3/graphics/going_back.png"
+   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture3/graphics/going_back_exam.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <sodipodi:namedview
@@ -27,15 +27,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.52"
-     inkscape:cx="400.47785"
+     inkscape:zoom="1.75"
+     inkscape:cx="431.3895"
      inkscape:cy="402.271"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="true"
      showguides="false"
      inkscape:window-width="1863"
-     inkscape:window-height="1145"
+     inkscape:window-height="1025"
      inkscape:window-x="57"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -108,7 +108,7 @@
          x="383.94968"
          id="tspan4768"
          sodipodi:role="line"
-         style="font-size:10px;line-height:1.25">max pooling</tspan></text>
+         style="font-size:10px;line-height:1.25">max pooling 2x2</tspan></text>
     <path
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -303,5 +303,25 @@
        height="260"
        x="78"
        y="30" />
+    <path
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:connector-curvature="0"
+       id="path4555-1-0-7-0-2"
+       d="m 353,260 v 10 h 15 v 5 l 10,-10 -10,-10 v 5 z"
+       style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       id="text4766-68"
+       y="266.89542"
+       x="381.44968"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="266.89542"
+         x="381.44968"
+         id="tspan4768-9"
+         sodipodi:role="line"
+         style="font-size:10px;line-height:1.25">upsampling 2x2</tspan></text>
   </g>
 </svg>
