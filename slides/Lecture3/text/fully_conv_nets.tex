@@ -95,18 +95,13 @@
   \begin{itemize}
   \item An image classification task is a function from the set of considered images into a set of labels
       \begin{figure}
-      \includegraphics[width=0.35\textheight]{image_classif.png}
+      \includegraphics[width=0.40\textheight]{image_classif.png}
       \end{figure}
   \item In many applications, we want to transform an image into another image
       \begin{figure}
-      \includegraphics[width=0.35\textheight]{image_transf0.png}
+      \includegraphics[width=0.40\textheight]{image_transf0.png}
       \end{figure}
   \end{itemize}
-
-
-      \pause
-
-
 
 \end{frame}
 
@@ -176,6 +171,39 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
+  \frametitle{Pix2Pix}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{pix2pix}
+      \source{https://neurohive.io/en/popular-networks/pix2pix-image-to-image-translation/}
+    \end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Counting cells}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{lazard}
+      \source{Lazard, master report}
+    \end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Super resolution}
+
+    \begin{figure}
+      \includegraphics[height=0.8\textheight]{superres2}
+      \source{http://mmlab.ie.cuhk.edu.hk/projects/SRCNN.html}
+    \end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
   \frametitle{Image segmentation}
 
   \begin{itemize}
@@ -206,11 +234,10 @@
   \item Image filtering
   \item High dynamic range
   \item Style modification
-  \item Super-resolution (image size increases)
   \item Motion estimation
   \end{itemize}
 
-  In the following, we will focus on images segmentation.
+  In the following, we will focus on image segmentation.
 
 \end{frame}
 
@@ -277,7 +304,9 @@
       \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
       \end{figure}
 
-This strategy is very inefficient.
+      The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
+
+
 
 \end{frame}
 
@@ -706,6 +735,33 @@ This strategy is very inefficient.
   \end{itemize}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=0.8\textheight]{fundus1}
+  \caption{Eye fundus / retina image}
+  \source{OPHDIAT database}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Illustration}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{skin}
+  \caption{Histological image of reconstructed skin}
+  \source{L'Oréal}
+\end{figure}
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{

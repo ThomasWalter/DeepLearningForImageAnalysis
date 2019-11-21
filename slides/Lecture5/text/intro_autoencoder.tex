@@ -1,4 +1,4 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 \usepackage{tikz}
@@ -343,12 +343,6 @@ Regularization of the representation learned by the Auto-Encoders.
   \loss( \x , g(f(\x))) + \lambda \sum_i |z_i|
   \]
 \end{block}
-%% Common implementation
-%% \begin{itemize}
-%% \item Adding a sparsity regularizer loss to the autoencoder loss function.
-%% \item Various sparsity regularizers.
-%% %% \item Other existing methods:
-%% \end{itemize}
 
 \end{frame}
 
@@ -408,6 +402,18 @@ identity function where input=output. Add noise to avoid overfitting.
 
 \end{frame}
 
+
+
+\begin{frame}{DAE example}
+
+  In \cite{vincent2008extracting} the noise consists in setting to zero each pixel with a given probability $p$. Typical values are $0.3$ or $0.5$.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{../graphics/dae_ex}
+\end{figure}
+
+\end{frame}
 
 
 
