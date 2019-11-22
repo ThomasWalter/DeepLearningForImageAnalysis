@@ -403,20 +403,6 @@ identity function where input=output. Add noise to avoid overfitting.
 \end{frame}
 
 
-
-\begin{frame}{DAE example}
-
-  In \cite{vincent2008extracting} the noise consists in setting to zero each pixel with a given probability $p$. Typical values are $0.3$ or $0.5$.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{../graphics/dae_ex}
-\end{figure}
-
-\end{frame}
-
-
-
 %% \begin{frame}{Interpretation: Manifold Learning}
 %% \begin{figure}
 %% \includegraphics[width=.5\columnwidth]{../graphics/Manifold}
@@ -568,9 +554,18 @@ Backpropagation is not possible through random sampling!
 \end{frame}
 
 
+\begin{frame}{Dimensionality Reduction by AE}
+\begin{figure}
+\includegraphics[width=.31\columnwidth]{../graphics/ae}
+\includegraphics[width=.31\columnwidth]{../graphics/kl}
+\includegraphics[width=.31\columnwidth]{../graphics/vae}
+\caption{\textbf{Left}: AE, \textbf{Center}: Only KL in VAC, \textbf{Right}: VAE}
+\end{figure}
+\source{https://towardsdatascience.com/intuitively-understanding-variational-autoencoders}
+\end{frame}
 
 
-\section{Applications of autoencoders}
+\subsection{Applications of autoencoders}
 
 \begin{frame}{Applications of autoencoders}
 \begin{itemize}
@@ -583,15 +578,6 @@ Backpropagation is not possible through random sampling!
 \end{frame}
 
 
-\begin{frame}{Dimensionality Reduction by AE}
-\begin{figure}
-\includegraphics[width=.31\columnwidth]{../graphics/ae}
-\includegraphics[width=.31\columnwidth]{../graphics/kl}
-\includegraphics[width=.31\columnwidth]{../graphics/vae}
-\caption{\textbf{Left}: AE, \textbf{Center}: Only KL in VAC, \textbf{Right}: VAE}
-\end{figure}
-\source{https://towardsdatascience.com/intuitively-understanding-variational-autoencoders}
-\end{frame}
 
 \begin{frame}{Example: latent space for MNIST}
 \begin{figure}
@@ -677,6 +663,11 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
   \draw[thick,->] (Discriminator) -- (Output) node[midway,sloped,above] {$$};
   \end{tikzpicture}
 \end{figure}
+
+\pause
+
+\textit{``The coolest idea in machine learning in the last 20 years''} - Yann LeCun.
+
 %\pause
 %The goal is to optimize the follow expression, $\min_{G} \max _{D} V(D,G)$.
 %for a given loss function $\loss(\cdot,\cdot)$.\\
@@ -735,7 +726,7 @@ This is called the \emph{minimax formulation}, since the generator and discrimin
 V(G,D)= \mathbb{E}_{\x \sim P_{\texttt{real}}(\x)}[\log D(\x)]  + \mathbb{E}_{x \sim P_{{g}(\x)}}[ \log (1-D(\x))] \\
 = \int_{\x} P_{\texttt{real}}(\x) \log D(\x) + P_{g(\x)}  \log (1-D(\x))  d\x
 \end{eqnarray*}
-We are interested in compute
+We are interested in computing
 $V(G^{*},D^{*})= \pause \alert{2 \log (1/2)}$
 \end{frame}
 
@@ -864,7 +855,7 @@ Progressive Growing of GANs for Improved Quality, Stability, and Variation \cite
 
 \begin{frame}{Example: cGANs}
 \begin{figure}
-\includegraphics[width=.75\columnwidth]{../graphics/FACEAGING}
+\includegraphics[width=.99\columnwidth]{../graphics/FACEAGING}
 \caption{Face aging with conditional generative adversarial networks} \cite{antipov2017face}
 \end{figure}
 \end{frame}
@@ -888,6 +879,9 @@ Progressive Growing of GANs for Improved Quality, Stability, and Variation \cite
   \end{tikzpicture}
   \caption{Training data are pairs of image: $(\x_i,\mathbf{y}_i)$ for $i \in 1,\ldots,\nsize$. In this case, \texttt{Generator} is called \texttt{Translator}}
 \end{figure}
+
+\alert{Note:} the discriminator takes as input both images, $(x_i, y_i)$.
+
 \end{frame}
 
 \begin{frame}{Pix2Pix transformation}
@@ -905,18 +899,10 @@ Progressive Growing of GANs for Improved Quality, Stability, and Variation \cite
 \end{frame}
 
 \begin{frame}{Cycle-Consistent Adversarial Networks}
-\begin{figure}
-\includegraphics[width=.75\columnwidth]{../graphics/DomainTransformation}
-\caption{Unpaired image-to-image translation \cite{zhu2017unpaired}}
-\end{figure}
-%https://github.com/LynnHo/CycleGAN-Tensorflow-PyTorch
-\end{frame}
-
-\begin{frame}{Cycle-Consistent Adversarial Networks}
 We have to train two GANs for Pix2Pix transform:
 \begin{itemize}
-\item First: GANs to translate data from domain one $\X_1$ to domain two represented by $\X_2$, denoted by $V(G_1,D_1,\X_1,\X_2)$
-\item Second: GANs to translate data from domain one $\X_2$ to domain two represented by $\X_1$, denoted by $V(G_2,D_2,\X_2,\X_1)$
+\item First: GAN to translate data from domain one $\X_1$ to domain two represented by $\X_2$, denoted by $V(G_1,D_1,\X_1,\X_2)$
+\item Second: GAN to translate data from domain one $\X_2$ to domain two represented by $\X_1$, denoted by $V(G_2,D_2,\X_2,\X_1)$
 \pause
 \item Include: a Cycle consistency loss $V_{cyc}$ to force that the composition of two \texttt{Generators} to reconstruct input image, i.e $G_1(G_2(\X_2))\approx\X_2$ and  $G_2(G_1(\X_1))\approx\X_1$
 \end{itemize}
@@ -926,6 +912,26 @@ In general the full objective is:
 +\lambda V_{cyc}(G_1,G_2)
 \end{eqnarray*}
 \end{frame}
+
+\begin{frame}{Cycle-Consistent Adversarial Networks}
+\begin{figure}
+\includegraphics[width=.75\columnwidth]{../graphics/DomainTransformation}
+\caption{Unpaired image-to-image translation \cite{zhu2017unpaired}}
+\end{figure}
+%https://github.com/LynnHo/CycleGAN-Tensorflow-PyTorch
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion on GANs}
+
+  \begin{itemize}
+  \item One of the most active research subdomains in deep learning
+  \item Many GAN variants have been proposed in the literature during the last few years
+  \item Generated images (as well as other types of data) are already very realistic
+  \end{itemize}
+\end{frame}
+
+
 
 \section{Adversarial Examples}
 \begin{frame}{Adversarial Examples \cite{Adversarial}}
