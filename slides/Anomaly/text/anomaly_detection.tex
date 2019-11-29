@@ -63,14 +63,14 @@
 
 
   \begin{block}{Anomaly detection}
-  Let us consider a given kind of objects (for example, images). Among these objects, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given object, if it is normal, or not.
+  Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given image, if it is normal, or not.
 
-  The definition of normal objects is given through a set of examples.
+  The definition of normal images is given through a set of examples.
   \end{block}
 
   \begin{itemize}
-  \item   We will focus on images, but the problem is very general.
-  \item We will suppose that we only have examples of normal objects, i.e. that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough.
+  \item We will focus on images, but the problem is very general.
+  \item We will suppose that we only have examples of normal images, i.e. that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough or unknown.
   \end{itemize}
 
 
@@ -198,6 +198,18 @@
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Anomalous images or anomalies within images?}
+
+  \begin{itemize}
+  \item When looking for anomalous images, we do not necessarily want to detect the source of the anomaly
+  \item When an anomaly is detected within an image, then the image is considered as anomalous
+  \end{itemize}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Vocabulary}
 
@@ -219,7 +231,7 @@
 \begin{frame}{Basic principles}
 
   \begin{itemize}
-  \item   Let $E$ be a set (the whole set of objects), $\mathcal{N}$ the subset of $E$ (constituted by all normal objects) and $X$ a subset of $N$ (the set of examples that are considered to be \emph{normal}).
+  \item   Let $E$ be a set (the whole set of images), $\mathcal{N}$ the subset of $E$ (constituted by all normal images) and $X$ a subset of $N$ (the set of examples that are considered to be \emph{normal}).
   \item The question we would like to answer is:
 
     \begin{block}{}
@@ -227,7 +239,7 @@
     Is a given $x$ in $E$ normal?
     \end{block}
 
-    \item What should we add to our definition of $E$ and $X$ for this question to be meaningful?
+    \item What should we add to our definition of $E$, $\mathcal{N}$ and $X$ for this question to be meaningful?
   \end{itemize}
 
   Some possibilities:
@@ -242,12 +254,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Metric space}
 
-  $E$ is equipped with a distance $d$. We then can answer the question if there is a distance value $d_0$ such that:
+  $E$ is equipped with a distance $d$ such that:
   \[
-  x \in \mathcal{N} \iff d(x, X) \leq d_0
+  \exists d_0 \in \R^+,  \forall x \in E: x \in \mathcal{N} \iff d(x, X) \leq d_0
   \]
 
-  Of course, the essential point will be then how to choose the distance function $d$.
+  Of course, the essential point will be how to choose the distance function $d$.
 
 \end{frame}
 
@@ -255,12 +267,237 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Probabilistic approach}
 
-  In order to probabilise $E$ we need a $sigma$-algebra $\mathcal{A}$ (the events set) and a probability measure $P$.
+  %% In order to probabilise $E$ we need a $sigma$-algebra $\mathcal{A}$ (the events set) and a probability measure $P$.
 
 
 
 \end{frame}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Energy based approach}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The question of representation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Anomaly detection using autoencoders}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Autoencoder}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{ae.png}
+\end{figure}
+
+\begin{itemize}
+\item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
+\item In most applications, the latent space is ``smaller'' than the data space.
+  \item Objective: $\hat{x}$ ``close'' to $x$
+  \item When dealing with images, modern autoencoders use convolutional neural networks
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Autoencoders for anomalous image detection}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{ae.png}
+\end{figure}
+
+\begin{block}{Idea 1}
+  The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
+\end{block}
+
+\begin{block}{Idea 2}
+  The latent representation of an anomalous image should be ``far away'' from the latent representations of normal images. Image $\x$ is not normal iff $d(E(\x), E(\X)) > d_0$.
+\end{block}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Anomaly detection using generative adversarial networks (GANS)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Generative adversarial network \cite{goodfellow_generative_2014}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+\begin{itemize}
+\item The discriminator is optimized so that it correctly classifies images as real (1) or fake (0)
+  \item The generator is optimized so that the produced images are classified as real by the discriminator
+\end{itemize}
+
+\begin{block}{Value function}
+$V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(log(1 - D(G(z))))$
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{First application of GANs to novelty detection}
+
+\begin{block}{Idea}
+  Use the discriminator to distinguish between real and fake images.
+\end{block}
+
+\begin{itemize}
+\item I have seen no mention of this strategy in the literature
+\item My guess: the discriminator is not very efficient at this task. To be tested during lab sessions!
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Anomaly GAN (AnoGAN) \cite{schlegl_unsupervised_2017}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+\begin{enumerate}
+\item Learn a GAN on the set of normal images
+\item For a new image $\x$ (normal or not):
+  \begin{itemize}
+  \item Find a $z^*$ such that $G(z^*)$ is \emph{close as possible} to $\x$
+  \item If $G(z^*)$ is \emph{similar enough} to $\x$ and is \emph{correctly evaluated by the descriminator}, then $\x$ is considered as normal
+  \end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Find $z^*$}
+
+  \begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Is $\x$ similar to $G(z^*)$ ?}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+\begin{block}{Residual loss}
+  \centering
+  $\mathcal{L}_R(z^*) = \norm{x - G(z^*)}_{L_1}$
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Is $G(z^*)$ realistic?}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+\begin{block}{Discrimination loss}
+  \centering
+  $\mathcal{L}_D(z^*) = D(G(z^*))$
+\end{block}
+
+\begin{block}{Improved discrimination loss}
+  \[\mathcal{L}_D(z^*) = \norm{E(x) -  E(D(G(z^*)))}_{L_1}\]
+  where $f$ is the an intermediate layer of the discriminator.
+\end{block}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example (from \cite{schlegl_unsupervised_2017})}
+
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{res_oct}
+    \caption{Left block: normal OCT sections, from test set. Right block: anomalous OCT sections; bottom line: expert annotation of retinal fluid}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{AnoGAN improvement}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gan2}
+\end{figure}
+
+\begin{itemize}
+\item For a given real image $\x$, finding a latent code $z$ such that $D(z)$ is similar to $x$ is computationally intensive
+\item Idea: learn an encoder to compute $z$ from $\x$
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BiGAN}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{bigan}
+\end{figure}
+
+\begin{itemize}
+\item An encoder is added to the architecture
+\item The discriminator takes as input pairs of image / code
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BiGAN: application to novelty detection}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{bigan}
+\end{figure}
+
+\begin{itemize}
+\item Similar to AnoGAN, except that looking for a convenient $z^*$ for a given real image $x$ is done using the encoder $E$
+\item Better anomaly detection results on MNIST
+\item Much faster (800x)
+\end{itemize}
+
+
+\end{frame}
 
 
 
