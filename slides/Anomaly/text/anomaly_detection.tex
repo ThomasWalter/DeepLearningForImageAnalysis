@@ -63,9 +63,9 @@
 
 
   \begin{block}{Anomaly detection}
-  Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given image, if it is normal, or not.
+    Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given image, if it is normal, or not.
 
-  The definition of normal images is given through a set of examples.
+    The definition of normal images is given through a set of examples.
   \end{block}
 
   \begin{itemize}
@@ -80,31 +80,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example - set of normal images}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.3\textwidth]{snow1-pexels-photo-290548.jpg}
-  \includegraphics[width=0.3\textwidth]{snow2-pexels-photo-235621.jpg}
-  \includegraphics[width=0.3\textwidth]{snow3-pexels-photo-839462.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow4-pexels-photo-688660.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow5-pexels-photo-773594.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow6-pexels-photo-1559117.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow7-pexels-photo-66284.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow8-pexels-photo-1571442.jpeg}
-  \includegraphics[width=0.3\textwidth]{snow9-pexels-photo-416728.jpeg}\
-  \source{http://pexels.com}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{snow1-pexels-photo-290548.jpg}
+    \includegraphics[width=0.3\textwidth]{snow2-pexels-photo-235621.jpg}
+    \includegraphics[width=0.3\textwidth]{snow3-pexels-photo-839462.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow4-pexels-photo-688660.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow5-pexels-photo-773594.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow6-pexels-photo-1559117.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow7-pexels-photo-66284.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow8-pexels-photo-1571442.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow9-pexels-photo-416728.jpeg}\
+    \source{http://pexels.com}
+  \end{figure}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example - which images are normal?}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.3\textwidth]{test1-pexels-photo-414459.jpeg}
-  \includegraphics[width=0.3\textwidth]{test2-pexels-photo-414171.jpeg}
-  \source{http://pexels.com}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{test1-pexels-photo-414459.jpeg}
+    \includegraphics[width=0.3\textwidth]{test2-pexels-photo-414171.jpeg}
+    \source{http://pexels.com}
+  \end{figure}
 
 \end{frame}
 
@@ -112,18 +112,47 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Application: security}
 
-\begin{itemize}
-\item Suspicious object or unusual behaviour in a scene
-\end{itemize}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{motion_patterns_anom_det}
-  \caption{\cite{basharat_learning_2008}}
-\end{figure}
+  \begin{block}{Suspicious object or unusual behaviour in a scene}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{motion_patterns_anom_det}
+      \source{\cite{basharat_learning_2008}}
+    \end{figure}
 
+  \end{block}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Application: security}
+
+  \begin{block}{Examples of normal images}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[height=0.5\textheight]{xray-secu-train}
+      \source{\cite{akcay_ganomaly:_2019}}
+    \end{figure}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Application: security (cont.)}
+
+  \begin{block}{Examples of test images}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[height=0.5\textheight]{xray-secu-test}
+      \source{\cite{akcay_ganomaly:_2019}}
+    \end{figure}
+
+  \end{block}
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Application: industrial control}
@@ -131,13 +160,13 @@
   \begin{itemize}
   \item Fault detection
   \item Structural defect detection
-   \end{itemize}
+  \end{itemize}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{printed-circuit-board-1539113_960_720.jpg}
-  \source{http://www.pixabay.com}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{printed-circuit-board-1539113_960_720.jpg}
+    \source{http://www.pixabay.com}
+  \end{figure}
 
 
 \end{frame}
@@ -150,12 +179,12 @@
   \item Non specific screening
   \end{itemize}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{fundus1}
-  \caption{Retinal image used for pathology screening}
-  \source{OPHDIAT database}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fundus1}
+    \caption{Retinal image used for pathology screening}
+    \source{OPHDIAT database}
+  \end{figure}
 
 
 \end{frame}
@@ -182,13 +211,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Euclid project}
 
-\begin{itemize}
-\item A new space telescope, to be launched in 2022
-\item Its objective is improving our understanding of the acceleration of the universe expansion
-\item To do so, the shapes of galaxies at different distances from the earth will be measured
-\item An estimated $10^{10}$ extra galactic objects will be acquired by the telescope
-\item Data will be automatically analyzed, without visual inspection
-\end{itemize}
+  \begin{itemize}
+  \item A new space telescope, to be launched in 2022
+  \item Its objective is improving our understanding of the acceleration of the universe expansion
+  \item To do so, the shapes of galaxies at different distances from the earth will be measured
+  \item An estimated $10^{10}$ extra galactic objects will be acquired by the telescope
+  \item Data will be automatically analyzed, without visual inspection
+  \end{itemize}
 
   \begin{figure}[ht]
     \centering
@@ -225,28 +254,46 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
-\section{Mathematical modelling}
+\section{Mathematical modeling}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Basic principles}
 
   \begin{itemize}
-  \item   Let $E$ be a set (the whole set of images), $\mathcal{N}$ the subset of $E$ (constituted by all normal images) and $X$ a subset of $N$ (the set of examples that are considered to be \emph{normal}).
+  \item   Let $E$ be a set (the whole set of images), $\mathcal{N}$ the subset of $E$ (constituted by all normal images) and $X$ a subset of $N$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
   \item The question we would like to answer is:
 
     \begin{block}{}
       \centering
-    Is a given $x$ in $E$ normal?
+      Is a given $x$ in $E$ normal?
     \end{block}
 
-    \item What should we add to our definition of $E$, $\mathcal{N}$ and $X$ for this question to be meaningful?
+  \item What should we add to our definition of $E$, $\mathcal{N}$ and $X$ for this question to be meaningful?
   \end{itemize}
 
   Some possibilities:
   \begin{itemize}
+  \item Explicit modeling of normal images
   \item Metric space
   \item Probability space
   \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Explicit modeling}
+
+  If a mathematical model can be hand-crafted to describe normal images, then it can be used to detect abnormal ones.
+
+  \begin{block}{Suspicious object or unusual behaviour in a scene}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{motion_patterns_anom_det}
+      \source{\cite{basharat_learning_2008}}
+    \end{figure}
+
+  \end{block}
 
 \end{frame}
 
@@ -295,35 +342,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Autoencoder}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{ae.png}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ae.png}
+  \end{figure}
 
-\begin{itemize}
-\item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
-\item In most applications, the latent space is ``smaller'' than the data space.
+  \begin{itemize}
+  \item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
+  \item In most applications, the latent space is ``smaller'' than the data space.
   \item Objective: $\hat{x}$ ``close'' to $x$
   \item When dealing with images, modern autoencoders use convolutional neural networks
-\end{itemize}
+  \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Autoencoders for anomalous image detection}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{ae.png}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ae.png}
+  \end{figure}
 
-\begin{block}{Idea 1}
-  The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
-\end{block}
+  \begin{block}{Idea 1}
+    The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
+  \end{block}
 
-\begin{block}{Idea 2}
-  The latent representation of an anomalous image should be ``far away'' from the latent representations of normal images. Image $\x$ is not normal iff $d(E(\x), E(\X)) > d_0$.
-\end{block}
+  \begin{block}{Idea 2}
+    The latent representation of an anomalous image should be ``far away'' from the latent representations of normal images. Image $\x$ is not normal iff $d(E(\x), E(\X)) > d_0$.
+  \end{block}
 
 \end{frame}
 
@@ -336,19 +383,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Generative adversarial network \cite{goodfellow_generative_2014}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
-\begin{itemize}
-\item The discriminator is optimized so that it correctly classifies images as real (1) or fake (0)
+  \begin{itemize}
+  \item The discriminator is optimized so that it correctly classifies images as real (1) or fake (0)
   \item The generator is optimized so that the produced images are classified as real by the discriminator
-\end{itemize}
+  \end{itemize}
 
-\begin{block}{Value function}
-$V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(log(1 - D(G(z))))$
-\end{block}
+  \begin{block}{Value function}
+    $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(log(1 - D(G(z))))$
+  \end{block}
 
 \end{frame}
 
@@ -356,14 +403,14 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{First application of GANs to novelty detection}
 
-\begin{block}{Idea}
-  Use the discriminator to distinguish between real and fake images.
-\end{block}
+  \begin{block}{Idea}
+    Use the discriminator to distinguish between real and fake images.
+  \end{block}
 
-\begin{itemize}
-\item I have seen no mention of this strategy in the literature
-\item My guess: the discriminator is not very efficient at this task. To be tested during lab sessions!
-\end{itemize}
+  \begin{itemize}
+  \item I have seen no mention of this strategy in the literature
+  \item My guess: the discriminator is not very efficient at this task. To be tested during lab sessions!
+  \end{itemize}
 
 \end{frame}
 
@@ -371,19 +418,19 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Anomaly GAN (AnoGAN) \cite{schlegl_unsupervised_2017}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
-\begin{enumerate}
-\item Learn a GAN on the set of normal images
-\item For a new image $\x$ (normal or not):
-  \begin{itemize}
-  \item Find a $z^*$ such that $G(z^*)$ is \emph{close as possible} to $\x$
-  \item If $G(z^*)$ is \emph{similar enough} to $\x$ and is \emph{correctly evaluated by the descriminator}, then $\x$ is considered as normal
-  \end{itemize}
-\end{enumerate}
+  \begin{enumerate}
+  \item Learn a GAN on the set of normal images
+  \item For a new image $\x$ (normal or not):
+    \begin{itemize}
+    \item Find a $z^*$ such that $G(z^*)$ is \emph{close as possible} to $\x$
+    \item If $G(z^*)$ is \emph{similar enough} to $\x$ and is \emph{correctly evaluated by the descriminator}, then $\x$ is considered as normal
+    \end{itemize}
+  \end{enumerate}
 
 \end{frame}
 
@@ -391,9 +438,9 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 \begin{frame}{Find $z^*$}
 
   \begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
 
 
@@ -403,14 +450,14 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Is $\x$ similar to $G(z^*)$ ?}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
-\begin{block}{Residual loss}
-  \centering
-  $\mathcal{L}_R(z^*) = \norm{x - G(z^*)}_{L_1}$
+  \begin{block}{Residual loss}
+    \centering
+    $\mathcal{L}_R(z^*) = \norm{x - G(z^*)}_{L_1}$
   \end{block}
 
 \end{frame}
@@ -419,20 +466,20 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Is $G(z^*)$ realistic?}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
-\begin{block}{Discrimination loss}
-  \centering
-  $\mathcal{L}_D(z^*) = D(G(z^*))$
-\end{block}
+  \begin{block}{Discrimination loss}
+    \centering
+    $\mathcal{L}_D(z^*) = D(G(z^*))$
+  \end{block}
 
-\begin{block}{Improved discrimination loss}
-  \[\mathcal{L}_D(z^*) = \norm{E(x) -  E(D(G(z^*)))}_{L_1}\]
-  where $f$ is the an intermediate layer of the discriminator.
-\end{block}
+  \begin{block}{Improved discrimination loss}
+    \[\mathcal{L}_D(z^*) = \norm{E(x) -  E(D(G(z^*)))}_{L_1}\]
+    where $f$ is the an intermediate layer of the discriminator.
+  \end{block}
 
 
 \end{frame}
@@ -454,50 +501,66 @@ $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(l
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{AnoGAN improvement}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gan2}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan2}
+  \end{figure}
 
-\begin{itemize}
-\item For a given real image $\x$, finding a latent code $z$ such that $D(z)$ is similar to $x$ is computationally intensive
-\item Idea: learn an encoder to compute $z$ from $\x$
-\end{itemize}
+  \begin{itemize}
+  \item For a given real image $\x$, finding a latent code $z$ such that $D(z)$ is similar to $x$ is computationally intensive
+  \item Idea: learn an encoder to compute $z$ from $\x$
+  \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{BiGAN}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{bigan}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{bigan}
+  \end{figure}
 
-\begin{itemize}
-\item An encoder is added to the architecture
-\item The discriminator takes as input pairs of image / code
-\end{itemize}
+  \begin{itemize}
+  \item An encoder is added to the architecture
+  \item The discriminator takes as input pairs of image / code
+  \end{itemize}
 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{BiGAN: application to novelty detection}
+\begin{frame}{BiGAN: application to novelty detection \cite{zenati_efficient_2018}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{bigan}
-\end{figure}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{bigan}
+  \end{figure}
 
-\begin{itemize}
-\item Similar to AnoGAN, except that looking for a convenient $z^*$ for a given real image $x$ is done using the encoder $E$
-\item Better anomaly detection results on MNIST
-\item Much faster (800x)
-\end{itemize}
+  \begin{itemize}
+  \item Similar to AnoGAN, except that looking for a convenient $z^*$ for a given real image $x$ is done using the encoder $E$
+  \item Better anomaly detection results on MNIST
+  \item Much faster (800x)
+  \end{itemize}
 
 
 \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GANomaly \cite{akcay_ganomaly:_2019}}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ganomaly}
+  \end{figure}
+
+
+
+\end{frame}
+
+
 
 
 
