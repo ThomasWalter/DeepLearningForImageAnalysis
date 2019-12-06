@@ -110,6 +110,93 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Medicine}
+
+  \begin{itemize}
+  \item Detection of suspicious conditions
+  \item Non specific screening
+  \end{itemize}
+
+\begin{block}{Rare conditions}
+  For medical diagnostic or screening applications, it is extremely difficult to have a complete list of possible pathologies - and in any cases the number of examples of rare conditions will always be small.
+\end{block}
+
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Diabetic retinopathy screening}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{fundus1}
+    \caption{Normal image}
+  \end{figure}
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{ret-dr}
+  \caption{Fundus with signs of diabetic retinopathy}
+\end{figure}
+
+
+    \end{column}
+  \end{columns}
+
+      \source{OPHDIAT database}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Specific methods}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{ret-dr}
+      \caption{Original image}
+    \end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{ret-dr-segm}
+  \caption{Segmentation of anatomical and pathological structures}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unexpected case}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{ret-oedeme}
+  \caption{Papilledema}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Application: security}
 
 
@@ -172,25 +259,6 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Medicine}
-
-  \begin{itemize}
-  \item Detection of suspicious conditions
-  \item Non specific screening
-  \end{itemize}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{fundus1}
-    \caption{Retinal image used for pathology screening}
-    \source{OPHDIAT database}
-  \end{figure}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Science}
 
   \begin{itemize}
@@ -248,7 +316,13 @@
   \item Outlier
   \end{itemize}
 
-  In machine learning: one-class classification.
+  In machine learning:
+
+\begin{itemize}
+\item One-class classification
+\item Out-of-distribution (OOD) detection
+\end{itemize}
+
 \end{frame}
 
 
@@ -257,28 +331,52 @@
 \section{Mathematical modeling}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Basic principles}
+\begin{frame}{Mathematical framework}
+
+  \begin{block}{Definition}
+\begin{itemize}
+  \item $\Omega$: a set (the whole set of images)
+  \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
+  \item $X$: a subset of $\mathcal{N}$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+\end{itemize}
+  \end{block}
 
   \begin{itemize}
-  \item   Let $E$ be a set (the whole set of images), $\mathcal{N}$ the subset of $E$ (constituted by all normal images) and $X$ a subset of $N$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
   \item The question we would like to answer is:
 
     \begin{block}{}
       \centering
-      Is a given $x$ in $E$ normal?
+      Is a given $\x$ in $\Omega$ normal?
     \end{block}
 
   \item What should we add to our definition of $E$, $\mathcal{N}$ and $X$ for this question to be meaningful?
   \end{itemize}
 
-  Some possibilities:
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mathematical framework}
+
+  \begin{block}{Definition}
+\begin{itemize}
+  \item $\Omega$: a set (the whole set of images)
+  \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
+  \item $X$: a subset of $\mathcal{N}$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+\end{itemize}
+  \end{block}
+
+    Some possibilities:
   \begin{itemize}
   \item Explicit modeling of normal images
-  \item Metric space
+  \item Generative approach
   \item Probability space
+  \item Metric space
   \end{itemize}
 
 \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,6 +395,51 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Generative approach}
+
+  \begin{block}{Idea}
+    Normal images are considered as the result of some construction function $G$.
+    \[
+    \begin{split}
+    G: & ~~~~\mathcal{Z} \longrightarrow \mathcal{N} \\
+    & ~~~~ z \longmapsto G(z)
+    \end{split}
+    \]
+  \end{block}
+
+\begin{itemize}
+\item In practice we will also need the \emph{encoding} function $E$:
+    \[
+    \begin{split}
+    E: & ~~~~\mathcal{N} \longrightarrow \mathcal{Z} \\
+    & ~~~~ \x \longmapsto E(x)
+    \end{split}
+    \]
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probabilistic approach}
+
+This is a generalization of the previous approach.
+
+\begin{block}{Idea}
+
+  \begin{itemize}
+  \item   The images of $\Omega$ are considered as the realization of some random process (i.e. \emph{random images}). A probability can therefore be associated to each image.
+  \item Normal images are those whose associated probability is \emph{high enough}
+  \end{itemize}
+
+\end{block}
+
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Metric space}
@@ -311,27 +454,27 @@
 \end{frame}
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Probabilistic approach}
+%% \begin{frame}{Energy based approach}
 
-  %% In order to probabilise $E$ we need a $sigma$-algebra $\mathcal{A}$ (the events set) and a probability measure $P$.
+%% \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Representing images}
 
+  \begin{block}{Trivial representation}
+    A 2D grey level image is a real matrix of size $p \times q$.
+  \end{block}
+
+  \begin{itemize}
+  \item Distances in the matrix space do not make sense from a semantic point of view
+  \end{itemize}
 
 \end{frame}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Energy based approach}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The question of representation}
-
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -367,6 +510,16 @@
   \begin{block}{Idea 1}
     The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
   \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Autoencoders for anomalous image detection}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ae.png}
+  \end{figure}
 
   \begin{block}{Idea 2}
     The latent representation of an anomalous image should be ``far away'' from the latent representations of normal images. Image $\x$ is not normal iff $d(E(\x), E(\X)) > d_0$.
@@ -435,52 +588,78 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Find $z^*$}
+\begin{frame}{Finding $z^*$}
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{gan2}
+    \includegraphics[width=0.4\textwidth]{gan2}
   \end{figure}
 
+  We have $G$, but not $G^{-1}$.
 
+  \begin{itemize}
+  \item For a given $\x$, a random $z_0$ is sampled from the latent space $\cal{Z}$
+  \item A loss function $\mathcal{L}$ is defined to evaluate the fitness of any $z$ with respect to $\x$
+  \item With the network parameters fixed, backpropagation is used to obtain $(z_i)$ starting from $z_0$. The last $z_i$ is considered as the best: $z^*$.
+  \end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Is $\x$ similar to $G(z^*)$ ?}
+\begin{frame}{Is $\x$ similar to $G(z_i)$ ?}
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{gan2}
+    \includegraphics[width=0.4\textwidth]{gan2}
   \end{figure}
 
   \begin{block}{Residual loss}
     \centering
-    $\mathcal{L}_R(z^*) = \norm{x - G(z^*)}_{L_1}$
+    $\mathcal{L}_R(z_i) = \norm{x - G(z_i)}_{L_1}$
   \end{block}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Is $G(z^*)$ realistic?}
+\begin{frame}{Is $G(z_i)$ realistic?}
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{gan2}
+    \includegraphics[width=0.4\textwidth]{gan2}
   \end{figure}
 
   \begin{block}{Discrimination loss}
     \centering
-    $\mathcal{L}_D(z^*) = D(G(z^*))$
+    $\mathcal{L}_D(z_i) = D(G(z_i))$
   \end{block}
 
   \begin{block}{Improved discrimination loss}
-    \[\mathcal{L}_D(z^*) = \norm{E(x) -  E(D(G(z^*)))}_{L_1}\]
-    where $f$ is the an intermediate layer of the discriminator.
+    \[\mathcal{L}_D(z_i) = \norm{f_D(\x) - f_D(G(z_i))}_{L_1}\]
+    where $f_D$ is the last layer of the discriminator.
   \end{block}
 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Final loss and anomaly evaluation}
+
+  \begin{block}{Final loss}
+    \[\mathcal{L}(z_i) = (1-\alpha)\mathcal{L}_D(z_i) + \alpha \mathcal{L}_R(z_i) \]
+  \end{block}
+
+  \begin{block}{Anomaly evaluation}
+    \[A(\x) = (1-\alpha)\mathcal{L}_D(z^*) + \alpha \mathcal{L}_R(z^*) \]
+
+      Moreover, the \emph{residual image}:
+      \[
+      |\x - G(z^*)|
+      \]
+      is used to detect anomalous regions.
+  \end{block}
 
 \end{frame}
 
@@ -507,7 +686,7 @@
   \end{figure}
 
   \begin{itemize}
-  \item For a given real image $\x$, finding a latent code $z$ such that $D(z)$ is similar to $x$ is computationally intensive
+  \item For a given real image $\x$, finding a latent code $z$ such that $G(z)$ is similar to $\x$ is computationally intensive
   \item Idea: learn an encoder to compute $z$ from $\x$
   \end{itemize}
 
@@ -538,7 +717,7 @@
   \end{figure}
 
   \begin{itemize}
-  \item Similar to AnoGAN, except that looking for a convenient $z^*$ for a given real image $x$ is done using the encoder $E$
+  \item Similar to AnoGAN, except that looking for a convenient $z^*$ for a given real image $\x$ is done using the encoder $E$
   \item Better anomaly detection results on MNIST
   \item Much faster (800x)
   \end{itemize}
@@ -560,7 +739,73 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GANomaly : loss function}
 
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{ganomaly}
+  \end{figure}
+
+\small
+
+  \begin{block}{Reconstruction loss}
+    \[ \mathcal{L}_{rec}(\x) = \norm{\x - G(E(\x))}_{L_1} \]
+  \end{block}
+
+  \begin{block}{Adversarial loss}
+    \[ \mathcal{L}_{adv}(\x) = \norm{f_D(\x) - f_D(G(E(\x)))}_{L_2} \]
+  \end{block}
+
+  \begin{block}{Encoding loss}
+    \[ \mathcal{L}_{enc}(\x) = \norm{E(\x) - E_2(G(E(\x)))}_{L_2} \]
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Final loss and anomaly estimation}
+
+  \begin{block}{Final loss}
+  \[\mathcal{L} = w_{rec}\mathcal{L}_{rec} + w_{adv}\mathcal{L}_{adv} + w_{enc}\mathcal{L}_{enc}\]
+  \end{block}
+
+  \begin{block}{Anomaly estimation}
+    \[A(\x) = \mathcal{L}_{enc}(\x) = \norm{E(\x) - E_2(G(E(\x)))}_{L_2} \]
+  \end{block}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comparison on MNIST}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{comparison}
+  \includegraphics[width=0.8\textwidth]{comparison-legend}
+  \source{\cite{akcay_ganomaly:_2019}}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion}
+
+\begin{itemize}
+\item Deep learning opens new possibilities to anomalous image detection
+\item Current methods need however to be improved to deal with real-world applications
+\end{itemize}
+
+\end{frame}
 
 
 
