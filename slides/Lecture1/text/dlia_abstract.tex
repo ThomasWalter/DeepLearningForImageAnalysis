@@ -1,0 +1,151 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\input{../../setting.tex}
+\usepackage{physics}
+
+\graphicspath{{../graphics/}}
+
+%% \usepackage{animate}
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+\title{Deep Learning for Image Analysis\\Course Introduction}
+\author{E. Decencière, Thomas Walter, Santiago Velasco-Forero}
+\date{MINES ParisTech\\
+  PSL Research University
+}
+\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{About the lecturers}
+
+\begin{columns}
+  \begin{column}{.2\textwidth}
+\vfill
+\includegraphics[width=\textwidth]{Thomas_Walter_Heidelberg.jpg}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{velascoforero}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{ed.jpg}
+
+  \end{column}
+  \begin{column}{.8\textwidth}
+
+    \begin{block}{Thomas Walter \hfill \scriptsize{\url{http://members.cbio.mines-paristech.fr/\~twalter}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: bioimage informatics
+    \item Main application fields: High Content Screening (HCS), as a method to systematically study biological processes by analyzing cellular phenotypes
+    \end{itemize}
+    }
+  \end{block}
+
+  \begin{block}{Santiago Velasco-Forero  \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~velasco}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: image processing, pattern recognition, multivariate statistics, graph-based data/image analysis
+    \item Main application fields: Remote Sensing, cosmetology, astronomy, hyperspectral imaging.
+    \end{itemize}
+    }
+  \end{block}
+
+    \begin{block}{Etienne Decencière \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~decenciere}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: mathematical morphology and image analysis
+    \item Main application fields: Ophthalmology, dermatology, cosmetology, astronomy
+    \end{itemize}
+    }
+  \end{block}
+
+  \end{column}
+\end{columns}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Objectif et pré-requis}
+
+\begin{block}{Objectif}
+  Introduction à la théorie et à la pratique de l'apprentissage profond pour l'analyse d'images.
+\end{block}
+
+\begin{block}{Connaissances préalables}
+\begin{itemize}
+\item Algèbre et probabilités de base
+\item Programmation: python
+\end{itemize}
+  \end{block}
+
+  \begin{block}{Langue}
+    \begin{itemize}
+    \item Slides: anglais
+    \item Oral: anglais ou français (en fonction de l'auditoire)
+    \end{itemize}
+
+\end{block}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contenu}
+
+
+\begin{block}{Approche pédagogique}
+
+  \begin{itemize}
+  \item 4 journées entières
+  \item Cours magistraux le matin
+  \item Travaux pratiques l'après-midi (python, keras)
+  \end{itemize}
+\end{block}
+
+\begin{block}{Sujets abordés}
+\begin{itemize}
+\item Rappels: machine learning et réseaux de neurones
+\item De la classification à la transformation d'images
+\item Optimisation et visualisation des réseaux profonds
+\item Autoencodeurs et réseaux antagonistes génératifs (GANs)
+\end{itemize}
+\end{block}
+
+  \begin{block}{Evaluation}
+  Examen
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
