@@ -59,75 +59,6 @@
 \section{Introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Definition in layman terms}
-
-
-  \begin{block}{Anomaly detection}
-    Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given image, if it is normal, or not.
-
-    The definition of normal images is given through a set of examples.
-  \end{block}
-
-  \begin{itemize}
-  \item We will focus on images, but the problem is very general.
-  \item We will suppose that we only have examples of normal images, i.e. that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough or unknown.
-  \end{itemize}
-
-
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - set of normal images}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.3\textwidth]{snow1-pexels-photo-290548.jpg}
-    \includegraphics[width=0.3\textwidth]{snow2-pexels-photo-235621.jpg}
-    \includegraphics[width=0.3\textwidth]{snow3-pexels-photo-839462.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow4-pexels-photo-688660.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow5-pexels-photo-773594.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow6-pexels-photo-1559117.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow7-pexels-photo-66284.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow8-pexels-photo-1571442.jpeg}
-    \includegraphics[width=0.3\textwidth]{snow9-pexels-photo-416728.jpeg}\
-    \source{http://pexels.com}
-  \end{figure}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - which images are normal?}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.3\textwidth]{test1-pexels-photo-414459.jpeg}
-    \includegraphics[width=0.3\textwidth]{test2-pexels-photo-414171.jpeg}
-    \source{http://pexels.com}
-  \end{figure}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Medicine}
-
-  \begin{itemize}
-  \item Detection of suspicious conditions
-  \item Non specific screening
-  \end{itemize}
-
-\begin{block}{Rare conditions}
-  For medical diagnostic or screening applications, it is extremely difficult to have a complete list of possible pathologies - and in any cases the number of examples of rare conditions will always be small.
-\end{block}
-
-
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Diabetic retinopathy screening}
 
   \begin{columns}
@@ -194,6 +125,75 @@
 
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Definition in layman terms}
+
+
+  \begin{block}{Anomaly detection}
+    Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for a given image, if it is normal, or not.
+
+    The definition of normal images is given through a set of examples.
+  \end{block}
+
+  \begin{itemize}
+  \item We will focus on images, but the problem is very general.
+  \item We will suppose that we only have examples of normal images, i.e. that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough or unknown.
+  \end{itemize}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example - set of normal images}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{snow1-pexels-photo-290548.jpg}
+    \includegraphics[width=0.3\textwidth]{snow2-pexels-photo-235621.jpg}
+    \includegraphics[width=0.3\textwidth]{snow3-pexels-photo-839462.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow4-pexels-photo-688660.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow5-pexels-photo-773594.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow6-pexels-photo-1559117.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow7-pexels-photo-66284.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow8-pexels-photo-1571442.jpeg}
+    \includegraphics[width=0.3\textwidth]{snow9-pexels-photo-416728.jpeg}\
+    \source{http://pexels.com}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example - which images are normal?}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{test1-pexels-photo-414459.jpeg}
+    \includegraphics[width=0.3\textwidth]{test2-pexels-photo-414171.jpeg}
+    \source{http://pexels.com}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Medicine}
+
+  \begin{itemize}
+  \item Detection of suspicious conditions
+  \item Non specific screening
+  \end{itemize}
+
+\begin{block}{Rare conditions}
+  For medical diagnostic or screening applications, it is extremely difficult to have a complete list of possible pathologies - and in any cases the number of examples of rare conditions will always be small.
+\end{block}
+
+
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -413,7 +413,7 @@
     \[
     \begin{split}
     E: & ~~~~\mathcal{N} \longrightarrow \mathcal{Z} \\
-    & ~~~~ \x \longmapsto E(x)
+    & ~~~~ \x \longmapsto E(\x)
     \end{split}
     \]
 \end{itemize}
@@ -547,7 +547,7 @@ This is a generalization of the previous approach.
   \end{itemize}
 
   \begin{block}{Value function}
-    $V(G,D) = \mathbb{E}_{x \sim p_{data}}(log(D(x))) + \mathbb{E}_{z \sim p_z(z)}(log(1 - D(G(z))))$
+    $V(G,D) = \mathbb{E}_{p_\x}(log(D(\x))) + \mathbb{E}_{p_z(z)}(log(1 - D(G(z))))$
   \end{block}
 
 \end{frame}
@@ -704,6 +704,10 @@ This is a generalization of the previous approach.
   \item An encoder is added to the architecture
   \item The discriminator takes as input pairs of image / code
   \end{itemize}
+
+    \begin{block}{Value function}
+    $V(G,D) = \mathbb{E}_{p_\x}(log(D(\x, E(\x)))) + \mathbb{E}_{p_z(z)}(log(1 - D(G(z), z)))$
+  \end{block}
 
 
 \end{frame}
