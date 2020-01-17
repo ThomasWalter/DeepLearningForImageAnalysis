@@ -41,55 +41,69 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction: Artificial Intelligence and Machine Learning}
+\section{Machine Learning: recall of basic definitions}
 \frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
-\begin{frame}{Definition of Artificial Intelligence and Machine Learning}
-%\begin{definition}
-%	Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
-%\end{definition}
-\begin{itemize}
-	\item The definition of the term \textbf{intelligence} is highly controversial. Usually, one understands by intelligence the capacity of an individual to reason logically, to understand complexity, to learn more or less abstract concepts, to plan and to solve problems in varying conditions.
-	\item \textbf{Artificial intelligence (AI)} is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
-	\item AI effect: \emph{"AI is whatever hasn't been done yet"}.
-	\item In 1956, AI became a field of research. AI can be broken down into many subfields: knowledge representation, planning, natural language processing, object manipulation (robotics), machine learning, $\ldots$
-	\item \textbf{Machine Learning} is concerned with the technology that enables computer programs to improve their performance at a certain task by experience.
-\end{itemize}
-\end{frame}
+% \begin{frame}{Definition of Artificial Intelligence and Machine Learning}
+% %\begin{definition}
+% %	Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
+% %\end{definition}
+% \begin{itemize}
+% 	\item The definition of the term \textbf{intelligence} is highly controversial. Usually, one understands by intelligence the capacity of an individual to reason logically, to understand complexity, to learn more or less abstract concepts, to plan and to solve problems in varying conditions.
+% 	\item \textbf{Artificial intelligence (AI)} is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
+% 	\item AI effect: \emph{"AI is whatever hasn't been done yet"}.
+% 	\item In 1956, AI became a field of research. AI can be broken down into many subfields: knowledge representation, planning, natural language processing, object manipulation (robotics), machine learning, $\ldots$
+% 	\item \textbf{Machine Learning} is concerned with the technology that enables computer programs to improve their performance at a certain task by experience.
+% \end{itemize}
+% \end{frame}
 
-\begin{frame}{A short history of artificial intelligence}
-\begin{itemize}
-	\item The dream to create machines that can think and act has been present in literature and mythology since antiquity (e.g. the myth of \emph{"Talos"} or \emph{"Rossum's Universal Robots"} by Karel \v{C}apek, 1920).
-	\item AI as a scientific discipline took its beginning with the publication of Alan Turing in 1950 (Turing test). The question \emph{"Can machines think?"} was asked scientifically.
-	\item Other theoretical bases were developed by Wiener (cybernetics) and Shannon (information theory).
-	\item The term \emph{"artificial intelligence"} was cornered in 1956, in the famous Dartmouth conference, where AI has been established as a field.
-\end{itemize}
-\end{frame}
+% \begin{frame}{A short history of artificial intelligence}
+% \begin{itemize}
+% 	\item The dream to create machines that can think and act has been present in literature and mythology since antiquity (e.g. the myth of \emph{"Talos"} or \emph{"Rossum's Universal Robots"} by Karel \v{C}apek, 1920).
+% 	\item AI as a scientific discipline took its beginning with the publication of Alan Turing in 1950 (Turing test). The question \emph{"Can machines think?"} was asked scientifically.
+% 	\item Other theoretical bases were developed by Wiener (cybernetics) and Shannon (information theory).
+% 	\item The term \emph{"artificial intelligence"} was cornered in 1956, in the famous Dartmouth conference, where AI has been established as a field.
+% \end{itemize}
+% \end{frame}
 
-\begin{frame}{A short history of machine learning}
+% \begin{frame}{A short history of machine learning}
+% \begin{figure}[htb]
+%   \centering
+%   \subfloat{\includegraphics[height=0.23\textheight]{../graphics/Mark_1_perceptron.jpeg}}\hspace{2cm}
+%   \subfloat{\includegraphics[height=0.23\textheight]{../graphics/perceptron.jpg}}
+%   \caption{The Mark I Perceptron}
+% \end{figure}
+% \vspace{-.5cm}
+% \begin{itemize}
+% 	\item The theoretical foundations go back to the early 19th century (e.g. Bayesian theory and Least Squares).
+% 	\item Even before machines came into play, there was a lot of interest in finding methods to derive rules from data (\emph{data fitting}). These methods are part of what we call Machine Learning today (linear regression, Bayesian theory, Logistic regression, Linear discriminant analysis, Markov chains).
+% 	\item In 1958, Rosenblatt published his \emph{Perceptron} (basically a linear classifier), which is seen as the predecessor of Neural Networks.
+% \end{itemize}
+% \end{frame}
+\begin{frame}{AI: bubble or revolution?}
 \begin{figure}[htb]
   \centering
-  \subfloat{\includegraphics[height=0.23\textheight]{../graphics/Mark_1_perceptron.jpeg}}\hspace{2cm}
-  \subfloat{\includegraphics[height=0.23\textheight]{../graphics/perceptron.jpg}}
-  \caption{The Mark I Perceptron}
+  \subfloat{\includegraphics[height=0.6\textheight]{../graphics/NatureGo.png}}\hspace{2cm}
+  \subfloat{\includegraphics[height=0.6\textheight]{../graphics/NatureSkinLesions.png}}
+  \caption{Two recent success stories of Artificial Intelligence: AI beats the world champion in GO and dermatologists in skin cancer detection.}
 \end{figure}
-\vspace{-.5cm}
-\begin{itemize}
-	\item The theoretical foundations go back to the early 19th century (e.g. Bayesian theory and Least Squares).
-	\item Even before machines came into play, there was a lot of interest in finding methods to derive rules from data (\emph{data fitting}). These methods are part of what we call Machine Learning today (linear regression, Bayesian theory, Logistic regression, Linear discriminant analysis, Markov chains).
-	\item In 1958, Rosenblatt published his \emph{Perceptron} (basically a linear classifier), which is seen as the predecessor of Neural Networks.
-\end{itemize}
+%\vspace{-.5cm}
+
 \end{frame}
 
-\begin{frame}{Machine Learning: basic definitions}
+
+\begin{frame}{What is Machine Learning ?}
 \begin{itemize}
-	\item Machine Learning aims at predicting some output $y$ from an input (or measurement) $x$:
+	\item Machine Learning is a family of algorithms that allow a machine to improve its performance in a task by inference from data. 
+	\item This is in contrast to traditional programming, where rules are explicitly implemented. 
+	\item More concretely, Machine Learning aims at predicting some output $y$ from an input (or measurement) $x$:
 	\begin{equation}
 	y = f(x)
 	\end{equation}
-	\item In this formulation, Machine Learning aims at finding (learning) $f$ from available data.
+	In this formulation, Machine Learning aims at finding (learning) $f$ from available data.
 	\item The data that is used to learn $f$ is called \textbf{training set}.
-	\item In this general formulation, there is no particular limitation as to the mathematical nature of $x$ and $y$. In many cases $x$ is a $\nfeatures$-dimensional vector and $y$ a categorical or continuous output variable, but there are other settings, where $x$ and / or $y$ are more complicated objects, such as images or graphs.
+	\item $x$ is often a $\nfeatures$-dimensional vector and $y$ a categorical or continuous output variable. But in principle they can be more complicated objects.
+%	\item In this general formulation, there is no particular limitation as to the mathematical nature of $x$ and $y$. In many cases $x$ is a $\nfeatures$-dimensional vector and $y$ a categorical or continuous output variable, but there are other settings, where $x$ and / or $y$ are more complicated objects, such as images or graphs.
 \end{itemize}
 \end{frame}
 
@@ -664,12 +678,12 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item The ribbon is defined by two parallel lines, for which $w^Tx + b = 1$ 
+		\item The ribbon is defined by two parallel lines, for which $w^Tx + b = \pm 1$ 
 		\item The distance between the two parallel lines $w^Tx + b = \pm 1$ is given by
 		\begin{equation}
 			d = \frac{2}{\|w\|}
 		\end{equation}
-		\item Maximizing of $d$ is equivalent to minimizing $\|w\|^2$.
+		\item Maximizing $d$ is equivalent to minimizing $\|w\|^2$.
 	\end{itemize}
 \end{frame}
 
@@ -694,8 +708,8 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 		\includegraphics[width=0.7\textwidth]{../graphics/SVM3.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item In reality, complex data is rarely linearly separable.
-		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (we omit the constraints):
+		\item In reality, complex data are rarely linearly separable.
+		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (under constraints):
 		\begin{equation*}
 			\min_{w,\xi} \|w\|^2 + C \sum_{i=1}^{N}\xi_i
 		\end{equation*}
@@ -729,11 +743,12 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 \begin{frame}{Support Vector Machines: Kernel trick}
 	\begin{figure}[htb]
 		\includegraphics[width=0.7\textwidth]{../graphics/KernelTrick.pdf}
+		\caption{A non-linear classification problem can be solved in a higher dimensional space. Here for instance, $x = (x_1, x_2)^T \rightarrow \phi(x) = (x_1^2, \sqrt{2}x_1x_2, x_2^2)^T$}
 	\end{figure}
 	\begin{itemize}
 		\item Limitation: linear decision boundaries
 		\item Solution: transform the features in a higher dimensional space.
-		\item SVM: in-built mechanism to do such transformations efficiently.
+		\item SVM: in-built mechanism to do such transformations implicitly, as the decision function is only dependent on scalar products in the underlying feature space. Consequently, we do not need to actually perform the transformation.
 	\end{itemize}
 \end{frame}
 
@@ -849,7 +864,7 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 % \end{frame}
 
 \section{Conclusion}
-\begin{frame}{Conclusion}
+\begin{frame}{Conclusion 1/2}
 	\begin{itemize}
 		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict some output variable $y$ from inputs $x$.
 		\item Different views:
@@ -866,10 +881,17 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 					\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
 				\end{equation*}
 			\end{itemize}
-		\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{Conclusion 2/2}
+\begin{itemize}
+	\item From RF, we learn that averaging models can significantly improve performance. This idea will lead to dropout as a regularization technique and averaging as a strategy. 
+	\item From LDA, we learn the probabilistic view on classification, and the definition of posterior probabilities, which are typically predicted by Neural Networks. 
+	\item From SVM, we learn that classification can be written as an optimization problem, where we minimize the error and a regularization term. This is the approach which is also taken in Neural Networks. 
+	\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
+\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
