@@ -7,13 +7,13 @@
 
 \AtBeginSection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsection, hideothersubsections]
+    \tableofcontents[currentsection, hideothersubsections]
   \end{frame}
 }
 
 \AtBeginSubsection[]{
   \begin{frame}{Contents}
-  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+    \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
   \end{frame}
 }
 
@@ -47,13 +47,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \begin{frame}
-\titlepage
+  \titlepage
 \end{frame}
 
-\frame{
-\frametitle{Contents}
-\tableofcontents[hidesubsections]
-}
+%% \frame{
+%%   \frametitle{Contents}
+%%   \tableofcontents[hidesubsections]
+%% }
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,40 +84,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Biological neuron}
+  \frametitle{Biological neuron}
 
-\begin{figure}
-\includegraphics[height=3cm]{neuron}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neuron}
+  \end{figure}
 
-\begin{itemize}[<+->]
-\item The human brain contains 100 billion ($10^{11}$) neurons
-\item A human neuron can have several thousand dendrites
-\item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dendrites) is larger than a threshold.
-\end{itemize}
+  \begin{itemize}[<+->]
+  \item The human brain contains 100 billion ($10^{11}$) neurons
+  \item A human neuron can have several thousand dendrites
+  \item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dendrites) is larger than a threshold.
+  \end{itemize}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Artificial neuron}
+  \frametitle{Artificial neuron}
 
-\begin{figure}
-\includegraphics[height=3cm]{neurone_general}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neurone_general}
+  \end{figure}
 
-\begin{block}{General principle}
-An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
-\end{block}
+  \begin{block}{General principle}
+    An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
+  \end{block}
 
-\pause
+  \pause
 
-\begin{itemize}
-\item The first artificial neuron model was proposed by \cite{mcculloch_logical_1943}
-\item Input and output signals were binary
-\item Input dendrites could be inhibitory or excitatory
-\end{itemize}
+  \begin{itemize}
+  \item The first artificial neuron model was proposed by \cite{mcculloch_logical_1943}
+  \item Input and output signals were binary
+  \item Input dendrites could be inhibitory or excitatory
+  \end{itemize}
 
 }
 
@@ -301,7 +301,7 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
     \end{itemize}
   \end{block}
 
-\pause
+  \pause
 
   \begin{alertblock}{}
     ReLU is the most commonly used activation function.
@@ -318,50 +318,50 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{What can an artificial neuron compute?}
+  \frametitle{What can an artificial neuron compute?}
 
-\begin{figure}
-\includegraphics[height=3cm]{neurone}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neurone}
+  \end{figure}
 
-\begin{block}{}
-  In $\R^p$ ,
-  $b + \sum\limits_{i=1}^p w_ix_i = 0$
-  corresponds to a hyperplane $H$. For a given point
-  $\x = \{x_0, \ldots, x_p\}$,
-  decisions are made according to the side of the hyperplane it belongs to.
-\end{block}
+  \begin{block}{}
+    In $\R^p$ ,
+    $b + \sum\limits_{i=1}^p w_ix_i = 0$
+    corresponds to a hyperplane $H$. For a given point
+    $\x = \{x_0, \ldots, x_p\}$,
+    decisions are made according to the side of the hyperplane it belongs to.
+  \end{block}
 
-\begin{alertblock}{}
-  When the activation function is binary, we obtain a \alert{perceptron}
-\end{alertblock}
+  \begin{alertblock}{}
+    When the activation function is binary, we obtain a \alert{perceptron}
+  \end{alertblock}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Example of what we can do with a neuron}
+  \frametitle{Example of what we can do with a neuron}
 
-\begin{figure}
-\includegraphics[height=3cm]{neurone_simple}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neurone_simple}
+  \end{figure}
 
-\begin{itemize}
-\item $p=2$ : 2-dimensional inputs (can be represented on a screen!)
-\item Activation: binary
-\item Classification problem
-\end{itemize}
+  \begin{itemize}
+  \item $p=2$ : 2-dimensional inputs (can be represented on a screen!)
+  \item Activation: binary
+  \item Classification problem
+  \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Gaussian clouds}
+  \frametitle{Gaussian clouds}
 
-\begin{figure}
-\includegraphics[height=6cm]{gaussian_clouds}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=6cm]{gaussian_clouds}
+  \end{figure}
 
 
 }
@@ -369,11 +369,11 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
-\frametitle{Gaussian clouds}
+  \frametitle{Gaussian clouds}
 
-\begin{figure}
-\includegraphics[height=6cm]{gaussian_clouds_H}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=6cm]{gaussian_clouds_H}
+  \end{figure}
 
 
 }
@@ -381,11 +381,11 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Circles}
+  \frametitle{Circles}
 
-\begin{figure}
-\includegraphics[height=6cm]{circles}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=6cm]{circles}
+  \end{figure}
 
 
 }
@@ -393,39 +393,39 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
-\frametitle{Circles}
+  \frametitle{Circles}
 
-\begin{figure}
-\includegraphics[height=6cm]{circles_H}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=6cm]{circles_H}
+  \end{figure}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-\frametitle{Solution}
+  \frametitle{Solution}
 
-\begin{columns}
-  \begin{column}{.5\textwidth}
-    \begin{figure}
-      \includegraphics[height=5cm]{ann_5}
-    \end{figure}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=5cm]{ann_5}
+      \end{figure}
 
-  \end{column}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
+    \begin{column}{.5\textwidth}
 
-\begin{figure}
-\includegraphics[height=4cm]{circles_H}
-\end{figure}
+      \begin{figure}
+        \includegraphics[height=4cm]{circles_H}
+      \end{figure}
 
-  \end{column}
-\end{columns}
+    \end{column}
+  \end{columns}
 
-\begin{block}{Intuition}
-  Combining several neurons one can build complex classifiers.
-\end{block}
+  \begin{block}{Intuition}
+    Combining several neurons one can build complex classifiers.
+  \end{block}
 
 }
 
@@ -433,53 +433,53 @@ An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Artificial neuron compact representation}
 
-    \begin{figure}
-      \includegraphics[height=3cm]{neurone_representation_compacte}
-    \end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neurone_representation_compacte}
+  \end{figure}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Notations}
+  \frametitle{Notations}
 
-\begin{columns}
+  \begin{columns}
 
-  \begin{column}{.5\textwidth}
-\begin{figure}
-\includegraphics[height=2cm]{neurone_representation_compacte}
-\end{figure}
-\end{column}
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=2cm]{neurone_representation_compacte}
+      \end{figure}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
-  With
+    \begin{column}{.5\textwidth}
+      With
+      \[
+      \mathbf{w} =
+      \begin{pmatrix}
+        w_1 \\
+        \vdots \\
+        w_p
+      \end{pmatrix}
+      = (w_1, \ldots, w_p)^T
+      \]
+      and
+      \[
+      \x =
+      \begin{pmatrix}
+        x_1 \\
+        \vdots \\
+        x_p
+      \end{pmatrix}
+      = (x_1, \ldots, x_p)^T
+      \]
+    \end{column}
+
+  \end{columns}
+
+  We can simply write:
   \[
-  \mathbf{w} =
-  \begin{pmatrix}
-    w_1 \\
-    \vdots \\
-    w_p
-  \end{pmatrix}
-  = (w_1, \ldots, w_p)^T
+  \act(b+ \sum\limits_{i=1}^p w_ix_i) = \act(b + \mathbf{w}^T\x)
   \]
-  and
-  \[
-  \x =
-  \begin{pmatrix}
-    x_1 \\
-    \vdots \\
-    x_p
-  \end{pmatrix}
-  = (x_1, \ldots, x_p)^T
-  \]
-\end{column}
-
-\end{columns}
-
-We can simply write:
-\[
-\act(b+ \sum\limits_{i=1}^p w_ix_i) = \act(b + \mathbf{w}^T\x)
-\]
 
 }
 
@@ -492,20 +492,20 @@ We can simply write:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph}
 
-\begin{block}{Definition}
-  A computational graph is a direct acyclic graph such that:
-  \begin{itemize}
-  \item A node is a mathematical operator
-  \item To each edge is associated a value
-  \item Each node can compute the values of its output edges from the values of its input edges
+  \begin{block}{Definition}
+    A computational graph is a direct acyclic graph such that:
     \begin{itemize}
-    \item Nodes without input edges are \emph{input nodes}. They represent the input values of the graph.
-    \item Similarly, output values can be held in the \emph{output nodes}.
+    \item A node is a mathematical operator
+    \item To each edge is associated a value
+    \item Each node can compute the values of its output edges from the values of its input edges
+      \begin{itemize}
+      \item Nodes without input edges are \emph{input nodes}. They represent the input values of the graph.
+      \item Similarly, output values can be held in the \emph{output nodes}.
+      \end{itemize}
     \end{itemize}
-  \end{itemize}
-\end{block}
+  \end{block}
 
-Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
+  Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
 
 
 \end{frame}
@@ -519,8 +519,8 @@ Computing a \emph{forward pass} through the graph means choosing its input value
   \]
   where $\sigma$ is the sigmoid function: $\sigma(x) = \frac{1}{1 + e^{-x}}$
 
-\vspace{3em}
-\pause
+  \vspace{3em}
+  \pause
 
   \centering
   \includegraphics[width=0.7\textwidth]{comp_graph2}\\
@@ -542,84 +542,84 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Neural network (NN)}
+  \frametitle{Neural network (NN)}
 
-\begin{block}{Definitions}
-  \begin{itemize}
-  \item An artificial neural network is a computational graph, where
-   the nodes are artificial neurons
-  \item The \alert{input layer} is the set of neurons without incoming edges.
-  \item The \alert{output layer} is the set of neurons without outgoing edges.
-  \end{itemize}
-
-  \pause
-
-  NB: Neural networks with cycles, known as recurrent neural networks, also exist.
-
-\end{block}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Feed-forward neural networks}
-
-\begin{block}{Definition}
-  \begin{itemize}
-  \item A feed-forward neural networks is a NN without cycles
-  \item Neurons are organized in \alert{layers}
+  \begin{block}{Definitions}
     \begin{itemize}
-    \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
+    \item An artificial neural network is a computational graph, where
+      the nodes are artificial neurons
+    \item The \alert{input layer} is the set of neurons without incoming edges.
+    \item The \alert{output layer} is the set of neurons without outgoing edges.
     \end{itemize}
-  \item Any layers other than input and output layers are called \alert{hidden layers}
-  \end{itemize}
 
-\end{block}
+    \pause
 
-\begin{figure}
-  \includegraphics[height=3cm]{network.png}
-  \source{(from http://www.jtoy.net)}
-\end{figure}
+    NB: Neural networks with cycles, known as recurrent neural networks, also exist.
+
+  \end{block}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Feed-forward neural networks}
+
+  \begin{block}{Definition}
+    \begin{itemize}
+    \item A feed-forward neural networks is a NN without cycles
+    \item Neurons are organized in \alert{layers}
+      \begin{itemize}
+      \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
+      \end{itemize}
+    \item Any layers other than input and output layers are called \alert{hidden layers}
+    \end{itemize}
+
+  \end{block}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{network.png}
+    \source{(from http://www.jtoy.net)}
+  \end{figure}
 
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Feed-forward neural networks}
+  \frametitle{Feed-forward neural networks}
 
-\begin{alertblock}{}
-  In the following of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.
-\end{alertblock}
+  \begin{alertblock}{}
+    In the following of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.
+  \end{alertblock}
 
-\begin{block}{What about other architectures?}
-  \begin{itemize}
+  \begin{block}{What about other architectures?}
+    \begin{itemize}
     \item Recurrent neural networks (RNN)
     \item Long short-term memory networks (LSTM)
-  \end{itemize}
-\end{block}
+    \end{itemize}
+  \end{block}
 
-\begin{itemize}
+  \begin{itemize}
   \item[+] More powerful than feed-forward NNs
   \item[-] Complex dynamics; more difficult to train
   \item Mainly used for processing temporal data
-\end{itemize}
+  \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Fully-connected network}
+  \frametitle{Fully-connected network}
 
-\begin{itemize}
-\item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
+  \begin{itemize}
+  \item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
   \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are a 2D dimensional array (a matrix) of size $q \times r$
-\item A NN is said to be fully connected if all its hidden layers are fully connected
-\end{itemize}
+  \item A NN is said to be fully connected if all its hidden layers are fully connected
+  \end{itemize}
 
-\begin{figure}
-  \includegraphics[height=3cm]{network.png}
-\end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{network.png}
+  \end{figure}
 
 }
 
@@ -627,23 +627,23 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Graphical representation of NNs}
 
-\begin{columns}
-  \begin{column}{.5\textwidth}
-    \begin{figure}
-      \includegraphics[height=3cm]{network.png}
-    \end{figure}
-    \begin{figure}
-      \includegraphics[height=3cm]{nn_representation}
-    \end{figure}
-  \end{column}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=3cm]{network.png}
+      \end{figure}
+      \begin{figure}
+        \includegraphics[height=3cm]{nn_representation}
+      \end{figure}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
-    \begin{itemize}
-    \item Data is organized into arrays, linked with operators
-    \item A layer corresponds to an operator between arrays.
-    \end{itemize}
-  \end{column}
-\end{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Data is organized into arrays, linked with operators
+      \item A layer corresponds to an operator between arrays.
+      \end{itemize}
+    \end{column}
+  \end{columns}
 
 
 \end{frame}
@@ -652,18 +652,18 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The equations of a fully connected neural network}
 
-    \begin{figure}
-      \includegraphics[height=3cm]{nn_representation2}
-    \end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{nn_representation2}
+  \end{figure}
 
-    \begin{block}{}
-      \[\x^i = \act_i(\W_i\x^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-      \[y = \act_4(\W_4\x^4 + \bias_4)\]
-    \end{block}
+  \begin{block}{}
+    \[\x^i = \act_i(\W_i\x^{i-1} + \bias_i),\, i= 1, 2, 3 \]
+    \[y = \act_4(\W_4\x^4 + \bias_4)\]
+  \end{block}
 
-    \pause
+  \pause
 
-    What would happen if all activation functions $\act_i$ were equal to the identity function?
+  What would happen if all activation functions $\act_i$ were equal to the identity function?
 
 \end{frame}
 
@@ -677,14 +677,14 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
   \begin{itemize}
   \item How many parameters does the above network contain?
-  %% \item<2-> First hidden layer:\\
-  %%   %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
-  %%   \begin{itemize}
-  %%   \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
-  %%   \end{itemize}
-  %% \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
-  %% \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
-  %% \item<8-> Total: $301$ parameters
+    %% \item<2-> First hidden layer:\\
+    %%   %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
+    %%   \begin{itemize}
+    %%   \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
+    %%   \end{itemize}
+    %% \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
+    %% \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
+    %% \item<8-> Total: $301$ parameters
   \end{itemize}
 
 }
@@ -730,7 +730,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
   \begin{itemize}[<+->]
   \item   When dealing with large databases (large $n$ and sometimes large $p$) for practical reasons the network cannot process the whole set in a single pass.
   \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
-\end{itemize}
+  \end{itemize}
 
 
 \end{frame}
@@ -741,59 +741,59 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Universal approximation theorem}
+  \frametitle{Universal approximation theorem}
 
-\begin{columns}
-  \begin{column}{.5\textwidth}
-    \begin{itemize}
-    \item We have previously seen that a neuron can be used as a linear classifier and that combining several of them one can build complex classifiers
-    \item We will see that this observation can be generalized
-    \end{itemize}
-  \end{column}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item We have previously seen that a neuron can be used as a linear classifier and that combining several of them one can build complex classifiers
+      \item We will see that this observation can be generalized
+      \end{itemize}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
-    \begin{figure}
-      \includegraphics[height=4cm]{circles_H}
-    \end{figure}
-  \end{column}
-\end{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=4cm]{circles_H}
+      \end{figure}
+    \end{column}
+  \end{columns}
 
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-\frametitle{Universal approximation theorem}
-
-\begin{block}{}
-  Let $f$ be a \textcolor{blue}{continuous} real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function (\emph{\small{the activation function}}).
-
-  Then there exists an integer $q$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq q}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq q}$ and $\{v_i\}_{1 \leq i \leq q}$ such that for all $\x$ in $[0,1]^p$:
-
-  \[
-   \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
-  \]
-
-\end{block}
-
-A first version of this theorem, using sigmoidal activation functions, was proposed by \cite{cybenko_approximations_1989}. The version above was demonstrated by \cite{hornik_approximation_1991}.
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Universal approximation theorem: what does it mean?}
+  \frametitle{Universal approximation theorem}
+
+  \begin{block}{}
+    Let $f$ be a \textcolor{blue}{continuous} real-valued function of $[0,1]^p$ ($p \in \N^*$) and $\epsilon$ a strictly positive real. Let $\act$ be a non-constant, increasing, bounded real function (\emph{\small{the activation function}}).
+
+    Then there exists an integer $q$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq q}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq q}$ and $\{v_i\}_{1 \leq i \leq q}$ such that for all $\x$ in $[0,1]^p$:
+
+    \[
+    \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+    \]
+
+  \end{block}
+
+  A first version of this theorem, using sigmoidal activation functions, was proposed by \cite{cybenko_approximations_1989}. The version above was demonstrated by \cite{hornik_approximation_1991}.
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-   \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
-This means that function $f$ can be approximated with a neural network containing:
-\begin{itemize}
+  This means that function $f$ can be approximated with a neural network containing:
+  \begin{itemize}
   \item an input layer of size $p$;
   \item a hidden layer containing $q$ neurons with activation function $\act$, weights $\mathbf{w}_i$ and biases $b_i$;
   \item an output layer containing a single neuron, with weights $v_i$ (and an identity activation function).
-\end{itemize}
+  \end{itemize}
 
 }
 
@@ -805,12 +805,12 @@ This means that function $f$ can be approximated with a neural network containin
   \begin{itemize}
   \item The number of neurons increases very rapidly with the complexity of the function
   \item Empirical evidence has shown that \alert{multi-layer architectures give better results}
-    \item The theorem does not say how to optimize the architecture or the parameters for a given learning task
+  \item The theorem does not say how to optimize the architecture or the parameters for a given learning task
   \end{itemize}
 
   \begin{block}<2->{}
     A NN can potentially have a lot of parameters. How can we set them?
-\end{block}
+  \end{block}
 
 }
 
@@ -823,11 +823,11 @@ This means that function $f$ can be approximated with a neural network containin
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Introduction}
 
-\begin{itemize}
-\item We have seen that NNs have a lot of potential. However, how can the parameters $\param = (\W_i, \bias_i)$  be set?
-\item What is our objective ?
-\item A very general solution, that is also the mostly used, is \alert{gradient descent}
-\end{itemize}
+  \begin{itemize}
+  \item We have seen that NNs have a lot of potential. However, how can the parameters $\param = (\W_i, \bias_i)$  be set?
+  \item What is our objective ?
+  \item A very general solution, that is also the mostly used, is \alert{gradient descent}
+  \end{itemize}
 
 \end{frame}
 
@@ -847,15 +847,15 @@ This means that function $f$ can be approximated with a neural network containin
   and \textcolor{blue}{find} the value of $\param$
   that minimizes a \textcolor{blue}{chosen} loss function $\loss$:
 
-\[
-\param ^{\ast} = \argmin_{\param} ( \loss (\param) + \mathcal{R}(\param) )
-\]
+  \[
+  \param ^{\ast} = \argmin_{\param} ( \loss (\param) + \mathcal{R}(\param) )
+  \]
 
-where $\mathcal{R}(\param)$ is a regularization term.
+  where $\mathcal{R}(\param)$ is a regularization term.
 
-\vspace{1em}
+  \vspace{1em}
 
-\small{For the time being, for the sake of simplicity, we will drop the regularization term until further notice}
+  \small{For the time being, for the sake of simplicity, we will drop the regularization term until further notice}
 
 \end{frame}
 
@@ -873,7 +873,7 @@ where $\mathcal{R}(\param)$ is a regularization term.
   \]
   where $d$ is some disparity function (the more similar its parameters, the smaller its value).
 
-The choice of the loss function is tightly linked to the application.
+  The choice of the loss function is tightly linked to the application.
 
 \end{frame}
 
@@ -935,40 +935,48 @@ The choice of the loss function is tightly linked to the application.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Gradient descent can save your life...}
+
+  Juliane Koepcke
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent}
 
-\begin{block}{Definition}
-  Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
-  \[
-  \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
-  \]
-\end{block}
+  \begin{block}{Definition}
+    Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
+    \[
+    \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
+    \]
+  \end{block}
 
-\begin{block}{Property}
-  For a given $t$, if $\lr$ is small enough, then:
-  \[
-  \loss(\param_{t+1}) \leq \loss(\param_t)
-  \]
-\end{block}
+  \begin{block}{Property}
+    For a given $t$, if $\lr$ is small enough, then:
+    \[
+    \loss(\param_{t+1}) \leq \loss(\param_t)
+    \]
+  \end{block}
 
-Gradient descent is an essential tool in optimization.
+  Gradient descent is an essential tool in optimization.
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent in the scalar case}
 
-\begin{columns}
-  \begin{column}{.5\textwidth}
-    \includegraphics[width=\textwidth]{gradient_descent}
-  \end{column}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=\textwidth]{gradient_descent}
+    \end{column}
 
-  \begin{column}{.5\textwidth}
-    \[
-    \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
-    \]
-  \end{column}
-\end{columns}
+    \begin{column}{.5\textwidth}
+      \[
+      \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
+      \]
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
@@ -982,10 +990,10 @@ Gradient descent is an essential tool in optimization.
   \forall t \in [0, \ldots, E-1]:\quad \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
   \]
 
-\begin{itemize}
-\item Choose $E$ (the number of \alert{epochs}) based on experience
-\item Track the quality of the model using a validation dataset and stop when the validation loss does not improve
-\end{itemize}
+  \begin{itemize}
+  \item Choose $E$ (the number of \alert{epochs}) based on experience
+  \item Track the quality of the model using a validation dataset and stop when the validation loss does not improve
+  \end{itemize}
 
 
 \end{frame}
@@ -997,7 +1005,7 @@ Gradient descent is an essential tool in optimization.
   \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
   \]
 
-\pause
+  \pause
 
   \begin{itemize}[<+->]
   \item If $n$ is very large, its computation is impractical.
@@ -1011,23 +1019,23 @@ Gradient descent is an essential tool in optimization.
 
   In \alert{stochastic gradient descent}, the parameters are updated for each sample $i$.
 
-\begin{itemize}[<+->]
-\item
-  First, the loss is computed
+  \begin{itemize}[<+->]
+  \item
+    First, the loss is computed
 
-  \[
-  \loss(\param_t) = d(y_i, f(\x_i, \param_t))
-  \]
-\item
-  The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
-\item Finally the parameters are updated:
+    \[
+    \loss(\param_t) = d(y_i, f(\x_i, \param_t))
+    \]
+  \item
+    The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
+  \item Finally the parameters are updated:
 
-  \[
+    \[
     \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
     \]
   \item
     Note that the learning rate $\lr$ can have a different value than in straightforward gradient descent.
-\end{itemize}
+  \end{itemize}
 
 
 
@@ -1046,19 +1054,19 @@ Gradient descent is an essential tool in optimization.
   \begin{block}{Chain rule theorem}
     Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:   :
     \[
-     (f_2 \circ f_1)'(x) = f_2'(f_1(x)).f_1'(x)
+    (f_2 \circ f_1)'(x) = f_2'(f_1(x)).f_1'(x)
     \]
   \end{block}
 
 
-\begin{block}{Leibniz notation}
-  Let us introduce variables $x$, $y$ and $z$:
-  \[x \xrightarrow{f_1} y \xrightarrow{f_2} z\]
+  \begin{block}{Leibniz notation}
+    Let us introduce variables $x$, $y$ and $z$:
+    \[x \xrightarrow{f_1} y \xrightarrow{f_2} z\]
 
-  Then:
-  \[\dv{z}{x} = \dv{z}{y} \cdot \dv{y}{x} \]
+    Then:
+    \[\dv{z}{x} = \dv{z}{y} \cdot \dv{y}{x} \]
 
-\end{block}
+  \end{block}
 
 \end{frame}
 
@@ -1081,7 +1089,7 @@ Gradient descent is an essential tool in optimization.
 
   \begin{itemize}
   \item Given a computational graph, the main idea is to compute the local partial derivatives during a forward pass
-    \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter is computed
+  \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter is computed
   \end{itemize}
 
 
@@ -1092,28 +1100,28 @@ Gradient descent is an essential tool in optimization.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<handout>{Simple backpropagation example}
 
-\includegraphics[width=\textwidth]{bp_simple.png}
+  \includegraphics[width=\textwidth]{bp_simple.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Simple backpropagation example}
 
-\only<1>{\includegraphics[width=\textwidth]{bp_simple_1.png}}
-\only<2>{\includegraphics[width=\textwidth]{bp_simple_2.png}}
-\only<3>{\includegraphics[width=\textwidth]{bp_simple_3.png}}
-\only<4>{\includegraphics[width=\textwidth]{bp_simple_4.png}}
-\only<5>{\includegraphics[width=\textwidth]{bp_simple_5.png}}
-\only<6>{\includegraphics[width=\textwidth]{bp_simple_6.png}}
-\only<7>{\includegraphics[width=\textwidth]{bp_simple_7.png}}
-\only<8>{\includegraphics[width=\textwidth]{bp_simple_8.png}}
+  \only<1>{\includegraphics[width=\textwidth]{bp_simple_1.png}}
+  \only<2>{\includegraphics[width=\textwidth]{bp_simple_2.png}}
+  \only<3>{\includegraphics[width=\textwidth]{bp_simple_3.png}}
+  \only<4>{\includegraphics[width=\textwidth]{bp_simple_4.png}}
+  \only<5>{\includegraphics[width=\textwidth]{bp_simple_5.png}}
+  \only<6>{\includegraphics[width=\textwidth]{bp_simple_6.png}}
+  \only<7>{\includegraphics[width=\textwidth]{bp_simple_7.png}}
+  \only<8>{\includegraphics[width=\textwidth]{bp_simple_8.png}}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Backpropation through a neuron}
 
-\includegraphics[width=\textwidth]{bp_2_1_neuron.png}
+  \includegraphics[width=\textwidth]{bp_2_1_neuron.png}
 
 \end{frame}
 
@@ -1121,30 +1129,14 @@ Gradient descent is an essential tool in optimization.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exercise}
 
-\includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
+  \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Exercise: solution}
 
-\includegraphics[width=\textwidth]{bp_2_1_neuron_exo_sol.png}
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
-
-\includegraphics[width=\textwidth]{bp_relu_exo.png}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Exercise: solution}
-
-\includegraphics[width=\textwidth]{bp_relu_exo_sol.png}
+  \includegraphics[width=\textwidth]{bp_2_1_neuron_exo_sol.png}
 
 \end{frame}
 
@@ -1153,14 +1145,30 @@ Gradient descent is an essential tool in optimization.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exercise}
 
-\includegraphics[width=\textwidth]{bp_relu_exo2.png}
+  \includegraphics[width=\textwidth]{bp_relu_exo.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Exercise: solution}
 
-\includegraphics[width=\textwidth]{bp_relu_exo2_sol.png}
+  \includegraphics[width=\textwidth]{bp_relu_exo_sol.png}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exercise}
+
+  \includegraphics[width=\textwidth]{bp_relu_exo2.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Exercise: solution}
+
+  \includegraphics[width=\textwidth]{bp_relu_exo2_sol.png}
 
 \end{frame}
 
@@ -1168,18 +1176,16 @@ Gradient descent is an essential tool in optimization.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exercise}
 
-\includegraphics[width=\textwidth]{bp_split.png}
+  \includegraphics[width=\textwidth]{bp_split.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Exercise: solution}
 
-\includegraphics[width=\textwidth]{bp_split_sol.png}
+  \includegraphics[width=\textwidth]{bp_split_sol.png}
 
 \end{frame}
-
-
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1204,49 +1210,48 @@ Gradient descent is an essential tool in optimization.
 %% \end{frame}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Backpropagation through a fully connected layer}
-\begin{figure}
-\includegraphics[width=0.5\textwidth]{bp_fc.png}
-\end{figure}
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{bp_fc.png}
+  \end{figure}
 
-Setup:
-\begin{eqnarray*}
-p, q \in \N^*\\
-\x \in \R^p \\
-\W \in \R^q \times \R^p \\
-\bias, \mathbf{t}, \y \in \R^q \\
-\loss \in \R
-\end{eqnarray*}
+  Setup:
+  \begin{eqnarray*}
+    p, q \in \N^*\\
+    \x \in \R^p \\
+    \W \in \R^q \times \R^p \\
+    \bias, \mathbf{t}, \y \in \R^q \\
+    \loss \in \R
+  \end{eqnarray*}
 
 \end{frame}
 
 %%%%%%%%%%%%%
 \begin{frame}{Backpropagation through a fully connected layer}
-\begin{figure}
-\includegraphics[width=0.5\textwidth]{bp_fc.png}
-\end{figure}
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{bp_fc.png}
+  \end{figure}
 
-\begin{columns}
-  \begin{column}{0.5\textwidth}
-    Forward pass:
-    \begin{eqnarray*}
-      \mathbf{t} &=& \W\x + \bias \\
-      \y &=& \act(\W\x + \bias) \\
-      \loss &=& \loss(\y)
-    \end{eqnarray*}
-  \end{column}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      Forward pass:
+      \begin{eqnarray*}
+        \mathbf{t} &=& \W\x + \bias \\
+        \y &=& \act(\W\x + \bias) \\
+        \loss &=& \loss(\y)
+      \end{eqnarray*}
+    \end{column}
 
-  \begin{column}{0.5\textwidth}
-    Local gradients:
-    \begin{eqnarray*}
-      \pdv{\mathbf{t}}{\W} &=& \x^t \\
-      \pdv{\mathbf{t}}{\bias} &=& 1 \\
-      \pdv{\y}{\mathbf{t}} &=& \act'(\mathbf{t})
-    \end{eqnarray*}
-  \end{column}
-\end{columns}
+    \begin{column}{0.5\textwidth}
+      Local gradients:
+      \begin{eqnarray*}
+        \pdv{\mathbf{t}}{\W} &=& \x^t \\
+        \pdv{\mathbf{t}}{\bias} &=& 1 \\
+        \pdv{\y}{\mathbf{t}} &=& \act'(\mathbf{t})
+      \end{eqnarray*}
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
@@ -1259,7 +1264,7 @@ p, q \in \N^*\\
   Backpropagation:
   \begin{eqnarray*}
     \pdv{\loss}{\mathbf{t}} &=& \pdv{\loss}{\y}.\pdv{\y}{\mathbf{t}} \\
-                           &=& \pdv{\loss}{\y} \odot \act'(\mathbf{t}) \\
+    &=& \pdv{\loss}{\y} \odot \act'(\mathbf{t}) \\
   \end{eqnarray*}
 
 \end{frame}
@@ -1275,16 +1280,16 @@ p, q \in \N^*\\
     \begin{column}{.5\textwidth}
       \begin{eqnarray*}
         \pdv{\loss}{\W} &=& \pdv{\loss}{\mathbf{t}}.\pdv{\mathbf{t}}{\W} \\
-                   &=& \pdv{\loss}{\y} \odot \act'(\mathbf{t}).\x^t
+        &=& \pdv{\loss}{\y} \odot \act'(\mathbf{t}).\x^t
       \end{eqnarray*}
     \end{column}
 
-  \begin{column}{.5\textwidth}
-  \begin{eqnarray*}
-    \pdv{\loss}{\bias} &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
-  \end{eqnarray*}
-  \end{column}
-\end{columns}
+    \begin{column}{.5\textwidth}
+      \begin{eqnarray*}
+        \pdv{\loss}{\bias} &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
+      \end{eqnarray*}
+    \end{column}
+  \end{columns}
 
 
 \end{frame}
@@ -1297,9 +1302,9 @@ p, q \in \N^*\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Network parameters initialization}
 
-\begin{block}{General idea}
-          Inputs of activation functions should be in a range such that gradients are high.
-\end{block}
+  \begin{block}{General idea}
+    Inputs of activation functions should be in a range such that gradients are high.
+  \end{block}
 
   \begin{columns}
     \begin{column}{.3\textwidth}
@@ -1323,10 +1328,10 @@ p, q \in \N^*\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Network parameters initialization: current practice}
 
-      \begin{itemize}
-        \item \cite{glorot_understanding_2010}: they empirically show that a standard deviation of $1/\sqrt n$ gives good results (where $n$ is the number of inputs of a neuron)
-          \item \cite{he_delving_2015}: in the case of ReLU activations, they recommend a $2/\sqrt  n$ standard deviation
-        \end{itemize}
+  \begin{itemize}
+  \item \cite{glorot_understanding_2010}: they empirically show that a standard deviation of $1/\sqrt n$ gives good results (where $n$ is the number of inputs of a neuron)
+  \item \cite{he_delving_2015}: in the case of ReLU activations, they recommend a $2/\sqrt  n$ standard deviation
+  \end{itemize}
 
 \end{frame}
 
@@ -1376,8 +1381,8 @@ p, q \in \N^*\\
 
   Next steps:
   \begin{itemize}
-    \item Optimization
-    \item Application to image classification
+  \item Optimization
+  \item Application to image classification
   \end{itemize}
 
 
@@ -1389,27 +1394,27 @@ p, q \in \N^*\\
 \section*{Practical sessions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Procedure for setting up the practical sessions environment}
+%% \begin{frame}{Procedure for setting up the practical sessions environment}
 
-\scriptsize
+%%   \scriptsize
 
-    \begin{enumerate}
-    \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
-    \item Create (if necessary) a Google account. Log in.
-    \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
-    \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
-    \end{enumerate}
+%%   \begin{enumerate}
+%%   \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
+%%   \item Create (if necessary) a Google account. Log in.
+%%   \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
+%%   \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
+%%   \end{enumerate}
 
-    Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
+%%   Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
 
-    The following days, the new notebooks will be available from:
+%%   The following days, the new notebooks will be available from:
 
-    \centering
+%%   \centering
 
-    \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
+%%   \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
 
 
-\end{frame}
+%% \end{frame}
 
 
 
@@ -1420,16 +1425,16 @@ p, q \in \N^*\\
 
 \frame[allowframebreaks]{
 
-\scriptsize
+  \scriptsize
 
-\frametitle{References}
+  \frametitle{References}
 
-%\bibliographystyle{amsalpha}
-%\bibliographystyle{apalike}
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
 
-\bibliography{edf.bib}
+  \bibliography{edf.bib}
 
-\normalsize
+  \normalsize
 
 }
 
