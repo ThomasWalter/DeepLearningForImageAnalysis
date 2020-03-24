@@ -1,3 +1,4 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
@@ -323,7 +324,6 @@
 
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Going back to the original image size}
 
@@ -371,69 +371,6 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Receptive field}
-
-  \begin{block}{Definition: links between neurons}
-    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
-  \end{block}
-
-
-  \begin{block}{Definition}
-    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
-
-    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
-  \end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Illustration}
-
-  \begin{figure}
-    \includegraphics[width=0.8\textwidth]{receptive_field.png}
-  \end{figure}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
-
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
-  \end{figure}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
-  \frametitle{Example}
-
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-
-  \vspace{1em}
-
-  \pause
-
-  \centering
-  Answer: $1 + 2 \times (n+1)$
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<handout>{
-  \frametitle{Example}
-
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{The specific case of image segmentation}
@@ -549,7 +486,6 @@
 
   \end{itemize}
 
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -562,6 +498,58 @@
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Border effect}
+
+  \begin{figure}
+    \includegraphics[height=5cm]{conv_border_effect}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{First solution}
+
+  \begin{figure}
+    \includegraphics[height=5cm]{conv_border_effect2}
+  \end{figure}
+
+\begin{itemize}
+\item Pros:
+  \begin{itemize}
+  \item border effect disappears
+  \end{itemize}
+\item Cons:
+  \begin{itemize}
+  \item Lack of flexibility
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Border effect}
+
+  \begin{figure}
+    \includegraphics[height=5cm]{conv_border_effect3}
+  \end{figure}
+
+\begin{itemize}
+\item Pros:
+  \begin{itemize}
+  \item More flexible architecture
+  \end{itemize}
+\item Cons:
+  \begin{itemize}
+  \item Border effect still present
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
 
@@ -714,7 +702,74 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Properties]{Properties of fully-convolutional neural networks}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Receptive field}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Receptive field}
 
+  \begin{block}{Definition: links between neurons}
+    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
+  \end{block}
+
+
+  \begin{block}{Definition}
+    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
+
+    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
+  \end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Illustration}
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+  \begin{figure}
+  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
+  \frametitle{Example}
+
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+
+  \vspace{1em}
+
+  \pause
+
+  \centering
+  Answer: $1 + 2 \times (n+1)$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<handout>{
+  \frametitle{Example}
+
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Translation invariance}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Translation invariance}
 
@@ -762,7 +817,8 @@
 \end{frame}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Other properties}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Image size flexibility}
@@ -853,10 +909,16 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{U-Net improvements}
 
   \begin{itemize}
-  \item Convolutions with stride 2 instead of max-pooling the encoder
+  \item Convolutions with stride 2 instead of max-pooling in the encoder
   \item Transposed convolutions instead  of simple up-sampling in the decoder
   \item Using an already optimized classification network as backbone for the encoder
   \end{itemize}
