@@ -494,7 +494,7 @@
 \begin{frame}{Computational graph}
 
   \begin{block}{Definition}
-    A computational graph is a direct acyclic graph such that:
+    A computational graph is a direct graph such that:
     \begin{itemize}
     \item A node is a mathematical operator
     \item To each edge is associated a value
@@ -506,7 +506,13 @@
     \end{itemize}
   \end{block}
 
-  Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
+  \begin{itemize}
+  \item   In this course, we will only consider \emph{acyclic} computational graphs.
+  \item   Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
+  \end{itemize}
+
+
+
 
 
 \end{frame}
@@ -577,9 +583,6 @@
     \begin{itemize}
     \item A feed-forward neural networks is a NN without cycles
     \item Neurons are organized in \alert{layers}
-      \begin{itemize}
-      \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
-      \end{itemize}
     \item Any layers other than input and output layers are called \alert{hidden layers}
     \end{itemize}
 
@@ -587,7 +590,6 @@
 
   \begin{figure}
     \includegraphics[height=3cm]{mini_reseau3_bis}
-    \source{(from http://www.jtoy.net)}
   \end{figure}
 
 
@@ -617,12 +619,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Fully-connected network}
+  \frametitle{Fully-connected layer}
 
   \begin{itemize}
   \item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
   \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are a 2D dimensional array (a matrix) of size $q \times r$
-  \item A NN is said to be fully connected if all its hidden layers are fully connected
   \end{itemize}
 
   \begin{figure}
@@ -665,8 +666,8 @@
   \end{figure}
 
   \begin{block}{}
-    \[\x^i = \act_i(\W_i\x^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[y = \act_4(\W_4\x^4 + \bias_4)\]
+    \[\x^i = \act_i(\W_i\x_{i-1} + \bias_i),\, i= 1, 2, 3 \]
+    \[y = \act_4(\W_4\x_4 + \bias_4)\]
   \end{block}
 
   \pause
@@ -744,7 +745,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The power of neural networks}
+\subsection{Universal approximation theorem}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
