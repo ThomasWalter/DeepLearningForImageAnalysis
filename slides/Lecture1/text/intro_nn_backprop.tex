@@ -667,7 +667,7 @@
 
   \begin{block}{}
     \[\x^i = \act_i(\W_i\x_{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[y = \act_4(\W_4\x_4 + \bias_4)\]
+    \[\y = \act_4(\W_4\x_4 + \bias_4)\]
   \end{block}
 
   \pause
@@ -723,11 +723,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Batch processing}
 
-  In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
+  In a learning context, our training set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
 
   \begin{block}{}
     \[\X^i = \act_i(\W_i\X^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[\y = \act_4(\W_4\X^4 + \bias_4)\]
+    \[\Y = \act_4(\W_4\X^4 + \bias_4)\]
   \end{block}
 
 
@@ -737,7 +737,7 @@
 \begin{frame}{Mini-batch processing}
 
   \begin{itemize}[<+->]
-  \item   When dealing with large databases (large $n$ and sometimes large $p$) for practical reasons the network cannot process the whole set in a single pass.
+  \item   When dealing with large databases (large $n$ and often large $p$) for practical reasons the network cannot process the whole set in a single pass.
   \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
   \end{itemize}
 
@@ -835,36 +835,40 @@
   \begin{itemize}
   \item We have seen that NNs have a lot of potential. However, how can the parameters $\param = (\W_i, \bias_i)$  be set?
   \item What is our objective ?
-  \item A very general solution, that is also the mostly used, is \alert{gradient descent}
+  %% \item A very general solution, that is also the most commonly used, is \alert{gradient descent}
   \end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Learning problem}
+\begin{frame}{Supervised learning problem}
 
   We recall that our training set contains $n$ samples:
 
   \[
-  (\x_i, y_i) \in \R^p \times \R
+  (\x_i, y_i) \in \R^p \times \mathcal{Y}
   \]
 
-  We \textcolor{blue}{choose} a family $f_{\param}$
+  Where $\mathcal{Y}=\R$ in the regression case and $\mathcal{Y}=\{0, 1\}$ in the binary classification case.
+
+  \pause
+
+  We \textcolor{blue}{choose} a loss function $l$ and a family $f_{\param}$
   of functions from $\R^p$ into $\R$,
-  depending on our set of parameters $\param$,
-  and \textcolor{blue}{find} the value of $\param$
-  that minimizes a \textcolor{blue}{chosen} loss function $\loss$:
+  depending on a set of parameters $\param$,
+  and \textcolor{blue}{find} the value $\param ^{\ast}$ of $\param$
+  that minimizes:
 
   \[
-  \param ^{\ast} = \argmin_{\param} ( \loss (\param) + \mathcal{R}(\param) )
+  \frac{1}{n} \sum\limits_{i=1}^{n}   l (f_{\param}(\x_i), y_i)
   \]
-
-  where $\mathcal{R}(\param)$ is a regularization term.
 
   \vspace{1em}
 
-  \small{For the time being, for the sake of simplicity, we will drop the regularization term until further notice}
+  \pause
+
+  \small{For the sake of simplicity, we have dropped the regularization term.}
 
 \end{frame}
 
@@ -874,36 +878,56 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Loss function}
+\begin{frame}{Choosing a loss function}
 
-  A general form of the loss function is:
-  \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
-  \]
-  where $d$ is some disparity function (the more similar its parameters, the smaller its value).
-
-  The choice of the loss function is tightly linked to the application.
+\begin{itemize}
+\item The choice of the loss function depends on the type of problem (regression or classification) and is tightly linked to the application.
+\item   In the following slides we will see two classical loss functions used respectively for regression and classification problems: the squared error loss and the cross-entropy loss.
+\end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Loss function: examples}
+\begin{frame}{The standard loss for regression problems: Squared error loss}
 
+In the regression case, we have $\mathcal{Y} = \R$.
 
-  \begin{block}{Typical choice for regression problems: the squared error}
+\begin{block}{Squared error loss}
     \[
-    \loss(\param) = \sum\limits_{i=1}^n (y_i - f(\x_i, \param))^2
+    l(f_{\param}(x), y) = (f_{\param}(x) - y)^2
+    \]
+
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Binary cross-entropy}
+
+  In the simplest classification case, we have $\mathcal{Y}=\{0, 1\}$.
+
+  \begin{block}{Binary cross-entropy loss}
+    \[
+    l(f_{\param}(x), y) = - y \log(f_{\param}(x)) - (1 - y) \log(1 - f_{\param}(x))
     \]
   \end{block}
 
-  \begin{block}{For binary classification problems: Binary cross-entropy}
-    In this case, $y_i \in \{0, 1\}$:
-    \[
-    \loss(\param) = -\sum\limits_{i=1}^n \Big(y_i \log( f(\x_i, \param)) + (1 - y_i) \log(1 - f(\x_i, \param))\Big)
-    \]
+\begin{itemize}
+\item   For this expression to be mathematically sound, $f_{\param}(x)$ must belong to $]0, 1[$. In practice, in the case of NN, this can be achieved by using a sigmoid as last activation.
+  \item Note that the expression above is equivalent to:
+\end{itemize}
 
-  \end{block}
+$$
+l(f_{\param}(x), y) = \left\{
+    \begin{array}{ll}
+        - \log(1 - f_{\param}(x)) & \mbox{if } y=0 \\
+        - \log(f_{\param}(x)) & \mbox{if } y=1
+    \end{array}
+\right.
+$$
+
 
 \end{frame}
 
@@ -1011,7 +1035,7 @@
 
   The loss function we initially defined depends on the whole training set:
   \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
+  \loss(\param) = \sum\limits_{i=1}^n l(y_i, f(\x_i, \param))
   \]
 
   \pause
@@ -1033,7 +1057,7 @@
     First, the loss is computed
 
     \[
-    \loss(\param_t) = d(y_i, f(\x_i, \param_t))
+    \loss(\param_t) = l(y_i, f(\x_i, \param_t))
     \]
   \item
     The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
