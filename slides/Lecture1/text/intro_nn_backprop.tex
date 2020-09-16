@@ -211,7 +211,7 @@
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      \act(x)= \frac{1}{1 + e^{-x}}
+      \act(x)= \frac{1}{1 + e^{-x}} = \frac{e^{x}}{1+e^{x}}
       \]
     \end{column}
 
@@ -227,7 +227,8 @@
   \begin{block}{Remarks}
     \begin{itemize}
     \item[+] Similar to binary activation, but with usable gradient
-    \item[-] However, gradient tends to zero when input is far from zero
+    \item Bijection between $\R$ and $]0, 1[$: no loss of information
+    \item[-] Gradient tends to zero when input is far from zero
     \item[-] More computationally intensive
     \end{itemize}
   \end{block}
@@ -328,7 +329,7 @@
     In $\R^p$ ,
     $b + \sum\limits_{i=1}^p w_ix_i = 0$
     corresponds to a hyperplane $H$. For a given point
-    $\x = \{x_0, \ldots, x_p\}$,
+    $\x = \{x_1, \ldots, x_p\}$,
     decisions are made according to the side of the hyperplane it belongs to.
   \end{block}
 
@@ -431,7 +432,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Artificial neuron compact representation}
+\begin{frame}{Compact representation}
 
   \begin{figure}
     \includegraphics[height=3cm]{neurone_representation_compacte}
@@ -1394,27 +1395,27 @@
 \section*{Practical sessions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Procedure for setting up the practical sessions environment}
+\begin{frame}{Procedure for setting up the practical sessions environment}
 
-%%   \scriptsize
+  \scriptsize
 
-%%   \begin{enumerate}
-%%   \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
-%%   \item Create (if necessary) a Google account. Log in.
-%%   \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
-%%   \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
-%%   \end{enumerate}
+  \begin{enumerate}
+  \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
+  \item Create (if necessary) a Google account. Log in.
+  \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
+  \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
+  \end{enumerate}
 
-%%   Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
+  Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
 
-%%   The following days, the new notebooks will be available from:
+  The following days, the new notebooks will be available from:
 
-%%   \centering
+  \centering
 
-%%   \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
+  \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
 
 
-%% \end{frame}
+\end{frame}
 
 
 
