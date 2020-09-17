@@ -488,7 +488,7 @@
 \section{Artificial neural networks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Basic architectures}
+\subsection{Computational graph}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph}
@@ -511,12 +511,7 @@
   \item   Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
   \end{itemize}
 
-
-
-
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph example}
@@ -553,6 +548,9 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{First architectures}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -573,7 +571,6 @@
   \end{block}
 
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -629,9 +626,7 @@
   \begin{figure}
     \includegraphics[height=3cm]{mini_reseau3_bis}
   \end{figure}
-
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Graphical representation of NNs}
@@ -654,9 +649,7 @@
     \end{column}
   \end{columns}
 
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The equations of a fully connected neural network}
@@ -740,7 +733,6 @@
   \item   When dealing with large databases (large $n$ and often large $p$) for practical reasons the network cannot process the whole set in a single pass.
   \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
   \end{itemize}
-
 
 \end{frame}
 
@@ -1035,7 +1027,7 @@ $$
 
   The loss function we initially defined depends on the whole training set:
   \[
-  \loss(\param) = \sum\limits_{i=1}^n l(y_i, f(\x_i, \param))
+  \loss(\param) = \frac{1}{n} \sum\limits_{i=1}^n l(y_i, f(\x_i, \param))
   \]
 
   \pause
@@ -1085,9 +1077,9 @@ $$
   In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several simple functions. In order to compute the gradient $\nabla_{\param}\loss$ we will make extensive use of the chain rule theorem.
 
   \begin{block}{Chain rule theorem}
-    Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:   :
+    Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:
     \[
-    (f_2 \circ f_1)'(x) = f_2'(f_1(x)).f_1'(x)
+    (f_2 \circ f_1)'(x) = (f_2'\circ f_1)(x).f_1'(x)
     \]
   \end{block}
 
@@ -1122,7 +1114,7 @@ $$
 
   \begin{itemize}
   \item Given a computational graph, the main idea is to compute the local partial derivatives during a forward pass
-  \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter is computed
+  \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter are computed
   \end{itemize}
 
 
@@ -1275,6 +1267,8 @@ $$
         \loss &=& \loss(\y)
       \end{eqnarray*}
     \end{column}
+
+    \pause
 
     \begin{column}{0.5\textwidth}
       Local gradients:
