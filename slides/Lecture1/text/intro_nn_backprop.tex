@@ -736,6 +736,17 @@
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From neurons to arrays}
+
+  \begin{itemize}
+  \item Neurons are organized into arrays (0-D, 1-D, 2-D, 3-D ...)
+  \item Artificial neural networks can be seen as \textcolor{blue}{computational graphs processing arrays}
+  \end{itemize}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Universal approximation theorem}
 
@@ -962,7 +973,12 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent can save your life...}
 
-  Juliane Koepcke
+  \pause
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[height=0.6\textheight]{koepcke.jpg}
+  \end{figure}
 
 \end{frame}
 
@@ -1209,6 +1225,66 @@ $$
 \begin{frame}<beamer>{Exercise: solution}
 
   \includegraphics[width=\textwidth]{bp_split_sol.png}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vector calculus}
+
+  \begin{equation*}
+    \begin{split}
+      L: \R^n & \longmapsto \R\\
+      \x      & \longrightarrow L(\x)
+    \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+    \begin{split}
+      V: \R^p & \longmapsto \R^q\\
+      \y      & \longrightarrow V(\y)
+    \end{split}
+  \end{equation*}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{block}{Gradient}
+        \centering
+        $\Delta_\x L = \frac{\partial L}{\partial \x} = (\frac{\partial L}{\partial x_1}, \ldots, \frac{\partial L}{\partial x_n}) $
+      \end{block}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{block}{Jacobian}
+        \centering
+        $J(V) = \frac{\partial V}{\partial \y} =
+        \begin{pmatrix}
+          \frac{\partial V_1}{\partial y_1} & \cdots & \frac{\partial V_1}{\partial y_p}  \\
+          \vdots  & \ddots & \vdots  \\
+          \frac{\partial V_q}{\partial y_1} & \cdots & \frac{\partial V_q}{\partial y_p}
+        \end{pmatrix}
+        $
+      \end{block}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Backpropagation through a matrix product}
+
+  \only<1>{\includegraphics[width=\textwidth]{matrix_mult_1.png}}
+  \only<2>{\includegraphics[width=\textwidth]{matrix_mult_2.png}}
+  \only<3>{\includegraphics[width=\textwidth]{matrix_mult_3.png}}
+  \only<4>{\includegraphics[width=\textwidth]{matrix_mult_4.png}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>{Backpropagation through a matrix product}
+
+  \includegraphics[width=\textwidth]{matrix_mult_4.png}
 
 \end{frame}
 
