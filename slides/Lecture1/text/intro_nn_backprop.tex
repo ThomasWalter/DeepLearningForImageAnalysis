@@ -1090,9 +1090,23 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent applied to neural networks}
 
-  In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several simple functions. In order to compute the gradient $\nabla_{\param}\loss$ we will make extensive use of the chain rule theorem.
+      \begin{figure}
+        \includegraphics[height=3cm]{nn_representation3}
+      \end{figure}
 
-  \begin{block}{Chain rule theorem}
+ \begin{itemize}
+  \item In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several functions.
+  \item Analytical derivation is possible, but complex - and has to be re-computed when the network architecture is modified
+  \item Using the chain rule theorem leads to an efficient solution: \textcolor{blue}{backpropagation}.
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Chain rule theorem}
+
+  \begin{block}{}
     Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:
     \[
     (f_2 \circ f_1)'(x) = (f_2'\circ f_1)(x).f_1'(x)
@@ -1108,9 +1122,7 @@ $$
     \[\dv{z}{x} = \dv{z}{y} \cdot \dv{y}{x} \]
 
   \end{block}
-
-\end{frame}
-
+  \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The backpropagation algorithm}
@@ -1232,30 +1244,38 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Vector calculus}
 
-  \begin{equation*}
-    \begin{split}
-      L: \R^n & \longmapsto \R\\
-      \x      & \longrightarrow L(\x)
-    \end{split}
-  \end{equation*}
-
-  \begin{equation*}
-    \begin{split}
-      V: \R^p & \longmapsto \R^q\\
-      \y      & \longrightarrow V(\y)
-    \end{split}
-  \end{equation*}
+\begin{itemize}
+\item $L$ and $V$ are differentiable functions.
+\end{itemize}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
-      \begin{block}{Gradient}
+
+      \begin{equation*}
+    \begin{split}
+      L: \R^n & \longrightarrow \R\\
+      \x      & \longmapsto L(\x)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{Gradient}
         \centering
         $\Delta_\x L = \frac{\partial L}{\partial \x} = (\frac{\partial L}{\partial x_1}, \ldots, \frac{\partial L}{\partial x_n}) $
       \end{block}
     \end{column}
 
+\pause
+
     \begin{column}{.5\textwidth}
-      \begin{block}{Jacobian}
+
+      \begin{equation*}
+    \begin{split}
+      V: \R^p & \longrightarrow \R^q\\
+      \y      & \longmapsto V(\y)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{Jacobian}
         \centering
         $J(V) = \frac{\partial V}{\partial \y} =
         \begin{pmatrix}
@@ -1269,6 +1289,43 @@ $$
   \end{columns}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix calculus}
+
+\begin{itemize}
+\item Function $\mathcal{M}$ is differentiable.
+\end{itemize}
+
+      \begin{equation*}
+    \begin{split}
+      \mathcal{M}: \R^{(m,n)} & \longrightarrow \R^{(p,q)}\\
+      \X      & \longmapsto \mathcal{M}(M)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{}
+        \centering
+        $\frac{\partial \mathcal{M}}{\partial \X} =
+        \begin{pmatrix}
+          \frac{\partial \mathcal{M}_{1,1}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{1,q}}{\partial \X}  \\
+          \vdots  & \ddots & \vdots  \\
+          \frac{\partial \mathcal{M}_{p,q}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{p,q}}{\partial \X}
+        \end{pmatrix}
+        $
+
+      \end{block}
+
+  This is an array of size $(m, n, p, q)$.
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Backpropagation through an activation function}
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1350,7 +1407,8 @@ $$
       Local gradients:
       \begin{eqnarray*}
         \pdv{\mathbf{t}}{\W} &=& \x^t \\
-        \pdv{\mathbf{t}}{\bias} &=& 1 \\
+        \pdv{\mathbf{t}}{\bias} &=& Id_{(q)}
+ \\
         \pdv{\y}{\mathbf{t}} &=& \act'(\mathbf{t})
       \end{eqnarray*}
     \end{column}
@@ -1389,7 +1447,8 @@ $$
 
     \begin{column}{.5\textwidth}
       \begin{eqnarray*}
-        \pdv{\loss}{\bias} &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
+        \pdv{\loss}{\bias}  &=& Id^t \pdv{\loss}{\mathbf{t}}\\
+        &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
       \end{eqnarray*}
     \end{column}
   \end{columns}
