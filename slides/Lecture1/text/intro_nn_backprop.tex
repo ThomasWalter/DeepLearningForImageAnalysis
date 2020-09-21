@@ -716,23 +716,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Batch processing}
 
-  In a learning context, our training set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
+  In a learning context, one may want to process $n$ vectors of length $p$ at the same time.
+They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
 
   \begin{block}{}
-    \[\X^i = \act_i(\W_i\X^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[\Y = \act_4(\W_4\X^4 + \bias_4)\]
+    \[\X_i = \act_i(\X_{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+    \[\Y = \act_4(\X_4\W_4 + \bias_4)\]
   \end{block}
 
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Mini-batch processing}
-
-  \begin{itemize}[<+->]
-  \item   When dealing with large databases (large $n$ and often large $p$) for practical reasons the network cannot process the whole set in a single pass.
-  \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
-  \end{itemize}
+  This can accelerate processing thanks to hardware architectures such a Graphical Processing Units (GPUs) but can also play an important role in optimization.
 
 \end{frame}
 
@@ -1049,11 +1041,13 @@ $$
   \pause
 
   \begin{itemize}[<+->]
-  \item If $n$ is very large, its computation is impractical.
+  \item If $n$ is very large, computing $\loss$ is impractical.
   \item A computation on the whole training set leads to a single update of the model parameters - convergence can therefore be slow.
   \end{itemize}
 
 \end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Stochastic gradient descent}
@@ -1068,18 +1062,26 @@ $$
     \loss(\param_t) = l(y_i, f(\x_i, \param_t))
     \]
   \item
-    The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
+    The gradient $\nabla \loss(\param_t)$ is computed and
   \item Finally the parameters are updated:
 
     \[
     \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
     \]
   \item
-    Note that the learning rate $\lr$ can have a different value than in straightforward gradient descent.
+    Note that the learning rate $\lr$ can have a different value than in classic gradient descent.
   \end{itemize}
 
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mini-batch processing}
 
+  \begin{itemize}[<+->]
+  \item One can (and often does) choose and intermediate solution between the full gradient and the stochastic gradient: mini-batch gradient.
+    \item   The training database is then separated into subsets containing $m$ samples ($m < n$).
+    \item This has a regularization effect on the optimization with respect to the stochastic gradient and speeds up computation thanks to the vectorization capacity of hardware architectures such as GPUs.
+  \end{itemize}
 
 \end{frame}
 
@@ -1322,7 +1324,45 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Backpropagation through an activation function}
+\begin{frame}{Backpropagation through an activation function $g$}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp_activation.png}
+  \end{figure}
+
+  \vspace{-2em}
+
+  \pause
+
+  \begin{itemize}[<+->]
+  \item Computing the full matrix $\pdv{\Y}{\X}$ is impractical
+  \item But here $Y_{i,j}$ only depends on $X_{i,j}$: $Y_{i,j} = \act(X_{i,j})$
+  \item Therefore: $\pdv{\Y_{i,j}}{\X_{i,j}} = \act'$.
+  \item Finally:
+    \[
+    \pdv{\loss}{\X} = \pdv{\loss}{\Y} \odot \act'(\X) \text{  ,}
+    \]
+    where $\odot$ is the term by term matrix multiplication or Hadamard matrix multiplication.
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Backpropagation through an activation function $g$}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp_activation_2.png}
+  \end{figure}
+
+  \begin{block}{}
+    We will abusively write:
+    \[
+    \pdv{\Y}{\X} = \act'(\X)
+    \]
+  \end{block}
 
 \end{frame}
 
@@ -1331,17 +1371,31 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Backpropagation through a matrix product}
 
-  \only<1>{\includegraphics[width=\textwidth]{matrix_mult_1.png}}
-  \only<2>{\includegraphics[width=\textwidth]{matrix_mult_2.png}}
-  \only<3>{\includegraphics[width=\textwidth]{matrix_mult_3.png}}
-  \only<4>{\includegraphics[width=\textwidth]{matrix_mult_4.png}}
+  \centering
+  \only<1>{\includegraphics[width=0.8\textwidth]{matrix_mult_1.png}}
+  \only<2>{\includegraphics[width=0.8\textwidth]{matrix_mult_2.png}}
+  \only<3>{\includegraphics[width=0.8\textwidth]{matrix_mult_3.png}}
+  \only<4->{\includegraphics[width=0.8\textwidth]{matrix_mult_4.png}}
+
+\begin{alertblock}<5->{}
+  In fact this is the only way you can make the shapes match.
+\end{alertblock}
+
+  \begin{block}<6->{}
+    We will abusively write:
+    \begin{align*}
+    \pdv{\mathbf{T}}{\X} &= \Y^t \\
+    \pdv{\mathbf{T}}{\Y} &= \X^t
+    \end{align*}
+  \end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<handout>{Backpropagation through a matrix product}
 
-  \includegraphics[width=\textwidth]{matrix_mult_4.png}
+  \centering
+  \includegraphics[width=0.8\textwidth]{matrix_mult_4.png}
 
 \end{frame}
 
@@ -1374,7 +1428,12 @@ $$
     \includegraphics[width=0.5\textwidth]{bp_fc.png}
   \end{figure}
 
-  Setup:
+\begin{columns}
+  \begin{column}{.5\textwidth}
+  ~~~~~~~~~~~~~~Setup:
+  \end{column}
+
+  \begin{column}{.5\textwidth}
   \begin{eqnarray*}
     p, q \in \N^*\\
     \x \in \R^p \\
@@ -1382,6 +1441,8 @@ $$
     \bias, \mathbf{t}, \y \in \R^q \\
     \loss \in \R
   \end{eqnarray*}
+  \end{column}
+\end{columns}
 
 \end{frame}
 
@@ -1447,7 +1508,7 @@ $$
 
     \begin{column}{.5\textwidth}
       \begin{eqnarray*}
-        \pdv{\loss}{\bias}  &=& Id^t \pdv{\loss}{\mathbf{t}}\\
+        \pdv{\loss}{\bias}  &=& Id^t . \pdv{\loss}{\mathbf{t}}\\
         &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
       \end{eqnarray*}
     \end{column}
