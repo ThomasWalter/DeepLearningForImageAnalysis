@@ -83,6 +83,27 @@
 \section{Artificial neuron}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame<beamer>{
+  \frametitle{Biological neuron}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{neuron}
+  \end{figure}
+
+
+  The human brain contains:
+
+  \begin{itemize}
+  \item $10^7$
+  \item $10^9$
+  \item $10^{11}$
+  \end{itemize}
+
+  neurons
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{
   \frametitle{Biological neuron}
 
@@ -108,7 +129,7 @@
   \end{figure}
 
   \begin{block}{General principle}
-    An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
+    An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, \alert{combines} them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
   \end{block}
 
   \pause
@@ -394,6 +415,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
+  \frametitle{Solution?}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{circles}
+  \end{figure}
+
+\begin{itemize}
+   \item Transform the input space, for example use a polar transformation
+   \item Increase the number of input dimensions: for example add $x_1^2, x_2^2, x_1 x_2$ to the initial features $x_1, x_2$
+   \item Combine several neurons
+\end{itemize}
+
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame<beamer>{
   \frametitle{Circles}
 
   \begin{figure}
@@ -493,8 +533,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph}
 
+  \begin{block}{}
+    \centering
+   \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+   \end{block}
+
   \begin{block}{Definition}
-    A computational graph is a direct graph such that:
+    A computational graph is an acyclic direct graph such that:
     \begin{itemize}
     \item A node is a mathematical operator
     \item To each edge is associated a value
@@ -505,6 +550,16 @@
       \end{itemize}
     \end{itemize}
   \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computational graph}
+
+  \begin{block}{}
+    \centering
+   \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+   \end{block}
 
   \begin{itemize}
   \item   In this course, we will only consider \emph{acyclic} computational graphs.
@@ -563,10 +618,6 @@
     \item The \alert{input layer} is the set of neurons without incoming edges.
     \item The \alert{output layer} is the set of neurons without outgoing edges.
     \end{itemize}
-
-    \pause
-
-    NB: Neural networks with cycles, known as recurrent neural networks, also exist.
 
   \end{block}
 
@@ -659,8 +710,8 @@
   \end{figure}
 
   \begin{block}{}
-    \[\x^i = \act_i(\W_i\x_{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[\y = \act_4(\W_4\x_4 + \bias_4)\]
+    \[\x^i = \act_i(\x_{i-1}^t \W_i + \bias_i),\, i= 1, 2, 3 \]
+    \[\y = \act_4(\x_4^t \W_4 + \bias_4)\]
   \end{block}
 
   \pause
@@ -701,13 +752,51 @@
 
   \begin{itemize}
   \item How many parameters does the above network contain?
+  \end{itemize}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      First layer:
+      \begin{itemize}
+        \item 64
+        \item 72
+        \item 81
+        \item 90
+     \end{itemize}
+    \end{column}
+
+\pause
+
+    \begin{column}{.5\textwidth}
+      Second and third layers:
+      \begin{itemize}
+        \item 64
+        \item 72
+        \item 81
+        \item 90
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
+  \frametitle{Number of parameters}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{nn_representation.png}
+  \end{figure}
+
+  \begin{itemize}
+  \item How many parameters does the above network contain?
   \item<2-> First hidden layer:\\
     %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
     \begin{itemize}
     \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
     \end{itemize}
   \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
-  \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
+  \item<6-> Output layer: \only<7->{$4 \times 9 + 4 = 40$}
   \item<8-> Total: $301$ parameters
   \end{itemize}
 
@@ -775,7 +864,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
     Then there exists an integer $q$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq q}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq q}$ and $\{v_i\}_{1 \leq i \leq q}$ such that for all $\x$ in $[0,1]^p$:
 
     \[
-    \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+    \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i\x + b_i) \right| < \epsilon
     \]
 
   \end{block}
@@ -789,7 +878,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
   \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i\x + b_i) \right| < \epsilon
   \]
 
   This means that function $f$ can be approximated with a neural network containing:
@@ -941,7 +1030,7 @@ $$
 
     \begin{column}{.4\textwidth}
       \begin{block}{Definition: gradient}
-        Let $\loss $ be a derivable function from $\R^n$ into $\R$. Its gradient $\nabla\loss$ is:
+        Let $\loss $ be a differentiable function from $\R^n$ into $\R$. Its gradient $\nabla\loss$ is:
         \[
         \nabla \loss (x) =
         \begin{pmatrix}
@@ -976,27 +1065,6 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Gradient descent}
-
-  \begin{block}{Definition}
-    Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
-    \[
-    \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
-    \]
-  \end{block}
-
-  \begin{block}{Property}
-    For a given $t$, if $\lr$ is small enough, then:
-    \[
-    \loss(\param_{t+1}) \leq \loss(\param_t)
-    \]
-  \end{block}
-
-  Gradient descent is an essential tool in optimization.
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent in the scalar case}
 
   \begin{columns}
@@ -1013,6 +1081,27 @@ $$
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Gradient descent}
+
+  \begin{block}{Definition}
+    Gradient descent is an optimization algorithm. For a differentiable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
+    \[
+    \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
+    \]
+  \end{block}
+
+  \begin{block}{Property}
+    For a given $t$, if $\lr$ is small enough, then:
+    \[
+    \loss(\param_{t+1}) \leq \loss(\param_t)
+    \]
+  \end{block}
+
+  Gradient descent is an essential tool in optimization.
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1109,7 +1198,7 @@ $$
 \begin{frame}{Chain rule theorem}
 
   \begin{block}{}
-    Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:
+    Let $f_1$ and $f_2$ be two differentiable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:
     \[
     (f_2 \circ f_1)'(x) = (f_2'\circ f_1)(x).f_1'(x)
     \]
@@ -1143,7 +1232,7 @@ $$
 \begin{frame}{The backpropagation algorithm: intuition}
 
   \begin{itemize}
-  \item Given a computational graph, the main idea is to compute the local partial derivatives during a forward pass
+  \item Given a computational graph, the main idea is to compute the local derivatives during a forward pass
   \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter are computed
   \end{itemize}
 
@@ -1185,6 +1274,27 @@ $$
 \begin{frame}{Exercise}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      Gradient local du haut:
+      \begin{itemize}
+      \item $1.5$
+      \item $-0.5$
+        \item autre valeur
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      Gradient local du haut:
+      \begin{itemize}
+      \item $1.5$
+      \item $-0.5$
+        \item autre valeur
+      \end{itemize}
+
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
@@ -1262,7 +1372,7 @@ $$
 
   \begin{block}{Gradient}
         \centering
-        $\Delta_\x L = \frac{\partial L}{\partial \x} = (\frac{\partial L}{\partial x_1}, \ldots, \frac{\partial L}{\partial x_n}) $
+        $\nabla_\x L = \frac{\partial L}{\partial \x} = (\frac{\partial L}{\partial x_1}, \ldots, \frac{\partial L}{\partial x_n}) $
       \end{block}
     \end{column}
 
@@ -1382,7 +1492,7 @@ $$
 \end{alertblock}
 
   \begin{block}<6->{}
-    We will abusively write:
+    We will abusively write, \alert{only for matrix multiplication}:
     \begin{align*}
     \pdv{\mathbf{T}}{\X} &= \Y^t \\
     \pdv{\mathbf{T}}{\Y} &= \X^t
@@ -1602,10 +1712,9 @@ $$
   \item NN learning basics
   \end{itemize}
 
-  Next steps:
+  Next step:
   \begin{itemize}
-  \item Optimization
-  \item Application to image classification
+  \item Application to images
   \end{itemize}
 
 
