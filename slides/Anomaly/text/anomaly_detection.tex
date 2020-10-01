@@ -137,19 +137,22 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Definition in layman terms}
+\begin{frame}{Anomalous image detection in a learning framework}
 
-  \begin{block}{Anomalous image detection in a learning framework}
     \begin{itemize}
     \item Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for any given image, if it is normal, or not.
-    \item The definition of normal images is given through a set of examples.
+    \item The definition of normal or anomalous images is given through a set of examples.
+  \item We will focus on images, but the problem is very general.
     \end{itemize}
-  \end{block}
+
+\begin{block}{Our context}
 
   \begin{itemize}
-  \item We will focus on images, but the problem is very general.
   \item We will suppose that we only have examples of normal images, i.e.\ that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough or unknown.
   \end{itemize}
+
+\end{block}
+
 
 
 
@@ -175,7 +178,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - which images are normal?}
+\begin{frame}{Example - which images are anomalous?}
 
   \begin{figure}[ht]
     \centering
@@ -183,6 +186,11 @@
     \includegraphics[width=0.3\textwidth]{test2-pexels-photo-414171.jpeg}
     \source{http://pexels.com}
   \end{figure}
+
+\begin{itemize}
+\item<2-> The left one, because trees are absent
+\item<3-> The right one, because snow is absent
+\end{itemize}
 
 \end{frame}
 
@@ -196,7 +204,7 @@
   \end{itemize}
 
 \begin{block}{Rare conditions}
-  For medical diagnostic or screening applications, it is extremely difficult to have a complete list of possible pathologies - and in any cases the number of examples of rare conditions will always be small.
+  For medical diagnostic or screening applications, it is extremely difficult to have a complete list of possible pathologies - and in any case the number of examples of rare conditions will always be small.
 \end{block}
 
 
@@ -334,6 +342,65 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Databases for anomaly detection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How to define a database for anomaly detection?}
+
+\begin{itemize}
+\item Any classification database can be used:
+  \begin{itemize}
+  \item Some classes are considered as normal, and used for training
+  \item The other classes are considered as abnormal
+  \end{itemize}
+\item Randomly generated databases
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database \tiny{\cite{lecun_gradient-based_1998}}}
+
+  \begin{itemize}
+  \item The Modified National Institute of Standards and Technology (MNIST) database contains $60\,000$ training images of hand-written digits, and $10,000$ test images.
+  \item Image size: $28 \times 28$
+  \item It has been used since 1998
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database}
+
+  \centering
+  \includegraphics[width=\textwidth]{mnist_examples.png}\\
+  \source{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MVTec-AD database \cite{bergmann_mvtec_2019}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{mvtec_ad}
+\end{figure}
+
+\begin{itemize}
+\item 5354 images
+\item 15 categories
+\item Normal images for training
+\item Test images with defects
+\end{itemize}
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -408,23 +475,26 @@
 \begin{frame}{Generative approach}
 
   \begin{block}{Idea}
-    Normal images are considered as the result of some construction function $G$.
+    Normal images are considered as the result of some construction or generation function $G$.
     \[
     \begin{split}
-    G: & ~~~~\mathcal{Z} \longrightarrow \mathcal{N} \\
+    G: & ~~~~\mathcal{W} \longrightarrow \mathcal{N} \\
     & ~~~~ z \longmapsto G(z)
     \end{split}
     \]
+
+    where $\mathcal{W}$ is the subset of the latent space $\mathcal{Z}$.
   \end{block}
 
 \begin{itemize}
 \item In practice we will also need the \emph{encoding} function $E$:
     \[
     \begin{split}
-    E: & ~~~~\mathcal{N} \longrightarrow \mathcal{Z} \\
+    E: & ~~~~\Omega \longrightarrow \mathcal{Z} \\
     & ~~~~ \x \longmapsto E(\x)
     \end{split}
     \]
+
 \end{itemize}
 
 \end{frame}
@@ -458,7 +528,16 @@ This is a generalization of the previous approach.
   \exists d_0 \in \R^+,  \forall x \in \Omega: x \in \mathcal{N} \iff d(x, X) \leq d_0
   \]
 
-  Of course, the essential point will be how to choose the distance function $d$.
+In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to an  \emph{encoding} function $E$:
+    \[
+    \begin{split}
+    E: & ~~~~\Omega \longrightarrow \mathcal{Z} \\
+    & ~~~~ \x \longmapsto E(\x)
+    \end{split}
+    \]
+
+
+  Of course, the essential point will be how to choose $E$ and $d$.
 
 \end{frame}
 
@@ -478,21 +557,28 @@ This is a generalization of the previous approach.
   \end{block}
 
   \begin{itemize}
-  \item Distances in the matrix space do not make sense from a semantic point of view
+  \item Classical distances in the matrix space do not make sense from a semantic point of view
   \end{itemize}
 
 \end{frame}
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Taxonomy}
+\section{Distance based methods}
+\section{Statistical modelling of anomaly detection: evaluating the performance of a score}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example methods}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Anomaly detection using autoencoders}
+\subsection{Anomaly detection using autoencoders}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Autoencoder}
+\begin{frame}{Autoencoders}
 
   \begin{figure}[ht]
     \centering
@@ -513,11 +599,11 @@ This is a generalization of the previous approach.
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{ae.png}
+    \includegraphics[width=0.5\textwidth]{ae_ano.png}
   \end{figure}
 
   \begin{block}{Idea 1}
-    The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
+    The autoencoder is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
   \end{block}
 
 \end{frame}
@@ -527,7 +613,7 @@ This is a generalization of the previous approach.
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{ae.png}
+    \includegraphics[width=0.5\textwidth]{ae_ano2.png}
   \end{figure}
 
   \begin{block}{Idea 2}
@@ -537,10 +623,9 @@ This is a generalization of the previous approach.
 \end{frame}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Anomaly detection using generative adversarial networks (GANS)}
+\subsection{Anomaly detection using generative adversarial networks (GANS)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Generative adversarial network \cite{goodfellow_generative_2014}}
@@ -551,8 +636,8 @@ This is a generalization of the previous approach.
   \end{figure}
 
   \begin{itemize}
-  \item The discriminator is optimized so that it correctly classifies images as real (1) or fake (0)
-  \item The generator is optimized so that the produced images are classified as real by the discriminator
+  \item The discriminator $D$ is optimized so that it correctly classifies images as real (1) or fake (0)
+  \item The generator $G$ is optimized to generate images that are classified as real by the discriminator
   \end{itemize}
 
   \begin{block}{Value function}
@@ -649,6 +734,7 @@ This is a generalization of the previous approach.
     where $f_D$ is the last layer of the discriminator.
   \end{block}
 
+  Note that this improved discrimination loss is a distance function between features.
 
 \end{frame}
 
@@ -702,7 +788,7 @@ This is a generalization of the previous approach.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{BiGAN}
+\begin{frame}{BiGAN  \cite{donahue_adversarial_2017}}
 
   \begin{figure}[ht]
     \centering
