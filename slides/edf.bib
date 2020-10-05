@@ -8182,3 +8182,113 @@ The performances we have obtained enable a reliable automated DR screening. As t
 	author = {Hawkins, Douglas M.},
 	year = {1980}
 }
+
+@article{russakovsky_imagenet_2015,
+	title = {{ImageNet} {Large} {Scale} {Visual} {Recognition} {Challenge}},
+	volume = {115},
+	issn = {1573-1405},
+	url = {https://doi.org/10.1007/s11263-015-0816-y},
+	doi = {10.1007/s11263-015-0816-y},
+	abstract = {The ImageNet Large Scale Visual Recognition Challenge is a benchmark in object category classification and detection on hundreds of object categories and millions of images. The challenge has been run annually from 2010 to present, attracting participation from more than fifty institutions. This paper describes the creation of this benchmark dataset and the advances in object recognition that have been possible as a result. We discuss the challenges of collecting large-scale ground truth annotation, highlight key breakthroughs in categorical object recognition, provide a detailed analysis of the current state of the field of large-scale image classification and object detection, and compare the state-of-the-art computer vision accuracy with human accuracy. We conclude with lessons learned in the 5 years of the challenge, and propose future directions and improvements.},
+	language = {en},
+	number = {3},
+	urldate = {2020-09-23},
+	journal = {International Journal of Computer Vision},
+	author = {Russakovsky, Olga and Deng, Jia and Su, Hao and Krause, Jonathan and Satheesh, Sanjeev and Ma, Sean and Huang, Zhiheng and Karpathy, Andrej and Khosla, Aditya and Bernstein, Michael and Berg, Alexander C. and Fei-Fei, Li},
+	month = dec,
+	year = {2015},
+	pages = {211--252}
+}
+
+@inproceedings{stallkamp_german_2011,
+	title = {The {German} {Traffic} {Sign} {Recognition} {Benchmark}: {A} multi-class classification competition},
+	shorttitle = {The {German} {Traffic} {Sign} {Recognition} {Benchmark}},
+	doi = {10.1109/IJCNN.2011.6033395},
+	abstract = {The “German Traffic Sign Recognition Benchmark” is a multi-category classification competition held at IJCNN 2011. Automatic recognition of traffic signs is required in advanced driver assistance systems and constitutes a challenging real-world computer vision and pattern recognition problem. A comprehensive, lifelike dataset of more than 50,000 traffic sign images has been collected. It reflects the strong variations in visual appearance of signs due to distance, illumination, weather conditions, partial occlusions, and rotations. The images are complemented by several precomputed feature sets to allow for applying machine learning algorithms without background knowledge in image processing. The dataset comprises 43 classes with unbalanced class frequencies. Participants have to classify two test sets of more than 12,500 images each. Here, the results on the first of these sets, which was used in the first evaluation stage of the two-fold challenge, are reported. The methods employed by the participants who achieved the best results are briefly described and compared to human traffic sign recognition performance and baseline results.},
+	booktitle = {The 2011 {International} {Joint} {Conference} on {Neural} {Networks}},
+	author = {Stallkamp, Johannes and Schlipsing, Marc and Salmen, Jan and Igel, Christian},
+	month = jul,
+	year = {2011},
+	note = {ISSN: 2161-4407},
+	keywords = {Benchmark testing, Histograms, Humans, Image color analysis, computer vision, image classification, learning (artificial intelligence), Training, image processing, driver assistance system, driver information systems, German Traffic Sign Recognition Benchmark, Image resolution, Lead, machine learning algorithm, multiclass classification competition, pattern recognition problem, traffic engineering computing},
+	pages = {1453--1460}
+}
+
+@article{chollet_xception_2017,
+	title = {Xception: {Deep} {Learning} with {Depthwise} {Separable} {Convolutions}},
+	shorttitle = {Xception},
+	url = {http://arxiv.org/abs/1610.02357},
+	abstract = {We present an interpretation of Inception modules in convolutional neural networks as being an intermediate step in-between regular convolution and the depthwise separable convolution operation (a depthwise convolution followed by a pointwise convolution). In this light, a depthwise separable convolution can be understood as an Inception module with a maximally large number of towers. This observation leads us to propose a novel deep convolutional neural network architecture inspired by Inception, where Inception modules have been replaced with depthwise separable convolutions. We show that this architecture, dubbed Xception, slightly outperforms Inception V3 on the ImageNet dataset (which Inception V3 was designed for), and significantly outperforms Inception V3 on a larger image classification dataset comprising 350 million images and 17,000 classes. Since the Xception architecture has the same number of parameters as Inception V3, the performance gains are not due to increased capacity but rather to a more efficient use of model parameters.},
+	urldate = {2020-09-25},
+	journal = {arXiv:1610.02357 [cs]},
+	author = {Chollet, François},
+	month = apr,
+	year = {2017},
+	note = {arXiv: 1610.02357},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@article{huang_densely_2018,
+	title = {Densely {Connected} {Convolutional} {Networks}},
+	url = {http://arxiv.org/abs/1608.06993},
+	abstract = {Recent work has shown that convolutional networks can be substantially deeper, more accurate, and efficient to train if they contain shorter connections between layers close to the input and those close to the output. In this paper, we embrace this observation and introduce the Dense Convolutional Network (DenseNet), which connects each layer to every other layer in a feed-forward fashion. Whereas traditional convolutional networks with L layers have L connections - one between each layer and its subsequent layer - our network has L(L+1)/2 direct connections. For each layer, the feature-maps of all preceding layers are used as inputs, and its own feature-maps are used as inputs into all subsequent layers. DenseNets have several compelling advantages: they alleviate the vanishing-gradient problem, strengthen feature propagation, encourage feature reuse, and substantially reduce the number of parameters. We evaluate our proposed architecture on four highly competitive object recognition benchmark tasks (CIFAR-10, CIFAR-100, SVHN, and ImageNet). DenseNets obtain significant improvements over the state-of-the-art on most of them, whilst requiring less computation to achieve high performance. Code and pre-trained models are available at https://github.com/liuzhuang13/DenseNet .},
+	urldate = {2020-09-27},
+	journal = {arXiv:1608.06993 [cs]},
+	author = {Huang, Gao and Liu, Zhuang and van der Maaten, Laurens and Weinberger, Kilian Q.},
+	month = jan,
+	year = {2018},
+	note = {arXiv: 1608.06993},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning}
+}
+
+@article{donahue_adversarial_2017,
+	title = {Adversarial {Feature} {Learning}},
+	url = {http://arxiv.org/abs/1605.09782},
+	abstract = {The ability of the Generative Adversarial Networks (GANs) framework to learn generative models mapping from simple latent distributions to arbitrarily complex data distributions has been demonstrated empirically, with compelling results showing that the latent space of such generators captures semantic variation in the data distribution. Intuitively, models trained to predict these semantic latent representations given data may serve as useful feature representations for auxiliary problems where semantics are relevant. However, in their existing form, GANs have no means of learning the inverse mapping -- projecting data back into the latent space. We propose Bidirectional Generative Adversarial Networks (BiGANs) as a means of learning this inverse mapping, and demonstrate that the resulting learned feature representation is useful for auxiliary supervised discrimination tasks, competitive with contemporary approaches to unsupervised and self-supervised feature learning.},
+	urldate = {2020-09-30},
+	journal = {arXiv:1605.09782 [cs, stat]},
+	author = {Donahue, Jeff and Krähenbühl, Philipp and Darrell, Trevor},
+	month = apr,
+	year = {2017},
+	note = {arXiv: 1605.09782},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Neural and Evolutionary Computing, Computer Science - Artificial Intelligence, Computer Science - Machine Learning, Statistics - Machine Learning}
+}
+
+@inproceedings{bergmann_mvtec_2019,
+	title = {{MVTec} {AD} -- {A} {Comprehensive} {Real}-{World} {Dataset} for {Unsupervised} {Anomaly} {Detection}},
+	url = {https://openaccess.thecvf.com/content_CVPR_2019/html/Bergmann_MVTec_AD_--_A_Comprehensive_Real-World_Dataset_for_Unsupervised_Anomaly_CVPR_2019_paper.html},
+	urldate = {2020-10-01},
+	author = {Bergmann, Paul and Fauser, Michael and Sattlegger, David and Steger, Carsten},
+	year = {2019},
+	pages = {9592--9600}
+}
+
+@incollection{lee_simple_2018,
+	title = {A {Simple} {Unified} {Framework} for {Detecting} {Out}-of-{Distribution} {Samples} and {Adversarial} {Attacks}},
+	url = {http://papers.nips.cc/paper/7947-a-simple-unified-framework-for-detecting-out-of-distribution-samples-and-adversarial-attacks.pdf},
+	urldate = {2020-10-01},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems} 31},
+	publisher = {Curran Associates, Inc.},
+	author = {Lee, Kimin and Lee, Kibok and Lee, Honglak and Shin, Jinwoo},
+	editor = {Bengio, S. and Wallach, H. and Larochelle, H. and Grauman, K. and Cesa-Bianchi, N. and Garnett, R.},
+	year = {2018},
+	pages = {7167--7177}
+}
+
+@article{ounkomol_label-free_2018,
+	title = {Label-free prediction of three-dimensional fluorescence images from transmitted light microscopy},
+	volume = {15},
+	issn = {1548-7091},
+	url = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6212323/},
+	doi = {10.1038/s41592-018-0111-2},
+	abstract = {Understanding cells as integrated systems is a challenge central to modern biology. The different microscopy approaches used to probe biological organization each present limitations, ultimately restricting insight into unified cellular processes. Fluorescence microscopy can resolve subcellular structure in living cells, but is expensive, slow, and toxic. Here, we present a label-free method for predicting 3D fluorescence directly from transmitted light images and demonstrate its use to generate multi-structure, integrated images.},
+	number = {11},
+	urldate = {2020-10-05},
+	journal = {Nature methods},
+	author = {Ounkomol, Chawin and Seshamani, Sharmishtaa and Maleckar, Mary M. and Collman, Forrest and Johnson, Gregory R.},
+	month = nov,
+	year = {2018},
+	pmid = {30224672},
+	pmcid = {PMC6212323},
+	pages = {917--920}
+}

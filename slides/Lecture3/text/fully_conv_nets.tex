@@ -133,20 +133,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Image-to-image NN}
+  \frametitle{Image-to-image translation}
 
-  \begin{block}{Definition: image-to-image neural network}
-    An image-to-image NN is a function that transforms an image into an image of same size:
+  \begin{block}{Definition: image-to-image translation}
+    An image-to-image operator is a function that transforms an image into another image of same size:
     \vspace{-1em}
     \begin{align*}
-      F: \,& \mathcal{I}^{d_1} \longrightarrow \mathcal{I}^{d_2} \\
-      & I               \longmapsto     J
+      F: \, \mathcal{I}^{d_1} & \longrightarrow \mathcal{I}^{d_2} \\
+      I &  \longmapsto     J
     \end{align*}
     Note that the number of channels of input and output images can be different.
   \end{block}
 
-}
+      \begin{figure}
+      \includegraphics[width=0.40\textheight]{image_transf0.png}
+      \end{figure}
 
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -203,6 +206,20 @@
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Microscopy cross-modality prediction\cite{ounkomol_label-free_2018}}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{microscopy_modality_pred}
+  \end{figure}
+
+
+
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Image segmentation}
@@ -245,7 +262,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{From classification to segmentation}
+\section{From classification to image-to-image translation}
 
 
 
@@ -355,21 +372,252 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Upsampling}
+\begin{frame}{Upsampling techniques}
 
-    \begin{figure}
-      \includegraphics[height=\textheight]{upsampling.png}
-    \end{figure}
 
+\begin{itemize}
+\item Replication
+\item Pooling index memorization
+\item Transposed convolution
+\end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Transposed convolutions}
+\begin{frame}{Upsampling through replication}
 
-%% \end{frame}
+  \begin{figure}
+      \includegraphics[height=\textheight]{upsampling.png}
+    \end{figure}
+
+\end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Pooling index memorization}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transposed convolution}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Properties]{Properties of fully-convolutional neural networks}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Receptive field}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Receptive field}
+
+  \begin{block}{Definition: links between neurons}
+    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
+  \end{block}
+
+
+  \begin{block}{Definition}
+    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
+
+    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
+  \end{block}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Illustration}
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+  \begin{figure}
+  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Receptive field evolution through an upsampling layer}
+
+  \begin{figure}
+  \includegraphics[width=0.8\textwidth]{receptive_field_upsampling.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
+  \frametitle{Example}
+
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+
+  \vspace{1em}
+
+  \pause
+
+  \centering
+  Answer: $1 + 2 \times (n+1)$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<handout>{
+  \frametitle{Example}
+
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Translation equivariance}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Equivariance}
+
+\begin{block}{Definition}
+  A function $f: E \longrightarrow F$ if equivariant with respect to the functions $t_E: E \longrightarrow E$ and $t_F: F \longrightarrow F$ iff $\forall x \in E$:
+  \[
+  f(t_E(x)) = t_F(F(x))
+  \]
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Translation equivariance}
+
+\begin{itemize}
+  \item When $E=F$ and $t_E$ and $t_F$ are the same, any, translation, then we have \emph{translation equivariance}.
+\item Translation equivariance is an often sought property for image processing operators.
+\item Note that we often abusively say \emph{invariant} to translation instead of \emph{equivariant} to translation.
+\item Given that in all practical cases images are defined on a bounded set, this property is only true ``far enough'' from the borders
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Translation equivariance applied to neural networks}
+
+\begin{block}{Definition}
+  Let us consider an operator $f$ between two layers $L_1$ and $L_2$ of a NN. Suppose that the receptive field of this operator for a given neuron $p$ of $L_2$ is $R(p)$, a subset of neurons of $L_1$. Then $f$ is said to be translation equivariant if, for any two neurons $p$ and $q$ of $L_2$, such that $L_1(R(p)) = L_1(R(q))$ (i.e. their receptive fields are identical) then $f(p) = f(q)$.
+\end{block}
+
+\begin{alertblock}{}
+  Simply put, the operator is translation equivariant if identical receptive fields produce identical values.
+\end{alertblock}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Translation equivariant operators}
+
+\begin{table}[]
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Operator}        & \textbf{Translation equivariant} \\ \hline
+Convolution (stride$=1$)             & \onslide<2->{yes}                            \\ \hline
+Downsampling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
+Transposed convolution (stride$>1$)   & \onslide<4->{yes}                            \\ \hline
+Upsampling (stride$>1$) & \onslide<5->{no}                             \\ \hline
+Concatenation            & \onslide<6->{yes}                            \\ \hline
+Addition                 & \onslide<7->{yes}                            \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Translation equivariance}
+
+  \begin{block}{}
+    Identical receptive fields produce identical outputs.
+  \end{block}
+
+  \pause
+
+  \begin{itemize}[<+->]
+  \item If padding is used in the network, border effects can be important.
+  \item Translation equivariance is not always welcome!
+  \item Position information can also be used in the network:
+    \begin{itemize}
+    \item Through masks or segmentations
+    \item Through pixel coordinates
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=0.8\textheight]{fundus1}
+  \caption{Eye fundus / retina image}
+  \source{OPHDIAT database}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Illustration}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{skin}
+  \caption{Histological image of reconstructed skin}
+  \source{L'Oréal}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Other properties}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Image size flexibility}
+
+  \begin{itemize}
+  \item A NN containing fully-connected layers can only process images of a given size
+  \item A fully convolutional NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
+  \item Practical limit: the memory of the system
+    \pause
+  \item Note that as the input image gets larger, border effects become proportionally less present
+  \end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Robustness with respect to ground-truth errors}
+
+  \begin{block}{}
+    This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
+  \end{block}
+
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Image segmentation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -398,10 +646,7 @@
     \end{figure}
   \end{block}
 
-
 }
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -498,56 +743,6 @@
 }
 
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Border effect}
-
-%%   \begin{figure}
-%%     \includegraphics[height=5cm]{conv_border_effect}
-%%   \end{figure}
-
-%% \end{frame}
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{First solution}
-
-%%   \begin{figure}
-%%     \includegraphics[height=5cm]{conv_border_effect2}
-%%   \end{figure}
-
-%% \begin{itemize}
-%% \item Pros:
-%%   \begin{itemize}
-%%   \item border effect disappears
-%%   \end{itemize}
-%% \item Cons:
-%%   \begin{itemize}
-%%   \item Lack of flexibility
-%%   \end{itemize}
-%% \end{itemize}
-
-%% \end{frame}
-
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Border effect}
-
-%%   \begin{figure}
-%%     \includegraphics[height=5cm]{conv_border_effect3}
-%%   \end{figure}
-
-%% \begin{itemize}
-%% \item Pros:
-%%   \begin{itemize}
-%%   \item More flexible architecture
-%%   \end{itemize}
-%% \item Cons:
-%%   \begin{itemize}
-%%   \item Border effect still present
-%%   \end{itemize}
-%% \end{itemize}
-
-%% \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -633,7 +828,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Partially supervised segmentation - \cite{hu_learning_2018}}
+  \frametitle{Partially supervised segmentation - \cite{hu_learning_2017}}
 
   \begin{itemize}
   \item 80 segmented categories from COCO database (320k images)
@@ -698,151 +893,6 @@
 
 
 %% }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[Properties]{Properties of fully-convolutional neural networks}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Receptive field}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Receptive field}
-
-  \begin{block}{Definition: links between neurons}
-    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
-  \end{block}
-
-
-  \begin{block}{Definition}
-    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
-
-    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
-  \end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Illustration}
-
-  \begin{figure}
-    \includegraphics[width=0.8\textwidth]{receptive_field.png}
-  \end{figure}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
-
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
-  \end{figure}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
-  \frametitle{Example}
-
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-
-  \vspace{1em}
-
-  \pause
-
-  \centering
-  Answer: $1 + 2 \times (n+1)$
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<handout>{
-  \frametitle{Example}
-
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Translation invariance}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Translation invariance}
-
-  \begin{block}{}
-    Identical receptive fields produce identical outputs.
-  \end{block}
-
-  \pause
-
-  \begin{itemize}[<+->]
-  \item If padding is used in the network, border effects can be important.
-  \item Translation invariance is not always welcome!
-  \item Position information can also be used in the network:
-    \begin{itemize}
-    \item Through masks or segmentations
-    \item Through pixel coordinates
-    \end{itemize}
-  \end{itemize}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[height=0.8\textheight]{fundus1}
-  \caption{Eye fundus / retina image}
-  \source{OPHDIAT database}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Illustration}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{skin}
-  \caption{Histological image of reconstructed skin}
-  \source{L'Oréal}
-\end{figure}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Other properties}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Image size flexibility}
-
-  \begin{itemize}
-  \item A NN containing fully-connected layers can only process images of a given size
-  \item A translation invariant NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
-  \item Practical limit: the memory of the system
-    \pause
-  \item Note that as the input image gets larger, border effects become proportionally less present
-  \end{itemize}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Robustness with respect to ground-truth errors}
-
-  \begin{block}{}
-    This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
-  \end{block}
-
-
-}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -953,7 +1003,7 @@
 
   \begin{itemize}[<+->]
   \item   In segmentation applications, original images are often of different sizes and possibly very large.
-  \item   In theory, given the translation invariance of fully-convolutional NN, we could use them directly as input. In practice, we are limited by memory size.
+  \item   In theory, given the translation equivariance of fully-convolutional NN, we could use them directly as input. In practice, we are limited by memory size.
   \item   Solution: extract fixed-sized crops from your training set:
     \begin{itemize}
     \item make them as large as possible, to reduce border effects
@@ -998,10 +1048,9 @@
   \frametitle{Loss functions for image segmentation}
 
 
-  \begin{block}{Most commonly used loss functions}
+  \begin{block}{A loss function inherited from image classification}
 
     \begin{itemize}
-    \item Mean squared error (MSE): $ \sum\limits_i (\hat{y}_i-y_i)^2 $
     \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i)$
     \end{itemize}
 
@@ -1224,7 +1273,7 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 %%   \begin {itemize}
 %%   \item Do we have enough annotated data?
 %%   \item Sliding window or global approach?
-%%   \item Is our problem translation invariant?
+%%   \item Is our problem translation equivariant?
 %%   \end{itemize}
 
 %% }
@@ -1245,7 +1294,7 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
   %\bibliographystyle{amsalpha}
   %\bibliographystyle{apalike}
 
-  \bibliography{edf.bib}
+  \bibliography{../../edf.bib}
 
   \normalsize
 
