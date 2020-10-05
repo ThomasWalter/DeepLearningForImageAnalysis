@@ -148,11 +148,12 @@
 \begin{block}{Our context}
 
   \begin{itemize}
-  \item We will suppose that we only have examples of normal images, i.e.\ that we are in a \alert{unsupervised} context. We assume that examples of anomalies are not representative enough or unknown.
+  \item We will suppose that we only have examples of normal images, i.e.\ that we are in a \alert{unsupervised} context.
   \end{itemize}
 
 \end{block}
 
+We suppose that examples of anomalies are not representative enough or unknown.
 
 
 
@@ -321,6 +322,10 @@
   \item When an anomaly is detected within an image, then the image is considered as anomalous
   \end{itemize}
 
+\begin{block}{}
+  Here, our aim is to detect anomalous images, not the anomalies in the images.
+\end{block}
+
 \end{frame}
 
 
@@ -475,7 +480,7 @@
 \begin{frame}{Generative approach}
 
   \begin{block}{Idea}
-    Normal images are considered as the result of some construction or generation function $G$.
+    Normal images are considered as the result of some construction generation function $G$.
     \[
     \begin{split}
     G: & ~~~~\mathcal{W} \longrightarrow \mathcal{N} \\
@@ -560,6 +565,14 @@ In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to
   \item Classical distances in the matrix space do not make sense from a semantic point of view
   \end{itemize}
 
+\begin{block}{Latent space $\mathcal{Z}$}
+  Images are transformed into their latent representation by an encoding function $E$. The latent has typically less dimensions than the original space, and should have some properties such as:
+  \begin{itemize}
+  \item Interpolation between latent representations corresponds to the representation of another ``realistic'' image
+  \item There is a distance function $d$ in the latent space such that the distance between latent representations ``makes sense''.
+  \end{itemize}
+\end{block}
+
 \end{frame}
 
 
@@ -622,7 +635,6 @@ In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to
 
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Anomaly detection using generative adversarial networks (GANS)}
@@ -656,7 +668,7 @@ In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to
 
   \begin{itemize}
   \item I have seen no mention of this strategy in the literature
-  \item My guess: the discriminator is not very efficient at this task. To be tested during lab sessions!
+  \item My guess: the discriminator is not very efficient at this task.
   \end{itemize}
 
 \end{frame}
@@ -675,7 +687,7 @@ In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to
   \item For a new image $\x$ (normal or not):
     \begin{itemize}
     \item Find a $z^*$ such that $G(z^*)$ is \emph{close as possible} to $\x$
-    \item If $G(z^*)$ is \emph{similar enough} to $\x$ and is \emph{correctly evaluated by the descriminator}, then $\x$ is considered as normal
+    \item If $G(z^*)$ is \emph{similar enough} to $\x$ and is \emph{correctly evaluated by the discriminator}, then $\x$ is considered as normal
     \end{itemize}
   \end{enumerate}
 
@@ -708,7 +720,7 @@ In practice, this approach is applied to a latent space $\mathcal{Z}$, thanks to
     \includegraphics[width=0.4\textwidth]{gan2}
   \end{figure}
 
-  \begin{block}{Residual loss}
+  \begin{block}{Residual or reconstruction loss}
     \centering
     $\mathcal{L}_R(z_i) = \norm{x - G(z_i)}_{L_1}$
   \end{block}
