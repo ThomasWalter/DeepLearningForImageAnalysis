@@ -61,7 +61,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Recall from yesterday: image classification with NN}
+%% \begin{frame}{Recall from the previous lesson: image classification with NN}
 
 %%   \begin{columns}
 
@@ -90,23 +90,6 @@
 %% \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Learning image transformations}
-
-  \begin{itemize}
-  \item An image classification task is a function from the set of considered images into a set of labels
-      \begin{figure}
-      \includegraphics[width=0.40\textheight]{image_classif.png}
-      \end{figure}
-  \item In many applications, we want to transform an image into another image
-      \begin{figure}
-      \includegraphics[width=0.40\textheight]{image_transf0.png}
-      \end{figure}
-  \end{itemize}
-
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Image definition}
@@ -129,6 +112,22 @@
 
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Learning image transformations}
+
+  \begin{itemize}
+  \item An image classification task is a function from the set of considered images into a set of labels
+      \begin{figure}
+      \includegraphics[width=0.40\textheight]{image_classif.png}
+      \end{figure}
+  \item In many applications, we want to transform an image into another image
+      \begin{figure}
+      \includegraphics[width=0.40\textheight]{image_transf0.png}
+      \end{figure}
+  \end{itemize}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -174,15 +173,15 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Pix2Pix}
+%% \frame{
+%%   \frametitle{Pix2Pix}
 
-    \begin{figure}
-      \includegraphics[width=\textwidth]{pix2pix}
-      \source{https://neurohive.io/en/popular-networks/pix2pix-image-to-image-translation/}
-    \end{figure}
+%%     \begin{figure}
+%%       \includegraphics[width=\textwidth]{pix2pix}
+%%       \source{https://neurohive.io/en/popular-networks/pix2pix-image-to-image-translation/}
+%%     \end{figure}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -190,7 +189,7 @@
 
     \begin{figure}
       \includegraphics[width=\textwidth]{lazard}
-      \source{Lazard, master report}
+      \source{Tristan Lazard, master thesis}
     \end{figure}
 
 }
@@ -377,8 +376,8 @@
 
 \begin{itemize}
 \item Replication
-\item Pooling index memorization
 \item Transposed convolution
+\item Pooling index memorization
 \end{itemize}
 
 \end{frame}
@@ -394,15 +393,48 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Pooling index memorization}
+\begin{frame}{Transposed convolution}
+
+  \begin{columns}
+
+    \begin{column}<1->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{convolutional_layer}
+        \\ \scriptsize{Convolutional layer}
+      \end{center}
+    \end{column}
+
+    \begin{column}<2->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{transposed_conv.png}
+        \\ \scriptsize{Transposed convolutional layer}
+      \end{center}
+    \end{column}
+
+    \begin{column}<3->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{transposed_conv_stride.png}
+        \\ \scriptsize{Transposed convolutional layer with stride $=2$}
+      \end{center}
+    \end{column}
+
+  \end{columns}
+
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transposed convolution}
+%% \begin{frame}{Pooling index memorization}
 
-\end{frame}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{index_unpooling}
+%% \source{Divyanshu Mishra, Transposed convolution demystified, \url{http://towardsdatascience.com}}
+%% \end{figure}
+
+
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -492,7 +524,7 @@
 \begin{block}{Definition}
   A function $f: E \longrightarrow F$ if equivariant with respect to the functions $t_E: E \longrightarrow E$ and $t_F: F \longrightarrow F$ iff $\forall x \in E$:
   \[
-  f(t_E(x)) = t_F(F(x))
+  f(t_E(x)) = t_F(f(x))
   \]
 \end{block}
 
@@ -542,7 +574,7 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Translation equivariance}
+\begin{frame}{Translation equivariance: comments}
 
   \begin{block}{}
     Identical receptive fields produce identical outputs.
@@ -567,7 +599,7 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.8\textheight]{fundus1}
+  \includegraphics[height=0.75\textheight]{fundus1}
   \caption{Eye fundus / retina image}
   \source{OPHDIAT database}
 \end{figure}
@@ -575,6 +607,7 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Illustration}
 
 \begin{figure}[ht]
@@ -745,13 +778,13 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
+%% \frame{
+%%   \frametitle{Example: SegNet architecture \cite{badrinarayanan_segnet:_2015}}
 
-  \begin{figure}
-    \includegraphics[width=9cm]{segnet_archi}
-  \end{figure}
-}
+%%   \begin{figure}
+%%     \includegraphics[width=9cm]{segnet_archi}
+%%   \end{figure}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -827,19 +860,19 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Partially supervised segmentation - \cite{hu_learning_2017}}
+%% \frame{
+%%   \frametitle{Partially supervised segmentation - \cite{hu_learning_2017}}
 
-  \begin{itemize}
-  \item 80 segmented categories from COCO database (320k images)
-  \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item 80 segmented categories from COCO database (320k images)
+%%   \item 3000 visual concepts using box annotations from the Visual Genome data set (100k images)
+%%   \end{itemize}
 
-  \begin{figure}
-    \includegraphics[width=12cm]{segm_every_thing_method.png}
-  \end{figure}
+%%   \begin{figure}
+%%     \includegraphics[width=12cm]{segm_every_thing_method.png}
+%%   \end{figure}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \frame{
@@ -959,9 +992,9 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
+%% \begin{frame}{Illustration}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -995,8 +1028,6 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Using CNNs]{Using fully-convolutional networks}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dealing with image sizes during training}
