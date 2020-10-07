@@ -478,6 +478,15 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+  \begin{figure}
+  \includegraphics[width=0.8\textwidth]{receptive_field3.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Receptive field evolution through an upsampling layer}
 
   \begin{figure}
@@ -565,7 +574,7 @@
 Convolution (stride$=1$)             & \onslide<2->{yes}                            \\ \hline
 Downsampling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
 Transposed convolution (stride$>1$)   & \onslide<4->{yes}                            \\ \hline
-Upsampling (stride$>1$) & \onslide<5->{no}                             \\ \hline
+Upsampling (stride$>1$) & \onslide<5->{yes}                             \\ \hline
 Concatenation            & \onslide<6->{yes}                            \\ \hline
 Addition                 & \onslide<7->{yes}                            \\ \hline
 \end{tabular}
@@ -616,7 +625,6 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
   \caption{Histological image of reconstructed skin}
   \source{L'Oréal}
 \end{figure}
-
 
 \end{frame}
 
@@ -929,7 +937,7 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{U-Net}
+\subsection{U-Net}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -959,9 +967,7 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
       \item Skip connections
       \end{itemize}
 
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
