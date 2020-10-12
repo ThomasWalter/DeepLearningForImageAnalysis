@@ -1,0 +1,150 @@
+
+
+@article{Liu2016,
+  title = {{{SSD}}: {{Single Shot MultiBox Detector}}},
+  shorttitle = {{{SSD}}},
+  author = {Liu, Wei and Anguelov, Dragomir and Erhan, Dumitru and Szegedy, Christian and Reed, Scott and Fu, Cheng-Yang and Berg, Alexander C.},
+  year = {2016},
+  volume = {9905},
+  pages = {21--37},
+  doi = {10.1007/978-3-319-46448-0_2},
+  abstract = {We present a method for detecting objects in images using a single deep neural network. Our approach, named SSD, discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location. At prediction time, the network generates scores for the presence of each object category in each default box and produces adjustments to the box to better match the object shape. Additionally, the network combines predictions from multiple feature maps with different resolutions to naturally handle objects of various sizes. SSD is simple relative to methods that require object proposals because it completely eliminates proposal generation and subsequent pixel or feature resampling stages and encapsulates all computation in a single network. This makes SSD easy to train and straightforward to integrate into systems that require a detection component. Experimental results on the PASCAL VOC, COCO, and ILSVRC datasets confirm that SSD has competitive accuracy to methods that utilize an additional object proposal step and is much faster, while providing a unified framework for both training and inference. For 300 \texttimes{} 300 input, SSD achieves 74.3\% mAP1 on VOC2007 test at 59 FPS on a Nvidia Titan X and for 512 \texttimes{} 512 input, SSD achieves 76.9\% mAP, outperforming a comparable state-of-the-art Faster R-CNN model. Compared to other single stage methods, SSD has much better accuracy even with a smaller input image size. Code is available at: https://github.com/weiliu89/caffe/tree/ssd .},
+  archivePrefix = {arXiv},
+  eprint = {1512.02325},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/Y378224Y/Liu et al. - 2016 - SSD Single Shot MultiBox Detector.pdf},
+  journal = {arXiv:1512.02325 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+
+
+@incollection{Ciresan2013,
+  title = {Mitosis {{Detection}} in {{Breast Cancer Histology Images}} with {{Deep Neural Networks}}},
+  booktitle = {Medical {{Image Computing}} and {{Computer}}-{{Assisted Intervention}} \textendash{} {{MICCAI}} 2013},
+  author = {Cire{\c s}an, Dan C. and Giusti, Alessandro and Gambardella, Luca M. and Schmidhuber, J{\"u}rgen},
+  editor = {Hutchison, David and Kanade, Takeo and Kittler, Josef and Kleinberg, Jon M. and Mattern, Friedemann and Mitchell, John C. and Naor, Moni and Nierstrasz, Oscar and Pandu Rangan, C. and Steffen, Bernhard and Sudan, Madhu and Terzopoulos, Demetri and Tygar, Doug and Vardi, Moshe Y. and Weikum, Gerhard and Mori, Kensaku and Sakuma, Ichiro and Sato, Yoshinobu and Barillot, Christian and Navab, Nassir},
+  year = {2013},
+  volume = {8150},
+  pages = {411--418},
+  publisher = {{Springer Berlin Heidelberg}},
+  address = {{Berlin, Heidelberg}},
+  doi = {10.1007/978-3-642-40763-5_51},
+  abstract = {We use deep max-pooling convolutional neural networks to detect mitosis in breast histology images. The networks are trained to classify each pixel in the images, using as context a patch centered on the pixel. Simple postprocessing is then applied to the network output. Our approach won the ICPR 2012 mitosis detection competition, outperforming other contestants by a significant margin.},
+  file = {/Users/twalter/Zotero/storage/PZDQWB3Z/Cireşan et al. - 2013 - Mitosis Detection in Breast Cancer Histology Image.pdf},
+  isbn = {978-3-642-40762-8 978-3-642-40763-5},
+  language = {en}
+}
+
+
+
+@article{Zhao2019,
+  title = {Object {{Detection}} with {{Deep Learning}}: {{A Review}}},
+  shorttitle = {Object {{Detection}} with {{Deep Learning}}},
+  author = {Zhao, Zhong-Qiu and Zheng, Peng and Xu, Shou-tao and Wu, Xindong},
+  year = {2019},
+  month = apr,
+  abstract = {Due to object detection's close relationship with video analysis and image understanding, it has attracted much research attention in recent years. Traditional object detection methods are built on handcrafted features and shallow trainable architectures. Their performance easily stagnates by constructing complex ensembles which combine multiple low-level image features with high-level context from object detectors and scene classifiers. With the rapid development in deep learning, more powerful tools, which are able to learn semantic, high-level, deeper features, are introduced to address the problems existing in traditional architectures. These models behave differently in network architecture, training strategy and optimization function, etc. In this paper, we provide a review on deep learning based object detection frameworks. Our review begins with a brief introduction on the history of deep learning and its representative tool, namely Convolutional Neural Network (CNN). Then we focus on typical generic object detection architectures along with some modifications and useful tricks to improve detection performance further. As distinct specific detection tasks exhibit different characteristics, we also briefly survey several specific tasks, including salient object detection, face detection and pedestrian detection. Experimental analyses are also provided to compare various methods and draw some meaningful conclusions. Finally, several promising directions and tasks are provided to serve as guidelines for future work in both object detection and relevant neural network based learning systems.},
+  archivePrefix = {arXiv},
+  eprint = {1807.05511},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/I9TULN2J/Zhao et al. - 2019 - Object Detection with Deep Learning A Review.pdf},
+  journal = {arXiv:1807.05511 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+
+
+@article{Sermanet2014,
+  title = {{{OverFeat}}: {{Integrated Recognition}}, {{Localization}} and {{Detection}} Using {{Convolutional Networks}}},
+  shorttitle = {{{OverFeat}}},
+  author = {Sermanet, Pierre and Eigen, David and Zhang, Xiang and Mathieu, Michael and Fergus, Rob and LeCun, Yann},
+  year = {2014},
+  month = feb,
+  abstract = {We present an integrated framework for using Convolutional Networks for classification, localization and detection. We show how a multiscale and sliding window approach can be efficiently implemented within a ConvNet. We also introduce a novel deep learning approach to localization by learning to predict object boundaries. Bounding boxes are then accumulated rather than suppressed in order to increase detection confidence. We show that different tasks can be learned simultaneously using a single shared network. This integrated framework is the winner of the localization task of the ImageNet Large Scale Visual Recognition Challenge 2013 (ILSVRC2013) and obtained very competitive results for the detection and classifications tasks. In post-competition work, we establish a new state of the art for the detection task. Finally, we release a feature extractor from our best model called OverFeat.},
+  archivePrefix = {arXiv},
+  eprint = {1312.6229},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/ZD87S4UG/Sermanet et al. - 2014 - OverFeat Integrated Recognition, Localization and.pdf},
+  journal = {arXiv:1312.6229 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+
+
+@article{Girshick2014,
+  title = {Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation},
+  author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
+  year = {2014},
+  month = oct,
+  abstract = {Object detection performance, as measured on the canonical PASCAL VOC dataset, has plateaued in the last few years. The best-performing methods are complex ensemble systems that typically combine multiple low-level image features with high-level context. In this paper, we propose a simple and scalable detection algorithm that improves mean average precision (mAP) by more than 30\% relative to the previous best result on VOC 2012\textemdash{}achieving a mAP of 53.3\%. Our approach combines two key insights: (1) one can apply high-capacity convolutional neural networks (CNNs) to bottom-up region proposals in order to localize and segment objects and (2) when labeled training data is scarce, supervised pre-training for an auxiliary task, followed by domain-specific fine-tuning, yields a significant performance boost. Since we combine region proposals with CNNs, we call our method R-CNN: Regions with CNN features. We also compare R-CNN to OverFeat, a recently proposed sliding-window detector based on a similar CNN architecture. We find that R-CNN outperforms OverFeat by a large margin on the 200-class ILSVRC2013 detection dataset. Source code for the complete system is available at http://www.cs.berkeley.edu/\texttildelow{}rbg/rcnn.},
+  archivePrefix = {arXiv},
+  eprint = {1311.2524},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/DLQPHWSW/Girshick et al. - 2014 - Rich feature hierarchies for accurate object detec.pdf},
+  journal = {arXiv:1311.2524 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+
+@article{Girshick2015,
+  title = {Fast {{R}}-{{CNN}}},
+  author = {Girshick, Ross},
+  year = {2015},
+  month = sep,
+  abstract = {This paper proposes a Fast Region-based Convolutional Network method (Fast R-CNN) for object detection. Fast R-CNN builds on previous work to efficiently classify object proposals using deep convolutional networks. Compared to previous work, Fast R-CNN employs several innovations to improve training and testing speed while also increasing detection accuracy. Fast R-CNN trains the very deep VGG16 network 9\texttimes{} faster than R-CNN, is 213\texttimes{} faster at test-time, and achieves a higher mAP on PASCAL VOC 2012. Compared to SPPnet, Fast R-CNN trains VGG16 3\texttimes{} faster, tests 10\texttimes{} faster, and is more accurate. Fast R-CNN is implemented in Python and C++ (using Caffe) and is available under the open-source MIT License at https: //github.com/rbgirshick/fast-rcnn.},
+  archivePrefix = {arXiv},
+  eprint = {1504.08083},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/D33FLFI3/Girshick - 2015 - Fast R-CNN.pdf},
+  journal = {arXiv:1504.08083 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+@article{Redmon2016,
+  title = {You {{Only Look Once}}: {{Unified}}, {{Real}}-{{Time Object Detection}}},
+  shorttitle = {You {{Only Look Once}}},
+  author = {Redmon, Joseph and Divvala, Santosh and Girshick, Ross and Farhadi, Ali},
+  year = {2016},
+  month = may,
+  abstract = {We present YOLO, a new approach to object detection. Prior work on object detection repurposes classifiers to perform detection. Instead, we frame object detection as a regression problem to spatially separated bounding boxes and associated class probabilities. A single neural network predicts bounding boxes and class probabilities directly from full images in one evaluation. Since the whole detection pipeline is a single network, it can be optimized end-to-end directly on detection performance.},
+  archivePrefix = {arXiv},
+  eprint = {1506.02640},
+  eprinttype = {arxiv},
+  file = {/Users/twalter/Zotero/storage/P379ZTRT/Redmon et al. - 2016 - You Only Look Once Unified, Real-Time Object Dete.pdf},
+  journal = {arXiv:1506.02640 [cs]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  language = {en},
+  primaryClass = {cs}
+}
+
+@article{Ren2017,
+  title = {Faster {{R}}-{{CNN}}: {{Towards Real}}-{{Time Object Detection}} with {{Region Proposal Networks}}},
+  shorttitle = {Faster {{R}}-{{CNN}}},
+  author = {Ren, Shaoqing and He, Kaiming and Girshick, Ross and Sun, Jian},
+  year = {2017},
+  month = jun,
+  volume = {39},
+  pages = {1137--1149},
+  issn = {0162-8828, 2160-9292},
+  doi = {10.1109/TPAMI.2016.2577031},
+  abstract = {State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet [7] and Fast R-CNN [5] have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network (RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully-convolutional network that simultaneously predicts object bounds and objectness scores at each position. RPNs are trained end-to-end to generate highquality region proposals, which are used by Fast R-CNN for detection. With a simple alternating optimization, RPN and Fast R-CNN can be trained to share convolutional features. For the very deep VGG-16 model [19], our detection system has a frame rate of 5fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007 (73.2\% mAP) and 2012 (70.4\% mAP) using 300 proposals per image. Code is available at https://github.com/ShaoqingRen/faster\_rcnn.},
+  file = {/Users/twalter/Zotero/storage/EZKV2X9W/Ren et al. - 2017 - Faster R-CNN Towards Real-Time Object Detection w.pdf},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  language = {en},
+  number = {6}
+}
+
+
+
+
