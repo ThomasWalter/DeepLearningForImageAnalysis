@@ -80,7 +80,7 @@
   \pause
 
   \begin{alertblock}{}
-    This state of affairs can of course be a problem in domains where security is important, such as clinical applications.
+    This state of affairs can of course be a problem in domains where security and interpretability are important, such as clinical applications.
   \end{alertblock}
 
 \end{frame}
@@ -88,17 +88,22 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{General recommendations}
+  \frametitle{General workflow}
 
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data
-  \item Choose the right representation for your images
-  \item Choose an architecture and train it - begin with simple ones!
+  \item Build your data set
+  \item Cast the task at hand into a machine learning problem
+  \item Build an architecture and train it (begin with simple ones!) or choose a pre-trained model and use transfer learning
+
+\begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
   \item Beware of over-fitting! Envision regularization methods.
   \item Use data augmentation. If correctly used, it cannot hurt and will probably improve the generalization power of your network.
   \item Do you need preprocessing? Post-processing?
   \item Iterate, while precisely logging all your experiments.
+\end{itemize}
+
   \item Only at the end: test!
   \end{itemize}
 }
@@ -117,7 +122,8 @@
     \begin {itemize}[<+->]
     \item Understand the problem definition - discuss with the end-user
     \item Familiarize yourself with the data (input and output images)
-    \item Choose the right representation for your images. Resolution? What labels?
+    \item Choose the right representation for your images.
+    \item Define an evaluation procedure
     \end{itemize}
 
 
@@ -140,16 +146,31 @@
   \end{column}
 
   \begin{column}{.6\textwidth}
+    \begin{block}{Problem definition}
+    Quality criterion defined by the end-user: are the macula and peripheral vessels visible?
+    \end{block}
     \begin{itemize}[<+->]
-    \item Quality criterion: are the macula and peripheral vessels visible?
-    \item First solution: regression (center of macula position)
-    \item Second solution: predict macula mask
-    \end{itemize}
+    \item First solution: classification (is the macula visible?)
+    \item Second solution: regression (macula position)
+    \item Third solution: macula segmentation
+      \end{itemize}
   \end{column}
 \end{columns}
 
 \source{images from OPHDIAT database}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Counting cells}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{lazard}
+      \source{Tristan Lazard, master thesis}
+    \end{figure}
+
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance evaluation}
@@ -198,7 +219,10 @@
 
   \pause
 
-  (This anecdote might be a urban legend, but nevertheless is a good illustration of the problems one might run into during database preparation)
+  This anecdote might be a urban legend, but nevertheless is a good illustration of the problems one might run into during database preparation. More information available from:
+
+  \centering
+  \url{https://www.gwern.net/Tanks}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -207,7 +231,7 @@
 
   \begin{itemize}
   \item Deep learning models tend to be robust with respect to ground-truth errors
-  \item In the case of segmentation, you do not need a pixel-precision high quality segmentation
+  \item In the case of segmentation, you do not need a pixel-precision high quality segmentation \cite{heller_imperfect_2018}
   \end{itemize}
 
 }
@@ -277,7 +301,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Architecture choice}
+\section{Architecture choice and training}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Architecture choice}
@@ -300,7 +324,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Training}
+% \section{Training}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Optimizing your model}
@@ -318,12 +342,16 @@ Plankton classification: hundred classes - a few dozen examples per class.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Hyperparameters tuning}
 
-  Your options are:
-
   \begin{itemize}
   \item Manual tuning: works well if the number of parameter is small and the experience of the developer/researcher high
-  \item Automatic tuning (grid search, random search): computationally time-consuming
+  \item Automatic tuning:
+    \begin{itemize}
+    \item Grid search
+    \item Random search
+    \end{itemize}
   \end{itemize}
+
+  When working with keras, you can use keras-tuner.
 
 \end{frame}
 
@@ -351,30 +379,305 @@ Plankton classification: hundred classes - a few dozen examples per class.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transfer learning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Problem formulation}
+
+  In computer vision:
+\begin{itemize}
+\item Databases can be huge, requiring substantial computing power and making learning complex
+\item In many practical applications the learning data base can be small
+\end{itemize}
+
+Transfer learning brings a solution to these problems.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transfer learning definition}
+
+\begin{block}{}
+  Suppose that thanks to a training set $(X_0, \mathcal{Y_0})$ a model $f_{\theta_0}$ has been learnt.
+
+  Transfer learning consists in learning another model $f_{\theta}$ from a training set $(X, \mathcal{Y})$ using as starting point $f_{\theta_0}$.
+
+  For transfer learning to work, both training sets have to be somehow related and compatible.
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{General procedure}
+
+  \begin{itemize}
+  \item Choose and existing model, optimized on a data base such as ImageNet. It should be able to process the new data
+  \item Remove the last layers of the model and replace them with layers adapted to the task at hand
+  \item Optimize the resulting model
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A reference paper \cite{yosinski_how_2014}}
+
+\begin{block}{}
+  Jason Yosinski, Jeff Clune, Yoshua Bengio, Hod Lipson. \textbf{How transferable are features in deep neural networks?} Neural Information Processing Systems, 2014.
+\end{block}
+
+The authors devised experiments on the ImageNet database in order to evaluate different transfer learning strategies and improve our of understanding of these methods.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Experiments configuration}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{transfer_learning_exp}\\
+    \scriptsize{Layer $n$ at which the network is chopped and retrained}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{First experiment configuration}
+
+  \begin{block}{ImageNet data set split}
+    \begin{itemize}
+    \item Set A: 500 randomly selected classes
+    \item Set B: 500 other classes
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{First experiment results}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{transfer_learning_res_1}\\
+    \scriptsize{Layer $n$ at which the network is chopped and retrained}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{First experiment results}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{transfer_learning_res_2}\\
+    \scriptsize{Layer $n$ at which the network is chopped and retrained}
+  \end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Second experiment configuration}
+
+  \begin{block}{ImageNet data set split}
+    \begin{itemize}
+    \item Set A: Man-made objects (551 classes)
+    \item Set B: Natural entities (449 classes)
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Second experiment results}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{transfer_learning_res_3}
+    \scriptsize{Layer $n$ at which the network is chopped and retrained}
+  \end{figure}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Experiments conclusions}
+
+\begin{itemize}
+\item Two separate issues with transfer learning:
+  \begin{itemize}
+  \item Specificity of high level features
+  \item Co-adaptation of neurons on neighboring layers
+  \end{itemize}
+\item Transfer learning is less efficient when the sets are more dissimilar
+\item Generalization performance can be boosted by transfer learning
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example:Deep learning for galaxy surface brightness profile fitting \cite{tuccillo_deep_2018} }
+
+\begin{block}{Task}
+  To estimate brightness profile parameters (magnitude, half light radius, Sérsic index and axis ratio) of early galaxy images.
+
+\end{block}
+
+  Data: Cosmic Assembly Near-infrared Deep Extragalactic Legacy Survey (CANDELS), Hubble Space Telescope (HST)
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Hubble space telescope}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{HST_galaxy.jpg}
+\end{figure}
+
+The farther away the galaxies, the younger they are. These young galaxies bring precious information to improve our understanding of the formation of our universe.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{CANDELS \cite{grogin_candels_2011}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{candels.jpg}
+\end{figure}
+
+Only modality F160W was used in \cite{tuccillo_deep_2018}.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Available data}
+
+Obtaining measures from the real images is done in practice with GALFIT, but the procedure is not totally automatic.
+
+\begin{itemize}
+\item Real annotated data: 5000 images from the van der Wel et al. (2012) catalog
+\item Simulated data
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Adopted strategy}
+
+\begin{itemize}
+\item Learning using $55\,000$ simulated images, with corresponding measures
+\item First test on simulated data and comparison with GALFIT
+\item Transfer learning using $4\,000$ images from the van der Wel catalog
+\item Test on real data using the $1\,000$ remaining images
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results on simulated data}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gal_simu}
+\end{figure}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{deeplegato_galfit_sim_res}
+\end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    \scriptsize
+Computing time (5000 galaxies):
+\begin{itemize}
+\item GALFIT (CPU): 12600 s
+\item NN (CPU): 200 s
+\item NN (GPU): 4 s
+\end{itemize}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results on real data: examples}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{gal_real_ok}\\
+  \scriptsize{Correct results}
+\end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{gal_real_notok}\\
+  \scriptsize{Incorrect results}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results on real data}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\textwidth]{deeplegato_galfit_real_res}
+\end{figure}
+
+2 GALFIT: comparison between two sets of measures obtained with GALFIT, the first as given in the van der Wel et al. (2012) catalog, and the second obtained by Dimauro et al. (2017).
+
+\end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \section*{References}
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame[allowframebreaks]{
 
-%% \frame[allowframebreaks]{
+  \scriptsize
 
-%%   \scriptsize
+  \frametitle{References}
 
-%%   \frametitle{References}
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
 
-%%   %\bibliographystyle{amsalpha}
-%%   %\bibliographystyle{apalike}
+  \bibliography{../../edf.bib}
 
-%%   \bibliography{edf.bib}
+  \normalsize
 
-%%   \normalsize
-
-%% }
+}
 
 
 
