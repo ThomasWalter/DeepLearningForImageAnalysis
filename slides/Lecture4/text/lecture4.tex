@@ -397,18 +397,113 @@ Transfer learning brings a solution to these problems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transfer learning definition}
+\begin{frame}{Definitions \cite{pan_survey_2010}}
+
+\begin{block}{Domain and task}
+
+\begin{itemize}
+\item A domain $D$ is a probability space ($X$, $P$), where $X$ is finite.
+
+\item Given a domain $D = (X, P)$, a task $T$ consists
+of two components: a label space $\mathcal{Y}$ and a
+function $f: X \rightarrow \mathcal{Y}$, that is only known on a training set
+$\{(x_i, y_i), 1 \leq i \leq n, x_i \in X,  y_i \in Y\}$.
+
+\end{itemize}
+
+\end{block}
+
+\pause
+
+\begin{block}{Transfer learning}
+
+  Let us consider
+
+  \begin{itemize}
+  \item a \emph{source} domain $D_S$ and a task $T_S$ on that domain, and
+  \item a \emph{target} domain $D_T$ and a task $T_T$ on that domain.
+  \end{itemize}
+
+Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_S \neq T_T$,  consists in using the knowledge in $(D_S, T_s)$ to improve the learning of task $T_T$.
+
+\end{block}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Types of transfer learning: inductive}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{tl_0}\\
+  Initial configuration\\
+  \vspace{2em}
+  \includegraphics[width=0.6\textwidth]{tl_inductive}\\
+  Inductive transfer learning
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Types of transfer learning: transductive}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{tl_0}\\
+  Initial configuration\\
+  \vspace{2em}
+  \includegraphics[width=0.6\textwidth]{tl_transductive}\\
+  Transductive transfer learning
+\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Types of transfer learning: transductive homogeneous}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{tl_0}\\
+  Initial configuration\\
+  \vspace{2em}
+  \includegraphics[width=0.6\textwidth]{tl_transductive_homo}\\
+  Transductive homogeneous transfer learning
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Types of transfer learning: transductive heterogeneous}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{tl_0}\\
+  Initial configuration\\
+  \vspace{2em}
+  \includegraphics[width=0.6\textwidth]{tl_transductive_hete}\\
+  Transductive heterogeneous transfer learning
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transfer learning through fine-tuning}
 
 \begin{block}{}
-  Suppose that thanks to a training set $(X_0, \mathcal{Y_0})$ a model $f_{\theta_0}$ has been learnt.
+  Suppose that thanks to a training set $(X_0, \mathcal{Y}_0)$ a model $f_{\theta_0}$ has been learnt.
 
-  Transfer learning consists in learning another model $f_{\theta}$ from a training set $(X, \mathcal{Y})$ using as starting point $f_{\theta_0}$.
+  Transfer learning through fine-tuning consists in learning another model $f_{\theta}$ from a training set $(X, \mathcal{Y})$ using as starting point $f_{\theta_0}$.
 
   For transfer learning to work, both training sets have to be somehow related and compatible.
 \end{block}
 
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{General procedure}
@@ -416,11 +511,10 @@ Transfer learning brings a solution to these problems.
   \begin{itemize}
   \item Choose and existing model, optimized on a data base such as ImageNet. It should be able to process the new data
   \item Remove the last layers of the model and replace them with layers adapted to the task at hand
-  \item Optimize the resulting model
+  \item Fine-tune the resulting model
   \end{itemize}
 
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{A reference paper \cite{yosinski_how_2014}}
@@ -429,7 +523,7 @@ Transfer learning brings a solution to these problems.
   Jason Yosinski, Jeff Clune, Yoshua Bengio, Hod Lipson. \textbf{How transferable are features in deep neural networks?} Neural Information Processing Systems, 2014.
 \end{block}
 
-The authors devised experiments on the ImageNet database in order to evaluate different transfer learning strategies and improve our of understanding of these methods.
+The authors devised experiments on the ImageNet database in order to evaluate different fine-tuning strategies and improve our of understanding of these methods.
 
 \end{frame}
 
