@@ -32,7 +32,7 @@
 \end{textblock*}}
 
 
-\title{Practical recommendations}
+\title{Deep learning in practice}
 \author{E. Decencière}
 \date{MINES ParisTech\\
   PSL Research University\\
@@ -92,8 +92,8 @@
 
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data
-  \item Build your data set
   \item Cast the task at hand into a machine learning problem
+  \item Build your data set
   \item Build an architecture and train it (begin with simple ones!) or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
@@ -149,10 +149,10 @@
     \begin{block}{Problem definition}
     Quality criterion defined by the end-user: are the macula and peripheral vessels visible?
     \end{block}
-    \begin{itemize}[<+->]
+    \pause
+    \begin{itemize}
     \item First solution: classification (is the macula visible?)
-    \item Second solution: regression (macula position)
-    \item Third solution: macula segmentation
+    \item Second solution: macula segmentation
       \end{itemize}
   \end{column}
 \end{columns}
@@ -166,7 +166,7 @@
 
     \begin{figure}
       \includegraphics[width=\textwidth]{lazard}
-      \source{Tristan Lazard, master thesis}
+      \source{Tristan Lazard, master thesis. In collaboration with L'Oréal.}
     \end{figure}
 
 }
@@ -255,6 +255,8 @@
   \begin {itemize}
   \item Geometrical transformations: similarities
   \item Elastic transformations
+  \item Noise
+  \item Grey level or colour modifications
   \item Specific methods: articulated objects, \ldots
   \end{itemize}
 }
@@ -294,7 +296,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
   \item Using simulated data is convenient...
   \item ... but it has to be as similar as possible to the real data
   \item A transfer learning method with real data will probably be necessary
-  \item Your test data, of course, should be real
+  \item Your test data should be real
   \end{itemize}
 
 \end{frame}
@@ -343,11 +345,13 @@ Plankton classification: hundred classes - a few dozen examples per class.
 \begin{frame}{Hyperparameters tuning}
 
   \begin{itemize}
-  \item Manual tuning: works well if the number of parameter is small and the experience of the developer/researcher high
+  \item Manual tuning: might work if the number of parameter is small and the experience of the developer/researcher high
   \item Automatic tuning:
     \begin{itemize}
     \item Grid search
     \item Random search
+    \item Population based approaches
+    \item Etc.
     \end{itemize}
   \end{itemize}
 
@@ -361,7 +365,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
   DL became feasible in practice thanks to the use of Graphical Processing Units (GPU). Beyond theoretical research on the subject, to work with DL you need specific hardware:
   \begin{itemize}
   \item CPUs: with many of them, and using libraries that allow parallelization, this could be a solution - in practice, it is seldom done.
-  \item GPUs: this is the most common solution adopted for deep learning. In practice, you need many of them. Note that you can either buy them or rent them online.
+  \item GPUs: this is the most common solution adopted for deep learning.
   \item TPU: Tensor Processing Units are integrated circuits specifically developed by Google for deep learning.
   \end{itemize}
 
@@ -373,7 +377,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
   \begin{alertblock}{}
     \begin{itemize}
     \item   DL research and development is extremely computationally time-consuming.
-    \item   However, a simple CPU is enough in most cases for running a given, already optimized, model.
+    \item   However, running predictions with an already optimized model is much faster
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -512,6 +516,10 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
   \item Choose and existing model, optimized on a data base such as ImageNet. It should be able to process the new data
   \item Remove the last layers of the model and replace them with layers adapted to the task at hand
   \item Fine-tune the resulting model
+
+    \begin{itemize}
+    \item Note that some pre-trained layers are often \emph{frozen}
+    \end{itemize}
   \end{itemize}
 
 \end{frame}
@@ -611,7 +619,7 @@ The authors devised experiments on the ImageNet database in order to evaluate di
   \item Specificity of high level features
   \item Co-adaptation of neurons on neighboring layers
   \end{itemize}
-\item Transfer learning is less efficient when the sets are more dissimilar
+\item Transfer learning is less efficient when the sets are more dissimilar (at least when the pre-trained weights are frozen)
 \item Generalization performance can be boosted by transfer learning
 \end{itemize}
 
@@ -748,6 +756,31 @@ Computing time (5000 galaxies):
 \end{figure}
 
 2 GALFIT: comparison between two sets of measures obtained with GALFIT, the first as given in the van der Wel et al. (2012) catalog, and the second obtained by Dimauro et al. (2017).
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion}
+
+  \begin{block}{}
+    \begin{itemize}
+    \item You now know the basics to tackle many computer vision problems with deep learning.
+    \item But there are many other topics of interest:
+      \begin{itemize}
+      \item Non supervised methods, including autoencoders and generative adversarial networks (next lectures)
+      \item Self-supervision, low supervision
+      \item Recurrent networks
+      \item Anomaly detection
+      \item Attention mechanisms
+      \item etc.
+      \end{itemize}
+    \end{itemize}
+  \end{block}
 
 \end{frame}
 
