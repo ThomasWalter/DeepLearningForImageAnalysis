@@ -50,10 +50,19 @@
   \titlepage
 \end{frame}
 
-%% \frame{
-%%   \frametitle{Contents}
-%%   \tableofcontents[hidesubsections]
-%% }
+
+%% QuizZoodle:
+%% * lien d'édition:
+%% http://www.quizzoodle.com/quizz/editor/3094208fcf224de4bdcf4e0d22c2f20f
+%% mot de passe: no password
+
+%% * lien de session:
+%% http://www.quizzoodle.com/session/6266c678a7964535812b5990e26f9b99
+%% mot de passe: no password
+
+%% * lien pour suppression:
+%% http://www.quizzoodle.com/quizz/delete/427672d20f2045d2972f305d67b49eb4
+%% mot de passe: no password
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,10 +103,18 @@
   The human brain contains:
 
   \begin{itemize}
-  \item $10^7$
-  \item $10^9$
-  \item $10^{11}$
+  \item[A/] $10^8$
+  \item[B/] $10^9$
+  \item[C/] $10^{10}$
+  \item[D/] $10^{11}$
   \end{itemize}
+
+  %% \begin{itemize}
+  %% \item[A/]
+  %% \item[B/]
+  %% \item[C/]
+  %% \item[D/]
+  %% \end{itemize}
 
   neurons
 }
@@ -323,14 +340,28 @@
     \end{itemize}
   \end{block}
 
-  \pause
+  %% \pause
 
-  \begin{alertblock}{}
-    ReLU is the most commonly used activation function.
-  \end{alertblock}
-
+  %% \begin{alertblock}{}
+  %%   ReLU is the most commonly used activation function.
+  %% \end{alertblock}
 
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Quizz}
+
+  The most commonly used activation function in feed-forward networks is:
+    \begin{itemize}
+  \item[A/] binary
+  \item[B/] sigmoid
+  \item[C/] tanh
+  \item[D/] relu
+  \end{itemize}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Artificial neuron as a classifier}
@@ -730,14 +761,6 @@
 
   \begin{itemize}
   \item How many parameters does the above network contain?
-    %% \item<2-> First hidden layer:\\
-    %%   %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
-    %%   \begin{itemize}
-    %%   \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
-    %%   \end{itemize}
-    %% \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
-    %% \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
-    %% \item<8-> Total: $301$ parameters
   \end{itemize}
 
 }
@@ -754,29 +777,38 @@
   \item How many parameters does the above network contain?
   \end{itemize}
 
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-      First layer:
-      \begin{itemize}
-        \item 64
-        \item 72
-        \item 81
-        \item 90
-     \end{itemize}
-    \end{column}
 
-\pause
+  \begin{itemize}
+  \item[A/] 270
+  \item[B/] 274
+  \item[C/] 301
+  \item[D/] 39
+  \end{itemize}
 
-    \begin{column}{.5\textwidth}
-      Second and third layers:
-      \begin{itemize}
-        \item 64
-        \item 72
-        \item 81
-        \item 90
-      \end{itemize}
-    \end{column}
-  \end{columns}
+
+%%   \begin{columns}
+%%     \begin{column}{.5\textwidth}
+%%       First layer:
+%%       \begin{itemize}
+%%         \item 64
+%%         \item 72
+%%         \item 81
+%%         \item 90
+%%      \end{itemize}
+%%     \end{column}
+
+%% \pause
+
+%%     \begin{column}{.5\textwidth}
+%%       Second and third layers:
+%%       \begin{itemize}
+%%         \item 64
+%%         \item 72
+%%         \item 81
+%%         \item 90
+%%       \end{itemize}
+%%     \end{column}
+%%   \end{columns}
 
 }
 
@@ -1052,16 +1084,16 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Gradient descent can save your life...}
+%% \begin{frame}<beamer>{Gradient descent can save your life...}
 
-  \pause
+%%   \pause
 
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[height=0.6\textheight]{koepcke.jpg}
-  \end{figure}
+%%   \begin{figure}[ht]
+%%     \centering
+%%     \includegraphics[height=0.6\textheight]{koepcke.jpg}
+%%   \end{figure}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1080,7 +1112,6 @@ $$
   \end{columns}
 
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent}
@@ -1275,31 +1306,42 @@ $$
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
 
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-      Gradient local du haut:
-      \begin{itemize}
-      \item $1.5$
-      \item $-0.5$
-        \item autre valeur
-      \end{itemize}
-    \end{column}
 
-    \begin{column}{.5\textwidth}
-      Gradient local du bas:
-      \begin{itemize}
-      \item $1.5$
-      \item $-0.5$
-        \item autre valeur
-      \end{itemize}
+  $\frac{\partial l}{\partial x}$ is equal to:
 
-    \end{column}
-  \end{columns}
+    \begin{itemize}
+  \item[A/] $0.75$
+  \item[B/] $-2.25$
+  \item[C/] $-1.5$
+  \item[D/] $0$
+  \end{itemize}
+
+
+  %% \begin{columns}
+  %%   \begin{column}{.5\textwidth}
+  %%     Top local gradient:
+  %%     \begin{itemize}
+  %%     \item $1.5$
+  %%     \item $-0.5$
+  %%       \item autre valeur
+  %%     \end{itemize}
+  %%   \end{column}
+
+  %%   \begin{column}{.5\textwidth}
+  %%     Bottom local gradient:
+  %%     \begin{itemize}
+  %%     \item $1.5$
+  %%     \item $-0.5$
+  %%       \item autre valeur
+  %%     \end{itemize}
+
+  %%   \end{column}
+  %% \end{columns}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
+\begin{frame}<hangout>{Exercise}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
 
@@ -1347,7 +1389,11 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exercise}
 
-  \includegraphics[width=\textwidth]{bp_split.png}
+  \includegraphics[width=0.8\textwidth]{bp_split.png}
+
+  \begin{block}{Quizz}
+    What's the value of  $\frac{\partial l}{\partial x}$ ?
+  \end{block}
 
 \end{frame}
 
@@ -1770,7 +1816,7 @@ $$
   %\bibliographystyle{amsalpha}
   %\bibliographystyle{apalike}
 
-  \bibliography{edf.bib}
+  \bibliography{../../edf.bib}
 
   \normalsize
 
