@@ -1,0 +1,515 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
+\input{../../setting.tex}
+
+
+\title{Deep Learning for Image Analysis - \\
+	   Lecture 1: Introduction to Machine Learning}
+\author{Thomas Walter, PhD}
+\date{Centre for Computational Biology (CBIO) \\
+	  MINES Paris-Tech, PSL Research University \\
+	  Institut Curie, PSL Research University \\
+	  INSERM U900}
+
+
+%To include LOGO?
+%\logo{\includegraphics[width=.1\columnwidth]{MinesLogo}}
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{xcolor}
+\definecolor{lightblue}{RGB}{0,200,255}
+
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Machine Learning: Basic definitions}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{Machine Learning: Basic definitions}
+\begin{itemize}
+    \item \textbf{Machine Learning} is concerned with the technology that enables computer programs to improve their performance at a certain task by experience.
+	\item In particular, we want to infer (learn) some function $f$ from data, capable of predicting the output $y$ from an input (measurement) $x$:
+	\begin{equation*}
+	y = f(x)
+	\end{equation*}
+      	\item In \textbf{supervised learning}, the training data contains both measurements $x_i$ and the corresponding output variables $y_i$. Together, they build the training set $T$:
+	\begin{equation*}
+	T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}
+	\end{equation*}
+	\item In \textbf{unsupervised learning}, there are no annotations $y_i$. We aim at inferring \textbf{patterns} from the data (clusters, latent variables).    
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Different types of learning}
+	 \begin{figure}[htb]
+   		\centering
+   		\subfloat{\includegraphics[height=0.3\textheight]{../graphics/Figure_supervised.pdf}} \hspace{1cm}
+   		\subfloat{\includegraphics[height=0.3\textheight]{../graphics/Figure_unsupervised.pdf}}
+   		\caption{Supervised and unsupervised learning}
+	 \end{figure}
+	Depending on the type of the output variable and on whether we are in a supervised or unsupervised setting, we have different names for machine learning problems: 
+	\begin{table}
+	\begin{tabular}{|l || c | c | }
+		\hline
+ 		& Supervised & Unsupervised \\
+		\hline \hline
+		$y$ discrete & Classification & Clustering \\
+		$y$ continuous & Regression & Dimensionality reduction\\
+		\hline
+	\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Objects and features}
+\begin{itemize}
+\item Machine learning typically deals with objects outside the mathematical world (emails, images, genomes, cars, $\ldots$).
+\item The first step is therefore to find a suitable representation of the objects.
+\begin{itemize}
+\item \textbf{feature engineering}: finding descriptors according to existing domain knowledge
+\item \textbf{representation learning}: learning the descriptors together with the classifier
+\end{itemize}
+\item In many cases the objects can be represented by a $\nfeatures$-dimensional vector of features (or descriptors): $\x \in \mathbb{R}^{\nfeatures}$.
+\item It can be convenient to map a feature vector to a higher dimensional space:
+\begin{eqnarray}
+\featmap : \mathbb{R}^{\nfeatures} &\rightarrow & \mathbb{R}^Q \\
+\x &\rightarrow &\featmap (\x)
+\end{eqnarray}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: classification of SPAM emails}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/SPAM_mail.png}
+\end{figure}
+\begin{itemize}
+	\item This is a binary classification problem: $y \in \{0,1\}$ (0: junk, 1: normal).
+	\item The features can be constructed in the following way: for each email annotated by the user, the words are listed. An email is described as a vector of frequencies of these words.
+	\item The system learns then a function that assigns to each vector of measured word frequencies the label $y$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example: classification of drugs}
+\begin{figure}[htb]
+\includegraphics[width=0.7\textwidth]{../graphics/ml_example_drugs.pdf}
+\end{figure}
+\begin{itemize}
+	\item Here, we want to classify molecules with respect to their efficiency against a disease (binary classification: a drug is efficient or not).
+	\item An important question here is how to encode a molecule. One option is to define chemoinformatic features and obtain a vectorial representation of the molecule $\x \in \mathbb{R}^{\nfeatures}$.
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Legal and ethical aspects}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+\begin{frame}{An example from  medical diagnostics: radiology}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/radiology.pdf}
+\end{figure}
+
+\begin{itemize}
+\item<1-> Problem presented in an international challenge (won by Terapixel). 
+\item<2-> A Neural Networks trained on 640.000 images obtained an accuracy of 80\%. \
+\item<3-> Ownership: who owns the trained network? 
+\item<4-> Legal problem: who is responsible in case of a wrong diagnosis? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Skin cancer detection: false and real problems.}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/dermatology.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> A Neural Network trained on 127 000 images was shown to outperform 21 dermatologists (72\% accuracy vs. 66\%) \cite{Esteva2017} 
+\item<2-> Do we still need medical doctors for diagnosis? 
+\item<3-> Do the algorithms work equally well for different ethnic groups? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What else can we predict?}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/retinopathy.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> A NN trained on 128.000 images reaches 87\% sensitivity and 91 \% specificity and became the first FDA approved autonomous IA medical device \cite{Abramoff2018}
+\item<2-> From eye images, we can also predict age, BMI, cardiovascular risks and smoking habits \cite{Poplin2018}
+\item<3-> What do we allow to predict? Who is using this information?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Watson: should we stop thinking on our own?}
+\begin{figure}[htb]
+\includegraphics[width=0.5\textwidth]{../graphics/watson.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> Watson (developed by IBM) outperformed humans in the game Jeopardy. 
+\item<2-> The system is used for clinical decision support (with usually good results).  
+\item<3-> Medical personnel usually follow the advice. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{AI for criminal risk assessment}
+\begin{figure}[htb]
+\includegraphics[width=0.5\textwidth]{../graphics/jail.jpg}
+\end{figure}
+\begin{itemize}
+\item<1-> Predict the likelihood of recidivism from the prisoners profile.
+\item<2-> Overall, the algorithms tend to outperform humans \cite{Lin2020}. 
+\item<3-> However, they might learn "racist" associations due to the statistical composition of the training set. 
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Design Principles of Machine Learning algorithms}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{A simple example: polynomial curve fitting\footnote{Example adapted from \cite{Bishop2006}}}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/sample_from_sin.png}
+\end{figure}
+\begin{itemize}
+	\item From a set of measured points $(x_i, y_i)$ (red), we would like to build a model to predict the value $y$ for any given $x$.
+	\item The true function is $g(x)=\sin (x)$ (displayed in blue).
+	\item The measurements $y_i$ are noisy outputs of that function, i.e.
+	\begin{equation}
+	y_i = \sin (x_i) + \epsilon \; , \;\;\; \;\;\; \epsilon \sim \mathcal{N}(0,0.2)
+	\end{equation}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A simple example: polynomial curve fitting}
+\begin{itemize}
+	\item We use the following polynomial model:
+	\begin{eqnarray}
+	f(x) &=& a_0 + a_1 x + a_2 x^2 + \ldots + a_m x^m \nonumber \\
+	&=& \param^T \featmap (x)
+	\end{eqnarray}
+	\item Parameter vector: $\param = (a_0, a_1, \ldots, a_m)^T$
+	\item Here, the initial measurement $x$ is a scalar. In our model, we map $x$ to a higher dimensional space:
+	\begin{eqnarray}
+		\featmap : \mathbb{R}^{\nfeatures} &\rightarrow & \mathbb{R}^Q \nonumber \\
+		x &\rightarrow & \featmap (x) = (1, x, x^2, \ldots, x^m)^T
+	\end{eqnarray}
+	\item The model is linear in the parameters $\theta$ and linear in $\featmap$, but for $m>1$, the model is not linear in $x$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A simple example: polynomial curve fitting}
+\begin{itemize}
+	\item One classical approach is to minimize the least squared error between measured and predicted values:
+	\begin{eqnarray}
+		\min_{\param} \loss(\param) &=& \min_{\param} \sum_{i=1}^N (y_i - f(x_i))^2 \nonumber \\
+		&=& \min_{\param} \sum_{i=1}^N (y_i - \param^T \featmap (x_i))^2
+	\end{eqnarray}
+	\item This can be achieved by setting the gradient with respect to $\param$ to zero:
+	\begin{equation}
+		\nabla_{\param} \loss = (\frac{\partial \loss}{\partial a_0}, \frac{\partial \loss}{\partial a_1}, \ldots, \frac{\partial \loss}{\partial a_m} )^T = 0
+	\end{equation}
+	\item Unlike for most optimization problems in this course, this leads to an analytical solution for $\param$. This is known as \textbf{linear regression}. For more details, we refer to \cite{Hastie2009}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
+\begin{figure}[htb]
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_1.png}
+\end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 0.67$
+\end{column}
+\end{columns}
+For $m=1$, the model is linear in its inputs. The solution is not capable of modeling the measured data points; we get a poor approximation of the original function. The family of functions we have used was not complex enough to model the true data distribution. We also speak of \textbf{underfitting}.
+%\begin{textblock}{0}(.9\textwidth,\paperheight)
+%  Test
+% \end{textblock}
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
+\begin{figure}[htb]
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_3.png}
+\end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 1.72$
+\end{column}
+\end{columns}
+For $m=3$, we obtain a solution that seems to be quite right: it is sufficiently complex to model the true data distribution, but not too complex to model the small variations which are due to noise.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
+\begin{figure}[htb]
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_11.png}
+\end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 \approx 10^7$
+\end{column}
+\end{columns}
+For $m=11$, we obtain a solution that has zero error (the function passes through every point of the training set). But the coefficients with large absolute values that cancel each other precisely on the training points lead to a highly unstable function. We speak of \textbf{overfitting} and \textbf{poor generalization}.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
+\begin{figure}[htb]
+	\includegraphics[width=0.75\textwidth]{../graphics/polyfit_degree_11_N60.png}
+\end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 5647$
+\end{column}
+\end{columns}
+One way of reducing overfitting is to increase the number of samples. Even if the function is complex, it cannot be “too wild”, as it has to find a compromise between many training samples. This however implies the annotation (or measurement) of more samples.
+\end{frame}
+
+\begin{frame}{Overfitting and underfitting}
+\begin{columns}
+\begin{column}{.8\textwidth}
+\begin{figure}[htb]
+	\includegraphics[width=0.75\textwidth]{../graphics/ridge_regression_11_10.png}
+\end{figure}
+\end{column}
+\begin{column}{.2\textwidth}
+$\| \param \|^2 = 0.41$
+\end{column}
+\end{columns}
+Another way of preventing overfitting without increasing the number of samples, is to add a penalization term in the optimization procedure. This is also known as \textbf{regularization}:
+\begin{equation}
+	\loss = \sum_{i=1}^N (y_i - \param^T \featmap (x_i))^2 + \lambda \| \param \|^2
+\end{equation}
+\end{frame}
+
+\begin{frame}{Generalization: training and test error}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
+\end{figure}
+\begin{itemize}
+\item Supervised Learning aims at finding a function $f$ that predicts an output value $y$ from a measurement $x$ for unseen data, i.e. for data that has not been used to find $f$.
+\item Machine Learning is much concerned with avoiding $f$ to \textbf{memorize} the training set, i.e. to perform well on a training set but poorly a test set.
+\item An important paradigm is that we must never evaluate the performance of our machine learning method on the data that has been used to train it.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generalization: strategies}
+\begin{itemize}
+\item Many ML algorithms can be written as an optimization problem:
+\begin{equation*}
+\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
+\end{equation*}
+Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the annotations in the training set, minimizing the regularization term $\mathcal{R}(\param)$ aims at avoiding the model to adapt too much to the training data, leading to simpler models. We have seen the $L_2$ norm, but there are many other options for $\mathcal{R}$.
+\item Other regularization strategies include:
+\begin{itemize}
+\item Model averaging (ensemble methods)
+\item Artificial or actual increase of training data
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Model evaluation and hyperparameters}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+
+\begin{frame}{Model evaluation}
+	\begin{figure}[htb]
+		\includegraphics[width=0.9\textwidth]{../graphics/ModelEvaluation.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item First, we need suitable metrics to evaluate a model's performance.
+		\item The following metrics are used often:
+		\begin{eqnarray*}
+		\text{recall} &=& \frac{TP}{TP + FN} \\
+		\text{precision} &=& \frac{TP}{TP + FP} \\
+		\text{accuracy} &=& \frac{TP + TN}{TP + TN + FP + FN} \\
+		%F1 = &=& 2 \cdot \frac{\text{recall}\cdot\text{precision}}{\text{recall} + \text{precision}}
+		\end{eqnarray*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance Assessment for a trained classifier}
+	\begin{itemize}
+		\item<1-> First idea: we train a classifier on the training set $T$ and calculate the accuracy on the same training set $T$ (empirical risk, training error). 
+		\item<2-> Problem: Training error is a poor approximation of the test error: a classifier might have good performance on the training set, but poor performance on the test set.
+		\begin{figure}[htb]
+			\includegraphics[width=0.6\textwidth]{../graphics/Training_and_test_error.png}
+		\end{figure}
+		\item<3-> We need to estimate the test error (error on unseen samples)!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance Assessment for a trained classifier}
+	\begin{itemize}
+		\item<1-> Second idea: to split the training set in two subsets $T_1$, $T_2$. We train on $T_1$, we test on $T_2$.
+		\item<2-> Problem: annotated data is often expensive, and we would like to have the largest possible sets for training and testing.
+		\item<3-> Third idea: Cross Validation. We split the data into $K$ folds. We train on $K-1$ folds, and we test on the remaining fold. We iterate until each fold has been used once for testing.
+		\begin{figure}[htb]
+			\includegraphics[width=0.65\textwidth]{../graphics/CV1.pdf}
+		\end{figure}
+		\item<4-> This provides us with an estimation of the accuracy for unseen data (test error).
+%		\item<5-> Hyperparameter selection: we can now choose the hyperparameter with the best accuracy.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How to set hyperparameters ... }
+	\begin{itemize}
+		\item Training a classifier: finding automatically a large number of feature weights or other parameters from annotated data (in our example: coefficients of the polynomial).
+		\item Hyperparameters: a small number of parameters that are set to control the training process, such as the regularization parameter $\lambda$.
+		\item The question is: how can we find good hyperparameters?
+		\item Strategy: grid search. We choose the set of hyperparameters that perform best (i.e. that lead to the classifier with the best performance).
+	\end{itemize}
+\end{frame}
+
+% \begin{frame}{How to set hyperparameters: grid search}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.8\textwidth]{../graphics/CV2.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item If there are several parameters, we can perform this for every combination of values (grid search).
+% 		\item Alternatively, we can use random hyperparameter values.
+% 		\item Problem: time-consuming.
+% 		\item Ad hoc strategies to reduce the computation time: coarse-to-fine strategy.
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Performance evaluation with optimized hyperparameters}
+	\begin{itemize}
+		\item<1-> If we optimize the hyperparameters in this way, the final performance might be over-optimistic (we have chosen the hyperparameters that give best performance for the test set, i.e. we have used the test set to set the parameters).
+		\item<2-> Solution: We split the training set in 3: 
+		\begin{itemize}
+			\item {\bf Training set}: used to obtain the classifier for a given set of hyperparameters.
+			\item {\bf Validation set}: used to find good hyperparameters.
+			\item {\bf Test set}: used to evaluate performance.
+		\end{itemize}		
+		\begin{figure}[htb]
+			\includegraphics[width=0.9\textwidth]{../graphics/CV3_single.pdf}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance evaluation in deep learning}
+	\begin{itemize}
+		\item<1-> If we want to use make of the entire training set, we will perform nested cross validation:
+ 		\begin{figure}[htb]
+ 			\includegraphics[width=0.8\textwidth]{../graphics/CV3.pdf}
+ 		\end{figure}
+		\item<2-> Nested cross validation is extremely time consuming.
+		\item<3-> In the context of deep learning with long training times, nested cross validation is rarely used.
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Supervised Learning: Example algorithms}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{Linear Discriminant Analysis (LDA)}
+\begin{figure}[htb]
+\includegraphics[width=0.65\textwidth]{../graphics/LDA3.pdf}
+\end{figure}
+\begin{itemize}
+\item We estimate the class dependent feature densities $p(x|y=k)$.
+\item We then find the class that maximises the posterior probability: 
+\begin{equation*}
+\hat{y}(x) = \arg\max_k P(y=k \, | \, x) = \arg\max_k p(x\,|\,y=k)P(y=k)
+\end{equation*}
+\item If we assume normal distributions, we can infer a linear decision rule. 
+\end{itemize}\end{frame}
+
+\begin{frame}{Support Vector Machines}
+	\begin{figure}[htb]
+		\includegraphics[width=0.45\textwidth]{../graphics/SVM_nonsep.pdf}
+	\end{figure}
+	\begin{itemize}
+		\item Instead of simply placing a single line, we can also place a “ribbon”, i.e. two parallel lines separated by a distance $d$, which we try to maximize.
+		\item Support Vector Machines can be written as a convex optimization problem under constraints: 		
+		\begin{equation*}
+			\min_{w,\xi} \|w\|^2 + C \sum_{i=1}^{N}\xi_i
+		\end{equation*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Forest: Decision trees}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/RF2.pdf}
+\end{figure}
+\begin{itemize}	
+	\item Decision trees correspond to a series of binary decisions that partition the feature space.
+	\item Classification of a new object: application of the binary decision rules and assignment of the leaf label.
+	\item The decision boundaries can be very complex and adapt very tightly to the training set.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Random Forests}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/Forest.pdf}
+\end{figure}
+\begin{itemize}
+	\item While decision trees can approximate very complicated decision boundaries, they tend to fit too much to the training data (overfitting).
+	\item Random forests: set of decision trees, each learned on a different (randomly drawn) portion of the data and with different (randomly selected) features.
+	\item Each tree gives a classification result.
+	\item The final result is obtained by a majority vote.
+\end{itemize}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Supervised Machine Learning is concerned with inferring a function $f$ from a set of annotated data, allowing to predict some output variable $y$ from inputs $x$.
+		\item Different views:
+			\begin{itemize}
+				\item Probabilistic view: we maximize the posterior probability.
+				\item Discriminant view: we optimize the separation of classes.
+			\end{itemize}
+		\item Compromise: we want to minimize the error and regularize $f$.
+		\item Forms of regularization we have seen so far:
+			\begin{itemize}
+				\item Regularization by model averaging (e.g. RF)
+				\item Minimizing a global loss function containing an error and a regularization term:
+				\begin{equation*}
+					\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
+				\end{equation*}
+			\end{itemize}
+		\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliography{slides_deep.bib}
+\end{frame}
+
+
+\end{document}
