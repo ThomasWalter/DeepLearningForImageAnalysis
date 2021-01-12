@@ -49,29 +49,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-
 \begin{frame}
   \titlepage
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Correction TP 1}
+%% \begin{frame}{Correction TP 1}
 
-  \begin{itemize}
-  \item Utilisation de Google Drive
-  \item Optimiser le réseau pour les bases Moons et Circles
-    \begin{itemize}
-    \item Meilleures valeurs de $q$ et $lr$ ?
-    \end{itemize}
-  \item Codage de l'entropie croisée et de sa dérivée. \alert{Attention à la dernière activation!}
-  \item Comparaison:
-    \begin{itemize}
-    \item Besoin d'une base de \alert{test}.
-    \item Quantification.
-    \end{itemize}
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item Utilisation de Google Drive
+%%   \item Optimiser le réseau pour les bases Moons et Circles
+%%     \begin{itemize}
+%%     \item Meilleures valeurs de $q$ et $lr$ ?
+%%     \end{itemize}
+%%   \item Codage de l'entropie croisée et de sa dérivée. \alert{Attention à la dernière activation!}
+%%   \item Comparaison:
+%%     \begin{itemize}
+%%     \item Besoin d'une base de \alert{test}.
+%%     \item Quantification.
+%%     \end{itemize}
+%%   \end{itemize}
 
-\end{frame}
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -106,6 +105,41 @@
       \end{figure}
 
     \end{column}
+  \end{columns}
+
+\pause
+
+\begin{block}{Examples}
+  \begin{itemize}
+  \item Grey level 2D images: infrared, microscopy, topography
+  \item Colour images: camera photos
+  \item Grey level 3D images: computed tomography scan
+  \item Colour image sequences: video, motion pictures
+  \item $d > 3$: multi-spectral imaging
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What is special about images?}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[height=8cm]{bureau-1}
+      \end{figure}
+
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item Local structure
+      \item Spatial redundancy
+      \item Scale redundancy \cite{glasner_super-resolution_2009}
+      \end{itemize}
+    \end{column}
+
   \end{columns}
 
 \end{frame}
@@ -171,14 +205,10 @@
   \item etc.
   \end{itemize}
 
-
 \end{frame}
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Image processing approach}
+\begin{frame}{Classical image processing approach}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -1548,8 +1578,6 @@
 
 
 }
-
-
 
 
 
