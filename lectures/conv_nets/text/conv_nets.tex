@@ -503,7 +503,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
+\frame<beamer>{
   \frametitle{Input image, input neurons}
 
   In the scalar case (single-valued images), each input pixel is considered as an input neuron.
@@ -523,6 +523,41 @@
       \begin{center}
         \includegraphics<2>[width=0.9\textwidth]{cnn_neurones.png}
         \includegraphics<3->[width=0.9\textwidth]{imagette_neurones.png}
+
+      \end{center}
+    \end{column}
+
+  \end{columns}
+
+  \pause
+
+  \begin{alertblock}<4->{Image preprocessing}
+    Often, the input image is modified to make the optimization of the model easier.
+  \end{alertblock}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame<handout>{
+  \frametitle{Input image, input neurons}
+
+  In the scalar case (single-valued images), each input pixel is considered as an input neuron.
+
+  \vspace{10pt}
+
+  \begin{columns}
+
+    \begin{column}<1->{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=0.9\textwidth]{imagette.png}
+      \end{center}
+    \end{column}
+
+    \begin{column}<2->{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=0.9\textwidth]{imagette_neurones.png}
 
       \end{center}
     \end{column}
@@ -651,14 +686,18 @@
         \[
         H(\y, \hat{\y}) = - \sum_{i=1}^d \y_i \log(\hat{\y}_i)
         \]
+
+        \small
+        Reminder -- hat notation: $\hat{\y}$ is used for a prediction that is supposed to be close to $\y$.
   \end{block}
 
   \pause
 
+  Remarks:
 \begin{itemize}
-\item   Note that here $\y$ is a one-hot vector: $\y_i = 1$ for $i=i_0$ and $\y_i=0$ otherwise. Therefore the cross-entropy will ``push'' $\hat{\y_{i_0}}$ towards $1$. For the other elements of $\hat{\y}$ to be pushed towards $0$, $\hat{\y}$ is typically computed by a softmax.
+\item   Here $\y$ is a one-hot vector: $\y_i = 1$ for $i=r$ and $\y_i=0$ otherwise. Therefore the cross-entropy will ``push'' $\hat{\y}_r$ towards $1$. Why will the other elements of $\hat{\y}$ be pushed towards $0$?  \pause \mode<beamer>{Because $\hat{\y}$ is typically computed by a softmax.}
   \pause
-\item   Note that the binary cross-entropy we previously saw is a particular case of cross-entropy.
+\item   The binary cross-entropy we previously saw is a particular case of cross-entropy.
 
 \end{itemize}
 
@@ -689,7 +728,7 @@
 
   \begin{itemize}
   \item Transforms an array into a vector
-  \item Loss of spatial information
+  \item Loss of local structure
   \item This is typically done to transition between a convolutional layer and a fully-connected one.
   \end{itemize}
 
@@ -706,7 +745,7 @@
   \begin{itemize}[<+->]
   \item A small image contains at least $100\,000$ pixels
   \item The number of parameters between two layers of that size is $10^5 \times (10^5 + 1)$!
-  \item This approach is not feasible...
+  \item This approach is only possible for very small images
   \item Moreover, this approach does not take into account the local structure of images.
   \end{itemize}
 
@@ -810,9 +849,27 @@
 
   \end{columns}
 
-  %% \begin{block}<4->{}
-  %%   A convolutional layer computes a convolution, plus a constant, of the precedent layer.
-  %% \end{block}
+  \pause
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+  Here, $s$ corresponds to the size of the receptive field of a neuron. It is therefore equal to:
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+    \begin{itemize}
+  \item[A/] $3$
+  \item[B/] $4$
+  \item[C/] $9$
+  \item[D/] $10$
+  \end{itemize}
+
+    \end{column}
+  \end{columns}
+
+
+
 
 
 }
@@ -891,6 +948,7 @@
 \item Cons:
   \begin{itemize}
   \item Lack of flexibility
+  \item With deep networks, the field can become very small, or disappear
   \end{itemize}
 \end{itemize}
 
@@ -1231,7 +1289,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{1D representations}
+\begin{frame}{2D representations}
 
   \centering
   \includegraphics[width=\textwidth]{fovea_convnet2}
@@ -1254,7 +1312,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{2D representations}
+\begin{frame}{3D representations}
 
   \begin{center}
     \begin{figure}
