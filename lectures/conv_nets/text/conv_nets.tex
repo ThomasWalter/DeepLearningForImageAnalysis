@@ -34,6 +34,34 @@
     \end{beamercolorbox}
 \end{textblock*}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Quizz}
+
+%%   \begin{block}{Question}
+%%   \begin{itemize}
+%%   \item[A/]
+%%   \item[B/]
+%%   \item[C/]
+%%   \item[D/]
+%%   \end{itemize}
+
+%%   \end{block}
+
+%% \end{frame}
+
+
+%% édition
+%% (pas de mot de passe) / lien vers l'éditeur de quiz
+%% http://www.quizzoodle.com/quizz/editor/9191b836f17f443a997bcbe08755b2de
+
+%% session
+%% (pas de mot de passe) / lien vers le gestionnaire de sessions
+%% http://www.quizzoodle.com/session/1be8ffbacabd4a7d9109772cc24d4d8e
+
+%% supprimer
+%% mdp: delete / lien pour supprimer le quiz
+%% http://www.quizzoodle.com/quizz/delete/5c19c98d6bb54bbabfaf042caffca39e
+
 \title{Convolutional neural networks}
 \author{E. Decencière}
 \date{MINES ParisTech\\
@@ -107,17 +135,17 @@
     \end{column}
   \end{columns}
 
-\pause
+  \pause
 
-\begin{block}{Examples}
-  \begin{itemize}
-  \item Grey level 2D images: infrared, microscopy, topography
-  \item Colour images: camera photos
-  \item Grey level 3D images: computed tomography scan
-  \item Colour image sequences: video, motion pictures
-  \item $d > 3$: multi-spectral imaging
-  \end{itemize}
-\end{block}
+  \begin{block}{Examples}
+    \begin{itemize}
+    \item Grey level 2D images: infrared, microscopy, topography
+    \item Colour images: camera photos
+    \item Grey level 3D images: computed tomography scan
+    \item Colour image sequences: video, motion pictures
+    \item $d > 3$: multi-spectral imaging
+    \end{itemize}
+  \end{block}
 
 \end{frame}
 
@@ -437,9 +465,6 @@
     \end{column}
   \end{columns}
 
-
-
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -459,7 +484,7 @@
   \end{block}
 
   \begin{alertblock}<2->{}
-   Our first task: image classification!
+    Our first task: image classification!
   \end{alertblock}
 
 }
@@ -467,38 +492,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Application of fully connected NNs to image classification}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Reminder: Artificial neuron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Quizz}
 
-  \begin{figure}
-    \includegraphics[height=3cm]{neurone}
-  \end{figure}
+  \begin{block}{The first course session was:}
+    \begin{itemize}
+    \item[A/] An unnecessary repetition
+    \item[B/] A welcome reminder
+    \item[C/] Too fast / too dense
+    \end{itemize}
 
-  \begin{itemize}
+  \end{block}
 
-  \item $b, w_1, \ldots, w_n$ are the neuron parameters, to be learnt
+\end{frame}
 
-  \item $\act$ is the activation or transfer function
-
-  \end{itemize}
-
-
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Reminder: Neural network}
+%% \frame{
+%%   \frametitle{Reminder: Artificial neuron}
+
+%%   \begin{figure}
+%%     \includegraphics[height=3cm]{neurone}
+%%   \end{figure}
+
+%%   \begin{itemize}
+
+%%   \item $b, w_1, \ldots, w_n$ are the neuron parameters, to be learnt
+
+%%   \item $\act$ is the activation or transfer function
+
+%%   \end{itemize}
 
 
-  \begin{figure}
-    \includegraphics[height=5cm]{mini_reseau3_bis}
-  \end{figure}
-
-
-}
+%% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -529,11 +557,11 @@
 
   \end{columns}
 
-  \pause
+  %% \pause
 
-  \begin{alertblock}<4->{Image preprocessing}
-    Often, the input image is modified to make the optimization of the model easier.
-  \end{alertblock}
+  %% \begin{alertblock}<4->{Image preprocessing}
+  %%   Often, the input image is modified to make the optimization of the model easier.
+  %% \end{alertblock}
 
 }
 
@@ -549,13 +577,13 @@
 
   \begin{columns}
 
-    \begin{column}<1->{0.45\textwidth}
+    \begin{column}{0.45\textwidth}
       \begin{center}
         \includegraphics[width=0.9\textwidth]{imagette.png}
       \end{center}
     \end{column}
 
-    \begin{column}<2->{0.45\textwidth}
+    \begin{column}{0.45\textwidth}
       \begin{center}
         \includegraphics[width=0.9\textwidth]{imagette_neurones.png}
 
@@ -564,11 +592,11 @@
 
   \end{columns}
 
-  \pause
+  %% \pause
 
-  \begin{alertblock}<4->{Image preprocessing}
-    Often, the input image is modified to make the optimization of the model easier.
-  \end{alertblock}
+  %% \begin{alertblock}<4->{Image preprocessing}
+  %%   Often, the input image is modified to make the optimization of the model easier.
+  %% \end{alertblock}
 
 }
 
@@ -579,7 +607,7 @@
   Classification problem:
   \begin{itemize}
   \item Input: image
-  \item Output: class $y \in \{ label_1, label_2, \ldots, label_q\}$
+  \item Output: class $y$ chosen from a set of labels: $\{ label_1, label_2, \ldots, label_q\}$
   \end{itemize}
 
   \begin{block}{Class coding}
@@ -683,25 +711,75 @@
 
   \begin{block}{}
     For $\y$ in $\{0, 1\}^d$ and $\hat{\y}$ in $]0, 1[^d$:
-        \[
-        H(\y, \hat{\y}) = - \sum_{i=1}^d \y_i \log(\hat{\y}_i)
-        \]
+    \[
+    H(\y, \hat{\y}) = - \sum_{i=1}^d \y_i \log(\hat{\y}_i)
+    \]
 
-        \small
-        Reminder -- hat notation: $\hat{\y}$ is used for a prediction that is supposed to be close to $\y$.
+    \small
+    Reminder -- hat notation: $\hat{\y}$ is used for a prediction that is supposed to be close to $\y$.
   \end{block}
 
   \pause
 
   Remarks:
-\begin{itemize}
-\item   Here $\y$ is a one-hot vector: $\y_i = 1$ for $i=r$ and $\y_i=0$ otherwise. Therefore the cross-entropy will ``push'' $\hat{\y}_r$ towards $1$. Why will the other elements of $\hat{\y}$ be pushed towards $0$?  \pause \mode<beamer>{Because $\hat{\y}$ is typically computed by a softmax.}
-  \pause
-\item   The binary cross-entropy we previously saw is a particular case of cross-entropy.
+  \begin{itemize}
+  \item   Here $\y$ is a one-hot vector: $\y_i = 1$ for $i=r$ and $\y_i=0$ otherwise. Therefore the cross-entropy will ``push'' $\hat{\y}_r$ towards $1$. Why will the other elements of $\hat{\y}$ be pushed towards $0$?  \pause \mode<beamer>{Because $\hat{\y}$ is typically computed by a softmax.}
+    \pause
+  \item   The binary cross-entropy we previously saw is a particular case of cross-entropy.
 
-\end{itemize}
+  \end{itemize}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+  \frametitle{How are we going to apply our NN to an image?}
+
+  \begin{figure}
+    \includegraphics[height=5cm]{mini_reseau3_bis}
+  \end{figure}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame<beamer>{
+  \frametitle{How?}
+
+  \vspace{10pt}
+
+  \begin{columns}
+
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=0.9\textwidth]{imagette.png}
+      \end{center}
+    \end{column}
+
+    \begin{column}{0.45\textwidth}
+
+      \begin{block}{The best solution would be to:}
+    \begin{itemize}
+    \item[A/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
+    \item[B/] Apply the network to each row or column separately
+    \item[C/] Transform the image into a vector, by rearranging the pixels
+    \end{itemize}
+
+  \end{block}
+
+    \end{column}
+
+  \end{columns}
+
+  %% \pause
+
+  %% \begin{alertblock}<4->{Image preprocessing}
+  %%   Often, the input image is modified to make the optimization of the model easier.
+  %% \end{alertblock}
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image classification with a fully-connected NN}
@@ -761,7 +839,7 @@
 
   \item scale badly to large size images
 
-  \item do not take into account the local structure of images
+  \item do not take advantage of the local structure of images
 
   \end{itemize}
 
@@ -770,7 +848,7 @@
 
   \begin{itemize}
   \item NN solely composed of fully-connected layers are almost never used for image analysis.
-  \item Fully-connected layers are only used in the middle (auto-encoders) or at the end (classification) of the pipeline.
+  \item Fully-connected layers are mainly used in the middle (auto-encoders) or at the end (classification) of the pipeline.
   \end{itemize}
 
 }
@@ -822,7 +900,6 @@
 \frame{
   \frametitle{Towards convolutional layers}
 
-
   \begin{columns}
 
     \begin{column}<1->{0.3\textwidth}
@@ -849,29 +926,25 @@
 
   \end{columns}
 
-  \pause
 
+  \mode<beamer>{
   \begin{columns}
-    \begin{column}{.5\textwidth}
-  Here, $s$ corresponds to the size of the receptive field of a neuron. It is therefore equal to:
+    \begin{column}<4->{.5\textwidth}
+      Here, $s$ corresponds to the size of the receptive field of a neuron. It is therefore equal to:
 
     \end{column}
 
-    \begin{column}{.5\textwidth}
-    \begin{itemize}
-  \item[A/] $3$
-  \item[B/] $4$
-  \item[C/] $9$
-  \item[D/] $10$
-  \end{itemize}
+    \begin{column}<5->{.5\textwidth}
+      \begin{itemize}
+      \item[A/] $3$
+      \item[B/] $4$
+      \item[C/] $9$
+      \item[D/] $10$
+      \end{itemize}
 
     \end{column}
   \end{columns}
-
-
-
-
-
+}
 }
 
 
@@ -936,21 +1009,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{First solution: keep only well defined outputs}
 
+\begin{columns}
+  \begin{column}{.5\textwidth}
   \begin{figure}
     \includegraphics[height=5cm]{conv_border_effect2}
   \end{figure}
 
-\begin{itemize}
-\item Pros:
+  \end{column}
+
+  \begin{column}{.5\textwidth}
   \begin{itemize}
-  \item border effect disappears
+  \item Pros:
+    \begin{itemize}
+    \item border effect disappears
+    \end{itemize}
+  \item Cons:
+    \begin{itemize}
+    \item Lack of flexibility
+    \item With deep networks, the field can become very small, or disappear
+    \end{itemize}
   \end{itemize}
-\item Cons:
-  \begin{itemize}
-  \item Lack of flexibility
-  \item With deep networks, the field can become very small, or disappear
-  \end{itemize}
-\end{itemize}
+
+  \end{column}
+\end{columns}
+
+
 
 \end{frame}
 
@@ -958,20 +1041,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Second solution: zero padding}
 
+\begin{columns}
+  \begin{column}{.5\textwidth}
   \begin{figure}
     \includegraphics[height=5cm]{conv_border_effect3}
   \end{figure}
+\end{column}
 
-\begin{itemize}
-\item Pros:
+  \begin{column}{.5\textwidth}
+
   \begin{itemize}
-  \item More flexible architecture
+  \item Pros:
+    \begin{itemize}
+    \item More flexible architecture
+    \end{itemize}
+  \item Cons:
+    \begin{itemize}
+    \item Border effect still present
+    \end{itemize}
   \end{itemize}
-\item Cons:
-  \begin{itemize}
-  \item Border effect still present
-  \end{itemize}
-\end{itemize}
+  \end{column}
+\end{columns}
+
 
 \end{frame}
 
@@ -1030,7 +1121,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dilated convolutions}
 
-  Dilated convolutions are used the increase the size of the receptive field of the network.
+  Dilated convolutions are used to increase the size of the receptive field of the network.
 
   \begin{columns}
 
@@ -1113,16 +1204,49 @@
 \frame<beamer>{
   \frametitle{Consequences on the parameter number}
 
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{convolutional_layer4.png}
-  \end{center}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{convolutional_layer4.png}
+      \end{center}
+    \end{column}
 
-  \begin{itemize}
-  \item<1-> How many parameters do we have in layer 1?
-  \item<2-> $d^1 \times (s + 1)$
-  \item<3-> In layer 2?
-  \item<4-> $d^2 \times (d^1 \times s + 1)$
-  \end{itemize}
+    \begin{column}{.5\textwidth}
+      \begin{block}{How many parameters do we have in layer 1?}
+        \begin{itemize}
+        \item[A/] $d^1 \times (s + 1)$
+        \item[B/] $d^1 \times s$
+        \item[C/] $(d^1 + 1) \times s$
+        \end{itemize}
+      \end{block}
+    \end{column}
+
+  \end{columns}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
+  \frametitle{Consequences on the parameter number}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+  \begin{center}
+    \includegraphics[width=\textwidth]{convolutional_layer4.png}
+  \end{center}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+  \begin{block}{How many parameters do we have in layer 2?}
+    \begin{itemize}
+    \item[A/] $d^2 \times d^1 \times s$
+    \item[B/] $d^2 \times (d^1 \times s + 1)$
+    \item[C/] $(d^2 + 1) \times (d^1 \times s + 1)$
+    \end{itemize}
+  \end{block}
+  \end{column}
+\end{columns}
 
 }
 
@@ -1469,7 +1593,7 @@
   \begin{itemize}
   \item Winner of the ImageNet Large Scale Visual Recognition Competition (ILSVRC) in 2015.
   \item The authors tested up to 1202 layers. They reported no training difficulties, but overfitting \cite{he_deep_2015}
-    \end{itemize}
+  \end{itemize}
 
 \end{frame}
 
