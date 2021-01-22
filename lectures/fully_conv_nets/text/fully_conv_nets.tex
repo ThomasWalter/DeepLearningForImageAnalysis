@@ -321,9 +321,10 @@
       \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
       \end{figure}
 
-      The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
-
-
+      \begin{itemize}
+      \item The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
+      \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{feng_ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
+      \end{itemize}
 
 \end{frame}
 
@@ -337,6 +338,8 @@
       \includegraphics[width=\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
+
+Note that today we would use ReLU activations on all layers except the last.
 
 }
 
@@ -523,6 +526,53 @@
     \end{figure}
   \end{block}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Effective receptive field: intuition}
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Quizz}
+
+  \begin{block}{For a given output neuron $y$, What criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
+    \begin{itemize}
+    \item[A/] $\frac{\partial \loss}{\partial x_{i,j}}$
+    \item[B/] $\frac{\partial y}{\partial x_{i,j}}$
+    \item[C/]
+    \item[D/]
+    \end{itemize}
+
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Effective receptive field}
+
+\begin{block}{Shape of the effective receptive field}
+\begin{itemize}
+\item   Under some simplification hypotheses, the authors of~\cite{luo_understanding_2017} have shown that the effective receptive field has a gaussian shape.
+  \item They have experimentally checked that this is (approximately) the case
+  \item Moreover, as the network gets deeper, the size of the effective receptive field gets proportionally smaller
+\end{itemize}
+
+\end{block}
+
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{effective_receptive_field.png}
+  \end{figure}
+
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation equivariance}

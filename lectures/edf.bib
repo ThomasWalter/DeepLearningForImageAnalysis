@@ -2036,6 +2036,73 @@
 	month = sep,
 	year = {2009},
 	note = {ISSN: 2380-7504},
-	keywords = {Computer science, Computer vision, Equations, example-based super-resolution, Frequency, high resolution image patch, Image databases, Image reconstruction, image resolution, Image resolution, image scale, Layout, low resolution image patch, Mathematics, multiimage super-resolution, natural image, single image, Strontium, subpixel misalignment},
+	keywords = {Image databases, Layout, Mathematics, image resolution, Image resolution, Computer science, Computer vision, Equations, example-based super-resolution, Frequency, high resolution image patch, Image reconstruction, image scale, low resolution image patch, multiimage super-resolution, natural image, single image, Strontium, subpixel misalignment},
 	pages = {349--356}
+}
+
+@inproceedings{holschneider_real-time_1990,
+	address = {Berlin, Heidelberg},
+	series = {inverse problems and theoretical imaging},
+	title = {A {Real}-{Time} {Algorithm} for {Signal} {Analysis} with the {Help} of the {Wavelet} {Transform}},
+	isbn = {978-3-642-75988-8},
+	doi = {10.1007/978-3-642-75988-8_28},
+	abstract = {The purpose of this paper is to present a real-time algorithm for the analysis of time-varying signals with the help of the wavelet transform. We shall briefly describe this transformation in the following. For more details, we refer to the literature [1].},
+	language = {en},
+	booktitle = {Wavelets},
+	publisher = {Springer},
+	author = {Holschneider, M. and Kronland-Martinet, R. and Morlet, J. and Tchamitchian, Ph.},
+	editor = {Combes, Jean-Michel and Grossmann, Alexander and Tchamitchian, Philippe},
+	year = {1990},
+	keywords = {Dilation Parameter, Discrete Wavelet, Graph Algebra, Interpolation Filter, Wavelet Transform},
+	pages = {286--297}
+}
+
+@article{feng_ning_toward_2005,
+	title = {Toward automatic phenotyping of developing embryos from videos},
+	volume = {14},
+	issn = {1941-0042},
+	doi = {10.1109/TIP.2005.852470},
+	abstract = {We describe a trainable system for analyzing videos of developing C. elegans embryos. The system automatically detects, segments, and locates cells and nuclei in microscopic images. The system was designed as the central component of a fully automated phenotyping system. The system contains three modules 1) a convolutional network trained to classify each pixel into five categories: cell wall, cytoplasm, nucleus membrane, nucleus, outside medium; 2) an energy-based model, which cleans up the output of the convolutional network by learning local consistency constraints that must be satisfied by label images; 3) a set of elastic models of the embryo at various stages of development that are matched to the label images.},
+	number = {9},
+	journal = {IEEE Transactions on Image Processing},
+	author = {{Feng Ning} and Delhomme, D. and LeCun, Y. and Piano, F. and Bottou, L. and Barbano, P. E.},
+	month = sep,
+	year = {2005},
+	note = {Conference Name: IEEE Transactions on Image Processing},
+	keywords = {Algorithms, Animals, Artificial Intelligence, Image Enhancement, Image Interpretation, Computer-Assisted, Image segmentation, Microscopy, Microscopy, Phase-Contrast, Pattern Recognition, Automated, Reproducibility of Results, Sensitivity and Specificity, cellular biophysics, optical microscopy, biological techniques, genetics, automatic phenotyping, convolutional network, cytoplasm, embryos, microscopic images, nucleus membrane, Bioinformatics, Biological system modeling, Embryo, Genomics, Motion pictures, Performance analysis, Videos, energy-based model, nonlinear filter, Caenorhabditis elegans, Embryo, Nonmammalian, Fetal Development, Microscopy, Video, Phenotype, image segmentation, Convolutional network},
+	pages = {1360--1371}
+}
+
+@inproceedings{jain_supervised_2007,
+	title = {Supervised {Learning} of {Image} {Restoration} with {Convolutional} {Networks}},
+	doi = {10.1109/ICCV.2007.4408909},
+	abstract = {Convolutional networks have achieved a great deal of success in high-level vision problems such as object recognition. Here we show that they can also be used as a general method for low-level image processing. As an example of our approach, convolutional networks are trained using gradient learning to solve the problem of restoring noisy or degraded images. For our training data, we have used electron microscopic images of neural circuitry with ground truth restorations provided by human experts. On this dataset, Markov random field (MRF), conditional random field (CRF), and anisotropic diffusion algorithms perform about the same as simple thresholding, but superior performance is obtained with a convolutional network containing over 34,000 adjustable parameters. When restored by this convolutional network, the images are clean enough to be used for segmentation, whereas the other approaches fail in this respect. We do not believe that convolutional networks are fundamentally superior to MRFs as a representation for image processing algorithms. On the contrary, the two approaches are closely related. But in practice, it is possible to train complex convolutional networks, while even simple MRF models are hindered by problems with Bayesian learning and inference procedures. Our results suggest that high model complexity is the single most important factor for good performance, and this is possible with convolutional networks.},
+	booktitle = {2007 {IEEE} 11th {International} {Conference} on {Computer} {Vision}},
+	author = {Jain, V. and Murray, J. F. and Roth, F. and Turaga, S. and Zhigulin, V. and Briggman, K. L. and Helmstaedter, M. N. and Denk, W. and Seung, H. S.},
+	month = oct,
+	year = {2007},
+	note = {ISSN: 2380-7504},
+	keywords = {Humans, computer vision, learning (artificial intelligence), object recognition, Markov processes, image restoration, Markov random field, Supervised learning, convolutional networks, Object recognition, Training data, anisotropic diffusion algorithms, Bayesian learning, Circuit noise, conditional random field, Degradation, degraded images, electron microscopic images, Electron microscopy, gradient learning, high-level vision problems, Image processing, Image restoration, inference mechanisms, inference procedures, low-level image processing, Markov random fields, neural circuitry, supervised learning},
+	pages = {1--8}
+}
+
+@inproceedings{glorot_understanding_2010-1,
+	title = {Understanding the difficulty of training deep feedforward neural networks},
+	booktitle = {Proceedings of the thirteenth international conference on artificial intelligence and statistics},
+	author = {Glorot, Xavier and Bengio, Yoshua},
+	year = {2010},
+	pages = {249--256}
+}
+
+@article{luo_understanding_2017,
+	title = {Understanding the {Effective} {Receptive} {Field} in {Deep} {Convolutional} {Neural} {Networks}},
+	url = {http://arxiv.org/abs/1701.04128},
+	abstract = {We study characteristics of receptive fields of units in deep convolutional networks. The receptive field size is a crucial issue in many visual tasks, as the output must respond to large enough areas in the image to capture information about large objects. We introduce the notion of an effective receptive field, and show that it both has a Gaussian distribution and only occupies a fraction of the full theoretical receptive field. We analyze the effective receptive field in several architecture designs, and the effect of nonlinear activations, dropout, sub-sampling and skip connections on it. This leads to suggestions for ways to address its tendency to be too small.},
+	urldate = {2021-01-22},
+	journal = {arXiv:1701.04128 [cs]},
+	author = {Luo, Wenjie and Li, Yujia and Urtasun, Raquel and Zemel, Richard},
+	month = jan,
+	year = {2017},
+	note = {arXiv: 1701.04128},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning}
 }
