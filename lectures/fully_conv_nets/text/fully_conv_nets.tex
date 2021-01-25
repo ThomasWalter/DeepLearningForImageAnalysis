@@ -267,7 +267,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{VGG16: an example network for image classification}
+\begin{frame}{VGG16: a network for image classification}
 
   \begin{center}
     \begin{figure}
@@ -502,20 +502,24 @@ Note that today we would use ReLU activations on all layers except the last.
 \frame<beamer>{
   \frametitle{Example}
 
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+  \begin{block}{}
     \begin{figure}
       \includegraphics[width=\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
-  \vspace{1em}
 
-  \pause
+  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+    \begin{itemize}
+    \item[A/] $n$
+    \item[B/] $1 + 2 \times n$
+    \item[C/] $1 + 2 \times (n+1)$
+    \item[D/] It depends on the input image
+    \end{itemize}
 
-  \centering
-  Answer: $1 + 2 \times (n+1)$
+  \end{block}
 
-}
+  }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame<handout>{
   \frametitle{Example}
@@ -574,6 +578,17 @@ Note that today we would use ReLU activations on all layers except the last.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion on the receptive field}
+
+\begin{itemize}
+\item Establish its minimal required size with respect to the application
+\item Make it larger than that...
+\end{itemize}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation equivariance}
 
@@ -581,7 +596,7 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Equivariance}
 
 \begin{block}{Definition}
-  A function $f: E \longrightarrow F$ if equivariant with respect to the functions $t_E: E \longrightarrow E$ and $t_F: F \longrightarrow F$ iff $\forall x \in E$:
+  A function $f: E \longrightarrow F$ is \alert{equivariant} with respect to the functions $t_E: E \longrightarrow E$ and $t_F: F \longrightarrow F$ iff $\forall x \in E$:
   \[
   f(t_E(x)) = t_F(f(x))
   \]
@@ -623,7 +638,7 @@ Note that today we would use ReLU activations on all layers except the last.
 \textbf{Operator}        & \textbf{Translation equivariant} \\ \hline
 Convolution (stride$=1$)             & \onslide<2->{yes}                            \\ \hline
 Downsampling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
-Transposed convolution (stride$>1$)   & \onslide<4->{yes}                            \\ \hline
+Transposed convolution (stride$ \geq 1$)   & \onslide<4->{yes}                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{yes}                             \\ \hline
 Concatenation            & \onslide<6->{yes}                            \\ \hline
 Addition                 & \onslide<7->{yes}                            \\ \hline
