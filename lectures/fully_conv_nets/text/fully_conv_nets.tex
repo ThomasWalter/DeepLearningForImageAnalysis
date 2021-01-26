@@ -32,6 +32,25 @@
     \end{beamercolorbox}
 \end{textblock*}}
 
+
+
+%%   Votre quiz << Fully ConvNets >>  contenant 5 questions/sondages est disponible:
+
+%% * lien d'édition:
+%% http://www.quizzoodle.com/quizz/editor/f1405e4569804d79a5122276b5c75282
+%% mot de passe: no password
+
+%% * lien de session:
+%% http://www.quizzoodle.com/session/10e16505c1184caf97d39b45aeb2a42e
+%% mot de passe: no password
+
+%% * lien pour suppression:
+%% http://www.quizzoodle.com/quizz/delete/07a6de49b7b542f0a7707416a14d3f51
+%% mot de passe: delete
+
+
+
+
 \title{Fully convolutional neural networks}
 \author{E. Decencière}
 \date{MINES ParisTech\\
@@ -189,21 +208,21 @@
 
     \begin{figure}
       \includegraphics[width=\textwidth]{lazard}
-      \source{Tristan Lazard, master thesis}
+      \source{Tristan Lazard, master thesis. Images: L'Oréal.}
     \end{figure}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Super resolution}
+%% \frame{
+%%   \frametitle{Super resolution}
 
-    \begin{figure}
-      \includegraphics[height=0.8\textheight]{superres2}
-      \source{http://mmlab.ie.cuhk.edu.hk/projects/SRCNN.html}
-    \end{figure}
+%%     \begin{figure}
+%%       \includegraphics[height=0.8\textheight]{superres2}
+%%       \source{http://mmlab.ie.cuhk.edu.hk/projects/SRCNN.html}
+%%     \end{figure}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Microscopy cross-modality prediction\cite{ounkomol_label-free_2018}}
@@ -254,8 +273,6 @@
   \item Motion estimation
   \end{itemize}
 
-  In the following, we will focus on image segmentation.
-
 \end{frame}
 
 
@@ -267,18 +284,18 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{VGG16: a network for image classification}
+%% \begin{frame}{VGG16: a network for image classification}
 
-  \begin{center}
-    \begin{figure}
-      \centering
-      \includegraphics[width=0.65\textwidth]{vgg16.png}
-      \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
-    \end{figure}
-  \end{center}
+%%   \begin{center}
+%%     \begin{figure}
+%%       \centering
+%%       \includegraphics[width=0.65\textwidth]{vgg16.png}
+%%       \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
+%%     \end{figure}
+%%   \end{center}
 
 
-\end{frame}
+%% \end{frame}
 
 
 
@@ -426,7 +443,6 @@ Note that today we would use ReLU activations on all layers except the last.
 
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Pooling index memorization}
 
@@ -438,7 +454,6 @@ Note that today we would use ReLU activations on all layers except the last.
 
 
 %% \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Properties]{Properties of fully-convolutional neural networks}
@@ -472,7 +487,7 @@ Note that today we would use ReLU activations on all layers except the last.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
+\begin{frame}<beamer>{Illustration}
 
   \begin{figure}
   \includegraphics[width=0.8\textwidth]{receptive_field2.png}
@@ -489,14 +504,15 @@ Note that today we would use ReLU activations on all layers except the last.
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Receptive field evolution through an upsampling layer}
+%% \begin{frame}{Receptive field evolution through an upsampling layer}
 
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{receptive_field_upsampling.png}
-  \end{figure}
+%%   \begin{figure}
+%%   \includegraphics[width=0.8\textwidth]{receptive_field_upsampling.png}
+%%   \end{figure}
 
-\end{frame}
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame<beamer>{
@@ -535,16 +551,15 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Effective receptive field: intuition}
 
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+    \includegraphics[width=0.8\textwidth]{receptive_field3.png}
   \end{figure}
 
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Quizz}
 
-  \begin{block}{For a given output neuron $y$, What criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
+  \begin{block}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
     \begin{itemize}
     \item[A/] $\frac{\partial \loss}{\partial x_{i,j}}$
     \item[B/] $\frac{\partial y}{\partial x_{i,j}}$
@@ -555,7 +570,6 @@ Note that today we would use ReLU activations on all layers except the last.
   \end{block}
 
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<beamer>{Effective receptive field}
@@ -616,28 +630,31 @@ Note that today we would use ReLU activations on all layers except the last.
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Translation equivariance applied to neural networks}
+\begin{frame}{Quizz}
 
-\begin{block}{Definition}
-  Let us consider an operator $f$ between two layers $L_1$ and $L_2$ of a NN. Suppose that the receptive field of this operator for a given neuron $p$ of $L_2$ is $R(p)$, a subset of neurons of $L_1$. Then $f$ is said to be translation equivariant if, for any two neurons $p$ and $q$ of $L_2$, such that $L_1(R(p)) = L_1(R(q))$ (i.e. their receptive fields are identical) then $f(p) = f(q)$.
-\end{block}
-
-\begin{alertblock}{}
-  Simply put, the operator is translation equivariant if identical receptive fields produce identical values.
-\end{alertblock}
+  \begin{block}{Which operator is NOT translation invariant?}
+    \begin{itemize}
+    \item[A/] Convolution (stride$=1$)
+    \item[B/] Max-pooling (stride $>1$)
+    \item[C/] Transposed convolution (stride$\geq 1$)
+    \item[D/] Upsampling (stride$>1$)
+    \end{itemize}
+  \end{block}
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Translation equivariant operators}
+\begin{frame}<beamer>{Translation equivariant operators}
 
 \begin{table}[]
-\begin{tabular}{|l|l|}
+\begin{tabular}{|p{6cm}|p{4cm}|}
 \hline
 \textbf{Operator}        & \textbf{Translation equivariant} \\ \hline
 Convolution (stride$=1$)             & \onslide<2->{yes}                            \\ \hline
-Downsampling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
+Max-pooling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
 Transposed convolution (stride$ \geq 1$)   & \onslide<4->{yes}                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{yes}                             \\ \hline
 Concatenation            & \onslide<6->{yes}                            \\ \hline
@@ -648,13 +665,76 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>{Translation equivariant operators}
+
+\begin{table}[]
+\begin{tabular}{|p{6cm}|p{4cm}|}
+\hline
+\textbf{Operator}        & \textbf{Translation equivariant} \\ \hline
+Convolution (stride$=1$)             & \onslide<2->{ }                            \\ \hline
+Max-pooling (stride $>1$)            & \onslide<3->{ }                             \\ \hline
+Transposed convolution (stride$ \geq 1$)   & \onslide<4->{ }                            \\ \hline
+Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
+Concatenation            & \onslide<6->{ }                            \\ \hline
+Addition                 & \onslide<7->{ }                            \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Translation equivariance applied to neural networks}
+
+%% \begin{block}{Definition: receptive field invariance}
+%%   Let us consider an operator $f$ between two layers $L_1$ and $L_2$ of a NN. Suppose that the receptive field of this operator for a given neuron $p$ of $L_2$ is $R(p)$, a subset of neurons of $L_1$. Then $f$ is said to be receptive field equivariant if, for any two neurons $p$ and $q$ of $L_2$, such that $L_1(R(p)) = L_1(R(q))$ (i.e. their receptive fields are identical) then $f(p) = f(q)$.
+%% \end{block}
+
+%% \begin{alertblock}{}
+%%   Simply put, the operator is receptive field equivariant if identical receptive fields produce identical values.
+%% \end{alertblock}
+
+
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Receptive field invariant operators}
+
+%% \begin{table}[]
+%% \begin{tabular}{|p{6cm}|p{4cm}|}
+%% \hline
+%% \textbf{Operator}        & \textbf{Translation equivariant compatible} \\ \hline
+%% Convolution (stride$=1$)             & \onslide<2->{yes}                            \\ \hline
+%% Max-pooling (stride $>1$)            & \onslide<3->{yes}                             \\ \hline
+%% Transposed convolution (stride$ \geq 1$)   & \onslide<4->{yes}                            \\ \hline
+%% Upsampling (stride$>1$) & \onslide<5->{no}                             \\ \hline
+%% Concatenation            & \onslide<6->{yes}                            \\ \hline
+%% Addition                 & \onslide<7->{yes}                            \\ \hline
+%% \end{tabular}
+%% \end{table}
+
+%% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Why upsampling breaks receptive field invariance?}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.3\textwidth]{receptive_field_upsampling_breaks_equivariance}
+%% \end{figure}
+
+
+%% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Translation equivariance: comments}
 
-  \begin{block}{}
-    Identical receptive fields produce identical outputs.
-  \end{block}
+  %% \begin{block}{}
+  %%   Identical receptive fields produce identical outputs.
+  %% \end{block}
 
-  \pause
+  %% \pause
 
   \begin{itemize}[<+->]
   \item If padding is used in the network, border effects can be important.
@@ -1009,13 +1089,16 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
   \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
 
   \begin{figure}
-    \includegraphics[width=\textwidth]{unet_lo}
+    \includegraphics[width=0.95\textwidth]{unet_lo}
   \end{figure}
 
+  \begin{block}{Quizz}
   \begin{itemize}
   \item Size and number of channels of input images?
   \item Segmentation into how many regions?
   \end{itemize}
+  \end{block}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1207,11 +1290,11 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
   $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-  \begin{block}{Dice similarity}
-    \[
-    D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
-    \]
-  \end{block}
+  %% \begin{block}{Dice similarity}
+  %%   \[
+  %%   D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+  %%   \]
+  %% \end{block}
 
   \begin{block}{Jaccard similarity}
     \[
@@ -1224,15 +1307,15 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Corresponding loss functions}
+  \frametitle{Corresponding loss function}
 
   $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
-  \begin{block}{Dice loss}
-    \[
-    d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
-    \]
-  \end{block}
+  %% \begin{block}{Dice loss}
+  %%   \[
+  %%   d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+  %%   \]
+  %% \end{block}
 
   \begin{block}{Jaccard loss}
     \[
@@ -1240,31 +1323,30 @@ Addition                 & \onslide<7->{yes}                            \\ \hlin
     \]
   \end{block}
 
-  In practice, these two losses give similar results.
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Corresponding loss functions - variants}
+  \frametitle{Corresponding loss function - variant}
 
   $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
   Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
-  \begin{block}{Dice loss}
-    \[
-    d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
-    \]
-  \end{block}
+  %% \begin{block}{Dice loss}
+  %%   \[
+  %%   d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
+  %%   \]
+  %% \end{block}
 
   \begin{block}{Jaccard loss}
     \[
-    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
+    j_2(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
     \]
   \end{block}
 
-  These variants seem to work similarly to the original version. To the extent of my knowledge, there have been no studies on their respective merits.
+This version works slightly better than the first.
 
 }
 
@@ -1368,17 +1450,40 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \frame{
-%%   \frametitle{Application to the segmentation of retinal structures}
 
-%%   \begin {itemize}
-%%   \item Do we have enough annotated data?
-%%   \item Sliding window or global approach?
-%%   \item Is our problem translation equivariant?
-%%   \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Proposition de stage en collaboration avec L'Oréal}
 
-%% }
+  \begin{block}{Histologie digitale: évaluation de la pertincence d’approches basées sur l’apprentissage profond pour la segmentation des différentes couches cutanées sur des coupes histologiques provenant d'un modèle de peau reconstruite \textit{in vitro}}
+
+\begin{itemize}
+\item Développement d'un réseau de segmentation, capable de généraliser suffisamment bien pour couvrir les variations de coloration et de conditions de culture
+\item Etude sur la précision de la vérité-terrain
+\item Prise en compte d'information structurelle a priori
+\end{itemize}
+
+  \end{block}
+
+
+\begin{columns}
+  \begin{column}{.4\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{a_effacer1}
+\end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{a_effacer2}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

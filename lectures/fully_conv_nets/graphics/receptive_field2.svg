@@ -12,9 +12,9 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg5807"
    version="1.1"
-   inkscape:version="1.0.1 (1.0.1+r73)"
+   inkscape:version="1.0.2 (1.0.2+r75+1)"
    sodipodi:docname="receptive_field2.svg"
-   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture3/graphics/receptive_field2.png"
+   inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/lectures/fully_conv_nets/graphics/receptive_field2.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <defs
@@ -34,7 +34,7 @@
      showgrid="true"
      showborder="false"
      inkscape:window-width="1867"
-     inkscape:window-height="1136"
+     inkscape:window-height="1025"
      inkscape:window-x="53"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -341,12 +341,19 @@
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="-203"
        y="1063.2372"
-       id="text6508"><tspan
+       id="text6508"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan6510"
          x="-203"
          y="1063.2372"
-         style="font-size:30px;line-height:1.25">max pool</tspan></text>
+         style="font-size:30px;line-height:1.25">Conv 2x2</tspan><tspan
+         sodipodi:role="line"
+         x="-203"
+         y="1100.7372"
+         style="font-size:30px;line-height:1.25"
+         id="tspan2087">  stride 2</tspan></text>
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
