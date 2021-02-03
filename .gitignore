@@ -8,6 +8,10 @@
 *.toc
 
 
+# ignore a large file
+lectures/Visualization/text/Visualization.pdf
+slides/Lecture2/text/Visualization.pdf
+
 # Created by https://www.gitignore.io/api/python
 
 ### Python ###
