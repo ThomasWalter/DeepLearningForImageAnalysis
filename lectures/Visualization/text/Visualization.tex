@@ -229,7 +229,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 	\end{figure}
 \begin{itemize}
 	\item For each pixel in the input image we can calculate the derivative of the loss with respect to that pixel value \cite{Simonyan:2013}.
-	\item This allows us to visualize how much the output changes with small variations of the pixel values.
+	\item This allows us to visualize how much the loss changes with small variations of the pixel values.
 \end{itemize}
 \end{frame}
 
@@ -283,17 +283,17 @@ Sensitivity analysis: we can see which pixels would have most effect on the clas
 \end{figure}
 \begin{itemize}
 \item In \cite{Zhou:2016}, the fully connected layers are replaced by Global Average Pooling (GAP). 
-\item The final prediction is then made from the $K$ dimensional vector. The training provides us with a weight vector $w^c$ for each class. 
+\item The final prediction is then made from the $n$-dimensional vector. The training provides us with a $n$-dimensional weight vector $w^c$ for each class. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Class Activation Mapping (CAM)}
 \begin{itemize}
-\item More formally, if the last convolutional layer has $K$ feature maps, GAP maps this layer to a $K$-dimensional vector: 
+\item More formally, if the last convolutional layer has $n$ feature maps, GAP maps this layer to a $n$-dimensional vector: 
 \begin{equation}
-	GAP(k) = \frac{1}{N}\sum_{i,j}f_k(i,j) \quad \quad k = 1, \ldots, K
+	GAP(k) = \frac{1}{N}\sum_{i,j}f_k(i,j) \quad \quad k = 1, \ldots, n
 \end{equation}
-where $N$ is the number of neurons in each feature map. 
+where $N$ is the number of neurons in each feature map and $n$ the number of feature maps.
 \item The score $S_c$ for each class $c$ is then the weighted sum of the vector entries:
 \begin{equation}
 	S_c = \sum_k w_k^c GAP(k)
@@ -607,7 +607,7 @@ The image analysis community has developed many algorithms for eye detection; he
 \begin{frame}{Scale invariance and filter-wise normalization}
 \begin{itemize}
 	\item Scale invariance: two neural networks with ReLu as non-linearities are equivalent, if we multiply the weights of one layer with a factor and divide the weights of the next layer by the same factor. 
-	\item 1D and 2D plots of the loss can therefore be misleading: the sharpness of a minimum might be due to a large extend to the problem of scale invariance. 
+	\item 1D and 2D plots of the loss can therefore be misleading: the sharpness of a minimum might be due to a large extent to the problem of scale invariance. 
 	\item One idea to cope with scale invariance is to normalize the directions with respect to the filter weights \cite{Li:2018}:
 	\begin{itemize}
 		\item First we draw a random direction $d$ (same dimension as $\param$). 
@@ -664,6 +664,7 @@ The image analysis community has developed many algorithms for eye detection; he
 		\item Features are extracted hierarchically. 
 		\item The first layer typically extracts low-level color and contour features.
 		\item Later layers extract more specialized features (combinations of low-level features). This is the reason why you normally extract more feature maps in higher layers.
+		\item We have methods to investigate the image regions that are responsible for classification assignments, and we can therefore understand, on which grounds a decision is made.
 		\item Visualization of the loss function allows to compare architectures and to study architectural choices. 
 		\item As an example, skip layers "convexify" the loss function.
 	\end{itemize}
