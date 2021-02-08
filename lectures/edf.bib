@@ -2104,5 +2104,101 @@
 	month = jan,
 	year = {2017},
 	note = {arXiv: 1701.04128},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning}
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Artificial Intelligence, Computer Science - Machine Learning}
+}
+
+@inproceedings{haselmann_anomaly_2018,
+	title = {Anomaly {Detection} {Using} {Deep} {Learning} {Based} {Image} {Completion}},
+	doi = {10.1109/ICMLA.2018.00201},
+	abstract = {Automated surface inspection is an important task in many manufacturing industries and often requires machine learning driven solutions. Supervised approaches, however, can be challenging, since it is often difficult to obtain large amounts of labeled training data. In this work, we instead perform one-class unsupervised learning on fault-free samples by training a deep convolutional neural network to complete images whose center regions are cut out. Since the network is trained exclusively on fault-free data, it completes the image patches with a fault-free version of the missing image region. The pixel-wise reconstruction error within the cut out region is an anomaly image which can be used for anomaly detection. Results on surface images of decorated plastic parts demonstrate that this approach is suitable for detection of visible anomalies and moreover surpasses all other tested methods.},
+	booktitle = {2018 17th {IEEE} {International} {Conference} on {Machine} {Learning} and {Applications} ({ICMLA})},
+	author = {Haselmann, M. and Gruber, D. P. and Tabatabai, P.},
+	month = dec,
+	year = {2018},
+	keywords = {image reconstruction, unsupervised learning, Training, deep learning, Inspection, Anomaly detection, anomaly detection, Anomaly Detection, Convolutional neural networks, Image reconstruction, anomaly image, automated surface inspection, automatic optical inspection, convolutional neural nets, Convolutional Neural Networks, deep convolutional neural network, Defect detection, fault-free data, image completion, Image Completion, image patches, Inpainting, manufacturing industries, missing image region, One-class, one-class unsupervised learning, pixel-wise reconstruction error, production engineering computing, surface images, Surface Inspection, Surface reconstruction, Task analysis, Unsupervised},
+	pages = {1237--1242}
+}
+
+@article{rippel_modeling_2020,
+	title = {Modeling the {Distribution} of {Normal} {Data} in {Pre}-{Trained} {Deep} {Features} for {Anomaly} {Detection}},
+	url = {http://arxiv.org/abs/2005.14140},
+	abstract = {Anomaly Detection (AD) in images is a fundamental computer vision problem and refers to identifying images and image substructures that deviate significantly from the norm. Popular AD algorithms commonly try to learn a model of normality from scratch using task specific datasets, but are limited to semi-supervised approaches employing mostly normal data due to the inaccessibility of anomalies on a large scale combined with the ambiguous nature of anomaly appearance. We follow an alternative approach and demonstrate that deep feature representations learned by discriminative models on large natural image datasets are well suited to describe normality and detect even subtle anomalies in a transfer learning setting. Our model of normality is established by fitting a multivariate Gaussian (MVG) to deep feature representations of classification networks trained on ImageNet using normal data only. By subsequently applying the Mahalanobis distance as the anomaly score we outperform the current state of the art on the public MVTec AD dataset, achieving an AUROC value of \$95.8 {\textbackslash}pm 1.2\$ (mean \${\textbackslash}pm\$ SEM) over all 15 classes. We further investigate why the learned representations are discriminative to the AD task using Principal Component Analysis. We find that the principal components containing little variance in normal data are the ones crucial for discriminating between normal and anomalous instances. This gives a possible explanation to the often sub-par performance of AD approaches trained from scratch using normal data only. By selectively fitting a MVG to these most relevant components only, we are able to further reduce model complexity while retaining AD performance. We also investigate setting the working point by selecting acceptable False Positive Rate thresholds based on the MVG assumption. Code available at https://github.com/ORippler/gaussian-ad-mvtec},
+	urldate = {2021-01-25},
+	journal = {arXiv:2005.14140 [cs]},
+	author = {Rippel, Oliver and Mertens, Patrick and Merhof, Dorit},
+	month = oct,
+	year = {2020},
+	note = {arXiv: 2005.14140},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@inproceedings{ma_contrast-based_2003,
+	address = {New York, NY, USA},
+	series = {{MULTIMEDIA} '03},
+	title = {Contrast-based image attention analysis by using fuzzy growing},
+	isbn = {978-1-58113-722-4},
+	url = {https://doi.org/10.1145/957013.957094},
+	doi = {10.1145/957013.957094},
+	abstract = {Visual attention analysis provides an alternative methodology to semantic image understanding in many applications such as adaptive content delivery and region-based image retrieval. In this paper, we propose a feasible and fast approach to attention area detection in images based on contrast analysis. The main contributions are threefold: 1) a new saliency map generation method based on local contrast analysis is proposed; 2) by simulating human perception, a fuzzy growing method is used to extract attended areas or objects from the saliency map; and 3) a practicable framework for image attention analysis is presented, which provides three-level attention analysis, i.e., attended view, attended areas and attended points. This framework facilitates visual analysis tools or vision systems to automatically extract attentions from images in a manner like human perception. User study results indicate that the proposed approach is effective and practicable.},
+	urldate = {2021-02-04},
+	booktitle = {Proceedings of the eleventh {ACM} international conference on {Multimedia}},
+	publisher = {Association for Computing Machinery},
+	author = {Ma, Yu-Fei and Zhang, Hong-Jiang},
+	month = nov,
+	year = {2003},
+	keywords = {attention detection, contrast analysis, fuzzy growing, image analysis, visual attention model},
+	pages = {374--381}
+}
+
+@misc{noauthor_yarbus_nodate,
+	title = {Yarbus: {Eye} movements and vision - {Google} {Scholar}},
+	url = {https://scholar.google.com/scholar_lookup?title=Eye%20movements%20and%20vision&publication_year=1967&author=A.%20Yarbus},
+	urldate = {2021-02-05}
+}
+
+@article{wermeskerken_what_2018,
+	title = {What {Am} {I} {Looking} at? {Interpreting} {Dynamic} and {Static} {Gaze} {Displays}},
+	volume = {42},
+	copyright = {Copyright © 2017 The Authors. Cognitive Science published by Wiley Periodicals, Inc. on behalf of Cognitive Science Society.},
+	issn = {1551-6709},
+	shorttitle = {What {Am} {I} {Looking} at?},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/cogs.12484},
+	doi = {https://doi.org/10.1111/cogs.12484},
+	abstract = {Displays of eye movements may convey information about cognitive processes but require interpretation. We investigated whether participants were able to interpret displays of their own or others' eye movements. In Experiments 1 and 2, participants observed an image under three different viewing instructions. Then they were shown static or dynamic gaze displays and had to judge whether it was their own or someone else's eye movements and what instruction was reflected. Participants were capable of recognizing the instruction reflected in their own and someone else's gaze display. Instruction recognition was better for dynamic displays, and only this condition yielded above chance performance in recognizing the display as one's own or another person's (Experiments 1 and 2). Experiment 3 revealed that order information in the gaze displays facilitated instruction recognition when transitions between fixated regions distinguish one viewing instruction from another. Implications of these findings are discussed.},
+	language = {en},
+	number = {1},
+	urldate = {2021-02-05},
+	journal = {Cognitive Science},
+	author = {Wermeskerken, Margot van and Litchfield, Damien and Gog, Tamara van},
+	year = {2018},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/cogs.12484},
+	keywords = {Eye movements, Eye tracking, Gaze display, Gaze interpretation, Gaze recognition},
+	pages = {220--252}
+}
+
+@article{brown_language_2020,
+	title = {Language {Models} are {Few}-{Shot} {Learners}},
+	url = {http://arxiv.org/abs/2005.14165},
+	abstract = {Recent work has demonstrated substantial gains on many NLP tasks and benchmarks by pre-training on a large corpus of text followed by fine-tuning on a specific task. While typically task-agnostic in architecture, this method still requires task-specific fine-tuning datasets of thousands or tens of thousands of examples. By contrast, humans can generally perform a new language task from only a few examples or from simple instructions - something which current NLP systems still largely struggle to do. Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches. Specifically, we train GPT-3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model, and test its performance in the few-shot setting. For all tasks, GPT-3 is applied without any gradient updates or fine-tuning, with tasks and few-shot demonstrations specified purely via text interaction with the model. GPT-3 achieves strong performance on many NLP datasets, including translation, question-answering, and cloze tasks, as well as several tasks that require on-the-fly reasoning or domain adaptation, such as unscrambling words, using a novel word in a sentence, or performing 3-digit arithmetic. At the same time, we also identify some datasets where GPT-3's few-shot learning still struggles, as well as some datasets where GPT-3 faces methodological issues related to training on large web corpora. Finally, we find that GPT-3 can generate samples of news articles which human evaluators have difficulty distinguishing from articles written by humans. We discuss broader societal impacts of this finding and of GPT-3 in general.},
+	urldate = {2021-02-08},
+	journal = {arXiv:2005.14165 [cs]},
+	author = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel M. and Wu, Jeffrey and Winter, Clemens and Hesse, Christopher and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
+	month = jul,
+	year = {2020},
+	note = {arXiv: 2005.14165},
+	keywords = {Computer Science - Computation and Language}
+}
+
+@article{devlin_bert_2019,
+	title = {{BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for {Language} {Understanding}},
+	shorttitle = {{BERT}},
+	url = {http://arxiv.org/abs/1810.04805},
+	abstract = {We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5\% (7.7\% point absolute improvement), MultiNLI accuracy to 86.7\% (4.6\% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).},
+	urldate = {2021-02-08},
+	journal = {arXiv:1810.04805 [cs]},
+	author = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
+	month = may,
+	year = {2019},
+	note = {arXiv: 1810.04805},
+	keywords = {Computer Science - Computation and Language}
 }
