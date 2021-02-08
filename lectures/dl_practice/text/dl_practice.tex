@@ -92,8 +92,8 @@
 
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data
-  \item Cast the task at hand into a machine learning problem
   \item Build your data set
+  \item Cast the task at hand into a machine learning problem
   \item Build an architecture and train it (begin with simple ones!) or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
@@ -115,13 +115,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Modeling your problem}
+  \frametitle{Representing your problem}
 
   Cast your problem into a convenient representation.
 
     \begin {itemize}[<+->]
     \item Understand the problem definition - discuss with the end-user
-    \item Familiarize yourself with the data (input and output images)
+    \item Familiarize yourself with the data (input and output)
     \item Choose the right representation for your images.
     \item Define an evaluation procedure
     \end{itemize}
@@ -627,137 +627,137 @@ The authors devised experiments on the ImageNet database in order to evaluate di
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example:Deep learning for galaxy surface brightness profile fitting \cite{tuccillo_deep_2018} }
+%% \begin{frame}{Example: Deep learning for galaxy surface brightness profile fitting \cite{tuccillo_deep_2018} }
 
-\begin{block}{Task}
-  To estimate brightness profile parameters (magnitude, half light radius, Sérsic index and axis ratio) of early galaxy images.
+%% \begin{block}{Task}
+%%   To estimate brightness profile parameters (magnitude, half light radius, Sérsic index and axis ratio) of early galaxy images.
 
-\end{block}
+%% \end{block}
 
-  Data: Cosmic Assembly Near-infrared Deep Extragalactic Legacy Survey (CANDELS), Hubble Space Telescope (HST)
+%%   Data: Cosmic Assembly Near-infrared Deep Extragalactic Legacy Survey (CANDELS), Hubble Space Telescope (HST)
 
-\end{frame}
+%% \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Hubble space telescope}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Hubble space telescope}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{HST_galaxy.jpg}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.5\textwidth]{HST_galaxy.jpg}
+%% \end{figure}
 
-The farther away the galaxies, the younger they are. These young galaxies bring precious information to improve our understanding of the formation of our universe.
+%% The farther away the galaxies, the younger they are. These young galaxies bring precious information to improve our understanding of the formation of our universe.
 
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{CANDELS \cite{grogin_candels_2011}}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{candels.jpg}
-\end{figure}
-
-Only modality F160W was used in \cite{tuccillo_deep_2018}.
-
-\end{frame}
+%% \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Available data}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{CANDELS \cite{grogin_candels_2011}}
 
-Obtaining measures from the real images is done in practice with GALFIT, but the procedure is not totally automatic.
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{candels.jpg}
+%% \end{figure}
 
-\begin{itemize}
-\item Real annotated data: 5000 images from the van der Wel et al. (2012) catalog
-\item Simulated data
-\end{itemize}
+%% Only modality F160W was used in \cite{tuccillo_deep_2018}.
 
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Adopted strategy}
-
-\begin{itemize}
-\item Learning using $55\,000$ simulated images, with corresponding measures
-\item First test on simulated data and comparison with GALFIT
-\item Transfer learning using $4\,000$ images from the van der Wel catalog
-\item Test on real data using the $1\,000$ remaining images
-\end{itemize}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Results on simulated data}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{gal_simu}
-\end{figure}
-
-\begin{columns}
-  \begin{column}{.5\textwidth}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{deeplegato_galfit_sim_res}
-\end{figure}
-
-  \end{column}
-
-  \begin{column}{.5\textwidth}
-    \scriptsize
-Computing time (5000 galaxies):
-\begin{itemize}
-\item GALFIT (CPU): 12600 s
-\item NN (CPU): 200 s
-\item NN (GPU): 4 s
-\end{itemize}
-
-  \end{column}
-\end{columns}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Results on real data: examples}
-
-\begin{columns}
-  \begin{column}{.5\textwidth}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{gal_real_ok}\\
-  \scriptsize{Correct results}
-\end{figure}
-
-  \end{column}
-
-  \begin{column}{.5\textwidth}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{gal_real_notok}\\
-  \scriptsize{Incorrect results}
-\end{figure}
-
-  \end{column}
-\end{columns}
-
-\end{frame}
+%% \end{frame}
 
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Available data}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Results on real data}
+%% Obtaining measures from the real images is done in practice with GALFIT, but the procedure is not totally automatic.
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.75\textwidth]{deeplegato_galfit_real_res}
-\end{figure}
+%% \begin{itemize}
+%% \item Real annotated data: 5000 images from the van der Wel et al. (2012) catalog
+%% \item Simulated data
+%% \end{itemize}
 
-2 GALFIT: comparison between two sets of measures obtained with GALFIT, the first as given in the van der Wel et al. (2012) catalog, and the second obtained by Dimauro et al. (2017).
+%% \end{frame}
 
-\end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Adopted strategy}
+
+%% \begin{itemize}
+%% \item Learning using $55\,000$ simulated images, with corresponding measures
+%% \item First test on simulated data and comparison with GALFIT
+%% \item Transfer learning using $4\,000$ images from the van der Wel catalog
+%% \item Test on real data using the $1\,000$ remaining images
+%% \end{itemize}
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Results on simulated data}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.5\textwidth]{gal_simu}
+%% \end{figure}
+
+%% \begin{columns}
+%%   \begin{column}{.5\textwidth}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{deeplegato_galfit_sim_res}
+%% \end{figure}
+
+%%   \end{column}
+
+%%   \begin{column}{.5\textwidth}
+%%     \scriptsize
+%% Computing time (5000 galaxies):
+%% \begin{itemize}
+%% \item GALFIT (CPU): 12600 s
+%% \item NN (CPU): 200 s
+%% \item NN (GPU): 4 s
+%% \end{itemize}
+
+%%   \end{column}
+%% \end{columns}
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Results on real data: examples}
+
+%% \begin{columns}
+%%   \begin{column}{.5\textwidth}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{gal_real_ok}\\
+%%   \scriptsize{Correct results}
+%% \end{figure}
+
+%%   \end{column}
+
+%%   \begin{column}{.5\textwidth}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{gal_real_notok}\\
+%%   \scriptsize{Incorrect results}
+%% \end{figure}
+
+%%   \end{column}
+%% \end{columns}
+
+%% \end{frame}
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Results on real data}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.75\textwidth]{deeplegato_galfit_real_res}
+%% \end{figure}
+
+%% 2 GALFIT: comparison between two sets of measures obtained with GALFIT, the first as given in the van der Wel et al. (2012) catalog, and the second obtained by Dimauro et al. (2017).
+
+%% \end{frame}
 
 
 
