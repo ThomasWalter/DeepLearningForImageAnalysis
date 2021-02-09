@@ -1,0 +1,320 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\input{../../setting.tex}
+\usepackage{physics}
+
+\graphicspath{{../graphics/}}
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+    \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+    \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+%% For image credits on image bottom right
+\usepackage[absolute,overlay]{textpos}
+\setbeamercolor{framesource}{fg=gray}
+\setbeamerfont{framesource}{size=\tiny}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
+
+
+
+\title{Attention transformers}
+\author{E. Decencière}
+\date{MINES ParisTech\\
+  PSL Research University\\
+  Center for Mathematical Morphology
+}
+\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Contents}
+  \tableofcontents[hidesubsections]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transformers: a new revolution in deep learning?}
+
+\begin{itemize}
+\item Transformers have brought a break-through in natural language processing
+  \begin{itemize}
+  \item Bidirectional Encoder Representations from Transformers (BERT, by Google~\cite{brown_language_2020})
+  \item Generative Pre-trained Transformer 3 (GPT-3, by OpenAI~\cite{devlin_bert_2019}): 175 billion parameters.
+  \end{itemize}
+  \item They contribute to the development of new natural language processing applications (translation, voice assistants, etc.)
+  \item Will they do the same in image analysis?
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What are transformers?}
+
+\begin{block}{A fist quick definition}
+A transformer is a neural network architecture module that explicitly allows the network to \alert{adaptively focus its attention} on certain regions of the data.
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Visual attention}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Attention in human vision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How do we look at an  image?}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{repin_unexpected_visitor}
+  \caption{Ilya Repin, An Unexpected Visitor, 1884.}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How do we look at an image?}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{Yarbus}
+    \caption{Experiments on visual attention \cite{yarbus_eye_1967}}
+\end{figure}
+
+Tasks:
+\begin{itemize}
+\item Age of the characters?
+\item How long has the visitor been away?
+\item Memorize the objects in the scene.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Information used by human visual attention}
+
+  \begin{itemize}
+  \item Bottom-up:
+    \begin{itemize}
+    \item local features (orientation, intensity, junctions, colour, motion, etc.)
+    \item local features contrast
+    \item context
+    \end{itemize}
+\item Top-bottom: task related
+\item Construction of a single \textit{saliency map}
+
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exploring the image}
+
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{repin_unexpected_visitor}
+    \end{figure}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+
+    \begin{itemize}
+  \item Winner-takes all! We focus on the maximum of the saliency map.
+  \item Inhibition of return: We explore the following maxima, at first avoiding those that have already been inspected
+  \end{itemize}
+
+  \end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why?}
+
+  \begin{itemize}
+  \item Photoreceptor cells are expensive
+  \item Processing power is limited
+  \item Solution: concentrate the cells in a given region and use the gaze to optimize their use
+  \end{itemize}
+
+\pause
+
+  \begin{alertblock}{}
+    \begin{itemize}
+    \item The same arguments apply to artificial visual systems
+    \end{itemize}
+  \end{alertblock}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Attention in image analysis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A classical bottom-up model}
+
+\begin{columns}
+  \begin{column}{.4\textwidth}
+\begin{itemize}
+\item Itti et al.~\cite{itti_model_1998} proposed a model inspired by the primate visual system.
+\item It only uses low-level information.
+\end{itemize}
+
+
+  \end{column}
+
+  \begin{column}{.6\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{visual_attention_model_itti}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Examples \cite{itti_model_1998}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{saliency_maps_itti}
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Top-down attention models}
+
+  \begin{itemize}
+  \item These are task-dependant.
+  \item Note that all detection methods can be considered as task-oriented attention methods
+  \end{itemize}
+
+  \begin{block}{Example: Face detection with the Viola-Jones method~\cite{viola_rapid_2001}}
+    \begin{itemize}
+    \item Define weak learners based on integrals on rectangles
+    \item Select learners using AdaBoost
+    \item Apply them in a hierarchical way
+    \end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{viola_jones_features}\\
+  \scriptsize{Image size: $24 \times 24$ pixels}
+\end{figure}
+
+
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration~\cite{viola_rapid_2001}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{viola_jones_example}
+\end{figure}
+
+Once attention is focused, the corresponding regions can be further analysed. Here, for identification purposes, for example.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Attention with deep learning}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformers}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Historical land-marks}
+
+\begin{itemize}
+\item Graph transformers: \cite{lecun_gradient-based_1998}
+\item Transforming auto-encoders: \cite{hinton_transforming_2011}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame[allowframebreaks]{
+
+  \scriptsize
+
+  \frametitle{References}
+
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
+
+  \bibliography{../../edf.bib}
+
+  \normalsize
+
+}
+
+\end{document}
