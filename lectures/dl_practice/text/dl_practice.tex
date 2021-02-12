@@ -49,14 +49,14 @@
 
 \frame{\titlepage}
 
-\frame{
-  \frametitle{Contents}
-  \tableofcontents[hidesubsections]
-}
+%% \frame{
+%%   \frametitle{Contents}
+%%   \tableofcontents[hidesubsections]
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section*{Introduction}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,9 +92,9 @@
 
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data
-  \item Build your data set
   \item Cast the task at hand into a machine learning problem
-  \item Build an architecture and train it (begin with simple ones!) or choose a pre-trained model and use transfer learning
+  \item Build your data set
+  \item Build an architecture and train it or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
@@ -107,7 +107,6 @@
   \item Only at the end: test!
   \end{itemize}
 }
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -800,11 +799,11 @@ The authors devised experiments on the ImageNet database in order to evaluate di
     \item You now know the basics to tackle many computer vision problems with deep learning.
     \item But there are many other topics of interest:
       \begin{itemize}
-      \item Non supervised methods, including autoencoders and generative adversarial networks (next lectures)
+      \item Attention mechanisms, transformers
       \item Self-supervision, low supervision
+      \item Non supervised methods, including autoencoders and generative adversarial networks
       \item Recurrent networks
       \item Anomaly detection
-      \item Attention mechanisms
       \item etc.
       \end{itemize}
     \end{itemize}
