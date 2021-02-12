@@ -66,7 +66,7 @@
 \begin{frame}{Transformers: a new revolution in deep learning?}
 
 \begin{itemize}
-\item Transformers have brought a break-through in natural language processing
+\item Transformers~\cite{vaswani_attention_2017} have brought a break-through in natural language processing
   \begin{itemize}
   \item Bidirectional Encoder Representations from Transformers (BERT, by Google~\cite{brown_language_2020})
   \item Generative Pre-trained Transformer 3 (GPT-3, by OpenAI~\cite{devlin_bert_2019}): 175 billion parameters.
@@ -81,9 +81,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What are transformers?}
 
-\begin{block}{A fist quick definition}
+\begin{block}{Definition}
 A transformer is a neural network architecture module that explicitly allows the network to \alert{adaptively focus its attention} on certain regions of the data.
 \end{block}
+
+\begin{alertblock}{Transformers today}
+  Nowadays, when people refer to the transformer, they generally mean the architecture proposed by Vaswani et al. in 2017~\cite{vaswani_attention_2017}.
+\end{alertblock}
 
 \end{frame}
 
@@ -152,7 +156,7 @@ Tasks:
   \begin{column}{.5\textwidth}
     \begin{figure}[ht]
       \centering
-      \includegraphics[width=0.6\textwidth]{repin_unexpected_visitor}
+      \includegraphics[width=0.9\textwidth]{repin_unexpected_visitor}
     \end{figure}
   \end{column}
 
@@ -171,7 +175,7 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Why?}
+\begin{frame}{Why has visual attention evolved?}
 
   \begin{itemize}
   \item Photoreceptor cells are expensive
@@ -184,6 +188,8 @@ Tasks:
   \begin{alertblock}{}
     \begin{itemize}
     \item The same arguments apply to artificial visual systems
+    \item[\textbf{+}] Some degree of invariance
+    \item[\textbf{+}] Interpretability
     \end{itemize}
   \end{alertblock}
 
@@ -218,6 +224,19 @@ Tasks:
 
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{koch_ullman}
+  \source{\cite{itti_computational_2001}}
+\end{figure}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Examples \cite{itti_model_1998}}
@@ -273,22 +292,162 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \subsection{Attention with deep learning}
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Transformers}
+\begin{frame}{Region proposal networks \cite{ren_faster_2015}}
+
+  \begin{itemize}
+  \item Detection and instance segmentation methods use region proposal networks, that can be interpreted as an attention mechanism.
+  \item The region proposal network gives the coordinates of the rectangle and a probability that it contains an object.
+  \end{itemize}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Historical land-marks}
-
-\begin{itemize}
-\item Graph transformers: \cite{lecun_gradient-based_1998}
-\item Transforming auto-encoders: \cite{hinton_transforming_2011}
-\end{itemize}
+\begin{figure}
+  \centering
+  \includegraphics[width=7.5cm]{mask_r_cnn.png}\\
+  \scriptsize{A region proposal module is used by mask R-CNN~\cite{he_mask_2017}}
+  \end{figure}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Spatial transformers~\cite{jaderberg_spatial_2016}}
+
+  \begin{columns}
+    \begin{column}{.75\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{spatial_transformer}
+      \end{figure}
+
+    \end{column}
+
+    \begin{column}{.25\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{sampling_grid}
+      \end{figure}
+    \end{column}
+  \end{columns}
+
+  \vspace{1cm}
+
+  \begin{block}{}
+    \begin{itemize}
+    \item This module can be added to any convolution network
+    \item End-to-end learning
+    \end{itemize}
+
+
+  \end{block}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Spatial transformers illustration}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{spatial_transformer_res}
+  \end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The transformer architecture and its applications in computer vision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transformer avatars}
+
+  \begin{block}{Some examples}
+    \begin{itemize}
+    \item Graph transformers~\cite{lecun_gradient-based_1998}
+    \item Transforming auto-encoders~\cite{hinton_transforming_2011}
+    \item Spatial transformers~\cite{jaderberg_spatial_2016}
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{\textbf{The} transformer~\cite{vaswani_attention_2017}.}
+    Today, when people refer to the transformer, they generally mean the architecture proposed by Vaswani et al. in 2017.
+  \end{alertblock}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The rise of transformers}
+
+  \begin{columns}
+
+    \begin{column}{.5\textwidth}
+      \begin{block}{The paper that started it all}
+        Vaswani et al., Attention is all you need, Neurips 2017.
+      \end{block}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{transformer}
+      \end{figure}
+    \end{column}
+
+  \end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Architecture~\cite{vaswani_attention_2017}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{transformer_with_zooms}
+  \source{\url{https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html}}
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Multi-head attention}
+
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{multi_head_attention}
+  \end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+  \begin{itemize}
+  \item Matrices $W^Q$, $W^V$ and $W^V$ are learnable.
+  \item $d_K$ is the length of $K'$.
+  \end{itemize}
+
+  \end{column}
+\end{columns}
+
+  \begin{block}{Dot-product attention}
+    \[Att(Q,K,V) = softmax\left(\frac{QW^QKW^V}{\sqrt{d_K}}\right) VW^V \]
+    \[Att(Q,K,V) = softmax\left(\frac{Q'K'}{\sqrt{d_K}}\right) V' \]
+  \end{block}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dot-product attention}
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
