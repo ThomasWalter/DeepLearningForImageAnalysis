@@ -415,6 +415,11 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \begin{frame}{Multi-head attention}
 
 
+  \begin{block}{Dot-product attention}
+    \[Att(Q,K,V) = softmax\left(\frac{QW_Q(KW_V)^t}{\sqrt{d_{K'}}}\right) VW_V \]
+    \[Att(Q,K,V) = softmax\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
+  \end{block}
+
 \begin{columns}
   \begin{column}{.5\textwidth}
   \begin{figure}[ht]
@@ -426,17 +431,12 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
   \begin{column}{.5\textwidth}
   \begin{itemize}
-  \item Matrices $W^Q$, $W^V$ and $W^V$ are learnable.
-  \item $d_K$ is the length of $K'$.
+  \item Matrices $W_Q$, $W_V$ and $W_V$ are learnable.
+  \item $d_{K'}$ is the length of $K'$.
   \end{itemize}
 
   \end{column}
 \end{columns}
-
-  \begin{block}{Dot-product attention}
-    \[Att(Q,K,V) = softmax\left(\frac{QW^QKW^V}{\sqrt{d_K}}\right) VW^V \]
-    \[Att(Q,K,V) = softmax\left(\frac{Q'K'}{\sqrt{d_K}}\right) V' \]
-  \end{block}
 
 
 
@@ -444,7 +444,14 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dot-product attention}
+\begin{frame}{Dot-product attention illustration}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{dot_prod_attention_illustration}
+  \source{https://nlp.seas.harvard.edu/2018/04/03/attention.html}
+\end{figure}
+
 
 \end{frame}
 
