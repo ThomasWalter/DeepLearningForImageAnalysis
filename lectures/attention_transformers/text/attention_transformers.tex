@@ -34,7 +34,7 @@
 
 
 
-\title{Attention transformers}
+\title{Attention and transformers}
 \author{E. Decencière}
 \date{MINES ParisTech\\
   PSL Research University\\
@@ -82,8 +82,10 @@
 \begin{frame}{What are transformers?}
 
 \begin{block}{Definition}
-A transformer is a neural network architecture module that explicitly allows the network to \alert{adaptively focus its attention} on certain regions of the data.
+A transformer is a neural network architecture module that allows the network to \alert{adaptively focus its attention} on certain regions of the data.
 \end{block}
+
+\pause
 
 \begin{alertblock}{Transformers today}
   Nowadays, when people refer to the transformer, they generally mean the architecture proposed by Vaswani et al. in 2017~\cite{vaswani_attention_2017}.
@@ -106,7 +108,7 @@ A transformer is a neural network architecture module that explicitly allows the
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\textwidth]{repin_unexpected_visitor}
-  \caption{Ilya Repin, An Unexpected Visitor, 1884.}
+  \source{Ilya Repin, An Unexpected Visitor, 1884.}
 \end{figure}
 
 \end{frame}
@@ -118,7 +120,7 @@ A transformer is a neural network architecture module that explicitly allows the
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{Yarbus}
-    \caption{Experiments on visual attention \cite{yarbus_eye_1967}}
+    \source{Experiments on visual attention \cite{yarbus_eye_1967}}
 \end{figure}
 
 Tasks:
@@ -226,16 +228,16 @@ Tasks:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+%% \begin{frame}{A bottom-up model}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{koch_ullman}
-  \source{\cite{itti_computational_2001}}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.9\textwidth]{koch_ullman}
+%%   \source{\cite{itti_computational_2001}}
+%% \end{figure}
 
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -334,7 +336,7 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
   \begin{block}{}
     \begin{itemize}
-    \item This module can be added to any convolution network
+    \item This module can be added to any convolutional network
     \item End-to-end learning
     \end{itemize}
 
@@ -354,6 +356,22 @@ Once attention is focused, the corresponding regions can be further analysed. He
   \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Spatial transformers with multiple heads}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{spatial_transformers_birds}
+  \end{figure}
+
+\begin{block}{Remarks}
+  \begin{itemize}
+  \item Note that in the first row one transformer tends to focus on the bird's head, while the second is centered on the body
+  \item In the second row, the specialization is less apparent
+  \end{itemize}
+\end{block}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -376,6 +394,12 @@ Once attention is focused, the corresponding regions can be further analysed. He
   \end{alertblock}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The transformer for natural language processing}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The rise of transformers}
@@ -431,6 +455,7 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
   \begin{column}{.5\textwidth}
   \begin{itemize}
+  \item $V$: values; $K$: keys; $Q$: queries.
   \item Matrices $W_Q$, $W_V$ and $W_V$ are learnable.
   \item $d_{K'}$ is the length of $K'$.
   \end{itemize}
@@ -444,7 +469,25 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dot-product attention illustration}
+\begin{frame}{Dot-product self-attention illustration}
+
+\begin{columns}
+  \begin{column}{.4\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{multi_head_attention}
+  \end{figure}
+
+  \end{column}
+
+  \begin{column}{.6\textwidth}
+    In the case of self-attention:
+  \begin{itemize}
+  \item $V = K = Q = X$
+  \end{itemize}
+
+  \end{column}
+\end{columns}
 
 \begin{figure}[ht]
   \centering
@@ -456,10 +499,147 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Detection Transformer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{end_to_end_transformer}
+\end{figure}
+
+
+\begin{block}{Remarks}
+  \begin{itemize}
+  \item Convolutional layers are used to encode the image
+  \item After a $1 \times 1$ convolutional layers, each feature map is flattened and considered as an input for the transformer encoder
+  \item Decoder outputs are processed by a feed-forward network (FFN) to generate the box coordinates and label (possibly $\emptyset$).
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results and comments}
+
+\begin{itemize}
+\item Similar accuracy and run-time performance to Faster R-CNN on the COCO object detection dataset
+\item Optimization was apparently difficult (extra losses, for instance)
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{detr_attention_scores}
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vision transformer}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ViT: the vision transformer~\cite{dosovitskiy_image_2021}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{vision_transformer}
+\end{figure}
+
+\begin{block}{Remarks}
+  \begin{itemize}
+  \item Only uses the transformer encoder
+  \item Directly takes as input an image patch
+  \item Achieves state-of-the-art results when trained on very large databases (Google's JFT-300M dataset)
+  \end{itemize}
+\end{block}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{ViT results}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{vit_table}
+%% \end{figure}
+
+%% \begin{block}{Remarks}
+%%   \begin{itemize}
+%%   \item Models pre-trained on JFT-300M
+%%   \item Note the required processing power
+%%   \end{itemize}
+
+%% \end{block}
+
+%% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ViT results}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{vit_graph}
+\end{figure}
+
+
+\begin{itemize}
+  \item ViT-H/14 requires 2500 TPUv3-core-days for pre-training
+  \item BiT: Big transfer~\cite{kolesnikov_big_2020}
+\end{itemize}
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
+\section{Discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Discussion}
+
+  \begin{block}{Convolutional neural networks}
+
+    \begin{itemize}[<+->]
+    \item Convolutional networks are based on two inductive biases:
+      \begin{itemize}
+      \item Locality
+      \item Translation equivariance
+      \end{itemize}
+
+    \item These hypothesis allow simplifying the models, but may also limit their generality
+
+      \begin{itemize}
+      \item Long range interactions are difficult to take into account
+      \item Translation equivariance is not always welcome
+
+      \end{itemize}
+    \end{itemize}
+
+  \end{block}
+
+  \begin{block}{Transformers}
+
+    \begin{itemize}[<+->]
+    \item Transformers, like fully connected layers, do not make any assumptions on the data structure
+      \begin{itemize}
+      \item Localization is brought by a positional encoding
+      \end{itemize}
+
+    \item Are transformers a smart way of analysing images with fully connected layers?
+
+    \end{itemize}
+  \end{block}
+
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
