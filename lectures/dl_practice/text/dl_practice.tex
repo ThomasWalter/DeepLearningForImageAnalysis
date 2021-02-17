@@ -49,14 +49,14 @@
 
 \frame{\titlepage}
 
-\frame{
-  \frametitle{Contents}
-  \tableofcontents[hidesubsections]
-}
+%% \frame{
+%%   \frametitle{Contents}
+%%   \tableofcontents[hidesubsections]
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section*{Introduction}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,7 +74,7 @@
   \begin{itemize}[<+->]
   \item We lack theoretical understanding of the success of deep learning
   \item Many common techniques have been adopted for empirical reasons
-  \item In order to improve your skills, you have to practice a lot and read the reports by other practitioners
+  \item In order to improve your skills, you have to practice and read the reports by other practitioners
   \end{itemize}
 
   \pause
@@ -92,9 +92,9 @@
 
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data
-  \item Build your data set
   \item Cast the task at hand into a machine learning problem
-  \item Build an architecture and train it (begin with simple ones!) or choose a pre-trained model and use transfer learning
+  \item Build your data set
+  \item Build an architecture and train it or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
@@ -109,7 +109,6 @@
 }
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem representation}
 
@@ -117,7 +116,7 @@
 \frame{
   \frametitle{Representing your problem}
 
-  Cast your problem into a convenient representation.
+  Cast your problem into a convenient representation:
 
     \begin {itemize}[<+->]
     \item Understand the problem definition - discuss with the end-user
@@ -160,16 +159,27 @@
 \source{images from OPHDIAT database}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Counting cells}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Counting cells}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{lazard0}
+      \source{Tristan Lazard, master thesis. In collaboration with L'Oréal.}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Counting cells}
 
     \begin{figure}
       \includegraphics[width=\textwidth]{lazard}
       \source{Tristan Lazard, master thesis. In collaboration with L'Oréal.}
     \end{figure}
 
-}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,6 +215,19 @@
   \end{alertblock}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{twitter_databases}
+  \end{figure}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Anecdote: tank detection}
@@ -355,7 +378,12 @@ Plankton classification: hundred classes - a few dozen examples per class.
     \end{itemize}
   \end{itemize}
 
-  When working with keras, you can use keras-tuner.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{hyperparameter_tuning}
+    \source{\cite{bergstra_random_2012}}
+  \end{figure}
+
 
 \end{frame}
 
@@ -531,7 +559,7 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
   Jason Yosinski, Jeff Clune, Yoshua Bengio, Hod Lipson. \textbf{How transferable are features in deep neural networks?} Neural Information Processing Systems, 2014.
 \end{block}
 
-The authors devised experiments on the ImageNet database in order to evaluate different fine-tuning strategies and improve our of understanding of these methods.
+The authors devised experiments on the ImageNet database in order to evaluate different fine-tuning strategies and improve our understanding of these methods.
 
 \end{frame}
 
@@ -541,7 +569,6 @@ The authors devised experiments on the ImageNet database in order to evaluate di
   \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{transfer_learning_exp}\\
-    \scriptsize{Layer $n$ at which the network is chopped and retrained}
   \end{figure}
 
 \end{frame}
@@ -772,11 +799,11 @@ The authors devised experiments on the ImageNet database in order to evaluate di
     \item You now know the basics to tackle many computer vision problems with deep learning.
     \item But there are many other topics of interest:
       \begin{itemize}
-      \item Non supervised methods, including autoencoders and generative adversarial networks (next lectures)
+      \item Attention mechanisms, transformers
       \item Self-supervision, low supervision
+      \item Non supervised methods, including autoencoders and generative adversarial networks
       \item Recurrent networks
       \item Anomaly detection
-      \item Attention mechanisms
       \item etc.
       \end{itemize}
     \end{itemize}
