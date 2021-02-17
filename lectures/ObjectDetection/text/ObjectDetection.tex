@@ -4,7 +4,7 @@
 
 
 \title{Deep Learning for Image Analysis - \\
-	   Deep Learning for object detection}
+	   Object detection}
 \author{Thomas Walter, PhD}
 \date{Centre for Computational Biology (CBIO) \\
 	  MINES Paris-Tech, PSL Research University \\
@@ -99,14 +99,18 @@
 % \end{figure}
 \begin{itemize}
 	\item Image Classification: assign a label to each image. 
-	\item Image Segmentation: partition the image, i.e. assign a label to each pixel.
-	\item Image understanding requires the estimation of concepts and locations of objects contained in an image.
-	\item Problem definition: Object detection is ac omputer vision task that aims to detect instances of semantic objects of certain classes in images \cite{Ren2017, Zhao2019}.
+	\item Semantic image Segmentation: partition the image, i.e. assign a label to each pixel.   
+	\item Object detection: detect instances of semantic objects of certain classes in images \cite{Ren2017, Zhao2019}.
 	\item Object detection has thus two components:
 	\begin{itemize}
 		\item \textit{Object localization:} to determine where objects are located in a given image
 		\item \textit{Object classification:} which category each object belongs to
 	\end{itemize}
+   \item (Multiple) instance Segmentation: combines the objectives of object detection and segmentation.
+   % \begin{itemize}
+   %    \item Segments individual objects
+   %    \item Refines object detection.
+   % \end{itemize}
 \end{itemize}
 %\vspace{-.5cm}
 \end{frame}
@@ -177,9 +181,10 @@
 \begin{frame}{Drawbacks of R-CNN}
 \begin{itemize}
 \item Fixed input size for the CNN: distortion and rescaling of images is necessary.
-\item Multi-stage pipeline.
-\item Training is expensive (time and space).
-\item Computational expensive, sub-optimal region proposal step.
+\item Multi-stage pipeline (no end-to-end solution, which is globally optimal).
+\item Training is expensive in space and time, mainly due to the separate feature extraction step. 
+\item Computationally expensive at prediction time, as many (overlapping) regions need to be classified. 
+\item Sub-optimal region proposal step.
 \end{itemize} 
 \end{frame}
 
@@ -230,7 +235,7 @@
 % \loss = - \sum_k y_k \log(\hat{y}_k) + \lambda[y \geq 1] \sum_{j \in \{x,y,w,h\}} \loss_1(v^k_j - \hat{v^k}_j)
 % \end{equation*}
 % where $v$ is the offset relative to a region proposal. 
-\item Trick: during training, the batch is constructed from many objects drawn from very few images. 
+\item During training, the batch is constructed from many objects drawn from very few images. Feature maps do then not need to be recalculated. 
 \item For the prediction, each class gets its own region proposal, that is processed individually with non-maxima suppression. 
 \end{itemize}
 \end{frame}
@@ -266,8 +271,10 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \end{figure}
 \begin{itemize}
 \item First, we run the image through convolutional layers of a CNN and obtain feature maps that will serve both the region proposal and the object classification. 
-\item We now slide a small network over the common feature map, that outputs both scores (object yes/no) and regression offsets defining the bounding box. 
+\item We now "slide" a small $n \times n$ network over the common feature map. In practice, this is implemented as a convolutional layer, followed by $1D$-convolutions. 
 \item The size can be relatively small (in \cite{Ren2017}, it is $3 \times 3$); the receptive field is much larger. 
+% , that outputs both scores (object yes/no) and regression offsets defining the bounding box. 
+% \item The size can be relatively small (in \cite{Ren2017}, it is $3 \times 3$); the receptive field is much larger. 
 %\item The size of the window needs to be chosen such that the receptive field is larger than all regions in the ground truth. 
 \end{itemize}
 \end{frame}
@@ -279,11 +286,40 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{Faster R-CNN \cite{Ren2017}}.
 \end{figure}
 \begin{itemize}
-\item A Region Proposal Network (RPN) takes an image as input and outputs a set of rectangular object proposals, each with an objectness score.
-\item We define $k$ anchor regions (defined by scale and aspect ratio).
-\item At each sliding-window location, we simultaneously predict $k$ region proposals from the $k$ anchor regions, for each we predict a score (object yes/no) and the box offsets.
+\item This small network completes the Region Proposal Network (RPN).
+\item The RPN outputs a set of rectangular object proposals, each with an objectness score.
+\item For this, we define $k$ anchor regions (defined by scale and aspect ratio) at each sliding-window location.
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Faster R-CNN: Region proposal network (RPN)}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
+   \caption{Faster R-CNN \cite{Ren2017}}.
+\end{figure}
+\begin{itemize}
+\item For each sliding windows location and each of the $k$ anchors, we predict:
+\begin{itemize}
+   \item Objectness (object yes/no) of the anchor.
+   \item Width, height and offset w.r.t. the anchor.
+\end{itemize}
+\item During training, an anchor is considered to be positive if the $IoU>0.7$ or if the $IoU$ is maximal among all anchors and none is larger than 0.7. Negative anchors have $IoU<0.3$. 
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{Faster R-CNN: Region proposal network (RPN)}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
+%    \caption{Faster R-CNN \cite{Ren2017}}.
+% \end{figure}
+% \begin{itemize}
+% \item A Region Proposal Network (RPN) takes an image as input and outputs a set of rectangular object proposals, each with an objectness score.
+% \item We define $k$ anchor regions (defined by scale and aspect ratio).
+% \item At each sliding-window location, we simultaneously predict $k$ region proposals from the $k$ anchor regions, for each we predict a score (object yes/no) and the box offsets.
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{Faster R-CNN: Region proposal network (RPN)}
 \begin{figure}[htb]
@@ -311,6 +347,141 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \end{itemize}
 \end{frame}
 
+\begin{frame}{YOLO: You only look once}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
+%    \caption{Faster R-CNN \cite{Ren2017}}.
+% \end{figure}
+\begin{itemize}
+\item Problem of most detection systems: 
+\begin{itemize}
+\item First: region proposals 
+\item Second: classification of all region proposals individually
+\item Consequently: the best performing methods are very slow and not applicable in real-time
+\end{itemize}
+\item YOLO \cite{Redmon2016}: end-to-end strategy that only uses one forward-pass of an image for object detection. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: principle}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.4\textheight]{../graphics/YOLO_1.pdf}
+   \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
+\end{figure}
+\begin{itemize}
+   \item First, the image is divided into a $S \times S$ grid of cells. 
+   \item For each of these cells, we will then predict:
+   \begin{itemize}
+      \item Location and size of $B$ different boxes 
+      \item A confidence score that the box contains an object. 
+      \item The class of the object in each of the $B$ boxes. 
+   \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: principle}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.4\textheight]{../graphics/YOLO_2.pdf}
+   \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
+\end{figure}
+\begin{itemize}
+   \item First, the image is divided into a $S \times S$ grid of cells. 
+   \item For each of these cells, we will then predict:
+   \begin{itemize}
+      \item Location and size of $M$ different boxes. 
+      \item A confidence score that the box contains an object. 
+      \item The class of the object in each of the $B$ boxes. 
+   \end{itemize}
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{YOLO: confidence score of a predicted box}
+% % \begin{figure}[htb]
+% %    \centering
+% %    \includegraphics[height=0.4\textheight]{../graphics/YOLO_2.pdf}
+% %    \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
+% % \end{figure}
+% \begin{itemize}
+%    \item The confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
+%    \begin{equation}
+%       Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
+%    \end{equation}
+%    \item The confidence score is thus close to 0 if there is no object associated in the bounding box. 
+%    \item Otherwise the confidence score corresponds to the intersection over union ($IOU$). 
+%    \item The confidence score thus represents both the probability of an object and the localization quality of the predicted box.  
+% \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{YOLO: each cell predicts boxes and confidences}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[height=0.4\textheight]{../graphics/YOLO_2.pdf}
+%    \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
+% \end{figure}
+\begin{itemize}
+   \item If the center of an object falls into one cell, that cell is responsible for the prediction of the object. 
+   \item Geometry and position of the bounding box: 
+   \begin{itemize}
+      \item Center $(x, y)$ with respect to the origin of the cell.
+      \item The relative width and height: $w$, $h$ (normalized by image width and height). 
+   \end{itemize}
+   \item The confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
+   \begin{equation}\nonumber
+      Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
+   \end{equation}
+   where $B_i$ is the ground truth bounding box. 
+   \item At test time the confidence values $Conf_i$ are predicted (together with the bounding box geometry). 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: prediction of the class}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.4\textheight]{../graphics/YOLO_ClassProbabilityMap.pdf}
+   \caption{Class map prediction}
+\end{figure}
+\begin{itemize}
+\item Each cell of the partition predicts also $K$ class probabilities, conditioned on the presence of an object $P(C_i|obj)$. 
+\item During prediction, this class probability is multiplied with the confidence score:  
+\begin{equation}\nonumber
+P(C_k|obj) Conf = P(C_k | obj) P(obj) IOU(\hat{B}, B) = P(C_k) IOU(\hat{B}, B)
+\end{equation}
+This provides class-specific confidence scores for each of the predicted boxes. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: Output}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.4\textheight]{../graphics/YOLO_Output.pdf}
+   \caption{Output layer of YOLO for 5 classes}
+\end{figure}
+If we assume that our initial grid was $7 \times 7$, we predict two boxes per cell and that we have 20 classes, we obtain as output layer a tensor of dimension: 
+\begin{equation}\nonumber
+(7 \times 7) \times (2 \times 5 + 20) = 1470
+\end{equation}
+This is the number of output variables we would predict. 
+\end{frame}
+
+
+\begin{frame}{YOLO: Examples}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=\textwidth]{../graphics/YOLO_ex.pdf}
+   \caption{Examples for YOLO detections}
+\end{figure}
+The method is extremely fast. Localization is less precise than for Faster R-CNN. 
+\end{frame}
+
+
+% \begin{frame}{Multiple Instance Segmentation}
+
+% \end{frame}
+
 \section{Conclusion}
 
 \begin{frame}{Conclusion}
@@ -318,7 +489,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \item Object detection is a major challenge in Computer Vision with applications in biomedical image analysis, autonomous driving, industrial applications, etc.
 \item CNNs outperform most traditional methods by a large margin. 
 \item Today, object detection is among the most stunning applications of Computer Vision. 
-\item There are hundreds of methods, but the most important advances were achieved by R-CNN, Fast R-CNN and Faster R-CNN. 
+\item There are hundreds of methods, but the most important advances were achieved by R-CNN, Fast R-CNN, Faster R-CNN and YOLO. 
 \item They can be combined with segmentation (Mask R-CNN). 
 \end{itemize}
 \end{frame}
