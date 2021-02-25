@@ -75,6 +75,10 @@
   \item Will they do the same in image analysis?
 \end{itemize}
 
+\vspace{1em}
+
+\scriptsize{NB: Our aim through this lesson is to (hopefully!) review the main ideas on attention and transformers, through selected examples. However, this overview is not exhaustive.}
+
 \end{frame}
 
 
@@ -324,6 +328,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
     \end{column}
 
+\pause
+
     \begin{column}{.25\textwidth}
       \begin{figure}[ht]
         \centering
@@ -331,6 +337,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
       \end{figure}
     \end{column}
   \end{columns}
+
+\pause
 
   \vspace{1cm}
 
@@ -410,6 +418,7 @@ Once attention is focused, the corresponding regions can be further analysed. He
       \begin{block}{The paper that started it all}
         Vaswani et al., Attention is all you need, Neurips 2017.
       \end{block}
+        This architecture was developed for text processing.
     \end{column}
 
     \begin{column}{.5\textwidth}
@@ -458,6 +467,7 @@ Once attention is focused, the corresponding regions can be further analysed. He
   \item $V$: values; $K$: keys; $Q$: queries.
   \item Matrices $W_Q$, $W_V$ and $W_V$ are learnable.
   \item $d_{K'}$ is the length of $K'$.
+  \item $h$ heads work in parallel.
   \end{itemize}
 
   \end{column}
@@ -498,9 +508,19 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Success of transformers in natural language processing}
+
+  \begin{itemize}
+  \item Bidirectional Encoder Representations from Transformers (BERT, by Google~\cite{brown_language_2020})
+  \item Generative Pre-trained Transformer 3 (GPT-3, by OpenAI~\cite{devlin_bert_2019}): 175 billion parameters.
+
+  \end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Detection Transformer}
+\subsection{Detection transformer}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
@@ -552,8 +572,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \begin{block}{Remarks}
   \begin{itemize}
   \item Only uses the transformer encoder
-  \item Directly takes as input an image patch
-  \item Achieves state-of-the-art results when trained on very large databases (Google's JFT-300M dataset)
+  \item Directly takes as inputs image patches
+  \item Achieves state-of-the-art results when pre-trained on very large databases (Google's JFT-300M dataset)
   \end{itemize}
 \end{block}
 
