@@ -66,7 +66,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[height=0.5\textheight]{lemonde-juillet2015}
-  \caption{Le Monde, juillet 2015}
+  \caption*{Le Monde, juillet 2015}
 \end{figure}
 
 
@@ -78,7 +78,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[height=0.5\textheight]{nature_go}
-  \caption{Nature, 2016}
+  \caption*{Nature, 2016}
 \end{figure}
 
 
@@ -91,7 +91,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.7\textwidth]{lemonde27mars2019}
-  \caption{Le Monde, mars 2019}
+  \caption*{Le Monde, mars 2019}
 \end{figure}
 
 
@@ -101,7 +101,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Differentiable programming}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Differentiable programming}
 
@@ -110,7 +109,7 @@
 \end{block}
 
 \begin{itemize}
-\item In our case, computational graphs will be used to compute a \alert{loss} function $\loss$, which depends on the input of the system $\X$ and its parameters $\param = \{\param_1, \ldots, \param_q\}$.
+\item In our case, \alert{computational graphs} will be used to compute a \alert{loss} function $\loss$, which depends on the input of the system $\X$ and its parameters $\param = \{\param_1, \ldots, \param_q\}$.
 \item Example:
   \[
   \loss(\X, \param) = (f_{\param_1} \circ g_{\param_2} + h_{\param_3}) (\X)
@@ -176,12 +175,8 @@
   A computational graph is a direct acyclic graph such that:
   \begin{itemize}
   \item A node is a mathematical operator
-  \item To each edge is associated a value
+  \item To each edge is associated a value (scalar, vector, matrix, tensor, $\ldots$)
   \item Each node can compute the values of its output edges from the values of its input edges
-    \begin{itemize}
-    \item Nodes without input edges are \emph{input nodes}. They represent the input values of the graph.
-    \item Similarly, output values can be held in the \emph{output nodes}.
-    \end{itemize}
   \end{itemize}
 \end{block}
 
@@ -297,8 +292,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 \end{block}
 
 \begin{figure}
-  \includegraphics[height=3cm]{network.png}
-  \source{(from http://www.jtoy.net)}
+  \includegraphics[height=3cm]{mini_reseau3_bis.png}
 \end{figure}
 
 
@@ -369,7 +363,7 @@ We can simply write:
 \end{itemize}
 
 \begin{figure}
-  \includegraphics[height=3cm]{network.png}
+  \includegraphics[height=3cm]{mini_reseau3_bis.png}
 \end{figure}
 
 }
@@ -381,7 +375,7 @@ We can simply write:
 \begin{columns}
   \begin{column}{.5\textwidth}
     \begin{figure}
-      \includegraphics[height=3cm]{network.png}
+      \includegraphics[height=3cm]{mini_reseau3_bis.png}
     \end{figure}
     \begin{figure}
       \includegraphics[height=3cm]{nn_representation}
@@ -619,7 +613,7 @@ We can simply write:
 	\begin{equation}
 		\nabla_{\param} \loss = (\frac{\partial \loss}{\partial a_0}, \frac{\partial \loss}{\partial a_1}, \ldots, \frac{\partial \loss}{\partial a_m} )^T = 0
 	\end{equation}
-	\item Unlike for most optimization problems in this course, this leads to an analytical solution for $\param$. This is known as \textbf{linear regression}. For more details, we refer to \cite{Hastie2009}.
+	\item Unlike most optimization problems in this course, this leads to an analytical solution for $\param$. This is known as \textbf{linear regression}. For more details, we refer to \cite{Hastie2009}.
 \end{itemize}
 \end{frame}
 
@@ -767,34 +761,34 @@ Another way of preventing overfitting without increasing the number of samples, 
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Layers representation}
 
-    \begin{block}{}
-  In the scalar case (single-valued images), each input pixel is considered as an input neuron.
+  \begin{block}{}
+    For illustration purposes, in the following slides images and filters will be displayed as rows of neurons -- these can be seen as 1D arrays or as sections of 2D arrays.
 
-  For illustration purposes, in the following slides images and filters will be displayed as rows of neurons - these can be seen as 1D arrays or as sections of 2D arrays.
-
+    We represent some connections between neurons. Each such connection is associated to a weight. The bias are not represented, to avoid clutter, but must not be forgotten.
   \end{block}
 
   \begin{columns}
 
     \begin{column}<1->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{image_as_pixels.png}
+        \includegraphics[width=0.80\textwidth]{cnn_pixels.png}
       \end{center}
     \end{column}
 
     \begin{column}<2->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{image_as_neurons.png}
+        \includegraphics[width=0.80\textwidth]{cnn_neurones.png}
 
       \end{center}
     \end{column}
 
     \begin{column}<3->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.15\textwidth]{image_as_neurons_col.png}
+        \includegraphics[width=0.07\textwidth]{col.png}
 
       \end{center}
     \end{column}
@@ -883,6 +877,21 @@ Another way of preventing overfitting without increasing the number of samples, 
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convolutional layer illustration in 2D}
+
+
+  \begin{itemize}
+  \item Illustration of a convolution of size $3 \times 3$
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{cnn_complet}
+  \end{center}
+
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Stride}
@@ -964,41 +973,6 @@ Another way of preventing overfitting without increasing the number of samples, 
 
 }
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Max pooling}
-
-  \begin{itemize}
-  \item Convolutional networks often contain subsampling steps. A common way of doing this today is by using \emph{max pooling} layers with stride 2.
-
-  \item Sampling is only applied along the spatial dimensions, not along the dimension of the filters.
-
-  \end{itemize}
-
-  \begin{center}
-    \includegraphics[width=0.41\textwidth]{max_pooling.png}
-  \end{center}
-
-  \pause
-
-  Note however a current trend that consists in using convolutional layers with a stride of 2
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dimension reduction}
-
-  $1 \times 1$ convolutions are used to reduce the number of filters - this is called by some authors \emph{dimension reduction}.
-
-  \begin{center}
-    \includegraphics[height=0.5\textheight]{conv1x1.png}
-  \end{center}
-
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Branch merging: concatenation}
 
@@ -1044,6 +1018,38 @@ Another way of preventing overfitting without increasing the number of samples, 
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
+
+  \begin{figure}
+    \includegraphics[width=0.95\textwidth]{unet_lo}
+  \end{figure}
+
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: counting cells}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{lazard0}
+      \source{Tristan Lazard, master thesis. In collaboration with L'Oréal.}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Counting cells}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{lazard}
+      \source{Tristan Lazard, master thesis. In collaboration with L'Oréal.}
+    \end{figure}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Autoencoders and generative adversarial networks}
@@ -1187,6 +1193,13 @@ The loss function for a given input vector is usually the reconstruction error:
   \end{block}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Which face is real?}
+
+
+\end{frame}
+
 
 
 
