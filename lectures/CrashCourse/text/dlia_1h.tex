@@ -61,7 +61,7 @@
 \section{Introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A revolution in image analysis}
+\begin{frame}{The rise of deep learning}
 
 \begin{figure}[ht]
   \centering
@@ -73,7 +73,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A revolution in image analysis}
+\begin{frame}{The rise of deep learning}
 
 \begin{figure}[ht]
   \centering
@@ -86,13 +86,27 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A revolution in image analysis}
+\begin{frame}{The rise of deep learning}
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.7\textwidth]{lemonde27mars2019}
   \caption*{Le Monde, mars 2019}
 \end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The rise of deep learning}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{le_figaro_musk}
+  \caption*{Le Figaro, juillet 2017}
+\end{figure}
+
 
 
 \end{frame}
@@ -110,10 +124,6 @@
 
 \begin{itemize}
 \item In our case, \alert{computational graphs} will be used to compute a \alert{loss} function $\loss$, which depends on the input of the system $\X$ and its parameters $\param = \{\param_1, \ldots, \param_q\}$.
-\item Example:
-  \[
-  \loss(\X, \param) = (f_{\param_1} \circ g_{\param_2} + h_{\param_3}) (\X)
-  \]
 
 \end{itemize}
 
@@ -234,7 +244,7 @@ Computing a \emph{forward pass} through the graph means choosing its input value
 \begin{frame}{The backpropagation algorithm}
 
   \begin{itemize}
-  \item The backpropagation algorithm is used in a neural network to efficiently compute the partial derivatives of the loss with respect to each parameter of the network.
+  \item The backpropagation algorithm is used in a computational graph to efficiently compute the partial derivatives of the loss with respect to each parameter of the network.
   \item One can trace the origins of the method to the sixties
   \item It was first applied to NN in the eighties \cite{werbos_applications_1982, lecun_procedure_1985}
   \end{itemize}
@@ -1097,20 +1107,20 @@ Given an unlabeled dataset $(\X)$, we would like to learn:
 \end{figure}
 \end{frame}
 
-\begin{frame}{Unsupervised Learning: Anomaly detection}
-Given an unlabeled dataset $(\X)$, we would like to learn:
-\alert{How to identify observations differing significantly from the majority of data?}
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 30mm]
-\tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = white!50] (alpha) [label=below: $\X$ ] {\includegraphics[width=.2\columnwidth]{Anomaly1}};
-  \node[main,fill = white!50] (xout) [right= of alpha,label=below: $\hat{\mathbf{Y}} \in \{\mathbf{0,1}\}$] {\includegraphics[width=.2\columnwidth]{Anomaly2}};
-  \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Anomaly Detection};
-  \end{tikzpicture}
-\end{figure}
-\end{frame}
+%% \begin{frame}{Unsupervised Learning: Anomaly detection}
+%% Given an unlabeled dataset $(\X)$, we would like to learn:
+%% \alert{How to identify observations differing significantly from the majority of data?}
+%% \begin{figure}
+%% \centering
+%% \begin{tikzpicture}
+%% \tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 30mm]
+%% \tikzstyle{connect}=[-latex, thick]
+%%   \node[main, fill = white!50] (alpha) [label=below: $\X$ ] {\includegraphics[width=.2\columnwidth]{Anomaly1}};
+%%   \node[main,fill = white!50] (xout) [right= of alpha,label=below: $\hat{\mathbf{Y}} \in \{\mathbf{0,1}\}$] {\includegraphics[width=.2\columnwidth]{Anomaly2}};
+%%   \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Anomaly Detection};
+%%   \end{tikzpicture}
+%% \end{figure}
+%% \end{frame}
 
 
 \begin{frame}{Unsupervised learning: Generative Models}
@@ -1169,7 +1179,7 @@ The loss function for a given input vector is usually the reconstruction error:
   \begin{itemize}
   \item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
   \item In most applications, the latent space is ``smaller'' than the data space.
-  \item Objective: $\hat{x}$ ``close'' to $x$
+  \item Objective: $\hat{x}$, i.e. $G \circ E (x)$, ``close'' to $x$
   \item When dealing with images, modern autoencoders use convolutional neural networks
   \end{itemize}
 
@@ -1197,6 +1207,25 @@ The loss function for a given input vector is usually the reconstruction error:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Which face is real?}
 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion}
+
+\begin{itemize}
+\item Deep learning allows to learn complex transformations between tensors, thanks to:
+  \begin{itemize}
+  \item Smart methods and algorithms
+  \item Lots of data
+  \item Specialized hardware
+  \end{itemize}
+  \item General artificial intelligence is still far away
+\end{itemize}
 
 \end{frame}
 

@@ -256,42 +256,42 @@ Tasks:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Top-down attention models}
+%% \begin{frame}{Top-down attention models}
 
-  \begin{itemize}
-  \item These are task-dependant.
-  \item Note that all detection methods can be considered as task-oriented attention methods
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item These are task-dependant.
+%%   \item Note that all detection methods can be considered as task-oriented attention methods
+%%   \end{itemize}
 
-  \begin{block}{Example: Face detection with the Viola-Jones method~\cite{viola_rapid_2001}}
-    \begin{itemize}
-    \item Define weak learners based on integrals on rectangles
-    \item Select learners using AdaBoost
-    \item Apply them in a hierarchical way
-    \end{itemize}
+%%   \begin{block}{Example: Face detection with the Viola-Jones method~\cite{viola_rapid_2001}}
+%%     \begin{itemize}
+%%     \item Define weak learners based on integrals on rectangles
+%%     \item Select learners using AdaBoost
+%%     \item Apply them in a hierarchical way
+%%     \end{itemize}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.7\textwidth]{viola_jones_features}\\
-  \scriptsize{Image size: $24 \times 24$ pixels}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.7\textwidth]{viola_jones_features}\\
+%%   \scriptsize{Image size: $24 \times 24$ pixels}
+%% \end{figure}
 
 
-  \end{block}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration~\cite{viola_rapid_2001}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Illustration~\cite{viola_rapid_2001}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{viola_jones_example}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.6\textwidth]{viola_jones_example}
+%% \end{figure}
 
-Once attention is focused, the corresponding regions can be further analysed. Here, for identification purposes, for example.
+%% Once attention is focused, the corresponding regions can be further analysed. Here, for identification purposes, for example.
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -445,34 +445,52 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Scaled dot-product attention}
+
+  \begin{block}{Definition}
+    \[Att(Q,K,V) = \sigma\left(\frac{QK^t}{\sqrt{d_{K}}}\right) V \]
+  \end{block}
+
+  \begin{itemize}
+  \item $V$: values; $K$: keys; $Q$: queries.
+  \item $d_{K}$ is the length of $K$.
+  \item $\sigma$: row-wise soft-max.
+  \end{itemize}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Multi-head attention}
 
-
-  \begin{block}{Dot-product attention}
-    \[Att(Q,K,V) = softmax\left(\frac{QW_Q(KW_V)^t}{\sqrt{d_{K'}}}\right) VW_V \]
-    \[Att(Q,K,V) = softmax\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
-  \end{block}
 
 \begin{columns}
   \begin{column}{.5\textwidth}
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{multi_head_attention}
+    \includegraphics[width=0.55\textwidth]{multi_head_attention}
   \end{figure}
 
   \end{column}
 
   \begin{column}{.5\textwidth}
   \begin{itemize}
-  \item $V$: values; $K$: keys; $Q$: queries.
   \item Matrices $W_Q$, $W_V$ and $W_V$ are learnable.
-  \item $d_{K'}$ is the length of $K'$.
   \item $h$ heads work in parallel.
   \end{itemize}
 
   \end{column}
 \end{columns}
 
+  \begin{block}{Application of scaled dot-product attention}
+    %% \[Att(W_QQ,W_KK,W_VV) = \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \]
+    %% \[ = \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
+    \begin{align*}
+    Att(W_QQ,W_KK,W_VV) & = & \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \\
+     & = & \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V'
+    \end{align*}
+  \end{block}
 
 
 \end{frame}
@@ -605,12 +623,15 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\textwidth]{vit_graph}
+  \footnote{BiT: Big transfer~\cite{kolesnikov_big_2020}}
 \end{figure}
+
 
 
 \begin{itemize}
   \item ViT-H/14 requires 2500 TPUv3-core-days for pre-training
-  \item BiT: Big transfer~\cite{kolesnikov_big_2020}
+  \item But: ``Training data-efficient image transformers \& distillation through attention''~\cite{touvron_training_2021}.
+
 \end{itemize}
 
 \end{frame}

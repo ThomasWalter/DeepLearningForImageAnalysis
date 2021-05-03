@@ -2400,7 +2400,7 @@ Publisher: Nature Publishing Group},
 	author = {Dosovitskiy, Alexey and Beyer, Lucas and Kolesnikov, Alexander and Weissenborn, Dirk and Zhai, Xiaohua and Unterthiner, Thomas and Dehghani, Mostafa and Minderer, Matthias and Heigold, Georg and Gelly, Sylvain and Uszkoreit, Jakob and Houlsby, Neil},
 	year = {2021},
 	note = {arXiv: 2010.11929},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning}
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Artificial Intelligence, Computer Science - Machine Learning}
 }
 
 @inproceedings{kolesnikov_big_2020,
@@ -2409,4 +2409,31 @@ Publisher: Nature Publishing Group},
 	booktitle = {European {Conference} on {Computer} {Vision}},
 	author = {Kolesnikov, Alexander and Beyer, Lucas and Zhai, Xiaohua and Puigcerver, Joan and Yung, Jessica and Gelly, Sylvain and Houlsby, Neil},
 	year = {2020}
+}
+
+@inproceedings{cherti_out--class_2017,
+	title = {Out-of-{Class} {Novelty} {Generation} : {An} {Experimental} {Foundation}},
+	shorttitle = {Out-of-{Class} {Novelty} {Generation}},
+	doi = {10.1109/ICTAI.2017.00197},
+	abstract = {Recent advances in machine learning have brought the field closer to computational creativity research. From a creativity research point of view, this offers the potential to study creativity in relationship with knowledge acquisition. From a machine learning perspective, however, several aspects of creativity need to be better defined to allow the machine learning community to develop and test hypotheses in a systematic way. We propose an actionable definition of creativity as the generation of out-of-distribution novelty. We assess several metrics designed for evaluating the quality of generative models on this new task. We also propose a new experimental setup. Inspired by the usual held-out validation, we hold out entire classes for evaluating the generative potential of models. The goal of the novelty generator is then to use training classes to build a model that can generate objects from future (hold-out) classes, unknown at training time - and thus, are novel with respect to the knowledge the model incorporates. Through extensive experiments on various types of generative models, we are able to find architectures and hyperparameter combinations which lead to out-of-distribution novelty.},
+	booktitle = {2017 {IEEE} 29th {International} {Conference} on {Tools} with {Artificial} {Intelligence} ({ICTAI})},
+	author = {Cherti, M. and Kégl, B. and Kazakçı, A.},
+	month = nov,
+	year = {2017},
+	note = {ISSN: 2375-0197},
+	keywords = {Measurement, learning (artificial intelligence), Training, Machine learning, Pipelines, actionable definition, computational creativity research, Creativity, deep neural nets, entire classes, evaluation of generative models, experimental setup, Gallium nitride, generative model, Generators, knowledge acquisition, knowledge driven creativity, machine learning perspective, novelty generator, out-of-class novelty generation, out-of-distribution novelty, training classes, value of novelty},
+	pages = {1312--1319}
+}
+
+@article{touvron_training_2021,
+	title = {Training data-efficient image transformers \& distillation through attention},
+	url = {http://arxiv.org/abs/2012.12877},
+	abstract = {Recently, neural networks purely based on attention were shown to address image understanding tasks such as image classification. However, these visual transformers are pre-trained with hundreds of millions of images using an expensive infrastructure, thereby limiting their adoption. In this work, we produce a competitive convolution-free transformer by training on Imagenet only. We train them on a single computer in less than 3 days. Our reference vision transformer (86M parameters) achieves top-1 accuracy of 83.1\% (single-crop evaluation) on ImageNet with no external data. More importantly, we introduce a teacher-student strategy specific to transformers. It relies on a distillation token ensuring that the student learns from the teacher through attention. We show the interest of this token-based distillation, especially when using a convnet as a teacher. This leads us to report results competitive with convnets for both Imagenet (where we obtain up to 85.2\% accuracy) and when transferring to other tasks. We share our code and models.},
+	urldate = {2021-03-29},
+	journal = {arXiv:2012.12877 [cs]},
+	author = {Touvron, Hugo and Cord, Matthieu and Douze, Matthijs and Massa, Francisco and Sablayrolles, Alexandre and Jégou, Hervé},
+	month = jan,
+	year = {2021},
+	note = {arXiv: 2012.12877},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition}
 }

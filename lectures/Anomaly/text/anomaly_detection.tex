@@ -66,7 +66,7 @@
   \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{fundus1}
-    \caption{Normal image}
+    \caption*{Normal image}
   \end{figure}
 
     \end{column}
@@ -76,7 +76,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{ret-dr}
-  \caption{Fundus with signs of diabetic retinopathy}
+  \caption*{Fundus with signs of diabetic retinopathy}
 \end{figure}
 
 
@@ -96,7 +96,7 @@
     \begin{figure}[ht]
       \centering
       \includegraphics[width=\textwidth]{ret-dr}
-      \caption{Original image}
+      \caption*{Original image}
     \end{figure}
 
   \end{column}
@@ -105,7 +105,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{ret-dr-segm}
-  \caption{Segmentation of anatomical and pathological structures}
+  \caption*{Segmentation of anatomical and pathological structures}
 \end{figure}
 
   \end{column}
@@ -120,7 +120,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.5\textwidth]{ret-oedeme}
-  \caption{Papilledema}
+  \caption*{Papilledema}
 \end{figure}
 
 
@@ -346,7 +346,7 @@
 \begin{itemize}
   \item $\Omega$: a set (the whole set of images)
   \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
-  \item $X$: a subset of $\mathcal{N}$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+  \item $X$: a subset of $\mathcal{N}$ (a set of known examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
 \end{itemize}
   \end{block}
 
@@ -372,7 +372,7 @@
 \begin{itemize}
   \item $\Omega$: a set (the whole set of images)
   \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
-  \item $X$: a subset of $\mathcal{N}$ (the set of examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+  \item $X$: a subset of $\mathcal{N}$ (a set of known examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
 \end{itemize}
   \end{block}
 
@@ -408,7 +408,7 @@
 \begin{frame}{Generative approach}
 
   \begin{block}{Idea}
-    Normal images are considered as the result of some construction function $G$.
+    Normal images are considered as the result of some generation function $G$.
     \[
     \begin{split}
     G: & ~~~~\mathcal{Z} \longrightarrow \mathcal{N} \\
@@ -433,7 +433,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Probabilistic approach}
 
-This is a generalization of the previous approach.
+This can be considered as a generalization of the previous approach.
 
 \begin{block}{Idea}
 
@@ -460,9 +460,12 @@ This is a generalization of the previous approach.
 
   Of course, the essential point will be how to choose the distance function $d$.
 
+
+\begin{block}{Mahalanobis distance}
+  A distance function that takes into account the distribution of the data.
+\end{block}
+
 \end{frame}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -502,7 +505,7 @@ This is a generalization of the previous approach.
   \begin{itemize}
   \item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
   \item In most applications, the latent space is ``smaller'' than the data space.
-  \item Objective: $\hat{x}$ ``close'' to $x$
+  \item Objective: $G(E(x))$ ``close'' to $x$
   \item When dealing with images, modern autoencoders use convolutional neural networks
   \end{itemize}
 
@@ -536,6 +539,15 @@ This is a generalization of the previous approach.
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion on deep representations}
+
+  \begin{itemize}
+  \item In practice, methods based on the latent space seem to give the best results
+  \item Using a pre-trained model on ImageNet seems to be a very promising approach~\cite{rippel_modeling_2020}.
+  \end{itemize}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -571,7 +583,7 @@ This is a generalization of the previous approach.
 
   \begin{itemize}
   \item I have seen no mention of this strategy in the literature
-  \item My guess: the discriminator is not very efficient at this task. To be tested during lab sessions!
+  \item My guess: the discriminator is not very efficient at this task.
   \end{itemize}
 
 \end{frame}
@@ -680,7 +692,7 @@ This is a generalization of the previous approach.
   \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{res_oct}
-    \caption{Left block: normal OCT sections, from test set. Right block: anomalous OCT sections; bottom line: expert annotation of retinal fluid}
+    \caption*{Left block: normal OCT sections, from test set. Right block: anomalous OCT sections; bottom line: expert annotation of retinal fluid}
   \end{figure}
 
 \end{frame}
@@ -816,6 +828,24 @@ This is a generalization of the previous approach.
 \begin{itemize}
 \item Deep learning opens new possibilities to anomalous image detection
 \item Current methods need however to be improved to deal with real-world applications
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Novelty generation?}
+
+  \begin{block}{Latent space sampling~\cite{cherti_out--class_2017}}
+    Sample the latent space far away from normal representations
+    \begin{itemize}
+    \item Will the images be realistic?
+    \item Will they cover the complete range of anomalous images?
+    \end{itemize}
+  \end{block}
+
+\begin{itemize}
+\item See also: ``The Rules of Brainstorming Change When Artificial Intelligence Gets Involved'' (\url{https://www.ideo.com})
 \end{itemize}
 
 \end{frame}
