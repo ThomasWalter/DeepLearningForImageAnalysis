@@ -127,11 +127,11 @@
 %% \end{block}
 
 \begin{itemize}[<+->]
-\item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-\item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
-\item 1980's: the backpropagation algorithm (\cite{werbos_applications_1982}; see also the work of LeCun \cite{lecun_procedure_1985})
+\item 1958: Perceptron {\tiny\cite{rosenblatt_perceptron:_1958}}.
+\item 1979: Convolutional neural networks {\tiny\cite{fukushima_neural_1979,fukushima_neocognitron:_1980}}.
+\item 1980's: Backpropagation algorithm {\tiny\cite{werbos_applications_1982,lecun_procedure_1985}}.
 \item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
-\item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
+\item 2012: Imagenet image classification won by a convolutional neural network {\tiny\cite{krizhevsky_imagenet_2012}}.
 
 \end{itemize}
 
@@ -326,7 +326,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-\frametitle{Fully-connected layers}
+\frametitle{Multi-layered perceptron}
 
 \begin{itemize}
 \item A layer is said to be fully-connected if each of its neurons is connected to all the neurons of the previous layer
@@ -335,6 +335,10 @@
 \begin{figure}
   \includegraphics[height=3cm]{mini_reseau3_bis.png}
 \end{figure}
+
+\begin{alertblock}{Deep learning}<2->
+Artificial neural networks with \textit{many} layers.
+\end{alertblock}
 
 }
 
@@ -380,26 +384,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{A picture is worth a thousand words}
 
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-      \begin{block}{Definition}
-        \begin{itemize}
-        \item Classically, an image is a matrix of values belonging to $[0, \ldots, 255]$ (grey level images) or to $[0, \ldots, 255]^3$ (color images).
-        \item More generally, an image is a $q$-dimensional array of values belonging to $R^d$.
-        \end{itemize}
-      \end{block}
 
-    \end{column}
-
-    \begin{column}{.5\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=5cm]{faune.png}\\
+        \includegraphics[width=6cm]{faune.png}\\
         \tiny{Grey level values around the left eye of the faun}
       \end{figure}
 
-    \end{column}
-  \end{columns}
+      \begin{itemize}
+      \item<2-> Deep learning excels in image analysis.
+      \end{itemize}
 
 \end{frame}
 
@@ -421,16 +415,34 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{MNIST database \tiny{\cite{lecun_gradient-based_1998}}}
+%% \begin{frame}{MNIST database \tiny{\cite{lecun_gradient-based_1998}}}
 
-  \begin{itemize}
-  \item The Modified National Institute of Standards and Technology (MNIST) database contains $60\,000$ training images of hand-written digits, and $10,000$ test images.
-  \item Image size: $28 \times 28$
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item The Modified National Institute of Standards and Technology (MNIST) database contains $60\,000$ training images of hand-written digits, and $10,000$ test images.
+%%   \item Image size: $28 \times 28$
+%%   \end{itemize}
 
+%%   \centering
+%%   \includegraphics[width=0.75\textwidth]{mnist_examples.png}\\
+%%   \source{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)}
+
+%% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PatchCamelyon database}
+
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=0.75\textwidth]{mnist_examples.png}\\
-  \source{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)}
+  \includegraphics[width=\textwidth]{pcam.jpg}
+\end{figure}
+
+\begin{itemize}
+\item $327\,680$ images of size $96 \times 96$
+\item Binary label (tumor tissue in center region or not)
+\item \url{https://github.com/basveeling/pcam}
+\end{itemize}
+
 
 \end{frame}
 
@@ -613,7 +625,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Counting cells}
+\begin{frame}{Counting cells}
 
     \begin{figure}
       \includegraphics[width=\textwidth]{lazard}
@@ -628,8 +640,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}%{Reminder of Machine Learning Problems}
-%\begin{enumerate}
-{Supervised Learning} Given a labeled dataset $(\X,\mathbf{Y})$, we would like to learn a mapping from data space to label space.
+  {Supervised Learning}
+
+  Given a labeled dataset $(\X,\mathbf{Y})$, we would like to learn a mapping from data space to label space.
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -640,16 +653,16 @@
   \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Classification};
   \end{tikzpicture}
 \end{figure}
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 6mm, thick, draw =black!80, node distance = 26mm]
-\tikzstyle{connect}=[-latex, thick]
-  \node[main, fill = white!50] (alpha) [label=below: $\x$] {\includegraphics[width=.15\columnwidth]{Winter}};
-  \node[main,fill = red!50] (xout) [right= of alpha,label=below: How cold is it?] {$\hat{\y} \in \mathbb{R}$ };
-  \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Regression};
-  \end{tikzpicture}
-\end{figure}
+%% \begin{figure}
+%% \centering
+%% \begin{tikzpicture}
+%% \tikzstyle{main}=[circle, minimum size = 6mm, thick, draw =black!80, node distance = 26mm]
+%% \tikzstyle{connect}=[-latex, thick]
+%%   \node[main, fill = white!50] (alpha) [label=below: $\x$] {\includegraphics[width=.15\columnwidth]{Winter}};
+%%   \node[main,fill = red!50] (xout) [right= of alpha,label=below: How cold is it?] {$\hat{\y} \in \mathbb{R}$ };
+%%   \draw[thick,->] (alpha) -- (xout) node[midway,sloped,above] {Regression};
+%%   \end{tikzpicture}
+%% \end{figure}
 \end{frame}
 
 
@@ -730,7 +743,7 @@
 
   \begin{itemize}
   \item The \alert{discriminator} $D$ is optimized so that it correctly classifies images as real (1) or fake (0)
-  \item The decoder or \alert{generator} $G$ is optimized so that the produced images are classified as real by the discriminator
+  \item The \alert{generator} $G$ is optimized so that the produced images are classified as real by the discriminator
   \end{itemize}
 
 \end{frame}
@@ -738,6 +751,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Which face is real?}
 
+  \url{https://www.whichfaceisreal.com/}
 
 \end{frame}
 
@@ -751,15 +765,34 @@
 \begin{itemize}
 \item Deep learning allows to learn complex transformations between tensors, thanks to:
   \begin{itemize}
-  \item Smart methods and algorithms
-  \item Lots of data
-  \item Specialized hardware
+  \item Smart methods and algorithms.
+  \item Lots of annotated data.
+  \item Specialized hardware (for learning).
+  \end{itemize}
+\item Drawbacks:
+  \begin{itemize}
+  \item Interpretability problem.
+  \item Why does deep learning work so well?
+  \item Deep learning can be easily fooled.
   \end{itemize}
   \item General artificial intelligence is still far away
 \end{itemize}
 
 \end{frame}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+  \frametitle{ConvNets can be fooled \tiny\cite{nguyen_deep_2015}}
+
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{dl_easily_fooled.png}
+  \end{figure}
+
+
+}
 
 
 
