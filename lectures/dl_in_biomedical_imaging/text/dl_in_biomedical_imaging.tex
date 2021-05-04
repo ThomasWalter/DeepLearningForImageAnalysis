@@ -1,0 +1,359 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\input{../../setting.tex}
+\usepackage{physics}
+
+\graphicspath{{../graphics/}}
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+    \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+    \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+%% For image credits on image bottom right
+\usepackage[absolute,overlay]{textpos}
+\setbeamercolor{framesource}{fg=gray}
+\setbeamerfont{framesource}{size=\tiny}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
+
+\title{L'apprentissage profond en image biomédicale}
+\author{E. Decencière}
+\date{MINES ParisTech\\
+  PSL Research University\\
+  Center for Mathematical Morphology
+}
+\titlegraphic{\includegraphics[height=1.7cm]{logoemp}}
+
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Imagerie biomédicale}
+
+  \begin{block}{Définition}
+    Méthodes utilisées en médecine et biologie pour obtenir des images.
+  \end{block}
+
+Nous n'aborderons pas les autres données biomédicales, comme les électroencéphalogrammes, etc.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Différentes modalités pour différentes applications}
+
+\begin{itemize}
+\item Enormes progrès en un siècle
+\item Nombreuses modalités
+\item Nombre et taille des examens en augmentation
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rayons X}
+
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{ct.jpg}\\
+    Scanner X
+    \source{Wikipedia.org}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Résonance magnétique nucléaire}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{irm.jpg}\\
+    IRM
+    \source{Wikipedia.org}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Microscopie optique}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{histo.jpg}\\
+    Histologie
+    \source{Wikipedia.org}
+  \end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rétinographie}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{fundus_camera.jpg}\\
+Rétinographe
+    \end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{fundus.jpg}\\
+Rétine\source{wikipedia.org}
+    \end{figure}
+
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ultra-sons}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{us.jpg}\\
+Echographie
+    \source{Wikipedia.org}
+  \end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Défis et difficultés}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Défis}
+
+  \begin{itemize}[<+->]
+  \item Croissance du nombre d'examens
+  \item Croissance de leur résolution
+  \item Stabilité ou décroissance du nombre de médecins
+  \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Difficultés pour l'analyse d'images biomédicales}
+
+  \begin{itemize}[<+->]
+  \item Protection de la vie privée des patients
+  \item Responsabilité
+  \item Variabilité de l'état sain et des états pathologiques
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dépistage de la rétinopathie diabétique}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{fundus1}
+    \caption*{Image normale}
+  \end{figure}
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{ret-dr}\\
+  Rétine avec signes de rétinopathie diabétique
+\end{figure}
+
+
+    \end{column}
+  \end{columns}
+
+      \source{OPHDIAT database}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dépistage de la rétinopathie diabétique}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{ret-oedeme}
+  \caption*{Oedème papillaire}
+\end{figure}
+
+      \source{OPHDIAT database}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Apprentissage profond}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Applications}
+
+\begin{itemize}[<+->]
+\item Image $\longmapsto$ Grandeur
+\item Image $\longmapsto$ Catégorie
+\item Image $\longmapsto$ Partition (segmentation)
+\item Image $\longmapsto$ Image
+\item ? $\longmapsto$ Images
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image $\longmapsto$ Grandeur}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+Degré de sévérité: de 0 (pas de signes) à 5.
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{ret-dr}\\
+  Rétine avec signes de rétinopathie diabétique
+\end{figure}
+
+
+    \end{column}
+  \end{columns}
+
+      \source{OPHDIAT database}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image $\longmapsto$ Catégorie}
+
+  \begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{pcam.jpg}
+\end{figure}
+
+\begin{itemize}
+\item Catégorie: tissu tumoral ou pas.
+\item Remarque: images gigantesques.
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image $\longmapsto$ Partition (segmentation)}
+
+Segmentation d'images histologiques de la peau.
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Promesses et premiers résultats}
+
+\begin{itemize}[<+->]
+\item Sur de nombreuses bases \textit{de recherche}, l'apprentissage profond dépasse les performances des spécialistes.
+\item Le passage à la clinique pose souvent des problèmes.
+\item De nombreuses compagnies travaillent sur le sujet.
+\item Des systèmes ont déjà été certifiés.
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Obstacles}
+
+\begin{itemize}[<+->]
+\item Données!
+  \begin{itemize}
+  \item Constituer des bases suffisamment grandes ou s'en passer?
+  \item Annotation
+  \end{itemize}
+  \item Interprétabilité
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame[allowframebreaks]{
+
+  \scriptsize
+
+  \frametitle{References}
+
+
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
+
+  \bibliography{../../edf.bib}
+
+  \normalsize
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
