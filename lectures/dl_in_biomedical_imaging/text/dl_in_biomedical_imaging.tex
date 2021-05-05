@@ -70,11 +70,43 @@ Nous n'aborderons pas les autres données biomédicales, comme les électroencé
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Différentes modalités pour différentes applications}
 
-\begin{itemize}
+\begin{columns}
+  \begin{column}{.5\textwidth}
+\begin{itemize}[<+->]
 \item Enormes progrès en un siècle
-\item Nombreuses modalités
+\item Nombreuses modalités, basées sur des phénomènes physiques différents:
+
+  \begin{itemize}
+  \item  lumière visible
+  \item
+    rayons X
+  \item
+    magnétisme
+  \item
+    physique nucléaire,
+  \item
+    ondes sonores
+
+  \end{itemize}
+
+
 \item Nombre et taille des examens en augmentation
 \end{itemize}
+
+  \end{column}
+
+
+  \begin{column}{.5\textwidth}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{first_medical_xray}
+  \caption*{1895: Wilhelm Röntgen  radiographie la main de sa femme.}
+    \source{Wikipedia.org}
+\end{figure}
+
+  \end{column}
+\end{columns}
+
 
 \end{frame}
 
@@ -168,15 +200,22 @@ Echographie
 
   \begin{itemize}[<+->]
   \item Croissance du nombre d'examens
-  \item Croissance de leur résolution
+  \item Croissance de leur taille
   \item Stabilité ou décroissance du nombre de médecins
   \end{itemize}
+
+\pause
+
+\begin{block}{}
+  On va vers une automatisation croissante de l'analyse des images médicales.
+\end{block}
+
 \end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Difficultés pour l'analyse d'images biomédicales}
+\begin{frame}{Difficultés pour l'analyse automatique des images biomédicales}
 
   \begin{itemize}[<+->]
   \item Protection de la vie privée des patients
@@ -184,10 +223,18 @@ Echographie
   \item Variabilité de l'état sain et des états pathologiques
   \end{itemize}
 
+\pause
+
+  \begin{block}{}
+    Aujourd'hui on s'oriente surtout vers une \alert{aide} à l'analyse.
+  \end{block}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dépistage de la rétinopathie diabétique}
+
+Résultats du projet ANR-TeleOphta~\cite{decenciere_teleophta_2013}.
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -249,23 +296,16 @@ Echographie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image $\longmapsto$ Grandeur}
 
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-Degré de sévérité: de 0 (pas de signes) à 5.
-    \end{column}
+\begin{block}{Exemple: degré de sévérité de la rétinopathie diabétique}
+De 0 (pas de signes) à 5.
+\end{block}
 
-    \begin{column}{.5\textwidth}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{ret-dr}\\
+  \includegraphics[width=0.7\textwidth]{ret-dr}\\
   Rétine avec signes de rétinopathie diabétique
 \end{figure}
-
-
-    \end{column}
-  \end{columns}
-
       \source{OPHDIAT database}
 
 \end{frame}
@@ -281,7 +321,7 @@ Degré de sévérité: de 0 (pas de signes) à 5.
 
 \begin{itemize}
 \item Catégorie: tissu tumoral ou pas.
-\item Remarque: images gigantesques.
+\item Remarque: en histologie, les images sont très souvent gigantesques (plusieurs milliards de pixels)
 \end{itemize}
 
 \end{frame}
@@ -295,6 +335,20 @@ Segmentation d'images histologiques de la peau.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{? $\longmapsto$ Images}
+
+Décodage d'un signal cérébral (IRM fonctionnel) pour reconstruire l'image qui est vue par le sujet~\cite{shen_deep_2019}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{im_from_fMRI}
+\end{figure}
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
@@ -303,7 +357,7 @@ Segmentation d'images histologiques de la peau.
 \begin{frame}{Promesses et premiers résultats}
 
 \begin{itemize}[<+->]
-\item Sur de nombreuses bases \textit{de recherche}, l'apprentissage profond dépasse les performances des spécialistes.
+\item Sur de nombreuses bases de données de \textit{recherche}, l'apprentissage profond dépasse les performances des spécialistes.
 \item Le passage à la clinique pose souvent des problèmes.
 \item De nombreuses compagnies travaillent sur le sujet.
 \item Des systèmes ont déjà été certifiés.
@@ -327,6 +381,16 @@ Segmentation d'images histologiques de la peau.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dangers}
+
+  \begin{itemize}[<+->]
+  \item Biais
+  \item Manque d'interprétabilité
+  \item Vie privée?
+  \end{itemize}
+
+\end{frame}
 
 
 

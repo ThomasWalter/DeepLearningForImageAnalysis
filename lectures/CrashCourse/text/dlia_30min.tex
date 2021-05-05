@@ -128,9 +128,9 @@
 
 \begin{itemize}[<+->]
 \item 1958: Perceptron {\tiny\cite{rosenblatt_perceptron:_1958}}.
-\item 1979: Convolutional neural networks {\tiny\cite{fukushima_neural_1979,fukushima_neocognitron:_1980}}.
+\item 1979: Convolutional neural networks {\tiny\cite{fukushima_neural_1979}}.
 \item 1980's: Backpropagation algorithm {\tiny\cite{werbos_applications_1982,lecun_procedure_1985}}.
-\item 2006-: CNN implementations using Graphical Processing Units (GPU): up to a 50 speed-up factor.
+\item 2006-: Implementations on Graphical Processing Units
 \item 2012: Imagenet image classification won by a convolutional neural network {\tiny\cite{krizhevsky_imagenet_2012}}.
 
 \end{itemize}
@@ -197,7 +197,7 @@
   \frametitle{What can an artificial neuron compute?}
 
   \begin{figure}
-    \includegraphics[height=3cm]{neurone}
+    \includegraphics[height=3cm]{neurone_representation_compacte}
   \end{figure}
 
   \begin{block}{}
@@ -217,7 +217,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Example of what we can do with a neuron}
+  \frametitle{Example}
 
   \begin{figure}
     \includegraphics[height=3cm]{neurone_simple}
@@ -294,6 +294,10 @@
     \includegraphics[height=6cm]{circles_H}
   \end{figure}
 
+\begin{block}{Playing with artificial neural networks}
+  \url{https://playground.tensorflow.org}
+\end{block}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -328,16 +332,16 @@
 \frame{
 \frametitle{Multi-layered perceptron}
 
-\begin{itemize}
-\item A layer is said to be fully-connected if each of its neurons is connected to all the neurons of the previous layer
-\end{itemize}
-
 \begin{figure}
   \includegraphics[height=3cm]{mini_reseau3_bis.png}
 \end{figure}
 
 \begin{alertblock}{Deep learning}<2->
-Artificial neural networks with \textit{many} layers.
+  \begin{itemize}
+  \item<2-> Artificial neural networks with \textit{many} layers.
+  \item<3-> Features get more specific with depth
+  \end{itemize}
+
 \end{alertblock}
 
 }
@@ -443,18 +447,17 @@ Artificial neural networks with \textit{many} layers.
 \item \url{https://github.com/basveeling/pcam}
 \end{itemize}
 
-
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Layers representation}
 
-  \begin{block}{}
-    For illustration purposes, in the following slides images and filters will be displayed as rows of neurons -- these can be seen as 1D arrays or as sections of 2D arrays.
+  %% \begin{block}{}
+  %%   For illustration purposes, in the following slides images and filters will be displayed as rows of neurons -- these can be seen as 1D arrays or as sections of 2D arrays.
 
-    We represent some connections between neurons. Each such connection is associated to a weight. The bias are not represented, to avoid clutter, but must not be forgotten.
-  \end{block}
+  %%   We represent some connections between neurons. Each such connection is associated to a weight. The bias are not represented, to avoid clutter, but must not be forgotten.
+  %% \end{block}
 
   \begin{columns}
 
