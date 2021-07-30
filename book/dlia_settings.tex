@@ -1,0 +1,48 @@
+%\usepackage{subfigure}
+\usepackage[utf8]{inputenc}
+\usepackage{amsbsy}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{amsmath,graphicx,dsfont,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+
+\usepackage{subfig}
+
+% makes the subfig package work
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+% subfigure counter resets every frame
+\makeatletter
+\@addtoreset{subfigure}{framenumber}
+\makeatother
+
+% First author and year
+\bibliographystyle{apalike}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+%Definitiona
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\W}{\mathbf{W}} %Weight
+\newcommand{\bias}{\mathbf{b}}%Bias
+\newcommand{\act}{\texttt{g}}%Activation
+\newcommand{\lr}{\eta} % learning rate
+\newcommand{\loss}{L}
+\newcommand{\pdata}{\hat{p}_{\texttt{data}}}
+\newcommand{\nsize}{N}
+\newcommand{\nfeatures}{P}
+\newcommand{\param}{\boldsymbol{\theta}}
+\newcommand{\featmap}{\boldsymbol{\phi}}
+\newcommand{\EV}{\mathbb{E}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}

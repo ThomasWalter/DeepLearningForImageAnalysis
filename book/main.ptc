@@ -1,0 +1,16 @@
+\babel@toc {english}{}
+\contentsline {part}{\@mypartnumtocformat {I}{Machine learning and artificial neural networks}}{5}{part.1}
+\ttl@starttoc {default@1}
+\contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}
+\contentsline {chapter}{\numberline {2}Artificial neural networks}{9}{chapter.2}
+\contentsline {part}{\@mypartnumtocformat {II}{Convolutions}}{11}{part.2}
+\ttl@stoptoc {default@1}
+\ttl@starttoc {default@2}
+\contentsline {chapter}{\numberline {3}Convolutional layer}{13}{chapter.3}
+\contentsline {chapter}{\numberline {4}Fully convolutional architectures}{15}{chapter.4}
+\contentsline {part}{\@mypartnumtocformat {III}{Bibliography and supplementaries}}{17}{part.3}
+\ttl@stoptoc {default@2}
+\ttl@starttoc {default@3}
+\contentsline {chapter}{\numberline {5}Bibliography}{19}{chapter.5}
+\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{23}{section*.3}
+\contentsfinish 
