@@ -83,6 +83,27 @@
 \section{Artificial neuron}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame<beamer>{
+  \frametitle{Biological neuron}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{neuron}
+  \end{figure}
+
+
+  The human brain contains:
+
+  \begin{itemize}
+  \item $10^7$
+  \item $10^9$
+  \item $10^{11}$
+  \end{itemize}
+
+  neurons
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{
   \frametitle{Biological neuron}
 
@@ -108,7 +129,7 @@
   \end{figure}
 
   \begin{block}{General principle}
-    An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, combines them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
+    An artificial neuron takes $p$ inputs $\{x_i\}_{1 \leq i \leq p}$, \alert{combines} them to obtain a single value, and applies an \alert{activation function} $\act$ to the result.
   \end{block}
 
   \pause
@@ -211,7 +232,7 @@
   \begin{columns}
     \begin{column}{.5\textwidth}
       \[
-      \act(x)= \frac{1}{1 + e^{-x}}
+      \act(x)= \frac{1}{1 + e^{-x}} = \frac{e^{x}}{1+e^{x}}
       \]
     \end{column}
 
@@ -227,7 +248,8 @@
   \begin{block}{Remarks}
     \begin{itemize}
     \item[+] Similar to binary activation, but with usable gradient
-    \item[-] However, gradient tends to zero when input is far from zero
+    \item Bijection between $\R$ and $]0, 1[$: no loss of information
+    \item[-] Gradient tends to zero when input is far from zero
     \item[-] More computationally intensive
     \end{itemize}
   \end{block}
@@ -328,7 +350,7 @@
     In $\R^p$ ,
     $b + \sum\limits_{i=1}^p w_ix_i = 0$
     corresponds to a hyperplane $H$. For a given point
-    $\x = \{x_0, \ldots, x_p\}$,
+    $\x = \{x_1, \ldots, x_p\}$,
     decisions are made according to the side of the hyperplane it belongs to.
   \end{block}
 
@@ -393,6 +415,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
+  \frametitle{Solution?}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{circles}
+  \end{figure}
+
+\begin{itemize}
+   \item Transform the input space, for example use a polar transformation
+   \item Increase the number of input dimensions: for example add $x_1^2, x_2^2, x_1 x_2$ to the initial features $x_1, x_2$
+   \item Combine several neurons
+\end{itemize}
+
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame<beamer>{
   \frametitle{Circles}
 
   \begin{figure}
@@ -431,7 +472,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Artificial neuron compact representation}
+\begin{frame}{Compact representation}
 
   \begin{figure}
     \includegraphics[height=3cm]{neurone_representation_compacte}
@@ -487,13 +528,18 @@
 \section{Artificial neural networks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Basic architectures}
+\subsection{Computational graph}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph}
 
+  \begin{block}{}
+    \centering
+   \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+   \end{block}
+
   \begin{block}{Definition}
-    A computational graph is a direct acyclic graph such that:
+    A computational graph is an acyclic direct graph such that:
     \begin{itemize}
     \item A node is a mathematical operator
     \item To each edge is associated a value
@@ -505,11 +551,22 @@
     \end{itemize}
   \end{block}
 
-  Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
-
-
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computational graph}
+
+  \begin{block}{}
+    \centering
+   \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+   \end{block}
+
+  \begin{itemize}
+  \item   In this course, we will only consider \emph{acyclic} computational graphs.
+  \item   Computing a \emph{forward pass} through the graph means choosing its input values, and then progressively computing the values of all edges.
+  \end{itemize}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computational graph example}
@@ -519,14 +576,21 @@
   \]
   where $\sigma$ is the sigmoid function: $\sigma(x) = \frac{1}{1 + e^{-x}}$
 
-  \vspace{3em}
   \pause
 
   \centering
-  \includegraphics[width=0.7\textwidth]{comp_graph2}\\
+  \begin{block}{}
+    \centering
+   \includegraphics[width=0.6\textwidth]{comp_graph2}\\
+   \end{block}
+
   \pause
+
   The graph can be represented at different levels of detail:
-  \includegraphics[width=0.7\textwidth]{comp_graph}
+ \begin{block}{}
+    \centering
+  \includegraphics[width=0.6\textwidth]{comp_graph}
+   \end{block}
 
 \end{frame}
 
@@ -538,6 +602,9 @@
   \end{block}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{First architectures}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -552,14 +619,9 @@
     \item The \alert{output layer} is the set of neurons without outgoing edges.
     \end{itemize}
 
-    \pause
-
-    NB: Neural networks with cycles, known as recurrent neural networks, also exist.
-
   \end{block}
 
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -569,17 +631,13 @@
     \begin{itemize}
     \item A feed-forward neural networks is a NN without cycles
     \item Neurons are organized in \alert{layers}
-      \begin{itemize}
-      \item A neuron belongs to layer $q$ if the longest path in the graph between the input layer and the neuron is of length $q$.
-      \end{itemize}
     \item Any layers other than input and output layers are called \alert{hidden layers}
     \end{itemize}
 
   \end{block}
 
   \begin{figure}
-    \includegraphics[height=3cm]{network.png}
-    \source{(from http://www.jtoy.net)}
+    \includegraphics[height=3cm]{mini_reseau3_bis}
   \end{figure}
 
 
@@ -609,20 +667,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Fully-connected network}
+  \frametitle{Fully-connected layer}
 
   \begin{itemize}
   \item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
   \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are a 2D dimensional array (a matrix) of size $q \times r$
-  \item A NN is said to be fully connected if all its hidden layers are fully connected
   \end{itemize}
 
   \begin{figure}
-    \includegraphics[height=3cm]{network.png}
+    \includegraphics[height=3cm]{mini_reseau3_bis}
   \end{figure}
-
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Graphical representation of NNs}
@@ -630,24 +685,22 @@
   \begin{columns}
     \begin{column}{.5\textwidth}
       \begin{figure}
-        \includegraphics[height=3cm]{network.png}
+        \includegraphics[height=3cm]{mini_reseau3_bis}
       \end{figure}
       \begin{figure}
-        \includegraphics[height=3cm]{nn_representation}
+        \includegraphics<2->[height=3cm]{nn_representation3}
       \end{figure}
     \end{column}
 
     \begin{column}{.5\textwidth}
       \begin{itemize}
-      \item Data is organized into arrays, linked with operators
-      \item A layer corresponds to an operator between arrays.
+      \item<2-> Data is organized into arrays, linked with operators
+      \item<3-> A layer corresponds to an operator between arrays.
       \end{itemize}
     \end{column}
   \end{columns}
 
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The equations of a fully connected neural network}
@@ -657,8 +710,8 @@
   \end{figure}
 
   \begin{block}{}
-    \[\x^i = \act_i(\W_i\x^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[y = \act_4(\W_4\x^4 + \bias_4)\]
+    \[\x^i = \act_i(\x_{i-1}^t \W_i + \bias_i),\, i= 1, 2, 3 \]
+    \[\y = \act_4(\x_4^t \W_4 + \bias_4)\]
   \end{block}
 
   \pause
@@ -699,13 +752,51 @@
 
   \begin{itemize}
   \item How many parameters does the above network contain?
+  \end{itemize}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      First layer:
+      \begin{itemize}
+        \item 64
+        \item 72
+        \item 81
+        \item 90
+     \end{itemize}
+    \end{column}
+
+\pause
+
+    \begin{column}{.5\textwidth}
+      Second and third layers:
+      \begin{itemize}
+        \item 64
+        \item 72
+        \item 81
+        \item 90
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame<beamer>{
+  \frametitle{Number of parameters}
+
+  \begin{figure}
+    \includegraphics[height=3cm]{nn_representation.png}
+  \end{figure}
+
+  \begin{itemize}
+  \item How many parameters does the above network contain?
   \item<2-> First hidden layer:\\
     %% \only<3->{$9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$}
     \begin{itemize}
     \item<3-> $9$ neurons $\times 8$ neurons in the previous layer $+ 9$ biases $=81$
     \end{itemize}
   \item<4-> Second and third layers: \only<5->{$9 \times 9 + 9 =90$}
-  \item<6-> Output layer: \only<7->{$4 \times 9 + 4$}
+  \item<6-> Output layer: \only<7->{$4 \times 9 + 4 = 40$}
   \item<8-> Total: $301$ parameters
   \end{itemize}
 
@@ -714,29 +805,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Batch processing}
 
-  In a training context, our learning set contains $n$ samples of vectors of length $p$, that can be grouped into a matrix $X$ of size $n \times p$. The $n$ corresponding outputs $y_i$ can also be grouped into a vector $\y$ of length $n$. The resulting equations are:
+  In a learning context, one may want to process $n$ vectors of length $p$ at the same time.
+They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
 
   \begin{block}{}
-    \[\X^i = \act_i(\W_i\X^{i-1} + \bias_i),\, i= 1, 2, 3 \]
-    \[\y = \act_4(\W_4\X^4 + \bias_4)\]
+    \[\X_i = \act_i(\X_{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+    \[\Y = \act_4(\X_4\W_4 + \bias_4)\]
   \end{block}
 
+  This can accelerate processing thanks to hardware architectures such a Graphical Processing Units (GPUs) but can also play an important role in optimization.
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Mini-batch processing}
+\begin{frame}{From neurons to arrays}
 
-  \begin{itemize}[<+->]
-  \item   When dealing with large databases (large $n$ and sometimes large $p$) for practical reasons the network cannot process the whole set in a single pass.
-  \item   One can also separate the training databases into subsets containing $m$ samples ($m < n$), called \emph{mini-batches}.
+  \begin{itemize}
+  \item Neurons are organized into arrays (0-D, 1-D, 2-D, 3-D ...)
+  \item Artificial neural networks can be seen as \textcolor{blue}{computational graphs processing arrays}
   \end{itemize}
-
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The power of neural networks}
+\subsection{Universal approximation theorem}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -771,7 +864,7 @@
     Then there exists an integer $q$, real vectors $\{\mathbf{w}_i\}_{1 \leq i \leq q}$ of $\R^p$, and reals $\{b_i\}_{1 \leq i \leq q}$ and $\{v_i\}_{1 \leq i \leq q}$ such that for all $\x$ in $[0,1]^p$:
 
     \[
-    \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+    \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i\x + b_i) \right| < \epsilon
     \]
 
   \end{block}
@@ -785,7 +878,7 @@
   \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
+  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i\x + b_i) \right| < \epsilon
   \]
 
   This means that function $f$ can be approximated with a neural network containing:
@@ -826,36 +919,40 @@
   \begin{itemize}
   \item We have seen that NNs have a lot of potential. However, how can the parameters $\param = (\W_i, \bias_i)$  be set?
   \item What is our objective ?
-  \item A very general solution, that is also the mostly used, is \alert{gradient descent}
+  %% \item A very general solution, that is also the most commonly used, is \alert{gradient descent}
   \end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Learning problem}
+\begin{frame}{Supervised learning problem}
 
   We recall that our training set contains $n$ samples:
 
   \[
-  (\x_i, y_i) \in \R^p \times \R
+  (\x_i, y_i) \in \R^p \times \mathcal{Y}
   \]
 
-  We \textcolor{blue}{choose} a family $f_{\param}$
+  Where $\mathcal{Y}=\R$ in the regression case and $\mathcal{Y}=\{0, 1\}$ in the binary classification case.
+
+  \pause
+
+  We \textcolor{blue}{choose} a loss function $l$ and a family $f_{\param}$
   of functions from $\R^p$ into $\R$,
-  depending on our set of parameters $\param$,
-  and \textcolor{blue}{find} the value of $\param$
-  that minimizes a \textcolor{blue}{chosen} loss function $\loss$:
+  depending on a set of parameters $\param$,
+  and \textcolor{blue}{find} the value $\param ^{\ast}$ of $\param$
+  that minimizes:
 
   \[
-  \param ^{\ast} = \argmin_{\param} ( \loss (\param) + \mathcal{R}(\param) )
+  \frac{1}{n} \sum\limits_{i=1}^{n}   l (f_{\param}(\x_i), y_i)
   \]
-
-  where $\mathcal{R}(\param)$ is a regularization term.
 
   \vspace{1em}
 
-  \small{For the time being, for the sake of simplicity, we will drop the regularization term until further notice}
+  \pause
+
+  \small{For the sake of simplicity, we have dropped the regularization term.}
 
 \end{frame}
 
@@ -865,36 +962,56 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Loss function}
+\begin{frame}{Choosing a loss function}
 
-  A general form of the loss function is:
-  \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
-  \]
-  where $d$ is some disparity function (the more similar its parameters, the smaller its value).
-
-  The choice of the loss function is tightly linked to the application.
+\begin{itemize}
+\item The choice of the loss function depends on the type of problem (regression or classification) and is tightly linked to the application.
+\item   In the following slides we will see two classical loss functions used respectively for regression and classification problems: the squared error loss and the cross-entropy loss.
+\end{itemize}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Loss function: examples}
+\begin{frame}{The standard loss for regression problems: Squared error loss}
 
+In the regression case, we have $\mathcal{Y} = \R$.
 
-  \begin{block}{Typical choice for regression problems: the squared error}
+\begin{block}{Squared error loss}
     \[
-    \loss(\param) = \sum\limits_{i=1}^n (y_i - f(\x_i, \param))^2
+    l(f_{\param}(x), y) = (f_{\param}(x) - y)^2
+    \]
+
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Binary cross-entropy}
+
+  In the simplest classification case, we have $\mathcal{Y}=\{0, 1\}$.
+
+  \begin{block}{Binary cross-entropy loss}
+    \[
+    l(f_{\param}(x), y) = - y \log(f_{\param}(x)) - (1 - y) \log(1 - f_{\param}(x))
     \]
   \end{block}
 
-  \begin{block}{For binary classification problems: Binary cross-entropy}
-    In this case, $y_i \in \{0, 1\}$:
-    \[
-    \loss(\param) = -\sum\limits_{i=1}^n \Big(y_i \log( f(\x_i, \param)) + (1 - y_i) \log(1 - f(\x_i, \param))\Big)
-    \]
+\begin{itemize}
+\item   For this expression to be mathematically sound, $f_{\param}(x)$ must belong to $]0, 1[$. In practice, in the case of NN, this can be achieved by using a sigmoid as last activation.
+  \item Note that the expression above is equivalent to:
+\end{itemize}
 
-  \end{block}
+$$
+l(f_{\param}(x), y) = \left\{
+    \begin{array}{ll}
+        - \log(1 - f_{\param}(x)) & \mbox{if } y=0 \\
+        - \log(f_{\param}(x)) & \mbox{if } y=1
+    \end{array}
+\right.
+$$
+
 
 \end{frame}
 
@@ -913,7 +1030,7 @@
 
     \begin{column}{.4\textwidth}
       \begin{block}{Definition: gradient}
-        Let $\loss $ be a derivable function from $\R^n$ into $\R$. Its gradient $\nabla\loss$ is:
+        Let $\loss $ be a differentiable function from $\R^n$ into $\R$. Its gradient $\nabla\loss$ is:
         \[
         \nabla \loss (x) =
         \begin{pmatrix}
@@ -935,33 +1052,17 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Gradient descent can save your life...}
+\begin{frame}<beamer>{Gradient descent can save your life...}
 
-  Juliane Koepcke
+  \pause
 
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Gradient descent}
-
-  \begin{block}{Definition}
-    Gradient descent is an optimization algorithm. For a derivable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
-    \[
-    \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
-    \]
-  \end{block}
-
-  \begin{block}{Property}
-    For a given $t$, if $\lr$ is small enough, then:
-    \[
-    \loss(\param_{t+1}) \leq \loss(\param_t)
-    \]
-  \end{block}
-
-  Gradient descent is an essential tool in optimization.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[height=0.6\textheight]{koepcke.jpg}
+  \end{figure}
 
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent in the scalar case}
@@ -980,6 +1081,27 @@
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Gradient descent}
+
+  \begin{block}{Definition}
+    Gradient descent is an optimization algorithm. For a differentiable function $\loss$, a positive real $\lr$ (the \alert{learning rate}) and a starting point $\param_0$, it computes a sequence of values:
+    \[
+    \forall t \in \N: \param_{t+1} = \param_t - \lr \nabla \loss(\param_t)
+    \]
+  \end{block}
+
+  \begin{block}{Property}
+    For a given $t$, if $\lr$ is small enough, then:
+    \[
+    \loss(\param_{t+1}) \leq \loss(\param_t)
+    \]
+  \end{block}
+
+  Gradient descent is an essential tool in optimization.
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1002,17 +1124,19 @@
 
   The loss function we initially defined depends on the whole training set:
   \[
-  \loss(\param) = \sum\limits_{i=1}^n d(y_i, f(\x_i, \param))
+  \loss(\param) = \frac{1}{n} \sum\limits_{i=1}^n l(y_i, f(\x_i, \param))
   \]
 
   \pause
 
   \begin{itemize}[<+->]
-  \item If $n$ is very large, its computation is impractical.
+  \item If $n$ is very large, computing $\loss$ is impractical.
   \item A computation on the whole training set leads to a single update of the model parameters - convergence can therefore be slow.
   \end{itemize}
 
 \end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Stochastic gradient descent}
@@ -1024,21 +1148,29 @@
     First, the loss is computed
 
     \[
-    \loss(\param_t) = d(y_i, f(\x_i, \param_t))
+    \loss(\param_t) = l(y_i, f(\x_i, \param_t))
     \]
   \item
-    The gradient $\nabla \loss(\param_t)$ is computed through backpropagation and
+    The gradient $\nabla \loss(\param_t)$ is computed and
   \item Finally the parameters are updated:
 
     \[
     \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
     \]
   \item
-    Note that the learning rate $\lr$ can have a different value than in straightforward gradient descent.
+    Note that the learning rate $\lr$ can have a different value than in classic gradient descent.
   \end{itemize}
 
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mini-batch processing}
 
+  \begin{itemize}[<+->]
+  \item One can (and often does) choose and intermediate solution between the full gradient and the stochastic gradient: mini-batch gradient.
+    \item   The training database is then separated into subsets containing $m$ samples ($m < n$).
+    \item This has a regularization effect on the optimization with respect to the stochastic gradient and speeds up computation thanks to the vectorization capacity of hardware architectures such as GPUs.
+  \end{itemize}
 
 \end{frame}
 
@@ -1049,12 +1181,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Gradient descent applied to neural networks}
 
-  In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several simple functions. In order to compute the gradient $\nabla_{\param}\loss$ we will make extensive use of the chain rule theorem.
+      \begin{figure}
+        \includegraphics[height=3cm]{nn_representation3}
+      \end{figure}
 
-  \begin{block}{Chain rule theorem}
-    Let $f_1$ and $f_2$ be two derivable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:   :
+ \begin{itemize}
+  \item In the case of neural networks, the loss $\loss$ depends on each parameter $\param_i$ via the composition of several functions.
+  \item Analytical derivation is possible, but complex - and has to be re-computed when the network architecture is modified
+  \item Using the chain rule theorem leads to an efficient solution: \textcolor{blue}{backpropagation}.
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Chain rule theorem}
+
+  \begin{block}{}
+    Let $f_1$ and $f_2$ be two differentiable real functions ($\R \rightarrow \R$). Then for all $x$ in $\R$:
     \[
-    (f_2 \circ f_1)'(x) = f_2'(f_1(x)).f_1'(x)
+    (f_2 \circ f_1)'(x) = (f_2'\circ f_1)(x).f_1'(x)
     \]
   \end{block}
 
@@ -1067,9 +1213,7 @@
     \[\dv{z}{x} = \dv{z}{y} \cdot \dv{y}{x} \]
 
   \end{block}
-
-\end{frame}
-
+  \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The backpropagation algorithm}
@@ -1088,8 +1232,8 @@
 \begin{frame}{The backpropagation algorithm: intuition}
 
   \begin{itemize}
-  \item Given a computational graph, the main idea is to compute the local partial derivatives during a forward pass
-  \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter is computed
+  \item Given a computational graph, the main idea is to compute the local derivatives during a forward pass
+  \item Then, during a backward pass, the partial derivatives of the loss with respect to each parameter are computed
   \end{itemize}
 
 
@@ -1127,6 +1271,34 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Exercise}
+
+  \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      Gradient local du haut:
+      \begin{itemize}
+      \item $1.5$
+      \item $-0.5$
+        \item autre valeur
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      Gradient local du bas:
+      \begin{itemize}
+      \item $1.5$
+      \item $-0.5$
+        \item autre valeur
+      \end{itemize}
+
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exercise}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
@@ -1139,7 +1311,6 @@
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo_sol.png}
 
 \end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1188,6 +1359,163 @@
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vector calculus}
+
+\begin{itemize}
+\item $L$ and $V$ are differentiable functions.
+\end{itemize}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+
+      \begin{equation*}
+    \begin{split}
+      L: \R^n & \longrightarrow \R\\
+      \x      & \longmapsto L(\x)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{Gradient}
+        \centering
+        $\nabla_\x L = \frac{\partial L}{\partial \x} = (\frac{\partial L}{\partial x_1}, \ldots, \frac{\partial L}{\partial x_n}) $
+      \end{block}
+    \end{column}
+
+\pause
+
+    \begin{column}{.5\textwidth}
+
+      \begin{equation*}
+    \begin{split}
+      V: \R^p & \longrightarrow \R^q\\
+      \y      & \longmapsto V(\y)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{Jacobian}
+        \centering
+        $J(V) = \frac{\partial V}{\partial \y} =
+        \begin{pmatrix}
+          \frac{\partial V_1}{\partial y_1} & \cdots & \frac{\partial V_1}{\partial y_p}  \\
+          \vdots  & \ddots & \vdots  \\
+          \frac{\partial V_q}{\partial y_1} & \cdots & \frac{\partial V_q}{\partial y_p}
+        \end{pmatrix}
+        $
+      \end{block}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix calculus}
+
+\begin{itemize}
+\item Function $\mathcal{M}$ is differentiable.
+\end{itemize}
+
+      \begin{equation*}
+    \begin{split}
+      \mathcal{M}: \R^{(m,n)} & \longrightarrow \R^{(p,q)}\\
+      \X      & \longmapsto \mathcal{M}(M)
+    \end{split}
+  \end{equation*}
+
+  \begin{block}{}
+        \centering
+        $\frac{\partial \mathcal{M}}{\partial \X} =
+        \begin{pmatrix}
+          \frac{\partial \mathcal{M}_{1,1}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{1,q}}{\partial \X}  \\
+          \vdots  & \ddots & \vdots  \\
+          \frac{\partial \mathcal{M}_{p,q}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{p,q}}{\partial \X}
+        \end{pmatrix}
+        $
+
+      \end{block}
+
+  This is an array of size $(m, n, p, q)$.
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Backpropagation through an activation function $g$}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp_activation.png}
+  \end{figure}
+
+  \vspace{-2em}
+
+  \pause
+
+  \begin{itemize}[<+->]
+  \item Computing the full matrix $\pdv{\Y}{\X}$ is impractical
+  \item But here $Y_{i,j}$ only depends on $X_{i,j}$: $Y_{i,j} = \act(X_{i,j})$
+  \item Therefore: $\pdv{\Y_{i,j}}{\X_{i,j}} = \act'$.
+  \item Finally:
+    \[
+    \pdv{\loss}{\X} = \pdv{\loss}{\Y} \odot \act'(\X) \text{  ,}
+    \]
+    where $\odot$ is the term by term matrix multiplication or Hadamard matrix multiplication.
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Backpropagation through an activation function $g$}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{bp_activation_2.png}
+  \end{figure}
+
+  \begin{block}{}
+    We will abusively write:
+    \[
+    \pdv{\Y}{\X} = \act'(\X)
+    \]
+  \end{block}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Backpropagation through a matrix product}
+
+  \centering
+  \only<1>{\includegraphics[width=0.8\textwidth]{matrix_mult_1.png}}
+  \only<2>{\includegraphics[width=0.8\textwidth]{matrix_mult_2.png}}
+  \only<3>{\includegraphics[width=0.8\textwidth]{matrix_mult_3.png}}
+  \only<4->{\includegraphics[width=0.8\textwidth]{matrix_mult_4.png}}
+
+\begin{alertblock}<5->{}
+  In fact this is the only way you can make the shapes match.
+\end{alertblock}
+
+  \begin{block}<6->{}
+    We will abusively write, \alert{only for matrix multiplication}:
+    \begin{align*}
+    \pdv{\mathbf{T}}{\X} &= \Y^t \\
+    \pdv{\mathbf{T}}{\Y} &= \X^t
+    \end{align*}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>{Backpropagation through a matrix product}
+
+  \centering
+  \includegraphics[width=0.8\textwidth]{matrix_mult_4.png}
+
+\end{frame}
+
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}<handout>{A more complex backpropagation example}
 
@@ -1216,7 +1544,12 @@
     \includegraphics[width=0.5\textwidth]{bp_fc.png}
   \end{figure}
 
-  Setup:
+\begin{columns}
+  \begin{column}{.5\textwidth}
+  ~~~~~~~~~~~~~~Setup:
+  \end{column}
+
+  \begin{column}{.5\textwidth}
   \begin{eqnarray*}
     p, q \in \N^*\\
     \x \in \R^p \\
@@ -1224,6 +1557,8 @@
     \bias, \mathbf{t}, \y \in \R^q \\
     \loss \in \R
   \end{eqnarray*}
+  \end{column}
+\end{columns}
 
 \end{frame}
 
@@ -1243,11 +1578,14 @@
       \end{eqnarray*}
     \end{column}
 
+    \pause
+
     \begin{column}{0.5\textwidth}
       Local gradients:
       \begin{eqnarray*}
         \pdv{\mathbf{t}}{\W} &=& \x^t \\
-        \pdv{\mathbf{t}}{\bias} &=& 1 \\
+        \pdv{\mathbf{t}}{\bias} &=& Id_{(q)}
+ \\
         \pdv{\y}{\mathbf{t}} &=& \act'(\mathbf{t})
       \end{eqnarray*}
     \end{column}
@@ -1286,7 +1624,8 @@
 
     \begin{column}{.5\textwidth}
       \begin{eqnarray*}
-        \pdv{\loss}{\bias} &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
+        \pdv{\loss}{\bias}  &=& Id^t . \pdv{\loss}{\mathbf{t}}\\
+        &=&  \pdv{\loss}{\y} \odot \act'(\mathbf{t})
       \end{eqnarray*}
     \end{column}
   \end{columns}
@@ -1379,10 +1718,9 @@
   \item NN learning basics
   \end{itemize}
 
-  Next steps:
+  Next step:
   \begin{itemize}
-  \item Optimization
-  \item Application to image classification
+  \item Application to images
   \end{itemize}
 
 
@@ -1394,27 +1732,27 @@
 \section*{Practical sessions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Procedure for setting up the practical sessions environment}
+\begin{frame}{Procedure for setting up the practical sessions environment}
 
-%%   \scriptsize
+  \scriptsize
 
-%%   \begin{enumerate}
-%%   \item Download \textbf{cours\_dlia.zip} from \colorbox{cyan}{\url{https://tinyurl.com/w8m9ckf}}. Uncompress it.
-%%   \item Create (if necessary) a Google account. Log in.
-%%   \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
-%%   \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{cours\_dlia} directory.
-%%   \end{enumerate}
+  \begin{enumerate}
+  \item Download \textbf{practical\_sessions.zip} from \colorbox{cyan}{\url{https://tinyurl.com/y558bmun}}. Uncompress it.
+  \item Create (if necessary) a Google account. Log in.
+  \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
+  \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload \textbf{practical\_sessions} directory.
+  \end{enumerate}
 
-%%   Following this procedure you should have a \texttt{cours\_dlia/practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} directory containing some folders with data sets and python files. A first set of notebooks, for today's practical sessions, will also be available.
+  Following this procedure you should have a \texttt{practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} containing some folders with data sets and python files. A first set of notebooks, for your first assignment, will also be available.
 
-%%   The following days, the new notebooks will be available from:
+  The following days, the new notebooks will be available from:
 
-%%   \centering
+  \centering
 
-%%   \colorbox{cyan}{\url{https://tinyurl.com/s6vmt8q}}
+  \colorbox{cyan}{\url{https://tinyurl.com/y3x6andh}}
 
 
-%% \end{frame}
+\end{frame}
 
 
 

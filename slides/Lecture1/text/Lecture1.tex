@@ -4,7 +4,7 @@
 
 
 \title{Deep Learning for Image Analysis - \\
-	   Lecture 1: An introduction to Machine Learning}
+	   Lecture 1: Introduction to Machine Learning}
 \author{Thomas Walter, PhD}
 \date{Centre for Computational Biology (CBIO) \\
 	  MINES Paris-Tech, PSL Research University \\
@@ -44,7 +44,7 @@
 \section{Introduction: Artificial Intelligence and Machine Learning}
 \frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
-\begin{frame}{Definition of Artificial Intelligence and Machine Learning}
+\begin{frame}{Artificial Intelligence and Machine Learning}
 %\begin{definition}
 %	Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
 %\end{definition}
@@ -52,7 +52,7 @@
 	\item The definition of the term \textbf{intelligence} is highly controversial. Usually, one understands by intelligence the capacity of an individual to reason logically, to understand complexity, to learn more or less abstract concepts, to plan and to solve problems in varying conditions.
 	\item \textbf{Artificial intelligence (AI)} is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
 	\item AI effect: \emph{"AI is whatever hasn't been done yet"}.
-	\item In 1956, AI became a field of research. AI can be broken down into many subfields: knowledge representation, planning, natural language processing, object manipulation (robotics), machine learning, $\ldots$
+	\item Subfields of AI: knowledge representation, planning, natural language processing, object manipulation (robotics), machine learning, $\ldots$
 	\item \textbf{Machine Learning} is concerned with the technology that enables computer programs to improve their performance at a certain task by experience.
 \end{itemize}
 \end{frame}
@@ -81,13 +81,27 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Artificial Intelligence and Machine Learning}
+%\begin{definition}
+%	Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
+%\end{definition}
+\begin{itemize}
+	\item The definition of the term \textbf{intelligence} is highly controversial. Usually, one understands by intelligence the capacity of an individual to reason logically, to understand complexity, to learn more or less abstract concepts, to plan and to solve problems in varying conditions.
+	\item \textbf{Artificial intelligence (AI)} is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and other animals.
+	\item AI effect: \emph{"AI is whatever hasn't been done yet"}.
+	\item In 1956, AI became a field of research. AI can be broken down into many subfields: knowledge representation, planning, natural language processing, object manipulation (robotics), machine learning, $\ldots$
+	\item \textbf{Machine Learning} is concerned with the technology that enables computer programs to improve their performance at a certain task by experience.
+\end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{Machine Learning: basic definitions}
 \begin{itemize}
-	\item Machine Learning aims at predicting some output $y$ from an input (or measurement) $x$:
+	\item In Machine Learning we want to infer (learn) some function $f$ from data, capable of predicting the output $y$ from an input (measurement) $x$:
 	\begin{equation}
 	y = f(x)
 	\end{equation}
-	\item In this formulation, Machine Learning aims at finding (learning) $f$ from available data.
 	\item The data that is used to learn $f$ is called \textbf{training set}.
 	\item In this general formulation, there is no particular limitation as to the mathematical nature of $x$ and $y$. In many cases $x$ is a $\nfeatures$-dimensional vector and $y$ a categorical or continuous output variable, but there are other settings, where $x$ and / or $y$ are more complicated objects, such as images or graphs.
 \end{itemize}
@@ -156,43 +170,43 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Training set and design matrix}
-\begin{itemize}
-\item In the frequent case that objects can be described by a feature vector $\x \in \mathbb{R}^{\nfeatures}$, we can represent the training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$ by a $\nsize \times \nfeatures$ \textbf{design matrix} $\X$ and an output vector $y$.
-\item In the design matrix, each row corresponds to one sample, each column corresponds to one feature:
-\begin{table}
-\begin{tabular}{|l || c | c | c | c |}
-	\hline
-		& feature 1 & feature 2 & $\ldots$ & feature $\nfeatures$ \\
-	\hline \hline
-	Sample 1 & 0.23 & 1.30 & $\ldots$ & 0.01 \\
-	\hline
-	Sample 2 & 0.42 & 1.15 & $\ldots$ & -0.23 \\
-	\hline
-	$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
-	\hline
-	Sample $\nsize$ & 0.31 & 1.53 & $\ldots$ & 0.33 \\
-	\hline
-\end{tabular}
-\end{table}
-\end{itemize}
-\end{frame}
+% \begin{frame}{Training set and design matrix}
+% \begin{itemize}
+% \item In the frequent case that objects can be described by a feature vector $\x \in \mathbb{R}^{\nfeatures}$, we can represent the training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$ by a $\nsize \times \nfeatures$ \textbf{design matrix} $\X$ and an output vector $y$.
+% \item In the design matrix, each row corresponds to one sample, each column corresponds to one feature:
+% \begin{table}
+% \begin{tabular}{|l || c | c | c | c |}
+% 	\hline
+% 		& feature 1 & feature 2 & $\ldots$ & feature $\nfeatures$ \\
+% 	\hline \hline
+% 	Sample 1 & 0.23 & 1.30 & $\ldots$ & 0.01 \\
+% 	\hline
+% 	Sample 2 & 0.42 & 1.15 & $\ldots$ & -0.23 \\
+% 	\hline
+% 	$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+% 	\hline
+% 	Sample $\nsize$ & 0.31 & 1.53 & $\ldots$ & 0.33 \\
+% 	\hline
+% \end{tabular}
+% \end{table}
+% \end{itemize}
+% \end{frame}
 
 
-\begin{frame}{Example: classification of flowers}
-\begin{figure}
-  \centering
-  \subfloat[Iris setosa]{\includegraphics[height=2.4cm]{../graphics/Iris_setosa.jpg}}\qquad
-  \subfloat[Iris versicolor]{\includegraphics[height=2.4cm]{../graphics/Iris_versicolor.jpg}}\qquad
-  \subfloat[Iris virginica]{\includegraphics[height=2.4cm]{../graphics/Iris_virginica.jpg}}\qquad
-  \label{fig:Iris_data_set}
-\end{figure}
-\begin{itemize}
-	\item One of the oldest data sets in machine learning is the Iris data set, that was collected by the statistician and biologist Ronald Fisher in 1936 \cite{Fisher1936}.
-	\item There are 3 classes (different types of the Iris flower). For each class, there were 50 samples collected. For each sample, 4 characteristics were measured (lengths and widths of different parts of the plants).
-	\item The task is thus to learn a rule to predict the type of the flower ($y$) from a 4-dimensional vector $x$ of geometric measurements.
-\end{itemize}
-\end{frame}
+% \begin{frame}{Example: classification of flowers}
+% \begin{figure}
+%   \centering
+%   \subfloat[Iris setosa]{\includegraphics[height=2.4cm]{../graphics/Iris_setosa.jpg}}\qquad
+%   \subfloat[Iris versicolor]{\includegraphics[height=2.4cm]{../graphics/Iris_versicolor.jpg}}\qquad
+%   \subfloat[Iris virginica]{\includegraphics[height=2.4cm]{../graphics/Iris_virginica.jpg}}\qquad
+%   \label{fig:Iris_data_set}
+% \end{figure}
+% \begin{itemize}
+% 	\item One of the oldest data sets in machine learning is the Iris data set, that was collected by the statistician and biologist Ronald Fisher in 1936 \cite{Fisher1936}.
+% 	\item There are 3 classes (different types of the Iris flower). For each class, there were 50 samples collected. For each sample, 4 characteristics were measured (lengths and widths of different parts of the plants).
+% 	\item The task is thus to learn a rule to predict the type of the flower ($y$) from a 4-dimensional vector $x$ of geometric measurements.
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{Example: classification of SPAM emails}
 \begin{figure}[htb]
@@ -214,6 +228,69 @@
 	\item An important question here is how to encode a molecule. One option is to define chemoinformatic features and obtain a vectorial representation of the molecule $\x \in \mathbb{R}^{\nfeatures}$.
 \end{itemize}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Legal and ethical aspects}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+\begin{frame}{An example from  medical diagnostics: radiology}
+\begin{figure}[htb]
+\includegraphics[width=0.8\textwidth]{../graphics/radiology.pdf}
+\end{figure}
+
+\begin{itemize}
+\item<1-> Problem presented in an international challenge (won by Terapixel). 
+\item<2-> A Neural Networks trained on 640.000 images obtained an accuracy of 80\%. \
+\item<3-> Ownership: who owns the trained network? 
+\item<4-> Legal problem: who is responsible in case of a wrong diagnosis? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Skin cancer detection: false and real problems.}
+\begin{figure}[htb]
+\includegraphics[width=0.6\textwidth]{../graphics/dermatology.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> A Neural Network trained on 127 000 images was shown to outperform 21 dermatologists (72\% accuracy vs. 66\%) \cite{Esteva2017} 
+\item<2-> Do we still need medical doctors for diagnosis? 
+\item<3-> Do the algorithms work equally well for different ethnic groups? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What else can we predict?}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/retinopathy.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> A NN trained on 128.000 images reaches 87\% sensitivity and 91 \% specificity and became the first FDA approved autonomous IA medical device \cite{Abramoff2018}
+\item<2-> From eye images, we can also predict age, BMI, cardiovascular risks and smoking habits \cite{Poplin2018}
+\item<3-> What do we allow to predict? Who is using this information?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Watson: should we stop thinking on our own?}
+\begin{figure}[htb]
+\includegraphics[width=0.5\textwidth]{../graphics/watson.pdf}
+\end{figure}
+\begin{itemize}
+\item<1-> Watson (developed by IBM) outperformed humans in the game Jeopardy. 
+\item<2-> The system is used for clinical decision support (with usually good results).  
+\item<3-> Medical personnel usually follow the advice. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{AI for criminal risk assessment}
+\begin{figure}[htb]
+\includegraphics[width=0.5\textwidth]{../graphics/jail.jpg}
+\end{figure}
+\begin{itemize}
+\item<1-> Predict the likelihood of recidivism from the prisoners profile.
+\item<2-> Overall, the algorithms tend to outperform humans \cite{Lin2020}. 
+\item<3-> However, they might learn "racist" associations due to the statistical composition of the training set. 
+\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -363,9 +440,8 @@ Another way of preventing overfitting without increasing the number of samples, 
 Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the annotations in the training set, minimizing the regularization term $\mathcal{R}(\param)$ aims at avoiding the model to adapt too much to the training data, leading to simpler models. We have seen the $L_2$ norm, but there are many other options for $\mathcal{R}$.
 \item Other regularization strategies include:
 \begin{itemize}
-\item Model averaging (ensemble methods), dropout
+\item Model averaging (ensemble methods)
 \item Artificial or actual increase of training data
-\item Adversarial training
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -388,19 +464,19 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 % \end{itemize}
 % \end{frame}
 
-\begin{frame}{Example: classification of cells}
-\begin{figure}[htb]
-\includegraphics[width=0.8\textwidth]{../graphics/ComputationalPhenotyping.pdf}
-\end{figure}
+% \begin{frame}{Example: classification of cells}
+% \begin{figure}[htb]
+% \includegraphics[width=0.8\textwidth]{../graphics/ComputationalPhenotyping.pdf}
+% \end{figure}
 
-\begin{itemize}
-	\item In this example, we wish to classify cell images.
-	\item For this, cells are first segmented and then represented by a vector $x \in \mathbb{R}^P$ of features describing shape and texture for each segmented object.
-	%\item We define a set of morphological, biologically meaningful classes.
-	\item We are given a training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$, i.e. for each cell in the training set $x_i \in \mathbb{R}^P$, we know its morphological class $y_i$.
-	\item The task is to infer a function $f$ from the training set that allows to assign one of these classes to new unseen objects.
-\end{itemize}
-\end{frame}
+% \begin{itemize}
+% 	\item In this example, we wish to classify cell images.
+% 	\item For this, cells are first segmented and then represented by a vector $x \in \mathbb{R}^P$ of features describing shape and texture for each segmented object.
+% 	%\item We define a set of morphological, biologically meaningful classes.
+% 	\item We are given a training set $T = \{(x_i, y_i)\}_{i=1, \ldots, \nsize}$, i.e. for each cell in the training set $x_i \in \mathbb{R}^P$, we know its morphological class $y_i$.
+% 	\item The task is to infer a function $f$ from the training set that allows to assign one of these classes to new unseen objects.
+% \end{itemize}
+% \end{frame}
 
 %\subsection{Nearest Neighbor classification}
 \subsection{Random Forests}
@@ -410,43 +486,43 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \end{center}
 \end{frame}
 
-\begin{frame}{Random Forest: Decision trees}
-\begin{figure}[htb]
-\includegraphics[width=0.8\textwidth]{../graphics/CellClassification_RF.pdf}
-\end{figure}
+% \begin{frame}{Random Forest: Decision trees}
+% \begin{figure}[htb]
+% \includegraphics[width=0.8\textwidth]{../graphics/CellClassification_RF.pdf}
+% \end{figure}
 
-\begin{itemize}
-	\item Intuitive approach: applying a series of "rules" to the training data to recover the classes $\y_i$ (e.g. "is the cell bright?", "is the cell elongated?", ... )
-	\item Each rule (or decision) divides the set of objects into two subsets.
-	\item The whole classifier is thus represented by a decision tree, i.e. a hierarchically organized set of binary decisions.
-\end{itemize}
-\end{frame}
+% \begin{itemize}
+% 	\item Intuitive approach: applying a series of "rules" to the training data to recover the classes $\y_i$ (e.g. "is the cell bright?", "is the cell elongated?", ... )
+% 	\item Each rule (or decision) divides the set of objects into two subsets.
+% 	\item The whole classifier is thus represented by a decision tree, i.e. a hierarchically organized set of binary decisions.
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{Random Forest: Decision trees}
 \begin{figure}[htb]
 \includegraphics[width=0.8\textwidth]{../graphics/RF2.pdf}
 \end{figure}
-\begin{itemize}
-	\item The decision tree corresponds to a partition of the feature space.
-	\item The corresponding decision boundaries can be very complex and adapt to the training set.
+\begin{itemize}	
+	\item Decision trees correspond to a series of binary decisions that partition the feature space.
 	\item Classification of a new object: application of the binary decision rules and assignment of the leaf label.
+	\item The decision boundaries can be very complex and adapt very tightly to the training set.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Random Forest: Decision trees}
-\begin{itemize}
-\item Such decision trees can be built from data in an optimal way, by repeated division of the feature space.
-\item At every step, we split the data set into two, according to one feature.
-\item The feature and the threshold are chosen automatically in such a way that the resulting groups have best "purity".
-\item This can be achieved by minimizing the Gini impurity (GI) or entropy. 
-% For $K$ classes, GINI impurity is defined as:
-% \begin{eqnarray*}
-% GI(R_m) &=& \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk}) \\
-% GI(s) &=& \sum_{R_m}=\frac{|R_m|}{N}GI(R_m)
-% \end{eqnarray*}
-% where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the probability of a sample in $R_m$ to belong to class $k$.
-\end{itemize}
-\end{frame}
+% \begin{frame}{Random Forest: Decision trees}
+% \begin{itemize}
+% \item Such decision trees can be built from data in an optimal way, by repeated division of the feature space.
+% \item At every step, we split the data set into two, according to one feature.
+% \item The feature and the threshold are chosen automatically in such a way that the resulting groups have best "purity".
+% \item This can be achieved by minimizing the Gini impurity (GI) or entropy. 
+% % For $K$ classes, GINI impurity is defined as:
+% % \begin{eqnarray*}
+% % GI(R_m) &=& \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk}) \\
+% % GI(s) &=& \sum_{R_m}=\frac{|R_m|}{N}GI(R_m)
+% % \end{eqnarray*}
+% % where $R_m$ are the sets resulting from the split $s$ and $\hat{p}_{mk}$ is the probability of a sample in $R_m$ to belong to class $k$.
+% \end{itemize}
+% \end{frame}
 
 % \begin{frame}{Random Forest: GINI impurity}
 % \begin{figure}[htb]
@@ -465,7 +541,7 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \includegraphics[width=0.8\textwidth]{../graphics/Forest.pdf}
 \end{figure}
 \begin{itemize}
-	\item Decision trees can approximate very complicated decision boundaries, but they tend to fit to much to the data (overfitting).
+	\item While decision trees can approximate very complicated decision boundaries, they tend to fit too much to the training data (overfitting).
 	\item Random forests: set of decision trees, each learned on a different (randomly drawn) portion of the data and with different (randomly selected) features.
 	\item Each tree gives a classification result.
 	\item The final result is obtained by a majority vote.
@@ -489,48 +565,48 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \end{frame}
 
 
-\begin{frame}{The Bayes rule of classification 1/4}
-\begin{block}{Product and sum rules of probabilities}
-	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be their marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ the conditional probability of $X$ given $Y$.
-	\begin{itemize}
-		\item Product rule:
-		\begin{equation}
-			P(X,Y) = P(X\,|\,Y)P(Y)
-		\end{equation}
-		\item Sum rule:
-		\begin{equation}
-			P(X) = \sum_Y P(X,Y) = \sum(P(X|Y)P(Y)
-		\end{equation}
-	\end{itemize}
-\end{block}
-Example: the probability that I am eaten be a shark in Australia is the probability to be in Australia times the probability to be eaten by a shark given that I am in Australia. 
-\end{frame}
+% \begin{frame}{The Bayes rule of classification 1/4}
+% \begin{block}{Product and sum rules of probabilities}
+% 	Let $X$ and $Y$ be random variables, and let $P(X)$ and $P(Y)$ be their marginal probabilities, $P(X,Y)$ their joint probability and $P(X\,|\,Y)$ the conditional probability of $X$ given $Y$.
+% 	\begin{itemize}
+% 		\item Product rule:
+% 		\begin{equation}
+% 			P(X,Y) = P(X\,|\,Y)P(Y)
+% 		\end{equation}
+% 		\item Sum rule:
+% 		\begin{equation}
+% 			P(X) = \sum_Y P(X,Y) = \sum(P(X|Y)P(Y)
+% 		\end{equation}
+% 	\end{itemize}
+% \end{block}
+% Example: the probability that I am eaten be a shark in Australia is the probability to be in Australia times the probability to be eaten by a shark given that I am in Australia. 
+% \end{frame}
 
-\begin{frame}{The Bayes rule of classification 2/4}
+% \begin{frame}{The Bayes rule of classification 2/4}
 
-From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
-\begin{equation}
-	P(Y \, | \, X) = \frac{P(X \, | \, Y)P(Y)}{P(X)}
-\end{equation}
-
-This rule holds for discrete variables, but almost identical rules hold in the case of continuous variables: we need to replace probabilities by probability densities (as the probability of observing one particular value of a continuous variable is often close to 0).
-
-% Here, we assume that $Y$ is a discrete variable (classes) and $X$ is a continuous variable (measurements). We thus obtain: 
+% From the product rule and $P(X,Y)=P(Y,X)$ we get immediately the Bayes theorem:
 % \begin{equation}
-% 	P(Y \, | \, X) = \frac{p(X \, | \, Y)P(Y)}{p(X)}
+% 	P(Y \, | \, X) = \frac{P(X \, | \, Y)P(Y)}{P(X)}
 % \end{equation}
 
-\end{frame}
+% This rule holds for discrete variables, but almost identical rules hold in the case of continuous variables: we need to replace probabilities by probability densities (as the probability of observing one particular value of a continuous variable is often close to 0).
 
-\begin{frame}{The Bayes rule of classification 3/4}
+% % Here, we assume that $Y$ is a discrete variable (classes) and $X$ is a continuous variable (measurements). We thus obtain: 
+% % \begin{equation}
+% % 	P(Y \, | \, X) = \frac{p(X \, | \, Y)P(Y)}{p(X)}
+% % \end{equation}
+
+% \end{frame}
+
+\begin{frame}{The Bayes rule of classification 1/2}
 
 \begin{block}{Bayes rule of classification}
-	\textbf{Posterior probability}: Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $y \in \{1 \ldots, K\}$ a discrete set of class labels. The posterior probability $P(y=k\,|\,x)$ can be written as:
+	\textbf{Bayes Theorem}: Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $y \in \{1 \ldots, K\}$ a discrete set of class labels. The posterior probability $P(y=k\,|\,x)$ can be written as:
 	\begin{equation}
 		P(y=k \, | \, x) = \frac{p(x \, | \, y=k) P(y=k)}{p(x)}
 	\end{equation}
 	\textbf{The Bayes rule of classification}: \emph{choose the class that maximizes the posterior probability} $P(y=k|x)$:
-	\begin{equation}
+	\begin{equation}\label{equ:bayes_rule}
 		\hat{y}(x) = \arg\max_k P(y=k \, | \, x) = \arg\max_k p(x\,|\,y=k)P(y=k)
 	\end{equation}
 \end{block}
@@ -538,36 +614,33 @@ This rule holds for discrete variables, but almost identical rules hold in the c
 \end{frame}
 
 
-\begin{frame}{The Bayes rule of classification 4/4}
-
+\begin{frame}{The Bayes rule of classification 2/2}
 \begin{itemize}
 \item The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
 \item Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities.
 \item This rule is important because it gives the best possible classifier, given that the class dependent feature distributions $p(x\,|\,y=k)$ and the class probabilities $P(y=k)$ are known.
 \item However, this is normally not the case: these distributions need to be estimated from the training data.
-
 \end{itemize}
-
 \end{frame}
 
-\begin{frame}{The Bayes rule for classification in the binary case}
+% \begin{frame}{The Bayes rule for classification in the binary case}
 
-For simplicity, we assume the case of binary classification, i.e. $y \in \{1, 2\}$. The Bayes rule for classification states that we should choose class $1$ if:
+% For simplicity, we assume the case of binary classification, i.e. $y \in \{1, 2\}$. The Bayes rule for classification states that we should choose class $1$ if:
 
-\begin{equation*}
-\frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} > 1
-\end{equation*}
-\\
-We can apply the $log$ to both sides of the equation. We obtain the following expression for the Bayes rule of classification:
-\begin{equation}\label{equ:lda:condition}
-\log{ \frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} } > 0
-\end{equation}
+% \begin{equation*}
+% \frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} > 1
+% \end{equation*}
+% \\
+% We can apply the $log$ to both sides of the equation. We obtain the following expression for the Bayes rule of classification:
+% \begin{equation}\label{equ:lda:condition}
+% \log{ \frac{p(x|y=1)P(y=1)}{p(x|y=2)P(y=2)} } > 0
+% \end{equation}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}{Normality assumption}
 \begin{figure}[htb]
-\includegraphics[width=0.8\textwidth]{../graphics/LDA1.pdf}
+\includegraphics[width=0.8\textwidth]{../graphics/LDA3.pdf}
 \end{figure}
 We assume that features are normally distributed for each of the classes:
 \begin{equation}\label{equ:lda:normal}
@@ -576,15 +649,15 @@ p(x|y=k)=\frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma_k|^{\frac{1}{2}}}e^{-\frac{1}{2}(x
 \end{frame}
 
 \begin{frame}{Linear Discriminant Analysis (LDA)}
-Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the additional assumption that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$, we obtain {\bf Linear Discriminant Analysis, LDA}:
+Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:bayes_rule}) and the additional assumption that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$, we obtain {\bf Linear Discriminant Analysis, LDA}:
 \begin{equation*}
 \log{\frac{P(y=1)}{P(y=2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
 \end{equation*}
 \begin{itemize}
 	\item We see that this is a linear classifier: $x$ is multiplied with $\Sigma^{-1}(\mu_1-\mu_2)$. 
-	\item We also see that the classifier involves inversion of the covariance matrix. 
 	\item $LDA$ is an old technique, but it is still used in practice. 
-\end{itemize} 
+	\item With neural networks, we typically aim at predicting posterior probabilities without parametric modeling of class dependent densities. 
+\end{itemize}
 \end{frame}
 
 % \begin{frame}{Comparison LDA vs. closest mean 1/2}
@@ -627,7 +700,7 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 
 \begin{frame}{Support Vector Machines: principle}
 	\begin{figure}[htb]
-		\includegraphics[width=0.8\textwidth]{../graphics/SVM1.pdf}
+		\includegraphics[width=0.8\textwidth]{../graphics/SVM_general.pdf}
 	\end{figure}
 	\begin{itemize}
 		\item Optimal placement of a linear decision boundary.
@@ -636,79 +709,81 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Support Vector Machines: linearly separable training set}
+\begin{frame}{Support Vector Machines: a convex optimization problem}
 	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM_1a.pdf}
+		\includegraphics[width=0.5\textwidth]{../graphics/SVM_nonsep.pdf}
 	\end{figure}
 	\begin{itemize}
-		\item Equation of a linear decision boundary $h: w^Tx + b = 0$.
-		\item $w$: normal vector of the separating hyperplane. $b$ is called the bias. 
-		\item $w^Tx$ is the scalar product of some weight vector with the features. 
-		\item For normalized features, the entries of $w$ reflect the feature importance (the weight which is given to the corresponding feature.)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Support Vector Machines: linearly separable training set}
-	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM_1a.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item $w^Tx + b  > 0$: $x$ is on the same side as the normal vector $w$ points to.
-		\item $w^Tx + b  < 0$: $x$ is on the opposite side.
-		\item With the encoding $y\in\{-1,+1\}$, a sample is correctly classified if $y_i(w^Tx_i + b) > 0$.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Support Vector Machines: linearly separable training set}
-	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item The ribbon is defined by two parallel lines, for which $w^Tx + b = 1$ 
-		\item The distance between the two parallel lines $w^Tx + b = \pm 1$ is given by
-		\begin{equation}
-			d = \frac{2}{\|w\|}
-		\end{equation}
-		\item Maximizing of $d$ is equivalent to minimizing $\|w\|^2$.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Support Vector Machines: linearly separable training set}
-	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item With this, the problem can be written as a \textbf{convex optimization problem under constraints}:
-		\begin{eqnarray*}
-			\mbox{minimize} & & \|w\|^2 \\
-			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 \quad i = 1, \ldots, N
-		\end{eqnarray*}
-		\item Convexity implies that there is no local minimum besides the global minimum.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}{SVM for not linearly separable data}
-	\begin{figure}[htb]
-		\includegraphics[width=0.7\textwidth]{../graphics/SVM3.pdf}
-	\end{figure}
-	\begin{itemize}
-		\item In reality, complex data is rarely linearly separable.
-		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (we omit the constraints):
+		\item Maximizing the width corresponds to minimizing the norm of the normal vector of the hyperplane $\|w\| = \frac{2}{d}$. 
+		\item In the case of linearly non-separable data, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (we omit the constraints here):
 		\begin{equation*}
 			\min_{w,\xi} \|w\|^2 + C \sum_{i=1}^{N}\xi_i
 		\end{equation*}
 		\item We note that this corresponds to the general formulation we have seen before.
- 		% \begin{equation*}
- 		% 	\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
- 		% \end{equation*}
-		%\item Normal vector $w$: vector of feature weights.
-		%\begin{equation*}
-		%	f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
-		%\end{equation*}
 	\end{itemize}
 \end{frame}
+
+% \begin{frame}{Support Vector Machines: linearly separable training set}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.7\textwidth]{../graphics/SVM_1a.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item $w^Tx + b  > 0$: $x$ is on the same side as the normal vector $w$ points to.
+% 		\item $w^Tx + b  < 0$: $x$ is on the opposite side.
+% 		\item With the encoding $y\in\{-1,+1\}$, a sample is correctly classified if $y_i(w^Tx_i + b) > 0$.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{Support Vector Machines: linearly separable training set}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item The ribbon is defined by two parallel lines, for which $w^Tx + b = 1$ 
+% 		\item The distance between the two parallel lines $w^Tx + b = \pm 1$ is given by
+% 		\begin{equation}
+% 			d = \frac{2}{\|w\|}
+% 		\end{equation}
+% 		\item Maximizing of $d$ is equivalent to minimizing $\|w\|^2$.
+% 	\end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Support Vector Machines: linearly separable training set}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.7\textwidth]{../graphics/SVM2.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item With this, the problem can be written as a \textbf{convex optimization problem under constraints}:
+% 		\begin{eqnarray*}
+% 			\mbox{minimize} & & \|w\|^2 \\
+% 			\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 \quad i = 1, \ldots, N
+% 		\end{eqnarray*}
+% 		\item Convexity implies that there is no local minimum besides the global minimum.
+% 	\end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{SVM for not linearly separable data}
+% 	\begin{figure}[htb]
+% 		\includegraphics[width=0.7\textwidth]{../graphics/SVM3.pdf}
+% 	\end{figure}
+% 	\begin{itemize}
+% 		\item In reality, complex data is rarely linearly separable.
+% 		\item In this case, we need to find a compromise between error term $\sum_{i=1}^{N}\xi_i$ and regularization $\|w\|^2$ (we omit the constraints):
+% 		\begin{equation*}
+% 			\min_{w,\xi} \|w\|^2 + C \sum_{i=1}^{N}\xi_i
+% 		\end{equation*}
+% 		\item We note that this corresponds to the general formulation we have seen before.
+%  		% \begin{equation*}
+%  		% 	\param ^{\ast} = \argmin_{\param} \loss (\param) + \lambda \mathcal{R}(\param)
+%  		% \end{equation*}
+% 		%\item Normal vector $w$: vector of feature weights.
+% 		%\begin{equation*}
+% 		%	f(x) = w^Tx + b = \sum_{k=1}^{P}w^{(k)}x^{(k)} + b
+% 		%\end{equation*}
+% 	\end{itemize}
+% \end{frame}
 
 % \begin{frame}{SVM for not linearly separable data}
 % 	\begin{itemize}
@@ -734,6 +809,7 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 		\item Limitation: linear decision boundaries
 		\item Solution: transform the features in a higher dimensional space.
 		\item SVM: in-built mechanism to do such transformations efficiently.
+		\item Finding good representations is at the very heart of Neural Networks. 
 	\end{itemize}
 \end{frame}
 
@@ -869,6 +945,7 @@ Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:lda:condition}) and the 
 		\item All the methods, we have seen so far work on a fixed representation of the objects (often a vector $x \in\mathbb{R}^P$).
 	\end{itemize}
 \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

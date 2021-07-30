@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg5807"
    version="1.1"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.0.1 (1.0.1+r73)"
    sodipodi:docname="receptive_field2.svg"
    inkscape:export-filename="/home/decencie/Documents/DeepLearningForImageAnalysis/slides/Lecture3/graphics/receptive_field2.png"
    inkscape:export-xdpi="300"
@@ -30,16 +28,17 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.62"
      inkscape:cx="35.424247"
-     inkscape:cy="341.0098"
+     inkscape:cy="728.10657"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      showborder="false"
-     inkscape:window-width="1863"
-     inkscape:window-height="1145"
-     inkscape:window-x="57"
+     inkscape:window-width="1867"
+     inkscape:window-height="1136"
+     inkscape:window-x="53"
      inkscape:window-y="27"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0">
     <inkscape:grid
        type="xygrid"
        id="grid6355" />
@@ -52,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -83,7 +82,7 @@
        cy="383.62979"
        cx="-498.59155"
        id="path4309-6-6"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -91,7 +90,7 @@
        cy="443.62976"
        cx="-497.60562"
        id="path4309-1"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -99,7 +98,7 @@
        cy="504.05228"
        cx="-497.60562"
        id="path4309-6-8"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -115,7 +114,7 @@
        cy="563.62976"
        cx="-497.60562"
        id="path4309-1-4"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -123,7 +122,7 @@
        cy="624.05231"
        cx="-497.60562"
        id="path4309-6-8-0"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -131,7 +130,7 @@
        cy="683.34814"
        cx="-498.16901"
        id="path4309-3"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -139,7 +138,7 @@
        cy="802.50305"
        cx="-498.59155"
        id="path4309-2-1"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -147,7 +146,7 @@
        cy="863.62982"
        cx="-498.59155"
        id="path4309-6-6-2"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -155,7 +154,7 @@
        cy="923.62976"
        cx="-497.60565"
        id="path4309-1-7"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -171,7 +170,7 @@
        cy="743.06641"
        cx="-498.87323"
        id="path4309-6-95-7-9"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -235,7 +234,7 @@
        cy="445.62976"
        cx="-255.60562"
        id="path4309-1-1"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -243,7 +242,7 @@
        cy="506.05231"
        cx="-255.60562"
        id="path4309-6-8-02"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -259,7 +258,7 @@
        cy="565.62976"
        cx="-255.60562"
        id="path4309-1-4-1"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -267,7 +266,7 @@
        cy="626.05231"
        cx="-255.60562"
        id="path4309-6-8-0-9"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -275,7 +274,7 @@
        cy="685.34814"
        cx="-256.16901"
        id="path4309-3-7"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -283,7 +282,7 @@
        cy="804.50305"
        cx="-256.59155"
        id="path4309-2-1-1"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -291,7 +290,7 @@
        cy="865.62988"
        cx="-256.59155"
        id="path4309-6-6-2-3"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -315,7 +314,7 @@
        cy="745.06641"
        cx="-256.87323"
        id="path4309-6-95-7-9-0"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <circle
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
@@ -791,7 +790,8 @@
            x="650"
            y="1012.3622" /></flowRegion><flowPara
          id="flowPara6751"
-         style="font-size:30px;line-height:1.25"> </flowPara></flowRoot>    <path
+         style="font-size:30px;line-height:1.25"> </flowPara></flowRoot>
+    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.9375;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 487.5,621.11221 206.25,-56.25"
        id="path2897"
