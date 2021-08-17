@@ -51,9 +51,9 @@
 \thispagestyle{empty} % Suppress headers and footers on the title page
 \begin{tikzpicture}[remember picture,overlay]
 \node[inner sep=0pt] (background) at (current page.center) {\includegraphics[width=\paperwidth]{background.pdf}};
-\draw (current page.center) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering The Search for a Title\\[15pt] % Book title
-{\Large A Profound Subtitle}\\[20pt] % Subtitle
-{\huge Dr. John Smith}}}; % Author name
+\draw (current page.center) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering Deep learning for image analysis\\[15pt] % Book title
+{\Large Theory and practice}\\[20pt] % Subtitle
+{\huge E. Decencière, S. Velasco, T. Walter}}}; % Author name
 \end{tikzpicture}
 \vfill
 \endgroup
@@ -103,12 +103,38 @@
 % \chapter{Artificial neural networks}
 \input{artificial_neural_networks}
 
-%----------------------------------------------------------------------------------------
-\part{Convolutions}
+% \chapter{Optimization}
+\input{optimization}
 
+%----------------------------------------------------------------------------------------
+\part{Convolutional networks}
+
+% \chapter{Convolutional layer}
 \input{conv_layer}
 
+% \chapter{Fully convolutional architectures}
 \input{fully_convolutional_architectures}
+
+% \chapter{Visualization}
+\input{visualization}
+
+%----------------------------------------------------------------------------------------
+\part{Reducing supervision}
+
+% \chapter{Auto-encoders}
+
+% \chapter{Metric learning}
+
+% \chapter{Self-supervision}
+
+% \chapter{Generative adversarial networks}
+
+%----------------------------------------------------------------------------------------
+\part{Applications}
+
+% \chapter{Object detection}
+
+% \chapter{Anomaly detection}
 
 
 %----------------------------------------------------------------------------------------

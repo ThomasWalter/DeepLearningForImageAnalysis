@@ -3,14 +3,22 @@
 \ttl@starttoc {default@1}
 \contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}
 \contentsline {chapter}{\numberline {2}Artificial neural networks}{9}{chapter.2}
-\contentsline {part}{\@mypartnumtocformat {II}{Convolutions}}{11}{part.2}
+\contentsline {chapter}{\numberline {3}Optimization}{11}{chapter.3}
+\contentsline {part}{\@mypartnumtocformat {II}{Convolutional networks}}{13}{part.2}
 \ttl@stoptoc {default@1}
 \ttl@starttoc {default@2}
-\contentsline {chapter}{\numberline {3}Convolutional layer}{13}{chapter.3}
-\contentsline {chapter}{\numberline {4}Fully convolutional architectures}{15}{chapter.4}
-\contentsline {part}{\@mypartnumtocformat {III}{Bibliography and supplementaries}}{17}{part.3}
+\contentsline {chapter}{\numberline {4}Convolutional layer}{15}{chapter.4}
+\contentsline {chapter}{\numberline {5}Fully convolutional architectures}{17}{chapter.5}
+\contentsline {chapter}{\numberline {6}Visualization}{19}{chapter.6}
+\contentsline {part}{\@mypartnumtocformat {III}{Reducing supervision}}{21}{part.3}
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
-\contentsline {chapter}{\numberline {5}Bibliography}{19}{chapter.5}
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{23}{section*.3}
+\contentsline {part}{\@mypartnumtocformat {IV}{Applications}}{23}{part.4}
+\ttl@stoptoc {default@3}
+\ttl@starttoc {default@4}
+\contentsline {part}{\@mypartnumtocformat {V}{Bibliography and supplementaries}}{25}{part.5}
+\ttl@stoptoc {default@4}
+\ttl@starttoc {default@5}
+\contentsline {chapter}{\numberline {7}Bibliography}{27}{chapter.7}
+\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{31}{section*.3}
 \contentsfinish 
