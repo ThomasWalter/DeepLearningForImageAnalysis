@@ -11,6 +11,7 @@
 # ignore a large file
 Visualization.pdf
 ObjectDetection.pdf
+WeakSupervision.pdf
 
 # Created by https://www.gitignore.io/api/python
 
