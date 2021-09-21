@@ -75,6 +75,10 @@
   \item Will they do the same in image analysis?
 \end{itemize}
 
+\vspace{1em}
+
+\scriptsize{NB: Our aim through this lesson is to (hopefully!) review the main ideas on attention and transformers, through selected examples. However, this overview is not exhaustive.}
+
 \end{frame}
 
 
@@ -252,42 +256,42 @@ Tasks:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Top-down attention models}
+%% \begin{frame}{Top-down attention models}
 
-  \begin{itemize}
-  \item These are task-dependant.
-  \item Note that all detection methods can be considered as task-oriented attention methods
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item These are task-dependant.
+%%   \item Note that all detection methods can be considered as task-oriented attention methods
+%%   \end{itemize}
 
-  \begin{block}{Example: Face detection with the Viola-Jones method~\cite{viola_rapid_2001}}
-    \begin{itemize}
-    \item Define weak learners based on integrals on rectangles
-    \item Select learners using AdaBoost
-    \item Apply them in a hierarchical way
-    \end{itemize}
+%%   \begin{block}{Example: Face detection with the Viola-Jones method~\cite{viola_rapid_2001}}
+%%     \begin{itemize}
+%%     \item Define weak learners based on integrals on rectangles
+%%     \item Select learners using AdaBoost
+%%     \item Apply them in a hierarchical way
+%%     \end{itemize}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.7\textwidth]{viola_jones_features}\\
-  \scriptsize{Image size: $24 \times 24$ pixels}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.7\textwidth]{viola_jones_features}\\
+%%   \scriptsize{Image size: $24 \times 24$ pixels}
+%% \end{figure}
 
 
-  \end{block}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration~\cite{viola_rapid_2001}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Illustration~\cite{viola_rapid_2001}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{viola_jones_example}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.6\textwidth]{viola_jones_example}
+%% \end{figure}
 
-Once attention is focused, the corresponding regions can be further analysed. Here, for identification purposes, for example.
+%% Once attention is focused, the corresponding regions can be further analysed. Here, for identification purposes, for example.
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -324,6 +328,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
     \end{column}
 
+\pause
+
     \begin{column}{.25\textwidth}
       \begin{figure}[ht]
         \centering
@@ -331,6 +337,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
       \end{figure}
     \end{column}
   \end{columns}
+
+\pause
 
   \vspace{1cm}
 
@@ -410,6 +418,7 @@ Once attention is focused, the corresponding regions can be further analysed. He
       \begin{block}{The paper that started it all}
         Vaswani et al., Attention is all you need, Neurips 2017.
       \end{block}
+        This architecture was developed for text processing.
     \end{column}
 
     \begin{column}{.5\textwidth}
@@ -436,33 +445,65 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Scaled dot-product attention}
+
+  \begin{block}{Definition}
+    \[Att(Q,K,V) = \sigma\left(\frac{QK^t}{\sqrt{d_{K}}}\right) V \]
+  \end{block}
+
+  \begin{itemize}
+  \item $V$: values; $K$: keys; $Q$: queries.
+  \item $d_{K}$ is the length of $K$.
+  \item $\sigma$: row-wise soft-max.
+  \end{itemize}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Self-attention}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{self_attention}
+  \end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Multi-head attention}
 
-
-  \begin{block}{Dot-product attention}
-    \[Att(Q,K,V) = softmax\left(\frac{QW_Q(KW_V)^t}{\sqrt{d_{K'}}}\right) VW_V \]
-    \[Att(Q,K,V) = softmax\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
-  \end{block}
 
 \begin{columns}
   \begin{column}{.5\textwidth}
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{multi_head_attention}
+    \includegraphics[width=0.55\textwidth]{multi_head_attention}
   \end{figure}
 
   \end{column}
 
   \begin{column}{.5\textwidth}
   \begin{itemize}
-  \item $V$: values; $K$: keys; $Q$: queries.
   \item Matrices $W_Q$, $W_V$ and $W_V$ are learnable.
-  \item $d_{K'}$ is the length of $K'$.
+  \item $h$ heads work in parallel.
   \end{itemize}
 
   \end{column}
 \end{columns}
 
+  \begin{block}{Application of scaled dot-product attention}
+    %% \[Att(W_QQ,W_KK,W_VV) = \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \]
+    %% \[ = \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
+    \begin{align*}
+    Att(W_QQ,W_KK,W_VV) & = & \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \\
+     & = & \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V'
+    \end{align*}
+  \end{block}
 
 
 \end{frame}
@@ -498,9 +539,19 @@ Once attention is focused, the corresponding regions can be further analysed. He
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Success of transformers in natural language processing}
+
+  \begin{itemize}
+  \item Bidirectional Encoder Representations from Transformers (BERT, by Google~\cite{brown_language_2020})
+  \item Generative Pre-trained Transformer 3 (GPT-3, by OpenAI~\cite{devlin_bert_2019}): 175 billion parameters.
+
+  \end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Detection Transformer}
+\subsection{Detection transformer}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
@@ -552,8 +603,8 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \begin{block}{Remarks}
   \begin{itemize}
   \item Only uses the transformer encoder
-  \item Directly takes as input an image patch
-  \item Achieves state-of-the-art results when trained on very large databases (Google's JFT-300M dataset)
+  \item Directly takes as inputs image patches
+  \item Achieves state-of-the-art results when pre-trained on very large databases (Google's JFT-300M dataset)
   \end{itemize}
 \end{block}
 
@@ -585,12 +636,15 @@ Once attention is focused, the corresponding regions can be further analysed. He
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\textwidth]{vit_graph}
+  \footnote{BiT: Big transfer~\cite{kolesnikov_big_2020}}
 \end{figure}
+
 
 
 \begin{itemize}
   \item ViT-H/14 requires 2500 TPUv3-core-days for pre-training
-  \item BiT: Big transfer~\cite{kolesnikov_big_2020}
+  \item But: ``Training data-efficient image transformers \& distillation through attention''~\cite{touvron_training_2021}.
+
 \end{itemize}
 
 \end{frame}
@@ -637,6 +691,19 @@ Once attention is focused, the corresponding regions can be further analysed. He
     \end{itemize}
   \end{block}
 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MLPs is all you need~\cite{tolstikhin_mlp-mixer_2021}}
+
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{mixer}
+    \caption{\label{fig:label} }
+  \end{figure}
 
 \end{frame}
 

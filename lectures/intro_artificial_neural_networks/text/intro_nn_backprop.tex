@@ -64,6 +64,10 @@
 %% http://www.quizzoodle.com/quizz/delete/427672d20f2045d2972f305d67b49eb4
 %% mot de passe: no password
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contents}
+  \tableofcontents
+\end{frame}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \section{Introduction}
@@ -116,7 +120,7 @@
   %% \item[D/]
   %% \end{itemize}
 
-  neurons
+  \hspace{4em}neurons
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -357,7 +361,7 @@
   \item[A/] binary
   \item[B/] sigmoid
   \item[C/] tanh
-  \item[D/] relu
+  \item[D/] ReLU
   \end{itemize}
 
 \end{frame}
@@ -394,7 +398,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Example of what we can do with a neuron}
+  \frametitle{Example in 2D}
 
   \begin{figure}
     \includegraphics[height=3cm]{neurone_simple}
@@ -476,7 +480,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{Solution}
+  \frametitle{Solution with a simple neural network}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -1280,7 +1284,7 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Backpropation through a neuron}
+\begin{frame}{Backpropagation through a neuron}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron.png}
 
@@ -1288,7 +1292,7 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
+\begin{frame}{Exercise 1}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo.png}
 
@@ -1296,10 +1300,10 @@ $$
   $\frac{\partial l}{\partial x}$ is equal to:
 
     \begin{itemize}
-  \item[A/] $0.75$
+  \item[A/] $1.75$
   \item[B/] $-2.25$
   \item[C/] $-1.5$
-  \item[D/] $1.75$
+  \item[D/] $0.75$
   \end{itemize}
 
 
@@ -1327,7 +1331,7 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Exercise: solution}
+\begin{frame}<beamer>{Exercise 1: solution}
 
   \includegraphics[width=\textwidth]{bp_2_1_neuron_exo_sol.png}
 
@@ -1335,30 +1339,28 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
+\begin{frame}{Exercise 2}
 
   \includegraphics[width=\textwidth]{bp_relu_exo.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Exercise: solution}
+\begin{frame}<beamer>{Exercise 2: solution}
 
   \includegraphics[width=\textwidth]{bp_relu_exo_sol.png}
 
 \end{frame}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
+\begin{frame}{Exercise 3}
 
   \includegraphics[width=\textwidth]{bp_relu_exo2.png}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Exercise: solution}
+\begin{frame}<beamer>{Exercise 3: solution}
 
   \includegraphics[width=\textwidth]{bp_relu_exo2_sol.png}
 
@@ -1366,7 +1368,7 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exercise}
+\begin{frame}{Exercise 4}
 
   \includegraphics[width=0.8\textwidth]{bp_split.png}
 
@@ -1377,7 +1379,7 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Exercise: solution}
+\begin{frame}<beamer>{Exercise 4: solution}
 
   \includegraphics[width=\textwidth]{bp_split_sol.png}
 

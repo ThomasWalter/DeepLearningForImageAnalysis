@@ -378,6 +378,8 @@ TSWLatexianTemp*
 
 # End of https://www.gitignore.io/api/latex
 
+# Other files
+*.xopp
 
 # emacs
 *~
