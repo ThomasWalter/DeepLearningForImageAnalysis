@@ -262,8 +262,8 @@
   \pause
 
   \begin{itemize}
-  \item[$\oplus$] This approach works correctly when the objects are not too complex.
-  \item[$\ominus$] If objects are difficult to model, machine learning methods can bring a solution.
+  \item[\boldmath$\oplus$] This approach works when the objects are not too complex.
+  \item[\boldmath$\ominus$] If objects are difficult to model, machine learning methods can bring a solution.
   \end{itemize}
 
 
@@ -296,9 +296,9 @@
   \vspace{1em}
   \pause
   \begin{itemize}
-  \item[$\oplus$] Works well with the right features
-  \item[$\ominus$] An expert is required to define those features - and this can be a long process
-  \item[$\ominus$] Annotated data is required
+  \item[\boldmath$\oplus$] Works well with the right features
+  \item[\boldmath$\ominus$] An expert is required to define those features - and this can be a long process
+  \item[\boldmath$\ominus$] Annotated data is required
   \end{itemize}
 
 
@@ -315,9 +315,9 @@
   \end{block}
 
   \begin{itemize}
-  \item[$\oplus$] Good (impressive!) results
-  \item[$\ominus$] A large amount of annotated data is required
-  \item[$\ominus$] Extensive computing resources needed
+  \item[\boldmath$\oplus$] Good (impressive!) results
+  \item[\boldmath$\ominus$] A large amount of annotated data is required
+  \item[\boldmath$\ominus$] Extensive computing resources needed
   \end{itemize}
 
 \end{frame}
@@ -379,7 +379,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{ImageNet project \tiny{\cite{russakovsky_imagenet_2015}}}
 
-  Since 2010, ImageNet organizes and annual challenge: The ImageNet Large Scale Visual Recognition Challenge (ILSVRC), that constituted a breakthrough in the design of image analysis challenges by its size.
+  Between 2010 and 2017 ImageNet organized an annual challenge: The ImageNet Large Scale Visual Recognition Challenge (ILSVRC). It represented a breakthrough in the design of image analysis challenges by its size.
 
   \begin{block}{Image classification task (since 2012)}
     \begin{itemize}
@@ -493,40 +493,25 @@
 \section{Application of fully connected NNs to image classification}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Quizz}
-
-  \begin{block}{The first course session was:}
-    \begin{itemize}
-    \item[A/] An unnecessary repetition
-    \item[B/] A welcome reminder
-    \item[C/] Too fast / too dense
-    \end{itemize}
-
-  \end{block}
-
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% \frame{
-%%   \frametitle{Reminder: Artificial neuron}
+\frame{
+  \frametitle{Reminder: Artificial neuron}
 
-%%   \begin{figure}
-%%     \includegraphics[height=3cm]{neurone}
-%%   \end{figure}
+  \begin{figure}
+    \includegraphics[height=3cm]{neurone_representation_compacte}
+  \end{figure}
 
-%%   \begin{itemize}
+  \begin{itemize}
 
-%%   \item $b, w_1, \ldots, w_n$ are the neuron parameters, to be learnt
+  \item $b, w_1, \ldots, w_n$ are the neuron parameters, to be learnt
 
-%%   \item $\act$ is the activation or transfer function
+  \item $\act$ is the activation or transfer function
 
-%%   \end{itemize}
+  \end{itemize}
 
 
-%% }
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -610,9 +595,9 @@
   \item Output: class $y$ chosen from a set of labels: $\{ label_1, label_2, \ldots, label_q\}$
   \end{itemize}
 
-  \begin{block}{Class coding}
-    Often, classes are denoted by integers, but this is only a coding commodity. For instance, it would be meaningless to use a regression approach for this problem.
-  \end{block}
+  %% \begin{block}{Class coding}
+  %%   Often, classes are denoted by integers, but this is only a coding commodity. For instance, it would be meaningless to use a regression approach for this problem.
+  %% \end{block}
 
 \end{frame}
 
@@ -643,6 +628,54 @@
 
   This is called \alert{one-hot encoding}. The resulting vector is a one-hot vector.
 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Why is one-hot encoding used, instead of integers?}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+  \begin{block}{}
+    \begin{itemize}
+    \item
+      Label $0 \longmapsto [1,0,0,0]$
+    \item
+      Label $1 \longmapsto [0,1,0,0]$
+    \item
+      Label $2 \longmapsto [0,0,1,0]$
+    \item
+      Label $3 \longmapsto [0,0,0,1]$
+    \end{itemize}
+  \end{block}
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+  \begin{block}{}
+    \begin{itemize}
+    \item
+      Label $0 \longmapsto 0$
+    \item
+      Label $1 \longmapsto 1$
+    \item
+      Label $2 \longmapsto 2$
+    \item
+      Label $3 \longmapsto 3$
+    \end{itemize}
+  \end{block}
+
+    \end{column}
+  \end{columns}
+
+  \pause
+
+  \vspace{2em}
+
+\begin{itemize}
+\item Using integers to represent the labels would bring an \alert{inductive bias} into the model: there will be an explicit order between the labels.
+\item Using one-hot encoding, we make the labels permutation invariant
+\end{itemize}
 \end{frame}
 
 
@@ -737,7 +770,7 @@
   \frametitle{How are we going to apply our NN to an image?}
 
   \begin{figure}
-    \includegraphics[height=5cm]{mini_reseau3_bis}
+    \includegraphics[height=3.5cm]{mini_reseau3_bis}
   \end{figure}
 
 }
@@ -746,7 +779,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
-  \frametitle{How?}
+  \frametitle{}
 
   \vspace{10pt}
 
@@ -758,13 +791,13 @@
       \end{center}
     \end{column}
 
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.55\textwidth}
 
-      \begin{block}{The best solution would be to:}
+      \begin{block}{What approach would you suggest to apply our fully connected NN to an image?}
     \begin{itemize}
-    \item[A/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
-    \item[B/] Apply the network to each row or column separately
-    \item[C/] Transform the image into a vector, by rearranging the pixels
+    \item[1/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
+    \item[2/] Apply the network to each row or column separately
+    \item[3/] Transform the image into a vector, by rearranging the pixels
     \end{itemize}
 
   \end{block}
@@ -794,24 +827,12 @@
 
   \pause
 
-  \begin{block}{Example: image of size $4 \times 2$, $4$ possible classes}
+  \begin{block}{Example: image of size $4 \times 2$, $6$ possible classes}
     \centering
     \includegraphics[width=0.6\textwidth]{mini_reseau3_bis}
   \end{block}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Flatten}
-
-  \begin{itemize}
-  \item Transforms an array into a vector
-  \item Loss of local structure
-  \item This is typically done to transition between a convolutional layer and a fully-connected one.
-  \end{itemize}
-
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -821,10 +842,10 @@
   \includegraphics[width=0.6\textwidth]{mini_reseau3_bis}
 
   \begin{itemize}[<+->]
-  \item A small image contains at least $100\,000$ pixels
+  \item A small image easily contains $100\,000$ pixels
   \item The number of parameters between two layers of that size is $10^5 \times (10^5 + 1)$!
   \item This approach is only possible for very small images
-  \item Moreover, this approach does not take into account the local structure of images.
+%  \item This approach does not take into account the local structure of images
   \end{itemize}
 
 \end{frame}
@@ -833,21 +854,13 @@
 \frame{
   \frametitle{Conclusion on fully-connected networks for image classification}
 
-  Fully-connected layers:
-
-  \begin{itemize}
-
-  \item scale badly to large size images
-
-  \item do not take advantage of the local structure of images
-
-  \end{itemize}
+  Fully-connected layers scale badly to large size images.
 
 
   Today:
 
   \begin{itemize}
-  \item NN solely composed of fully-connected layers are almost never used for image analysis.
+  \item NN solely composed of fully-connected layers are almost never used for image analysis (however, \alert{transformers}~\cite{dosovitskiy_image_2021} have brought new ways to use fully-connected layers).
   \item Fully-connected layers are mainly used in the middle (auto-encoders) or at the end (classification) of the pipeline.
   \end{itemize}
 
@@ -863,9 +876,11 @@
 \begin{frame}{Layers representation}
 
   \begin{block}{}
-    For illustration purposes, in the following slides images and filters will be displayed as rows of neurons -- these can be seen as 1D arrays or as sections of 2D arrays.
+    \begin{itemize}
+    \item     For illustration purposes, in the following slides images and layers will be displayed as rows of neurons -- as sections of 2D arrays.
+    \item     Only some connections between neurons are represented. Each such connection is associated to a weight. The biases are not represented, to avoid clutter.
+    \end{itemize}
 
-    We represent some connections between neurons. Each such connection is associated to a weight. The bias are not represented, to avoid clutter, but must not be forgotten.
   \end{block}
 
   \begin{columns}
@@ -936,10 +951,10 @@
 
     \begin{column}<5->{.5\textwidth}
       \begin{itemize}
-      \item[A/] $3$
-      \item[B/] $4$
-      \item[C/] $9$
-      \item[D/] $10$
+      \item[1/] $3$
+      \item[2/] $4$
+      \item[3/] $9$
+      \item[4/] $10$
       \end{itemize}
 
     \end{column}
@@ -950,7 +965,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Towards convolutional layers: some figures}
+  \frametitle{Convolutional layers: some figures}
 
   \begin{itemize}
   \item $3 \times 3$ convolutions: $s=9$
@@ -996,6 +1011,26 @@
 
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convolutional layers are fully connected layers}
+
+  Convolutional layers are fully connected layers such that:
+  \begin{itemize}
+  \item the weights of all non-local connections are set to zero
+  \item the weights are shared among all the neurons of the same channel
+  \end{itemize}
+
+  These limitations correspond to two inductive biases:
+
+\begin{itemize}
+\item local structure and
+\item translation invariance
+\end{itemize}
+
+  They make the network much more manageable (memory, optimization). Is the loss in generality important?
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dealing with borders}
@@ -1167,7 +1202,7 @@
 
     \begin{column}{.47\textwidth}
       \begin{block}{Note on vocabulary}
-        The depth of a layer is often called the \alert{number of filters}.
+        The filters are also called \alert{channels} or \alert{feature maps}.
       \end{block}
     \end{column}
   \end{columns}
@@ -1185,7 +1220,6 @@
 
   \end{center}
 
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1201,7 +1235,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
+\frame{
   \frametitle{Consequences on the parameter number}
 
   \begin{columns}
@@ -1214,9 +1248,9 @@
     \begin{column}{.5\textwidth}
       \begin{block}{How many parameters do we have in layer 1?}
         \begin{itemize}
-        \item[A/] $d^1 \times (s + 1)$
-        \item[B/] $d^1 \times s$
-        \item[C/] $(d^1 + 1) \times s$
+        \item[1/] $c_1 \times (s + 1)$
+        \item[2/] $c_1 \times s$
+        \item[3/] $(c_1 + 1) \times s$
         \end{itemize}
       \end{block}
     \end{column}
@@ -1227,7 +1261,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
+\frame{
   \frametitle{Consequences on the parameter number}
 
 \begin{columns}
@@ -1240,9 +1274,9 @@
   \begin{column}{.5\textwidth}
   \begin{block}{How many parameters do we have in layer 2?}
     \begin{itemize}
-    \item[A/] $d^2 \times d^1 \times s$
-    \item[B/] $d^2 \times (d^1 \times s + 1)$
-    \item[C/] $(d^2 + 1) \times (d^1 \times s + 1)$
+    \item[1/] $c_2 \times c_1 \times s$
+    \item[2/] $c_2 \times (c_1 \times s + 1)$
+    \item[3/] $(c_2 + 1) \times (c_1 \times s + 1)$
     \end{itemize}
   \end{block}
   \end{column}
@@ -1251,32 +1285,15 @@
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<handout>{
-  \frametitle{Consequences on the parameter number}
-
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{convolutional_layer4.png}
-  \end{center}
-
-  \begin{itemize}
-  \item How many parameters do we have in layer 1?
-  \item ...
-  \item In layer 2?
-  \item ...
-  \end{itemize}
-
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
   \frametitle{Multi-valued images}
 
-  An input image with $p$ channels (for instance a colour image with 3 channels) can be represented by an input layer of depth 3
+  An input image with $p$ channels (for instance a colour image with 3 channels) can be represented by an input layer with $p$ channels/filters.
 
   \begin{center}
-    \includegraphics[height=0.66\textheight]{input_vector_image.png}
+    \includegraphics[height=0.51\textheight]{input_vector_image.png}
   \end{center}
 
 }
@@ -1285,7 +1302,7 @@
 \begin{frame}{Depth-wise convolution}
 
   \begin{center}
-    \includegraphics[height=0.66\textheight]{conv_depth_wise.png}
+    \includegraphics[height=0.51\textheight]{conv_depth_wise.png}
   \end{center}
 
   \begin{itemize}
@@ -1304,7 +1321,7 @@
   $1 \times 1$ convolutions are used to reduce the number of filters - this is called by some authors \emph{dimension reduction}.
 
   \begin{center}
-    \includegraphics[height=0.66\textheight]{conv1x1.png}
+    \includegraphics[height=0.51\textheight]{conv1x1.png}
   \end{center}
 
 \end{frame}
@@ -1315,10 +1332,56 @@
   The combination of depth-wise with $1 \times 1$ convolutions gives decomposed convolutions.
 
   \begin{center}
-    \includegraphics[height=0.66\textheight]{conv_dec.png}
+    \includegraphics[height=0.51\textheight]{conv_dec.png}
   \end{center}
 
   They are somehow a factorization of classical convolutions. Thus they allow reducing the number of parameters.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Decomposed convolution - number of parameters}
+    \scriptsize
+
+  \begin{center}
+    \includegraphics[height=0.30\textheight]{conv_dec.png}
+  \end{center}
+
+  The input layer holds $c_1$ channels, and the output layer $c_2$. The size of the receptive field is $s$.
+
+  \begin{columns}
+  \begin{column}{.5\textwidth}
+
+    \begin{block}{}
+    How many parameters does the corresponding decomposed convolution layer contain?
+
+\begin{enumerate}
+\item $c_1 \times (s + 1) + c_2 \times (c_1 + 1)$
+\item $c_1 \times s + c_2 \times c_1 $
+\item $(c_1 + 1) \times s  + (c_2 + 1) \times c_1 $
+\end{enumerate}
+
+    \end{block}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+
+    \begin{block}{}
+How many parameters would the corresponding convolutional layer contain?
+
+\begin{enumerate}
+\item $c_1 \times s  \times c_2$
+\item $(c_1 \times s + 1) \times (c_2 + 1)$
+\item $(c_1 \times s + 1) \times c_2$
+\end{enumerate}
+
+    \end{block}
+
+  \end{column}
+\end{columns}
+
+
 
 \end{frame}
 
@@ -1370,6 +1433,19 @@
   \end{center}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Flatten}
+
+  \begin{itemize}
+  \item Transforms an array into a vector
+  \item Loss of local structure
+  \item This is typically done to transition between a convolutional layer and a fully-connected one.
+  \end{itemize}
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Branch merging}
@@ -1483,7 +1559,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-  \frametitle{VGGnet}
+  \frametitle{VGGnet (Visual Geometry Group Net)}
 
 
   \begin{itemize}
@@ -1691,30 +1767,7 @@
 
 %% }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Some deep learning libraries}
-
-  Deep learning is a very competitive domain, where code sharing is very common.
-
-  \begin{itemize}
-  \item Tensorflow, by Google (Apache licence)
-  \item PyTorch, Torch (Facebook - BSD licence)
-  \item Caffe (Univ. of California, Berkeley - BSD licence)
-  \item Microsoft Cognitive Toolkit (MIT licence)
-  \item MatConvNet (for MatLab users)
-  \end{itemize}
-
-  \begin{block}{Comments}
-    \begin{itemize}
-    \item Most of these libraries are distributed with very permissive licences
-    \item Most of them use Python as prototyping language
-    \item \alert{Keras} is a very easy to use interface to Tensorflow.
-    \end{itemize}
-
-  \end{block}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{A revolution in image analysis}
@@ -1759,6 +1812,31 @@
   \end{figure}
 
 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+  \frametitle{Some deep learning libraries}
+
+  Deep learning is a very competitive domain, where code sharing is very common. Main libraries:
+
+  \begin{itemize}
+  \item Tensorflow (with its \alert{keras} interface), by Google (Apache licence)
+  \item PyTorch (Facebook - BSD licence)
+  %% \item Caffe (Univ. of California, Berkeley - BSD licence)
+  %% \item Microsoft Cognitive Toolkit (MIT licence)
+  %% \item MatConvNet (for MatLab users)
+  \end{itemize}
+
+  %% \begin{block}{Comments}
+  %%   \begin{itemize}
+  %%   \item Most of these libraries are distributed with very permissive licences
+  %%   \item Most of them use Python as prototyping language
+  %%   \item \alert{Keras} is a very easy to use interface to Tensorflow.
+  %%   \end{itemize}
+
+  %% \end{block}
 }
 
 
