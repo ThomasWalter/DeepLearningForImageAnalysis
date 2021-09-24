@@ -93,10 +93,10 @@
 %% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Artificial neuron}
+\section{Artificial neurons}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame<beamer>{
+\frame{
   \frametitle{Biological neuron}
 
   \begin{figure}
@@ -104,7 +104,7 @@
   \end{figure}
 
 
-  The human brain contains:
+  How many neurons does the human brain contain?
 
   \begin{itemize}
   \item[A/] $10^8$
@@ -113,6 +113,9 @@
   \item[D/] $10^{11}$
   \end{itemize}
 
+%%   \item The human brain contains 100 billion ($10^{11}$) neurons
+
+
   %% \begin{itemize}
   %% \item[A/]
   %% \item[B/]
@@ -120,7 +123,6 @@
   %% \item[D/]
   %% \end{itemize}
 
-  \hspace{4em}neurons
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,7 +135,6 @@
   \end{figure}
 
   \begin{itemize}[<+->]
-  \item The human brain contains 100 billion ($10^{11}$) neurons
   \item A human neuron can have several thousand dendrites
   \item The neuron sends a signal through its axon if during a given interval of time the net input signal (sum on excitatory and inhibitory signals received through its dendrites) is larger than a threshold.
   \end{itemize}
@@ -201,7 +202,7 @@
   \begin{itemize}
   \item The initial idea behind the activation function is that it works somehow as a gate
   \item If its input in ``high enough'', then the neuron is activated, i.e. a signal (other than zero) is produced
-  \item It can be interpreted as a source of abstraction: information considered as unimportant is ignored
+  \item It can be interpreted as a source of abstraction: information considered as unimportant is ignored (or reduced)
   \end{itemize}
 
 }
@@ -270,7 +271,7 @@
     \begin{itemize}
     \item[+] Similar to binary activation, but with usable gradient
     \item Bijection between $\R$ and $]0, 1[$: no loss of information
-    \item[-] Gradient tends to zero when input is far from zero
+    \item[-] Gradient tends to zero as we get away from zero
     \item[-] More computationally intensive
     \end{itemize}
   \end{block}
@@ -630,13 +631,13 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Differentiable programming}
+%% \begin{frame}{Differentiable programming}
 
-  \begin{block}{Definition}
-    Differentiable programming refers to the use of computational graphs such that all operators are differentiable. Automatic differentiation then allows to use gradient descent for optimization.
-  \end{block}
+%%   \begin{block}{Definition}
+%%     Differentiable programming refers to the use of computational graphs such that all operators are differentiable. Automatic differentiation then allows to use gradient descent for optimization.
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{First architectures}
@@ -723,7 +724,7 @@
         \includegraphics[height=3cm]{mini_reseau3_bis}
       \end{figure}
       \begin{figure}
-        \includegraphics<2->[height=3cm]{nn_representation3}
+        \includegraphics[height=3cm]{nn_representation3}
       \end{figure}
     \end{column}
 
@@ -745,7 +746,10 @@
   \end{figure}
 
   \begin{block}{}
-    \[\x^i = \act_i(\x_{i-1}^t \W_i + \bias_i),\, i= 1, 2, 3 \]
+    For $i \in \{1, 2, 3\}$:
+    \[\x^i = \act_i(\x_{i-1}^t \W_i + \bias_i)\]
+  \end{block}
+  \begin{block}{}
     \[\y = \act_4(\x_4^t \W_4 + \bias_4)\]
   \end{block}
 
@@ -830,8 +834,11 @@
   In a learning context, one may want to process $n$ vectors of length $p$ at the same time.
 They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
 
-  \begin{block}{}
-    \[\X_i = \act_i(\X_{i-1}\W_i + \bias_i),\, i= 1, 2, 3 \]
+\begin{block}{}
+  For $i \in \{1, 2, 3\}$:
+    \[\X_i = \act_i(\X_{i-1}\W_i + \bias_i)\]
+  \end{block}
+\begin{block}{}
     \[\Y = \act_4(\X_4\W_4 + \bias_4)\]
   \end{block}
 
@@ -988,7 +995,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
 
 \begin{itemize}
 \item The choice of the loss function depends on the type of problem (regression or classification) and is tightly linked to the application.
-\item   In the following slides we will see two classical loss functions used respectively for regression and classification problems: the squared error loss and the cross-entropy loss.
+%% \item   In the following slides we will see two classical loss functions used respectively for regression and classification problems: the squared error loss and the cross-entropy loss.
 \end{itemize}
 
 \end{frame}
@@ -1098,6 +1105,8 @@ $$
       \[
       \param_{t+1} = \param_t - \lr\nabla \loss(\param_t)
       \]
+
+      $\loss$ is called the \alert{learning rate}.
     \end{column}
   \end{columns}
 
@@ -1756,32 +1765,32 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Practical sessions}
+%% \section*{Practical sessions}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Procedure for setting up the practical sessions environment}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Procedure for setting up the practical sessions environment}
 
-  \scriptsize
+%%   \scriptsize
 
-  \begin{enumerate}
-  \item Download \textbf{practical\_sessions.zip} from \colorbox{cyan}{\url{https://frama.link/practical\_sessions}}. Uncompress it.
-  \item Create (if necessary) a Google account. Log in.
-  \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
-  \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload your \textbf{practical\_sessions} directory.
-  \end{enumerate}
+%%   \begin{enumerate}
+%%   \item Download \textbf{practical\_sessions.zip} from \colorbox{cyan}{\url{https://frama.link/practical\_sessions}}. Uncompress it.
+%%   \item Create (if necessary) a Google account. Log in.
+%%   \item Go to: \url{https://colab.research.google.com}. A notebook will open if it is your first connection. Click on \colorbox{lightgray}{Save on drive}.
+%%   \item Go to: \url{https://drive.google.com}. A \colorbox{yellow}{Colab Notebooks} directory should be available. Go into it and upload your \textbf{practical\_sessions} directory.
+%%   \end{enumerate}
 
-  Following this procedure you should have a \texttt{practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} containing some folders with data sets and python files. A first set of notebooks will also be available.
+%%   Following this procedure you should have a \texttt{practical\_sessions} directory on your \colorbox{yellow}{Colab Notebooks} containing some folders with data sets and python files. A first set of notebooks will also be available.
 
-  \vspace{1em}
+%%   \vspace{1em}
 
-  Future notebooks will be available from:
+%%   Future notebooks will be available from:
 
-  \centering
+%%   \centering
 
-  \colorbox{cyan}{\url{https://frama.link/iasd_dlia}}
+%%   \colorbox{cyan}{\url{https://frama.link/iasd_dlia}}
 
 
-\end{frame}
+%% \end{frame}
 
 
 
