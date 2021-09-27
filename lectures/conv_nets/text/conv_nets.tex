@@ -262,8 +262,9 @@
   \pause
 
   \begin{itemize}
-  \item[\boldmath$\oplus$] This approach works when the objects are not too complex.
-  \item[\boldmath$\ominus$] If objects are difficult to model, machine learning methods can bring a solution.
+  \item[\boldmath$\oplus$] This approach works when the objects are not too complex
+  \item[\boldmath$\oplus$] Interpretability
+  \item[\boldmath$\ominus$] Often objects are difficult to model explicitly
   \end{itemize}
 
 
@@ -297,7 +298,8 @@
   \pause
   \begin{itemize}
   \item[\boldmath$\oplus$] Works well with the right features
-  \item[\boldmath$\ominus$] An expert is required to define those features - and this can be a long process
+  \item[\boldmath$\oplus$] Interpretability
+  \item[\boldmath$\ominus$] An expert is required to define those features
   \item[\boldmath$\ominus$] Annotated data is required
   \end{itemize}
 
@@ -318,6 +320,7 @@
   \item[\boldmath$\oplus$] Good (impressive!) results
   \item[\boldmath$\ominus$] A large amount of annotated data is required
   \item[\boldmath$\ominus$] Extensive computing resources needed
+  \item[\boldmath$\ominus$] Lack of interpretability
   \end{itemize}
 
 \end{frame}
@@ -381,7 +384,7 @@
 
   Between 2010 and 2017 ImageNet organized an annual challenge: The ImageNet Large Scale Visual Recognition Challenge (ILSVRC). It represented a breakthrough in the design of image analysis challenges by its size.
 
-  \begin{block}{Image classification task (since 2012)}
+  \begin{block}{Image classification task}
     \begin{itemize}
     \item
       Training: $1\,281\,167$; validation: $50\,000$; test: $100\,000$.
@@ -418,7 +421,10 @@
     \end{column}
 
     \begin{column}{.5\textwidth}
+      \centering
+      \scriptsize
       \includegraphics[height=0.75\textheight]{ImageNet_error_history}
+      Evolution of top-5 error rate
 
       \source{Wikipedia (CC BY-SA 4.0)}
 
@@ -514,6 +520,21 @@
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Image classification problem}
+
+  Classification problem:
+  \begin{itemize}
+  \item Input: image
+  \item Output: class $y$ chosen from a set of labels: $\{ label_1, label_2, \ldots, label_q\}$
+  \end{itemize}
+
+  %% \begin{block}{Class coding}
+  %%   Often, classes are denoted by integers, but this is only a coding commodity. For instance, it would be meaningless to use a regression approach for this problem.
+  %% \end{block}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame<beamer>{
@@ -585,21 +606,70 @@
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Image classification problem}
+\frame{
+  \frametitle{How are we going to apply our NN to an image?}
 
-  Classification problem:
-  \begin{itemize}
-  \item Input: image
-  \item Output: class $y$ chosen from a set of labels: $\{ label_1, label_2, \ldots, label_q\}$
-  \end{itemize}
+\begin{columns}
+  \begin{column}{.5\textwidth}
+      \begin{center}
+        \includegraphics[width=0.9\textwidth]{imagette_neurones.png}
 
-  %% \begin{block}{Class coding}
-  %%   Often, classes are denoted by integers, but this is only a coding commodity. For instance, it would be meaningless to use a regression approach for this problem.
-  %% \end{block}
+      \end{center}
 
-\end{frame}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{mini_reseau3_bis}
+  \end{figure}
+
+  \end{column}
+\end{columns}
+
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+  \frametitle{}
+
+  \vspace{10pt}
+
+  \begin{columns}
+
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=0.9\textwidth]{imagette_neurones.png}
+      \end{center}
+    \end{column}
+
+    \begin{column}{0.55\textwidth}
+
+      \begin{block}{What approach would you suggest to apply our fully connected NN to an image?}
+    \begin{itemize}
+    \item[1/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
+    \item[2/] Apply the network to each row or column separately
+    \item[3/] Transform the image into a vector, by rearranging the pixels
+    \end{itemize}
+
+  \end{block}
+
+    \end{column}
+
+  \end{columns}
+
+  %% \pause
+
+  %% \begin{alertblock}<4->{Image preprocessing}
+  %%   Often, the input image is modified to make the optimization of the model easier.
+  %% \end{alertblock}
+
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Class coding}
@@ -749,7 +819,7 @@
     \]
 
     \small
-    Reminder -- hat notation: $\hat{\y}$ is used for a prediction that is supposed to be close to $\y$.
+    Reminder -- hat notation: $\hat{\y}$ is the prediction that is supposed to be close to $\y$.
   \end{block}
 
   \pause
@@ -763,56 +833,6 @@
   \end{itemize}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-  \frametitle{How are we going to apply our NN to an image?}
-
-  \begin{figure}
-    \includegraphics[height=3.5cm]{mini_reseau3_bis}
-  \end{figure}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame<beamer>{
-  \frametitle{}
-
-  \vspace{10pt}
-
-  \begin{columns}
-
-    \begin{column}{0.45\textwidth}
-      \begin{center}
-        \includegraphics[width=0.9\textwidth]{imagette.png}
-      \end{center}
-    \end{column}
-
-    \begin{column}{0.55\textwidth}
-
-      \begin{block}{What approach would you suggest to apply our fully connected NN to an image?}
-    \begin{itemize}
-    \item[1/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
-    \item[2/] Apply the network to each row or column separately
-    \item[3/] Transform the image into a vector, by rearranging the pixels
-    \end{itemize}
-
-  \end{block}
-
-    \end{column}
-
-  \end{columns}
-
-  %% \pause
-
-  %% \begin{alertblock}<4->{Image preprocessing}
-  %%   Often, the input image is modified to make the optimization of the model easier.
-  %% \end{alertblock}
-
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image classification with a fully-connected NN}
@@ -860,7 +880,7 @@
   Today:
 
   \begin{itemize}
-  \item NN solely composed of fully-connected layers are almost never used for image analysis (however, \alert{transformers}~\cite{dosovitskiy_image_2021} have brought new ways to use fully-connected layers).
+  \item NN solely composed of fully-connected layers are almost never used for image analysis \footnote{However, \alert{transformers}~\cite{dosovitskiy_image_2021} have brought new ways to use fully-connected layers.}.
   \item Fully-connected layers are mainly used in the middle (auto-encoders) or at the end (classification) of the pipeline.
   \end{itemize}
 
@@ -1017,15 +1037,15 @@
 
   Convolutional layers are fully connected layers such that:
   \begin{itemize}
-  \item the weights of all non-local connections are set to zero
-  \item the weights are shared among all the neurons of the same channel
+  \item the weights of all non-local connections are set to zero;
+  \item the weights are shared among all the neurons of the same channel.
   \end{itemize}
 
   These limitations correspond to two inductive biases:
 
 \begin{itemize}
 \item local structure and
-\item translation invariance
+\item translation invariance.
 \end{itemize}
 
   They make the network much more manageable (memory, optimization). Is the loss in generality important?
