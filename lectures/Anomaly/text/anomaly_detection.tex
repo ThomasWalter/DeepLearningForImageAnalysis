@@ -270,6 +270,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Science}
 
+\begin{block}{}
+The most exciting phrase to hear in science, the one that heralds new discoveries, is not “Eureka!” (I found it!) but “That’s funny \ldots”
+
+— Isaac Asimov
+
+\end{block}
+
+Discrepancy between an observation and a model motivates new research.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Science}
+
   \begin{itemize}
   \item In some fields so many images are generated that it is becoming impossible to look at all of them
   \item Example: Euclid telescope (European Space Agency and Euclid consortium)
@@ -342,6 +357,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Mathematical framework}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{sets}
+\end{figure}
+
+
   \begin{block}{Definition}
 \begin{itemize}
   \item $\Omega$: a set (the whole set of images)
@@ -349,18 +370,6 @@
   \item $X$: a subset of $\mathcal{N}$ (a set of known examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
 \end{itemize}
   \end{block}
-
-  \begin{itemize}
-  \item The question we would like to answer is:
-
-    \begin{block}{}
-      \centering
-      Is a given $\x$ in $\Omega$ normal?
-    \end{block}
-
-  \item What should we add to our definition of $E$, $\mathcal{N}$ and $X$ for this question to be meaningful?
-  \end{itemize}
-
 
 \end{frame}
 
@@ -368,23 +377,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Mathematical framework}
 
-  \begin{block}{Definition}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{sets}
+\end{figure}
+
+
+\begin{alertblock}{This graphical representation is misleading}
+
 \begin{itemize}
-  \item $\Omega$: a set (the whole set of images)
-  \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
-  \item $X$: a subset of $\mathcal{N}$ (a set of known examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+\item If we equip our set with some kind of topology, there is hardly any reason for $\mathcal{X}$ or $\mathcal{N}$ to be connected. For $\Omega$ connection could be application dependant...
+\item We do not know anything about the relative sizes of the sets.
 \end{itemize}
-  \end{block}
+
+\end{alertblock}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mathematical framework}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{sets}
+\end{figure}
+
+
 
     Some possibilities:
   \begin{itemize}
   \item Explicit modeling of normal images
   \item Generative approach
-  \item Probability space
+  \item Probabilistic approach
   \item Metric space
   \end{itemize}
 
 \end{frame}
+
+
+
 
 
 
@@ -453,7 +485,7 @@ This can be considered as a generalization of the previous approach.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Metric space}
 
-  $\Omega$ is equipped with a distance $d$ such that:
+  The aim is to equip $\Omega$ with a distance $d$ such that:
   \[
   \exists d_0 \in \R^+,  \forall x \in \Omega: x \in \mathcal{N} \iff d(x, X) \leq d_0
   \]
@@ -461,9 +493,9 @@ This can be considered as a generalization of the previous approach.
   Of course, the essential point will be how to choose the distance function $d$.
 
 
-\begin{block}{Mahalanobis distance}
-  A distance function that takes into account the distribution of the data.
-\end{block}
+%% \begin{block}{Mahalanobis distance}
+%%   A distance function that takes into account the distribution of the data.
+%% \end{block}
 
 \end{frame}
 
@@ -477,15 +509,50 @@ This can be considered as a generalization of the previous approach.
 \begin{frame}{Representing images}
 
   \begin{block}{Trivial representation}
-    A 2D grey level image is a real matrix of size $p \times q$.
+    A 2D grey level image is a real array of size $p \times q$.
   \end{block}
 
   \begin{itemize}
-  \item Distances in the matrix space do not make sense from a semantic point of view
+  \item Classical distances between arrays ($L_2, L_1, \ldots$) do not make sense from a semantic point of view
   \end{itemize}
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{pexels-jonathan-petersson-965875-1}
+  \end{figure}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.78\textwidth]{pexels-jonathan-petersson-965875-2}
+  \end{figure}
+
+  \end{column}
+\end{columns}
+    \source{Jonathan Petersson on pexels.com}
+
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Representing images}
+
+\begin{block}{}
+  Finding a good image representation, where typically perceptual distances can be easily computed, is an important research topic.
+\end{block}
+
+    \[
+    \begin{split}
+    E: & ~~~~\Omega \longrightarrow \mathcal{Z} \\
+    & ~~~~ \x \longmapsto E(\x)
+    \end{split}
+    \]
+
+\end{frame}
 
 
 
@@ -540,11 +607,12 @@ This can be considered as a generalization of the previous approach.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion on deep representations}
+\begin{frame}{Conclusion on autoencoders for anomaly detection}
 
   \begin{itemize}
-  \item In practice, methods based on the latent space seem to give the best results
-  \item Using a pre-trained model on ImageNet seems to be a very promising approach~\cite{rippel_modeling_2020}.
+  \item Understanding the failure of reconstruction-based approaches is important. Using a perceptual distance might be an interesting approach.
+  \item In practice, methods based on the latent space seem to give the best results.
+  \item Are there ways to find a better image representation?
   \end{itemize}
 
 \end{frame}
@@ -814,6 +882,16 @@ This can be considered as a generalization of the previous approach.
   \source{\cite{akcay_ganomaly:_2019}}
 \end{figure}
 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using pre-trained representations}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Getting rid of the decoder}
 
 \end{frame}
 
