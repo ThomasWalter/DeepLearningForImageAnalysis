@@ -761,16 +761,16 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Illustration}
+%% \begin{frame}{Illustration}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{skin}
-  \caption{Histological image of reconstructed skin}
-  \source{L'Oréal}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{skin}
+%%   \caption{Histological image of reconstructed skin}
+%%   \source{L'Oréal}
+%% \end{figure}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -790,15 +790,15 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Robustness with respect to ground-truth errors}
+%% \frame{
+%%   \frametitle{Robustness with respect to ground-truth errors}
 
-  \begin{block}{}
-    This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
-  \end{block}
+%%   \begin{block}{}
+%%     This is more an empirical observation than a mathematical property, but fully-convolutional NNs tend to be robust with respect to errors in the contours position on the ground-truth.
+%%   \end{block}
 
 
-}
+%% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -918,14 +918,14 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \frame{
+%%   \frametitle{Example: U-Net architecture \cite{ronneberger_u-net:_2015}}
 
-  \begin{figure}
-    \includegraphics[height=7cm]{unet}
-  \end{figure}
-}
+%%   \begin{figure}
+%%     \includegraphics[height=7cm]{unet}
+%%   \end{figure}
+%% }
 
 
 
@@ -1354,9 +1354,9 @@ This version works slightly better than the first.
 \begin{frame}{Conclusion on loss functions}
 
   \begin{itemize}
-  \item Use the Jaccard loss as base line for segmentation problems
-  \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity)
-  \item Working on specific losses enforcing structure might be an interesting research path...
+  \item Use the Jaccard loss as base line for segmentation problems.
+  \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity).
+  \item Working on specific losses enforcing structure = interesting research path.
   \end{itemize}
 \end{frame}
 
