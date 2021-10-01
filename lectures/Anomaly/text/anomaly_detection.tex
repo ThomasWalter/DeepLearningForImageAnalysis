@@ -175,7 +175,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - which images are normal?}
+\begin{frame}{Example - which image is anomalous?}
 
   \begin{figure}[ht]
     \centering
@@ -253,10 +253,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Application: industrial control}
 
-  \begin{itemize}
-  \item Fault detection
-  \item Structural defect detection
-  \end{itemize}
+  %% \begin{itemize}
+  %% \item Fault detection
+  %% \item Structural defect detection
+  %% \end{itemize}
 
   \begin{figure}[ht]
     \centering
@@ -449,8 +449,12 @@ Discrepancy between an observation and a model motivates new research.
     \]
   \end{block}
 
+  \begin{alertblock}{GANs: interesting candidates to tackle this problem}
+    Generative Adversarial networks train a \alert{generator} thanks to a \alert{discriminator} (and vice-versa).
+  \end{alertblock}
+
 \begin{itemize}
-\item In practice we will also need the \emph{encoding} function $E$:
+\item In practice we might also need the \emph{encoding} function $E$:
     \[
     \begin{split}
     E: & ~~~~\mathcal{N} \longrightarrow \mathcal{Z} \\
