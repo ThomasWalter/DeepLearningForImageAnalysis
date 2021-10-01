@@ -76,7 +76,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{ret-dr}
-  \caption*{Fundus with signs of diabetic retinopathy}
+  \caption*{Signs of diabetic retinopathy}
 \end{figure}
 
 
@@ -105,7 +105,7 @@
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{ret-dr-segm}
-  \caption*{Segmentation of anatomical and pathological structures}
+  Anatomical and pathological structures
 \end{figure}
 
   \end{column}
@@ -137,9 +137,24 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Definition in layman terms}
+\begin{frame}{Illustration}
 
-  \begin{block}{Anomalous image detection in a learning framework}
+  This scatter-plot represents a set of normal measures. How can anomalous ones be detected?
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{multivariate_gaussian}
+  \end{figure}
+  \source{Ben FrantzDale, Wikipedia}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Anomalous image detection in a learning framework}
+
+  \begin{block}{}
     \begin{itemize}
     \item Let us consider a given set of images. Among these, some  are defined as being \alert{normal}. The aim of the detection task is to decide, for any given image, if it is normal, or not.
     \item The definition of normal images is given through a set of examples.
@@ -185,6 +200,41 @@
   \end{figure}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A more applied example}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_000}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_020}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_040}
+  \end{figure}
+  \source{MVTec database}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+  \begin{itemize}
+  \item Which images are anomalous (from 1 to 6, in lexicographic order) ?
+  \end{itemize}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_def_011}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_good_010}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_good_002}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_def_025}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_good_006}
+    \includegraphics[width=0.3\textwidth]{mvtec_tb_def_020}
+  \end{figure}
+  \source{MVTec database}
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,6 +400,77 @@ Discrepancy between an observation and a model motivates new research.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Databases}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database \tiny{\cite{lecun_gradient-based_1998}}}
+
+  \begin{itemize}
+  \item The Modified National Institute of Standards and Technology (MNIST) database contains $60\,000$ training images of hand-written digits, and $10,000$ test images.
+  \item Image size: $28 \times 28$
+  \item It has been used since 1998
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MNIST database}
+
+  \centering
+  \includegraphics[width=\textwidth]{mnist_examples.png}\\
+  \source{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{fashionMNIST~\tiny{\cite{xiao_fashion-mnist_2017}}}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{fashionMNIST}
+  \end{figure}
+
+\begin{itemize}
+\item Same format, but more complex than MNIST
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Using MNIST or fashion-MNIST to test anomaly detection}
+
+\begin{itemize}
+\item One (uni-modal distribution) or nine (multi-modal distribution) categories are considered as normal.
+\item Learning only based on normal images.
+\item Test: on new images, determine if they are normal or not.
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Databases: MVTec~\tiny{\cite{bergmann_mvtec_2019}}}
+
+\begin{itemize}
+\item 15 categories
+\item Training: 3629 (only normal images)
+\item Testing: 1725
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{mvtec}
+\end{figure}
+
+
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Mathematical modeling}
@@ -366,8 +487,8 @@ Discrepancy between an observation and a model motivates new research.
   \begin{block}{Definition}
 \begin{itemize}
   \item $\Omega$: a set (the whole set of images)
-  \item $\mathcal{N}$: a subset of $\Omega$ (constituted by all normal images)
-  \item $X$: a subset of $\mathcal{N}$ (a set of known examples that are considered to be \emph{normal}, i.e. the \alert{training set}).
+  \item $\mathcal{N}$: a subset of $\Omega$ (all normal images of $\Omega$)
+  \item $X$: a subset of $\mathcal{N}$ (a subset of images that are considered to be \emph{normal}, i.e. the \alert{training set}).
 \end{itemize}
   \end{block}
 
@@ -387,7 +508,7 @@ Discrepancy between an observation and a model motivates new research.
 
 \begin{itemize}
 \item If we equip our set with some kind of topology, there is hardly any reason for $\mathcal{X}$ or $\mathcal{N}$ to be connected. For $\Omega$ connection could be application dependant...
-\item We do not know anything about the relative sizes of the sets.
+\item We do not know anything about the relative sizes of the sets, but of course $|\mathcal{X}| << |\mathcal{N}|$.
 \end{itemize}
 
 \end{alertblock}
@@ -453,6 +574,8 @@ Discrepancy between an observation and a model motivates new research.
     Generative Adversarial networks train a \alert{generator} thanks to a \alert{discriminator} (and vice-versa).
   \end{alertblock}
 
+\pause
+
 \begin{itemize}
 \item In practice we might also need the \emph{encoding} function $E$:
     \[
@@ -462,6 +585,10 @@ Discrepancy between an observation and a model motivates new research.
     \end{split}
     \]
 \end{itemize}
+
+\begin{alertblock}{}
+  $\longrightarrow$ Autoencoders
+\end{alertblock}
 
 \end{frame}
 
