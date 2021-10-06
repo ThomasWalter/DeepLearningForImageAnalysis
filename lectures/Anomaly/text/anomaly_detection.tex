@@ -120,7 +120,7 @@
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.5\textwidth]{ret-oedeme}
+  \includegraphics[width=0.6\textwidth]{ret-oedeme}
   \caption*{Papilledema}
 \end{figure}
 
@@ -415,7 +415,7 @@ Discrepancy between an observation and a model motivates new research.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Databases}
+\section{Databases and evaluation}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -483,6 +483,45 @@ Discrepancy between an observation and a model motivates new research.
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evaluation of binary classification}
+
+  Classically, a binary classifier $b$ will produce for an input $x$ a real value $b(x)$ belonging to $[0, 1]$. If the output is ``high enough'' then it is considered positive; otherwise, it is negative. A threshold $t$ is needed to make this decision. We can then apply $b$ and the threshold to the whole database and compute a contingency table:
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{contingency_table}
+  \end{figure}
+
+  \begin{itemize}
+  \item true positive rate (TPR) = TP / (TP+FN)
+  \item true negative rate (TNR) = TN / (TN+FP)
+  \end{itemize}
+
+  \begin{alertblock}{}
+   How can we choose this threshold?
+  \end{alertblock}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ROC curve and AUC }
+
+\begin{block}{Definitions}
+  \begin{itemize}
+  \item Receiver operating characteristic (ROC) curve: TPR as a function of 1-TNR
+  \item AUC: area under the ROC curve
+  \end{itemize}
+\end{block}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.4\textwidth]{roc_curve}
+\end{figure}
+
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
