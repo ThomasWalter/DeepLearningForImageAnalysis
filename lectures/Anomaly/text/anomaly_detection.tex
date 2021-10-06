@@ -1,3 +1,4 @@
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
@@ -236,6 +237,19 @@
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Solution}
+
+
+  Anomalous images:
+  \begin{itemize}
+  \item 1: missing bristles
+  \item 4: bent/disorganized bristles
+  \item 6: foreign object
+  \end{itemize}
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Medicine}
@@ -453,7 +467,7 @@ Discrepancy between an observation and a model motivates new research.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Databases: MVTec~\tiny{\cite{bergmann_mvtec_2019}}}
+\begin{frame}{MVTec~\tiny{\cite{bergmann_mvtec_2019}}}
 
 \begin{itemize}
 \item 15 categories
@@ -702,12 +716,27 @@ This can be considered as a generalization of the previous approach.
 
   \begin{itemize}
   \item Encoder: $E$; decoder: $G$; autoencoder: $G \circ E$
-  \item In most applications, the latent space is ``smaller'' than the data space.
   \item Objective: $G(E(x))$ ``close'' to $x$
-  \item When dealing with images, modern autoencoders use convolutional neural networks
+  \item Usually, the latent space is ``smaller'' than the data space.
+  \item Applications:
+   \begin{itemize}
+   \item Filtering
+   \item Compression
+   \item Image representation
+   \end{itemize}
   \end{itemize}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\begin{alertblock}{}
+  How can we use autoencoders to detect anomalous images?
+\end{alertblock}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Autoencoders for anomalous image detection}
@@ -718,7 +747,7 @@ This can be considered as a generalization of the previous approach.
   \end{figure}
 
   \begin{block}{Idea 1}
-    The autoencoders is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
+    The autoencoder is optimized for normal images. The coding has to be specific enough so that anomalous images are not correctly coded. The reconstruction error will therefore give a measure of the anomaly.
   \end{block}
 
 \end{frame}
@@ -736,6 +765,16 @@ This can be considered as a generalization of the previous approach.
   \end{block}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Practical session}
+
+\begin{alertblock}{}
+  ae.ipynb
+\end{alertblock}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on autoencoders for anomaly detection}
@@ -766,8 +805,8 @@ This can be considered as a generalization of the previous approach.
   \item The generator is optimized so that the produced images are classified as real by the discriminator
   \end{itemize}
 
-  \begin{block}{Value function}
-    $V(G,D) = \mathbb{E}_{p_\x}(log(D(\x))) + \mathbb{E}_{p_z(z)}(log(1 - D(G(z))))$
+  \begin{block}{Value function - minimized by G, maximized by D}
+    $V(G,D) = \mathbb{E}_{x \sim p_\x}(log(D(\x))) + \mathbb{E}_{z \sim p_z}(log(1 - D(G(z))))$
   \end{block}
 
 \end{frame}
@@ -925,8 +964,8 @@ This can be considered as a generalization of the previous approach.
   \item The discriminator takes as input pairs of image / code
   \end{itemize}
 
-    \begin{block}{Value function}
-    $V(G,D) = \mathbb{E}_{p_\x}(log(D(\x, E(\x)))) + \mathbb{E}_{p_z(z)}(log(1 - D(G(z), z)))$
+    \begin{block}{Value function - minimized by G, E; maximized by D}
+    $V(G, E, D) = \mathbb{E}_{x \sim p_\x}(log(D(\x, E(\x)))) + \mathbb{E}_{z \sim p_z}(log(1 - D(G(z), z)))$
   \end{block}
 
 
@@ -946,6 +985,16 @@ This can be considered as a generalization of the previous approach.
   \item Much faster (800x)
   \end{itemize}
 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Practical work}
+
+\begin{alertblock}{}
+  bigan\_anomaly.ipynb
+\end{alertblock}
 
 \end{frame}
 
@@ -1024,7 +1073,24 @@ This can be considered as a generalization of the previous approach.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Getting rid of the decoder}
 
+\begin{itemize}
+\item Using a model trained for another task (as classification on ImageNet)
+\item Representation learning
+\end{itemize}
+
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Using pre-trained representations~\cite{rippel_modeling_2020}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{enb0_features}
+\end{figure}
+
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
