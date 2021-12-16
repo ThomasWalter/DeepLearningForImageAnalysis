@@ -33,7 +33,6 @@
 \end{textblock*}}
 
 
-
 %%   Votre quiz << Fully ConvNets >>  contenant 5 questions/sondages est disponible:
 
 %% * lien d'édition:
@@ -47,7 +46,6 @@
 %% * lien pour suppression:
 %% http://www.quizzoodle.com/quizz/delete/07a6de49b7b542f0a7707416a14d3f51
 %% mot de passe: delete
-
 
 
 \title{Fully convolutional neural networks}
@@ -525,12 +523,12 @@ Note that today we would use ReLU activations on all layers except the last.
 
 
   \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{itemize}
-    \item[A/] $n$
-    \item[B/] $1 + 2 \times n$
-    \item[C/] $1 + 2 \times (n+1)$
-    \item[D/] It depends on the input image
-    \end{itemize}
+    \begin{enumerate}
+    \item $n$
+    \item $1 + 2 \times n$
+    \item $1 + 2 \times (n+1)$
+    \item It depends on the input image
+    \end{enumerate}
 
   \end{block}
 
@@ -559,19 +557,17 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Quizz}
 
   \begin{block}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
-    \begin{itemize}
-    \item[A/] $\frac{\partial \loss}{\partial x_{i,j}}$
-    \item[B/] $\frac{\partial y}{\partial x_{i,j}}$
-    \item[C/]
-    \item[D/]
-    \end{itemize}
+    \begin{enumerate}
+    \item $\frac{\partial \loss}{\partial x_{i,j}}$
+    \item $\frac{\partial y}{\partial x_{i,j}}$
+    \end{enumerate}
 
   \end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Effective receptive field}
+\begin{frame}{Effective receptive field}
 
 \begin{block}{Shape of the effective receptive field}
 \begin{itemize}
@@ -634,12 +630,12 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Quizz}
 
   \begin{block}{Which operator is NOT translation invariant?}
-    \begin{itemize}
-    \item[A/] Convolution (stride$=1$)
-    \item[B/] Max-pooling (stride $>1$)
-    \item[C/] Transposed convolution (stride$\geq 1$)
-    \item[D/] Upsampling (stride$>1$)
-    \end{itemize}
+    \begin{enumerate}
+    \item Convolution (stride$=1$)
+    \item Max-pooling (stride $>1$)
+    \item Transposed convolution (stride$\geq 1$)
+    \item Upsampling (stride$>1$)
+    \end{enumerate}
   \end{block}
 
 \end{frame}
@@ -656,8 +652,8 @@ Convolution (stride$=1$)             & \onslide<2->{yes}                        
 Max-pooling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
 Transposed convolution (stride$ \geq 1$)   & \onslide<4->{yes}                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{yes}                             \\ \hline
-Concatenation            & \onslide<6->{yes}                            \\ \hline
-Addition                 & \onslide<7->{yes}                            \\ \hline
+%% Concatenation            & \onslide<6->{yes}                            \\ \hline
+%% Addition                 & \onslide<7->{yes}                            \\ \hline
 \end{tabular}
 \end{table}
 
@@ -674,8 +670,8 @@ Convolution (stride$=1$)             & \onslide<2->{ }                          
 Max-pooling (stride $>1$)            & \onslide<3->{ }                             \\ \hline
 Transposed convolution (stride$ \geq 1$)   & \onslide<4->{ }                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
-Concatenation            & \onslide<6->{ }                            \\ \hline
-Addition                 & \onslide<7->{ }                            \\ \hline
+%% Concatenation            & \onslide<6->{ }                            \\ \hline
+%% Addition                 & \onslide<7->{ }                            \\ \hline
 \end{tabular}
 \end{table}
 
@@ -753,7 +749,7 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \begin{figure}[ht]
   \centering
   \includegraphics[height=0.75\textheight]{fundus1}
-  \caption{Eye fundus / retina image}
+  Eye fundus / retina image
   \source{OPHDIAT database}
 \end{figure}
 
@@ -1287,7 +1283,15 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Generalization to $[0,1]$}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+      \begin{block}{Jaccard index}
+        \[
+        J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+        \]
+      \end{block}
+
+      But $\y$ and $\hat{\y}$ are in $[0,1]^n \ldots$
+
+\pause
 
   %% \begin{block}{Dice similarity}
   %%   \[
@@ -1301,6 +1305,8 @@ Addition                 & \onslide<7->{ }                            \\ \hline
     \]
   \end{block}
 
+($\y$ and $\hat{\y}$ are not simultaneously equal to $0$)
+
 }
 
 
@@ -1308,7 +1314,6 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Corresponding loss function}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
   %% \begin{block}{Dice loss}
   %%   \[
@@ -1318,9 +1323,11 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 
   \begin{block}{Jaccard loss}
     \[
-    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i + \epsilon}
     \]
   \end{block}
+
+    Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
 
 }
@@ -1329,9 +1336,6 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Corresponding loss function - variant}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
-
-  Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
   %% \begin{block}{Dice loss}
   %%   \[
@@ -1345,7 +1349,7 @@ Addition                 & \onslide<7->{ }                            \\ \hline
     \]
   \end{block}
 
-This version works slightly better than the first.
+This version works slightly better than the first~\cite{duque-arias_power_2021}.
 
 }
 
@@ -1366,7 +1370,7 @@ This version works slightly better than the first.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.35\textheight]{unet_lo}
+  \includegraphics[height=0.30\textheight]{unet_lo}
 \end{figure}
 
 
@@ -1374,10 +1378,11 @@ This version works slightly better than the first.
 Suppose that we have satisfactorily optimized this U-Net model, using images of size $512 \times 512$ during training. Now I want to apply this model to a new image, of size $1000 \times 1000$. How should I proceed?
 \end{block}
 
-\begin{itemize}
+\begin{enumerate}
 \item Resize the image?
 \item Cut it into $512 \times 512$ crops, predict and stitch the results together?
-\end{itemize}
+\item Pad the image.
+\end{enumerate}
 
 \end{frame}
 

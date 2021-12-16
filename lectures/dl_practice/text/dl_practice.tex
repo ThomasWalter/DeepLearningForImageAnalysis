@@ -31,7 +31,6 @@
     \end{beamercolorbox}
 \end{textblock*}}
 
-
 \title{Deep learning in practice}
 \author{E. Decencière}
 \date{MINES ParisTech\\
@@ -91,15 +90,15 @@
   \frametitle{General workflow}
 
   \begin {itemize}[<+->]
-  \item Familiarize yourself with the problem and the data
+  \item Familiarize yourself with the problem and the data - discuss with the end-user
   \item Cast the task at hand into a machine learning problem
-  \item Build your data set
+  \item Build your data set - can you use synthetic data?
   \item Build an architecture and train it or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
   \item Beware of over-fitting! Envision regularization methods.
-  \item Use data augmentation. If correctly used, it cannot hurt and will probably improve the generalization power of your network.
+  \item Use data augmentation.
   \item Do you need preprocessing? Post-processing?
   \item Iterate, while precisely logging all your experiments.
 \end{itemize}
@@ -119,9 +118,12 @@
   Cast your problem into a convenient representation:
 
     \begin {itemize}[<+->]
-    \item Understand the problem definition - discuss with the end-user
-    \item Familiarize yourself with the data (input and output)
-    \item Choose the right representation for your images.
+    \item Choose the right representation for your data.
+      \begin{itemize}
+      \item Resolution, channels
+      \item Regression or classification?
+      \item Output format?
+      \end{itemize}
     \item Define an evaluation procedure
     \end{itemize}
 
@@ -130,7 +132,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example: eye fundus image quality}
+\begin{frame}{Example: eye fundus image quality~\tiny{\cite{alais_fast_2020}}}
 
 \begin{columns}
   \begin{column}{.4\textwidth}
@@ -150,13 +152,50 @@
     \end{block}
     \pause
     \begin{itemize}
-    \item First solution: classification (is the macula visible?)
-    \item Second solution: macula segmentation
+    \item First solution: global classification (is the macula visible?)
+    \item Second solution: regression (macula center coordinates)
+    \item Third solution: macula segmentation
       \end{itemize}
   \end{column}
 \end{columns}
 
-\source{images from OPHDIAT database}
+\source{images from the OPHDIAT database}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 1}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{alais_ex1}
+\end{figure}
+
+\source{images from the OPHDIAT database}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 2}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{alais_ex2}
+\end{figure}
+
+
+\source{images from the OPHDIAT database}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 3}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{alais_ex3}
+\end{figure}
+
+
+\source{images from the OPHDIAT database}
 \end{frame}
 
 
@@ -280,6 +319,7 @@
   \item Elastic transformations
   \item Noise
   \item Grey level or colour modifications
+  \item AugMix, CutMix, etc. (cf. lesson on optimization)
   \item Specific methods: articulated objects, \ldots
   \end{itemize}
 }
@@ -325,6 +365,43 @@ Plankton classification: hundred classes - a few dozen examples per class.
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example~\tiny\cite{tuccillo_deep_2018}}
+
+
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{tuccillo_simulated}
+      Simulated images
+    \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example~\tiny\cite{tuccillo_deep_2018}}
+
+
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{tuccillo_well_fitted}
+      Well-fitted images
+    \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example~\tiny\cite{tuccillo_deep_2018}}
+
+
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{tuccillo_poorly_fitted}
+      Poorly fitted images
+    \end{figure}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture choice and training}
 
@@ -341,9 +418,9 @@ Plankton classification: hundred classes - a few dozen examples per class.
   \item If you are dealing with a complex problem, start with pre-learned weights and use transfer learning to adapt them to your application
   \end{itemize}
 
-  \pause
+  %% \pause
 
-  It is interesting to note that the rate of publication of new architectures tends to decrease.
+  %% It is interesting to note that the rate of publication of new architectures tends to decrease.
 
 \end{frame}
 
@@ -492,6 +569,10 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
   Transductive transfer learning
 \end{figure}
 
+\begin{alertblock}{}
+  Also known as domain adaptation.
+\end{alertblock}
+
 \end{frame}
 
 
@@ -541,7 +622,7 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
 \begin{frame}{General procedure}
 
   \begin{itemize}
-  \item Choose and existing model, optimized on a data base such as ImageNet. It should be able to process the new data
+  \item Choose an existing model, optimized on a data base such as ImageNet. It should be able to process the new data
   \item Remove the last layers of the model and replace them with layers adapted to the task at hand
   \item Fine-tune the resulting model
 
