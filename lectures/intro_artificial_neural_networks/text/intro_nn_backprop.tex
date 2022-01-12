@@ -187,7 +187,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Activation functions}
+%\subsection{Activation functions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -369,7 +369,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Artificial neuron as a classifier}
+%\subsection{Artificial neuron as a classifier}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -858,7 +858,19 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Universal approximation theorem}
+\subsection{Modelling power}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A composition of differentiable functions}
+
+  \begin{itemize}
+  \item The functions composing an artificial neural network are differentiable (almost everywhere), so that it can be optimized via gradient descent. Therefore, an ANN is differentiable.
+  \item In fact, any continuous function on a closed bounded domain can be approached within any error margin by an artificial neural network.
+
+  \end{itemize}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -927,7 +939,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
   \begin{itemize}
   \item The number of neurons increases very rapidly with the complexity of the function
   \item Empirical evidence has shown that \alert{multi-layer architectures give better results}
-  \item The theorem does not say how to optimize the architecture or the parameters for a given learning task
+  \item For learning tasks, the function to be modelled is only known on a finite number of points.
   \end{itemize}
 
   \begin{block}<2->{}
