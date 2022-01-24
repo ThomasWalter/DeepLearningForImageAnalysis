@@ -113,7 +113,7 @@
   \begin{block}{Definition}
  Here an image is a 2D array of size $p \times q$. Each array element belongs to $\R^d$. The dimension of the value space $d$, is often called the \alert{number of channels} of the image.
 
-      The set of these images is $\mathcal{I}^d$.
+      The set of these images is noted $\mathcal{I}^d$.
   \end{block}
 
   \begin{block}{Examples}
@@ -522,7 +522,7 @@ Note that today we would use ReLU activations on all layers except the last.
   \end{block}
 
 
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
+  \begin{quizzblock}{What is the size of the receptive field of the neurons in the last layer?}
     \begin{enumerate}
     \item $n$
     \item $1 + 2 \times n$
@@ -530,7 +530,7 @@ Note that today we would use ReLU activations on all layers except the last.
     \item It depends on the input image
     \end{enumerate}
 
-  \end{block}
+  \end{quizzblock}
 
   }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,13 +556,13 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Quizz}
 
-  \begin{block}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
+  \begin{quizzblock}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
     \begin{enumerate}
     \item $\frac{\partial \loss}{\partial x_{i,j}}$
     \item $\frac{\partial y}{\partial x_{i,j}}$
     \end{enumerate}
 
-  \end{block}
+  \end{quizzblock}
 
 \end{frame}
 
@@ -629,14 +629,14 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Quizz}
 
-  \begin{block}{Which operator is NOT translation invariant?}
+  \begin{quizzblock}{Which operator is NOT translation invariant?}
     \begin{enumerate}
     \item Convolution (stride$=1$)
     \item Max-pooling (stride $>1$)
     \item Transposed convolution (stride$\geq 1$)
     \item Upsampling (stride$>1$)
     \end{enumerate}
-  \end{block}
+  \end{quizzblock}
 
 \end{frame}
 
@@ -1374,9 +1374,9 @@ This version works slightly better than the first~\cite{duque-arias_power_2021}.
 \end{figure}
 
 
-\begin{block}{Case study}
+\begin{quizzblock}{Case study}
 Suppose that we have satisfactorily optimized this U-Net model, using images of size $512 \times 512$ during training. Now I want to apply this model to a new image, of size $1000 \times 1000$. How should I proceed?
-\end{block}
+\end{quizzblock}
 
 \begin{enumerate}
 \item Resize the image?
@@ -1409,25 +1409,6 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Deep learning: a long history}
-
-%%   \begin{block}{}
-%%     For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
-%%   \end{block}
-
-%%   \begin{itemize}[<+->]
-%%   \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-%%   \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
-%%   \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
-%%   \item 2006-: 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
-%%   \item 2010: Availability of large databases (ImageNet, ...)
-%%   \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
-%%  \item 2014: Generative adversarial networks  \cite{goodfellow_generative_2014}
-%%   \end{itemize}
-
-%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{

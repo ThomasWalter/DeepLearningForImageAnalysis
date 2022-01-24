@@ -240,14 +240,13 @@
 
   \begin{columns}
     \begin{column}{.5\textwidth}
+      Detection or segmentation task.
       \begin{block}{}
         \begin{itemize}
         \item Build a geometrical model for the objects of interest
         \item Implement this model using image processing operators
         \end{itemize}
       \end{block}
-
-      \pause
 
     \end{column}
     \begin{column}{.5\textwidth}
@@ -286,7 +285,7 @@
       \end{block}
 
     \end{column}
-    \pause
+
     \begin{column}{.65\textwidth}
       \centering
       \includegraphics[width=\textwidth]{zhang_EX}\\
@@ -319,7 +318,7 @@
   \begin{itemize}
   \item[\boldmath$\oplus$] Good (impressive!) results
   \item[\boldmath$\ominus$] A large amount of annotated data is required
-  \item[\boldmath$\ominus$] Extensive computing resources needed
+  \item[\boldmath$\ominus$] Extensive computing resources needed (for training)
   \item[\boldmath$\ominus$] Lack of interpretability
   \end{itemize}
 
@@ -445,7 +444,7 @@
       \source{\cite{stallkamp_german_2011}}
     \end{figure}
 
-  \item 2012: visual object detection (Mitosis detection in breast cancer histology \cite{ciresan_mitosis_2013})
+  %% \item 2012: visual object detection (Mitosis detection in breast cancer histology \cite{ciresan_mitosis_2013})
   \item 2012: segmentation competition (neuronal membranes in electron microscopy images \cite{ciresan_deep_2012})
   \end{itemize}
 
@@ -473,27 +472,6 @@
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{Convolutional neural networks in deep learning}
-
-  \begin{itemize}
-
-    %% \item They play a major role in deep learning
-  \item They are pivotal to many of the successes achieved by neural networks these recent years
-  \item They are interesting for dealing with regular structured data, such as images (or board games!)
-
-  \end{itemize}
-
-  \begin{block}{Acronyms}
-    \emph{CNN} and \emph{ConvNet}
-  \end{block}
-
-  \begin{alertblock}<2->{}
-    Our first task: image classification!
-  \end{alertblock}
-
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Application of fully connected NNs to image classification}
@@ -512,7 +490,7 @@
 
   \item $b, w_1, \ldots, w_n$ are the neuron parameters, to be learnt
 
-  \item $\act$ is the activation or transfer function
+  \item $\act$ is the activation function
 
   \end{itemize}
 
@@ -649,14 +627,14 @@
 
     \begin{column}{0.55\textwidth}
 
-      \begin{block}{What approach would you suggest to apply our fully connected NN to an image?}
+      \begin{quizzblock}{What approach would you suggest to apply our fully connected NN to an image?}
     \begin{itemize}
     \item[1/] Integrate along the horizontal or vertical axis, in order to get rid of a dimension
     \item[2/] Apply the network to each row or column separately
     \item[3/] Transform the image into a vector, by rearranging the pixels
     \end{itemize}
 
-  \end{block}
+  \end{quizzblock}
 
     \end{column}
 
@@ -683,16 +661,14 @@
   \end{cases}
   \]
 
-  \begin{block}{Example with $4$ classes}
+  \begin{block}{Example with $3$ classes}
     \begin{itemize}
     \item
-      Label $0 \longmapsto [1,0,0,0]$
+      Label $0 \longmapsto [1,0,0]$
     \item
-      Label $1 \longmapsto [0,1,0,0]$
+      Label $1 \longmapsto [0,1,0]$
     \item
-      Label $2 \longmapsto [0,0,1,0]$
-    \item
-      Label $3 \longmapsto [0,0,0,1]$
+      Label $2 \longmapsto [0,0,1]$
     \end{itemize}
   \end{block}
 
@@ -702,27 +678,34 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Why is one-hot encoding used, instead of integers?}
+\begin{frame}{}
+
+\begin{quizzblock}{Why is one-hot encoding used, instead of integers?}
+  \begin{itemize}
+  \item[1/ ] The network performs better in the $[0,1]$ range
+  \item[2/ ] One-hot encoding makes the labels symmetric, i.e. permutation invariant.
+  \end{itemize}
+\end{quizzblock}
+
+  \vspace{1em}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
-  \begin{block}{}
+  \begin{block}{One-hot encoding}
     \begin{itemize}
     \item
-      Label $0 \longmapsto [1,0,0,0]$
+      Label $0 \longmapsto [1,0,0]$
     \item
-      Label $1 \longmapsto [0,1,0,0]$
+      Label $1 \longmapsto [0,1,0]$
     \item
-      Label $2 \longmapsto [0,0,1,0]$
-    \item
-      Label $3 \longmapsto [0,0,0,1]$
+      Label $2 \longmapsto [0,0,1]$
     \end{itemize}
   \end{block}
 
     \end{column}
 
     \begin{column}{.5\textwidth}
-  \begin{block}{}
+  \begin{block}{Integer encoding}
     \begin{itemize}
     \item
       Label $0 \longmapsto 0$
@@ -730,8 +713,6 @@
       Label $1 \longmapsto 1$
     \item
       Label $2 \longmapsto 2$
-    \item
-      Label $3 \longmapsto 3$
     \end{itemize}
   \end{block}
 
@@ -740,12 +721,14 @@
 
   \pause
 
-  \vspace{2em}
+  \vspace{1em}
 
-\begin{itemize}
-\item Using integers to represent the labels would bring an \alert{inductive bias} into the model: there will be an explicit order between the labels.
-\item Using one-hot encoding, we make the labels permutation invariant
-\end{itemize}
+  \mode<beamer>{
+    \begin{itemize}
+    \item Using integers to represent the labels would bring an \alert{inductive bias} into the model: there will be an explicit order between the labels.
+    \item Using one-hot encoding, we make the labels permutation invariant
+  \end{itemize}}
+
 \end{frame}
 
 
@@ -965,17 +948,20 @@
   \mode<beamer>{
   \begin{columns}
     \begin{column}<4->{.5\textwidth}
-      Here, $s$ corresponds to the size of the receptive field of a neuron. It is therefore equal to:
+      Here, $s$ corresponds to number of incoming connections from the previous layer of a neuron. It is therefore equal to:
 
     \end{column}
 
     \begin{column}<5->{.5\textwidth}
+      \begin{quizzblock}{}
       \begin{itemize}
       \item[1/] $3$
       \item[2/] $4$
       \item[3/] $9$
       \item[4/] $10$
       \end{itemize}
+
+      \end{quizzblock}
 
     \end{column}
   \end{columns}
@@ -1266,13 +1252,13 @@
     \end{column}
 
     \begin{column}{.5\textwidth}
-      \begin{block}{How many parameters do we have in layer 1?}
+      \begin{quizzblock}{How many parameters do we have in layer 1?}
         \begin{itemize}
         \item[1/] $c_1 \times (s + 1)$
         \item[2/] $c_1 \times s$
         \item[3/] $(c_1 + 1) \times s$
         \end{itemize}
-      \end{block}
+      \end{quizzblock}
     \end{column}
 
   \end{columns}
@@ -1292,13 +1278,13 @@
   \end{column}
 
   \begin{column}{.5\textwidth}
-  \begin{block}{How many parameters do we have in layer 2?}
+  \begin{quizzblock}{How many parameters do we have in layer 2?}
     \begin{itemize}
     \item[1/] $c_2 \times c_1 \times s$
     \item[2/] $c_2 \times (c_1 \times s + 1)$
     \item[3/] $(c_2 + 1) \times (c_1 \times s + 1)$
     \end{itemize}
-  \end{block}
+  \end{quizzblock}
   \end{column}
 \end{columns}
 
@@ -1308,7 +1294,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Multi-valued images}
+  \frametitle{Multi-channel images}
 
   An input image with $p$ channels (for instance a colour image with 3 channels) can be represented by an input layer with $p$ channels/filters.
 
@@ -1372,7 +1358,7 @@
   \begin{columns}
   \begin{column}{.5\textwidth}
 
-    \begin{block}{}
+    \begin{quizzblock}{}
     How many parameters does the corresponding decomposed convolution layer contain?
 
 \begin{enumerate}
@@ -1381,13 +1367,13 @@
 \item $(c_1 + 1) \times s  + (c_2 + 1) \times c_1 $
 \end{enumerate}
 
-    \end{block}
+    \end{quizzblock}
 
   \end{column}
 
   \begin{column}{.5\textwidth}
 
-    \begin{block}{}
+    \begin{quizzblock}{}
 How many parameters would the corresponding convolutional layer contain?
 
 \begin{enumerate}
@@ -1396,7 +1382,53 @@ How many parameters would the corresponding convolutional layer contain?
 \item $(c_1 \times s + 1) \times c_2$
 \end{enumerate}
 
-    \end{block}
+    \end{quizzblock}
+
+  \end{column}
+\end{columns}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Decomposed convolution - number of parameters}
+    \scriptsize
+
+  \begin{center}
+    \includegraphics[height=0.30\textheight]{conv_dec.png}
+  \end{center}
+
+  The input layer holds $c_1$ channels, and the output layer $c_2$. The size of the receptive field is $s$.
+
+  \begin{columns}
+  \begin{column}{.5\textwidth}
+
+    \begin{quizzblock}{}
+    How many parameters does the corresponding decomposed convolution layer contain?
+
+\begin{enumerate}
+\item \alert{$c_1 \times (s + 1) + c_2 \times (c_1 + 1)$}
+\item $c_1 \times s + c_2 \times c_1 $
+\item $(c_1 + 1) \times s  + (c_2 + 1) \times c_1 $
+\end{enumerate}
+
+    \end{quizzblock}
+
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+
+    \begin{quizzblock}{}
+How many parameters would the corresponding convolutional layer contain?
+
+\begin{enumerate}
+\item $c_1 \times s  \times c_2$
+\item $(c_1 \times s + 1) \times (c_2 + 1)$
+\item \alert{$(c_1 \times s + 1) \times c_2$}
+\end{enumerate}
+
+    \end{quizzblock}
 
   \end{column}
 \end{columns}
@@ -1569,6 +1601,25 @@ How many parameters would the corresponding convolutional layer contain?
 
 
 %% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Convolutional neural networks in deep learning}
+
+  \begin{itemize}
+
+    %% \item They play a major role in deep learning
+  \item They are pivotal to many of the successes achieved by neural networks these recent years
+  \item They are interesting for dealing with regular structured data, such as images (or board games!)
+
+  \end{itemize}
+
+  \begin{block}{Acronyms}
+    \emph{CNN} and \emph{ConvNet}
+  \end{block}
+
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Some classical architectures}
