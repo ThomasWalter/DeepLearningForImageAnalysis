@@ -120,7 +120,7 @@ Please note:
 %\vspace{-.5cm}
 \end{frame}
 
-\begin{frame}{Massive image annotation by leveraging routinely acquired data}
+\begin{frame}{Massive annotation by leveraging routinely acquired data}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.7\textwidth]{../graphics/radiology.pdf}
@@ -138,7 +138,7 @@ Please note:
 %\vspace{-.5cm}
 \end{frame}
 
-\begin{frame}{Massive image annotation by experimental setup}
+\begin{frame}{Massive image annotation by experimental design}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.7\textwidth]{../graphics/super_resolution.pdf}
@@ -151,11 +151,11 @@ Please note:
 %\vspace{-.5cm}
 \end{frame}
 
-\begin{frame}{Massive image annotation by experimental setup}
+\begin{frame}{Massive image annotation by experimental design}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.7\textwidth]{../graphics/in_silico_labeling.pdf}
-   \caption{Amn image taken with a different modality can be predicted. Here, we show an example for a fluorescent microscopy image predicted from a phase contrast microscopy image. Image adapted from \cite{Christiansen2018}}
+   \caption{Image taken with a different modality can be predicted. Here, we show an example for a fluorescent microscopy image predicted from a phase contrast microscopy image. Image adapted from \cite{Christiansen2018}}
 \end{figure}
 \begin{itemize}
    \item We can also predict images taken with different modalities. 
@@ -166,7 +166,7 @@ Please note:
 \end{frame}
 
 
-\begin{frame}{Overcoming massive image annotation: simulation}
+\begin{frame}{Learning from simulated data}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.95\textwidth]{../graphics/data_simulation.pdf}
@@ -181,7 +181,7 @@ Please note:
 \end{frame}
 
 
-\begin{frame}{Overcoming massive image annotation: transfer learning}
+\begin{frame}{Learning from other datasets / other tasks}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.95\textwidth]{../graphics/transfer_learning.pdf}
@@ -190,6 +190,11 @@ Please note:
 \begin{itemize}
    \item Train a network on large annotated image bases.
    \item Use the learned representations to solve small scale problems (with or without fine-tuning) with few annotations.
+   \item Problems:
+   \begin{itemize}
+   	\item Relevance of the used dataset.
+   	\item Relevance of the tasks. 
+   \end{itemize}
 \end{itemize}
 %\vspace{-.5cm}
 \end{frame}
@@ -295,8 +300,8 @@ s(u,v) = \frac{u^Tv}{\|u\|\|v\|}
 \item Three types of weak supervision:
 \begin{enumerate}
 \item \textbf{Incomplete supervision:} only a subset of training data are labeled (semisupervised setting).
-\item \textbf{Inexact supervision:} training data are labeled but not as exact as required by the task we would like to perform
-\item \textbf{Inaccurate supervision:} training data are labeled, but may contain mistakes (). 
+\item \textbf{Inexact supervision:} training data are labeled but not as exactly as required by the task we would like to perform.
+\item \textbf{Inaccurate supervision:} training data are labeled, but may contain mistakes. 
 \end{enumerate}
 \item Here, we treat the case of inexact supervision. 
 \end{itemize}
@@ -379,7 +384,7 @@ Each "pixel" in feature map $FCb$ is thus the score vector for an input region. 
    \item In addition, the detection of different classes is eased by the setup. 
    \item Limitations:
    \begin{itemize}
-      \item Scale issue: the desired object might not fit into the considered regions.
+      \item The max-operation might lead to instabilities.
       \item Object extensions cannot be faithfully predicted. 
       \item The context is not taken into consideration. 
    \end{itemize}
@@ -451,10 +456,10 @@ Here, \cite{courtiolClassificationDiseaseLocalization2017} use the WELDON algori
 \item Domain adaptation: learning a discriminative classifier when training data does not follow the same distribution as the test data.
 \item Let $\mathcal{X}$ be an input space and $\mathcal{Y} = \{ 1, \ldots, L\}$ the set of $L$ possible labels. We call a domain the distribution over $\mathcal{X} \times \mathcal{Y}$. 
 \item Here we consider two domains: the source domain $\mathcal{D}_S$ and the target domain $\mathcal{D}_T$. 
-\item The source samples are then drawn from $\mathcal{D}_S$, the test samples from $\mathcal{D}^X_T$: 
+\item The $n$ source samples are then drawn from $\mathcal{D}_S$, the $N-n$ test samples from $\mathcal{D}_T$: 
 \begin{eqnarray}
 S &=& \{(x_i, y_i)\}_{i=1}^n \sim \mathcal{D}_S^n \nonumber \\
-T &=& \{(x_i, y_i)\}_{i=n+1}^N \sim (\mathcal{D}^X_T)^{N-n} \nonumber 
+T &=& \{(x_i, y_i)\}_{i=n+1}^N \sim \mathcal{D}^{N-n}_T \nonumber 
 \end{eqnarray}
 %where $\mathcal{D}^X_T$ is the marginal distribution of $\mathcal{D}_T$. 
 \end{itemize}

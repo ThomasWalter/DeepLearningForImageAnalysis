@@ -474,7 +474,7 @@ We observe various elements the network is trained to react on.
   \centering
   \includegraphics[width=\textwidth]{../graphics/Vis_Layer2_activationmaps.pdf}
 \end{figure}
-The top 9 projected activation maps for layer 2 across the validation set. \\
+The top 9 activation maps with the strongest signal across the validation set for layer 2. \\
 Layer 2 features are slightly more complex patterns (corners, bended contours, color combinations) than in layer 1, but still relatively basic.
 \end{frame}
 
@@ -483,7 +483,7 @@ Layer 2 features are slightly more complex patterns (corners, bended contours, c
   \centering
   \includegraphics[width=\textwidth]{../graphics/Vis_Layer3_activationmaps.png}
 \end{figure}
-The top 9 projected activation maps for layer 3 across the validation set. \\
+The top 9 activation maps with the strongest signal across the validation set for layer 3. \\
 Higher Level features: faces, text, geometrical features.
 \end{frame}
 
@@ -614,9 +614,9 @@ The image analysis community has developed many algorithms for eye detection; he
 		\item For visualization, we require that the values in $d$ that correspond to filter $j$ in layer $i$ have the same norm as the parameter values $(i,j)$:
 %		directional values in $d$ corresponding to filter parameters $(r,l)$ have the same norm as the filter values. 
 		\begin{equation}
-			d^l_r \leftarrow \frac{d_{i,j}}{\|d_{i,j}\|}\|\param_{i,j}\|
+			d_{i,j} \leftarrow \frac{d_{i,j}}{\|d_{i,j}\|}\|\param_{i,j}\|
 		\end{equation}
-		where $\|\cdot\|$ is the Frobenius norm. 
+		where $\|\cdot\|$ is the Frobenius norm. This filter-wise normalization ensures that we can interpret the produced maps.
 	\end{itemize}
 \end{itemize}
 \end{frame}
