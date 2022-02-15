@@ -137,6 +137,7 @@
       \begin{figure}
       \includegraphics[width=0.40\textheight]{image_classif.png}
       \end{figure}
+      \pause
   \item In many applications, we want to transform an image into another image
       \begin{figure}
       \includegraphics[width=0.40\textheight]{image_transf0.png}
@@ -265,9 +266,9 @@
 
   \begin{itemize}
   \item Image filtering
-  \item High dynamic range
   \item Style modification
   \item Motion estimation
+  \item etc ...
   \end{itemize}
 
 \end{frame}
@@ -335,6 +336,8 @@
       \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
       \end{figure}
 
+\pause
+
       \begin{itemize}
       \item The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
       \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{feng_ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
@@ -349,11 +352,21 @@
 
   \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
     \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
+      \includegraphics[width=0.9\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
+  \pause
+
 Note that today we would use ReLU activations on all layers except the last.
+
+\begin{quizzblock}{}
+  How many parameters does the first layer contain? The last? The second?
+\end{quizzblock}
+
+\pause
+
+\mode<beamer>{$(9+1) \times d$ ;  $9d+1$ ; $(9d+1) \times d$}
 
 }
 
@@ -403,7 +416,7 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Upsampling through replication}
 
   \begin{figure}
-      \includegraphics[height=\textheight]{upsampling.png}
+      \includegraphics[height=0.8\textheight]{upsampling.png}
     \end{figure}
 
 \end{frame}
@@ -472,6 +485,8 @@ Note that today we would use ReLU activations on all layers except the last.
     The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
   \end{block}
 
+Note that in most cases, receptive fields are square shaped (border effects ignored).
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -512,17 +527,17 @@ Note that today we would use ReLU activations on all layers except the last.
 %% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
+\frame{
   \frametitle{Example}
 
   \begin{block}{}
     \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
+      \includegraphics[width=0.8\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
 
-  \begin{quizzblock}{What is the size of the receptive field of the neurons in the last layer?}
+  \begin{quizzblock}{What is the width of the receptive field of the neurons in the last layer?}
     \begin{enumerate}
     \item $n$
     \item $1 + 2 \times n$
@@ -532,17 +547,22 @@ Note that today we would use ReLU activations on all layers except the last.
 
   \end{quizzblock}
 
+  \mode<beamer>{
+  \pause
+
+  Answer: $1 + 2 \times (n+1)$
+  }
   }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<handout>{
-  \frametitle{Example}
+%% \frame<handout>{
+%%   \frametitle{Example}
 
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-}
+%%   \begin{quizzblock}{What is the width of the receptive field of the neurons in the last layer?}
+%%     \begin{figure}
+%%       \includegraphics[width=\textwidth]{plain_convnet.png}
+%%     \end{figure}
+%%   \end{quizzblock}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Effective receptive field: intuition}
@@ -554,15 +574,14 @@ Note that today we would use ReLU activations on all layers except the last.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Quizz}
+\begin{frame}{Criterion}
 
-  \begin{quizzblock}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
-    \begin{enumerate}
-    \item $\frac{\partial \loss}{\partial x_{i,j}}$
-    \item $\frac{\partial y}{\partial x_{i,j}}$
-    \end{enumerate}
+  \begin{block}{}For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?
+\pause
+    \[ \frac{\partial y}{\partial x_{i,j}} \]
 
-  \end{quizzblock}
+
+  \end{block}
 
 \end{frame}
 
@@ -590,6 +609,7 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on the receptive field}
 
+  When choosing or designing a NN architecture:
 \begin{itemize}
 \item Establish its minimal required size with respect to the application
 \item Make it larger than that...
@@ -629,7 +649,7 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Quizz}
 
-  \begin{quizzblock}{Which operator is NOT translation invariant?}
+  \begin{quizzblock}{Which operator is NOT translation equivariant?}
     \begin{enumerate}
     \item Convolution (stride$=1$)
     \item Max-pooling (stride $>1$)
@@ -748,8 +768,8 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.75\textheight]{fundus1}
-  Eye fundus / retina image
+  \includegraphics[height=0.65\textheight]{fundus1}\\
+  When aiming to segment the papilla or the macula, translation equivariance is not necessarily welcome.
   \source{OPHDIAT database}
 \end{figure}
 
@@ -775,12 +795,11 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
 \frame{
   \frametitle{Image size flexibility}
 
-  \begin{itemize}
-  \item A NN containing fully-connected layers can only process images of a given size
-  \item A fully convolutional NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
-  \item Practical limit: the memory of the system
-    \pause
-  \item Note that as the input image gets larger, border effects become proportionally less present
+  \begin{itemize}[<+->]
+  \item A NN containing fully-connected layers can only process images of a given size.
+  \item \alert{A fully convolutional NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network.}
+  \item Practical limit: the memory of the system.
+  \item Note that as the input image gets larger, border effects become proportionally less present.
   \end{itemize}
 
 }
@@ -1087,12 +1106,12 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
     \includegraphics[width=0.95\textwidth]{unet_lo}
   \end{figure}
 
-  \begin{block}{Quizz}
+  \begin{quizzblock}{Quizz}
   \begin{itemize}
   \item Size and number of channels of input images?
   \item Segmentation into how many regions?
   \end{itemize}
-  \end{block}
+  \end{quizzblock}
 
 }
 
@@ -1152,6 +1171,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \begin{itemize}
   \item Convolutions with stride 2 instead of max-pooling in the encoder
   \item Transposed convolutions instead  of simple up-sampling in the decoder
+  \item Batch normalization
   \item Using an already optimized classification network as backbone for the encoder
   \end{itemize}
 
@@ -1187,7 +1207,6 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \item   Solution: extract fixed-sized crops from your training set:
     \begin{itemize}
     \item make them as large as possible, to reduce border effects
-    \item take a small batch size (1, 2, 4?)
     \end{itemize}
 
   \end{itemize}

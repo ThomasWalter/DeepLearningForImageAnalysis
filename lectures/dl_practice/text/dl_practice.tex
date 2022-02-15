@@ -92,15 +92,14 @@
   \begin {itemize}[<+->]
   \item Familiarize yourself with the problem and the data - discuss with the end-user
   \item Cast the task at hand into a machine learning problem
-  \item Build your data set - can you use synthetic data?
+  \item Build and prepare your data set - can you use synthetic data?
   \item Build an architecture and train it or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
-  \item Beware of over-fitting! Envision regularization methods.
-  \item Use data augmentation.
+  \item Increase the power of your model until you reach over-fitting. Then, regularize.
   \item Do you need preprocessing? Post-processing?
-  \item Iterate, while precisely logging all your experiments.
+  \item Log all your experiments.
 \end{itemize}
 
   \item Only at the end: test!
@@ -247,7 +246,7 @@
 
   \begin{alertblock}{Is database constitution the main step?}
     \begin{itemize}
-    \item In practical, real-world applications, this is becoming the most time-consuming step
+    \item In practical, real-world applications, this is the most time-consuming step
     \item If the data set does not conveniently represent your problem you will run into difficulties
     \end{itemize}
 
@@ -870,27 +869,27 @@ The authors devised experiments on the ImageNet database in order to evaluate di
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Conclusion}
+%% \section*{Conclusion}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Conclusion}
 
-  \begin{block}{}
-    \begin{itemize}
-    \item You now know the basics to tackle many computer vision problems with deep learning.
-    \item But there are many other topics of interest:
-      \begin{itemize}
-      \item Attention mechanisms, transformers
-      \item Self-supervision, low supervision
-      \item Non supervised methods, including autoencoders and generative adversarial networks
-      \item Recurrent networks
-      \item Anomaly detection
-      \item etc.
-      \end{itemize}
-    \end{itemize}
-  \end{block}
+%%   \begin{block}{}
+%%     \begin{itemize}
+%%     \item You now know the basics to tackle many computer vision problems with deep learning.
+%%     \item But there are many other topics of interest:
+%%       \begin{itemize}
+%%       \item Attention mechanisms, transformers
+%%       \item Self-supervision, low supervision
+%%       \item Non supervised methods, including autoencoders and generative adversarial networks
+%%       \item Recurrent networks
+%%       \item Anomaly detection
+%%       \item etc.
+%%       \end{itemize}
+%%     \end{itemize}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
 
 

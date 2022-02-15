@@ -496,14 +496,14 @@ Tasks:
   \end{column}
 \end{columns}
 
-  \begin{block}{Application of scaled dot-product attention}
-    %% \[Att(W_QQ,W_KK,W_VV) = \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \]
-    %% \[ = \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
-    \begin{align*}
-    Att(W_QQ,W_KK,W_VV) & = & \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \\
-     & = & \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V'
-    \end{align*}
-  \end{block}
+  %% \begin{block}{Application of scaled dot-product attention}
+  %%   %% \[Att(W_QQ,W_KK,W_VV) = \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \]
+  %%   %% \[ = \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V' \]
+  %%   \begin{align*}
+  %%   Att(W_QQ,W_KK,W_VV) & = & \sigma\left(\frac{W_QQ(W_KK)^t}{\sqrt{d_{K'}}}\right) VW_V \\
+  %%    & = & \sigma\left(\frac{Q'(K')^t}{\sqrt{d_{K'}}}\right) V'
+  %%   \end{align*}
+  %% \end{block}
 
 
 \end{frame}
@@ -707,7 +707,7 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Patches are all you need? [submitted to ICLR 2022]}
+\begin{frame}{Patches are all you need?~\cite{trockman_patches_2022}}
 
 \begin{figure}[ht]
   \centering
