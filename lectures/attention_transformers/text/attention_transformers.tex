@@ -650,6 +650,68 @@ Tasks:
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shifted window (SWIN) transformer~\cite{liu_swin_2021}}
+
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics[width=\textwidth]{swin_hierarchy}
+      \end{figure}
+
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item The transformer modules are applied within each window
+      \item Hierarchical approach: patches are merged at some levels
+      \item The model uses \textbf{s}hifted \textbf{win}dows
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SWIN blocks}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=.25\textwidth]{swin_blocks}
+   \includegraphics[width=.5\textwidth]{swin_windows}
+\end{figure}
+
+\begin{itemize}
+\item Multi-headed self-attention with regular (W-MSA) and shifted  (SW-MSA) windowing configurations are applied alternatively
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SWIN architecture }
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{swin_archi}
+\end{figure}
+
+\begin{block}{Results}
+  The Swin transformer obtains better results than previous methods on:
+
+  \begin{itemize}
+  \item ImageNet 1k and 22k classification
+  \item COCO object detection and image segmentation
+  \item ADE20k semantic segmentation
+  \end{itemize}
+\end{block}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
