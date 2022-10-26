@@ -1103,6 +1103,15 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
 
   \begin{figure}
+    \includegraphics[width=\textwidth]{unet_lo}
+  \end{figure}
+
+}
+
+\frame{
+  \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
+
+  \begin{figure}
     \includegraphics[width=0.95\textwidth]{unet_lo}
   \end{figure}
 
@@ -1379,7 +1388,7 @@ This version works slightly better than the first~\cite{duque-arias_power_2021}.
   \begin{itemize}
   \item Use the Jaccard loss as base line for segmentation problems.
   \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity).
-  \item Working on specific losses enforcing structure = interesting research path.
+  \item Working on specific losses enforcing structure is an interesting research path.
   \end{itemize}
 \end{frame}
 

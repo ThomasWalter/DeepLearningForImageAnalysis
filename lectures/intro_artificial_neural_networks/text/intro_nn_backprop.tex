@@ -747,7 +747,7 @@
 
   \begin{block}{}
     For $i \in \{1, 2, 3\}$:
-    \[\x^i = \act_i(\x_{i-1}^t \W_i + \bias_i)\]
+    \[\x_i = \act_i(\x_{i-1}^t \W_i + \bias_i)\]
   \end{block}
   \begin{block}{}
     \[\y = \act_4(\x_4^t \W_4 + \bias_4)\]
@@ -1166,7 +1166,7 @@ $$
 
   The loss function we initially defined depends on the whole training set:
   \[
-  \loss(\param) = \frac{1}{n} \sum\limits_{i=1}^n l(y_i, f(\x_i, \param))
+  \loss(\param) = \frac{1}{n} \sum\limits_{i=1}^n l(y_i, f_{\param}(\x_i))
   \]
 
   \pause

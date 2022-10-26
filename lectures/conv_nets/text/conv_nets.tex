@@ -221,8 +221,8 @@
   \item classification
   \item quantification
   \item object localization
-  \item segmentation
   \item transformation (filtering, in-painting, editing, colorization…)
+  \item segmentation
   \item image caption generation
   \item 2D to 3D (stereo matching, 3D reconstruction, …)
   \item motion estimation
@@ -329,7 +329,7 @@
 
   Image databases including \emph{annotations} (typically some kind of high level information) are essential to the development of \emph{supervised} machine learning methods for image analysis.
 
-  \begin{block}{Annotations}
+  \begin{block}{Annotations: examples}
     \begin{itemize}
     \item Image class
     \item Measure(s) obtained from the image
@@ -968,6 +968,21 @@
 }
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convolutional layer illustration in 2D}
+
+
+  \begin{itemize}
+  \item Illustration of a convolution of size $3 \times 3$
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{cnn_complet}
+  \end{center}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -1110,21 +1125,6 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Convolutional layer illustration in 2D}
-
-
-  \begin{itemize}
-  \item Illustration of a convolution of size $3 \times 3$
-  \end{itemize}
-
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{cnn_complet}
-  \end{center}
-
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
@@ -1162,7 +1162,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dilated convolutions}
 
-  Dilated convolutions are used to increase the size of the receptive field of the network.
+  Dilated convolutions are used to increase the size of the \emph{receptive field} of the network.
 
   \begin{columns}
 
@@ -1847,7 +1847,7 @@ How many parameters would the corresponding convolutional layer contain?
   \item Deep learning has brought an undeniable break-through in image analysis (as in other fields)
   \item A significant part of research efforts in image analysis today is based on deep learning
   \item Its applications are ubiquitous
-  \item Not only we can improve on existing tasks, but we can also treat some problems in a completely different way (for example, image generation).
+  \item Not only we can improve on existing tasks, but we can also treat some problems in a completely different way
   \end{itemize}
 
 \end{frame}

@@ -90,15 +90,22 @@
   \frametitle{General workflow}
 
   \begin {itemize}[<+->]
-  \item Familiarize yourself with the problem and the data - discuss with the end-user
+  \item Familiarize yourself with the problem and the data
+    \begin{itemize}
+    \item Choose a test metric
+    \end{itemize}
   \item Cast the task at hand into a machine learning problem
-  \item Build and prepare your data set - can you use synthetic data?
+  \item Build and prepare your data set
+    \begin{itemize}
+    \item Annotations
+    \item Representativeness
+    \item Define train, validation and test subsets (avoid data leaking)
+    \end{itemize}
   \item Build an architecture and train it or choose a pre-trained model and use transfer learning
 
 \begin{itemize}[<+->]
   \item Analyze the results on the validation data (\alert{look} at the images!)
   \item Increase the power of your model until you reach over-fitting. Then, regularize.
-  \item Do you need preprocessing? Post-processing?
   \item Log all your experiments.
 \end{itemize}
 
