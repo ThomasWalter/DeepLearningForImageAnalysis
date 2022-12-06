@@ -186,12 +186,12 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \end{itemize}
 \end{frame}
 
-\begin{frame}{t-SNE map: example (localization patterns inside cells)}
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_tsne.pdf}
-\end{figure}
-\end{frame}
+% \begin{frame}{t-SNE map: example (localization patterns inside cells)}
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=\textwidth]{../graphics/Vis_tsne.pdf}
+% \end{figure}
+% \end{frame}
 
 \begin{frame}{t-SNE map: ImageNet}
 \begin{figure}[htb]
@@ -343,7 +343,7 @@ We observe the variation of the CAM according to the predicted label. Here the c
 	\begin{equation}
 		\alpha_k^c = \frac{1}{N}\sum_{i,j} \frac{\partial S_c}{\partial f_k(i,j)}
 	\end{equation}
-	\item If the fully connected layer is replaced by a global average pooling, this is exactly identical to the $w_k^c$ we have calculated in CAM. 
+	\item If the fully connected layer is replaced by a global average pooling, this is identical to the $w_k^c$ we have calculated in CAM (up to a constant factor). 
 	\item The final map is then calculated by:
 	\begin{equation}
 	M^{gradCAM}(c) = ReLu(\sum_k \alpha_k^c f_k)
@@ -402,6 +402,27 @@ The training set contained a gender bias. We see that the important regions diff
   \source{adapted from \cite{Simonyan:2014}}
 \end{figure}
 We observe various elements the network is trained to react on.
+\end{frame}
+
+\begin{frame}{Application in digital pathology 1/2}
+\begin{itemize}
+	\item Task: grading cervix cancer according to severity
+	\item Input data: stained tissue sections from biopsies or surgical specimen. 
+	\item Multi-class-classification problem: (1) normal, (2) low grade displasia, (3) high grade displasia, (4) carcinoma
+	\item Challenging question: which morphological patterns trigger the decision?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Application in digital pathology 2/2}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=.9\textwidth]{../graphics/Vis_max_activation_histopath.png}
+  \source{adapted from \cite{Lubrano:2022}}
+\end{figure}
+\begin{itemize}
+\item Maximally activating images are realistically looking images
+\item The patterns correspond to known morphological hallmarks for grading.
+\end{itemize}
 \end{frame}
 
 
