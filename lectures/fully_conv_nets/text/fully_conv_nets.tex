@@ -33,7 +33,6 @@
 \end{textblock*}}
 
 
-
 %%   Votre quiz << Fully ConvNets >>  contenant 5 questions/sondages est disponible:
 
 %% * lien d'édition:
@@ -47,7 +46,6 @@
 %% * lien pour suppression:
 %% http://www.quizzoodle.com/quizz/delete/07a6de49b7b542f0a7707416a14d3f51
 %% mot de passe: delete
-
 
 
 \title{Fully convolutional neural networks}
@@ -115,7 +113,7 @@
   \begin{block}{Definition}
  Here an image is a 2D array of size $p \times q$. Each array element belongs to $\R^d$. The dimension of the value space $d$, is often called the \alert{number of channels} of the image.
 
-      The set of these images is $\mathcal{I}^d$.
+      The set of these images is noted $\mathcal{I}^d$.
   \end{block}
 
   \begin{block}{Examples}
@@ -139,6 +137,7 @@
       \begin{figure}
       \includegraphics[width=0.40\textheight]{image_classif.png}
       \end{figure}
+      \pause
   \item In many applications, we want to transform an image into another image
       \begin{figure}
       \includegraphics[width=0.40\textheight]{image_transf0.png}
@@ -267,9 +266,9 @@
 
   \begin{itemize}
   \item Image filtering
-  \item High dynamic range
   \item Style modification
   \item Motion estimation
+  \item etc ...
   \end{itemize}
 
 \end{frame}
@@ -337,6 +336,8 @@
       \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
       \end{figure}
 
+\pause
+
       \begin{itemize}
       \item The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
       \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{feng_ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
@@ -351,11 +352,21 @@
 
   \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
     \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
+      \includegraphics[width=0.9\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
+  \pause
+
 Note that today we would use ReLU activations on all layers except the last.
+
+\begin{quizzblock}{}
+  How many parameters does the first layer contain? The last? The second?
+\end{quizzblock}
+
+\pause
+
+\mode<beamer>{$(9+1) \times d$ ;  $9d+1$ ; $(9d+1) \times d$}
 
 }
 
@@ -405,7 +416,7 @@ Note that today we would use ReLU activations on all layers except the last.
 \begin{frame}{Upsampling through replication}
 
   \begin{figure}
-      \includegraphics[height=\textheight]{upsampling.png}
+      \includegraphics[height=0.8\textheight]{upsampling.png}
     \end{figure}
 
 \end{frame}
@@ -474,6 +485,8 @@ Note that today we would use ReLU activations on all layers except the last.
     The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
   \end{block}
 
+Note that in most cases, receptive fields are square shaped (border effects ignored).
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -514,37 +527,42 @@ Note that today we would use ReLU activations on all layers except the last.
 %% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<beamer>{
+\frame{
   \frametitle{Example}
 
   \begin{block}{}
     \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
+      \includegraphics[width=0.8\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
 
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{itemize}
-    \item[A/] $n$
-    \item[B/] $1 + 2 \times n$
-    \item[C/] $1 + 2 \times (n+1)$
-    \item[D/] It depends on the input image
-    \end{itemize}
+  \begin{quizzblock}{What is the width of the receptive field of the neurons in the last layer?}
+    \begin{enumerate}
+    \item $n$
+    \item $1 + 2 \times n$
+    \item $1 + 2 \times (n+1)$
+    \item It depends on the input image
+    \end{enumerate}
 
-  \end{block}
+  \end{quizzblock}
 
+  \mode<beamer>{
+  \pause
+
+  Answer: $1 + 2 \times (n+1)$
+  }
   }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame<handout>{
-  \frametitle{Example}
+%% \frame<handout>{
+%%   \frametitle{Example}
 
-  \begin{block}{What is the size of the receptive field of the neurons in the last layer?}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{plain_convnet.png}
-    \end{figure}
-  \end{block}
-}
+%%   \begin{quizzblock}{What is the width of the receptive field of the neurons in the last layer?}
+%%     \begin{figure}
+%%       \includegraphics[width=\textwidth]{plain_convnet.png}
+%%     \end{figure}
+%%   \end{quizzblock}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Effective receptive field: intuition}
@@ -556,22 +574,19 @@ Note that today we would use ReLU activations on all layers except the last.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Quizz}
+\begin{frame}{Criterion}
 
-  \begin{block}{For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?}
-    \begin{itemize}
-    \item[A/] $\frac{\partial \loss}{\partial x_{i,j}}$
-    \item[B/] $\frac{\partial y}{\partial x_{i,j}}$
-    \item[C/]
-    \item[D/]
-    \end{itemize}
+  \begin{block}{}For a given output neuron $y$, what criterion seems sound to estimate the impact of a pixel $x_{i,j}$ of its receptive field on its value?
+\pause
+    \[ \frac{\partial y}{\partial x_{i,j}} \]
+
 
   \end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}<beamer>{Effective receptive field}
+\begin{frame}{Effective receptive field}
 
 \begin{block}{Shape of the effective receptive field}
 \begin{itemize}
@@ -594,6 +609,7 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on the receptive field}
 
+  When choosing or designing a NN architecture:
 \begin{itemize}
 \item Establish its minimal required size with respect to the application
 \item Make it larger than that...
@@ -633,14 +649,14 @@ Note that today we would use ReLU activations on all layers except the last.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Quizz}
 
-  \begin{block}{Which operator is NOT translation invariant?}
-    \begin{itemize}
-    \item[A/] Convolution (stride$=1$)
-    \item[B/] Max-pooling (stride $>1$)
-    \item[C/] Transposed convolution (stride$\geq 1$)
-    \item[D/] Upsampling (stride$>1$)
-    \end{itemize}
-  \end{block}
+  \begin{quizzblock}{Which operator is NOT translation equivariant?}
+    \begin{enumerate}
+    \item Convolution (stride$=1$)
+    \item Max-pooling (stride $>1$)
+    \item Transposed convolution (stride$\geq 1$)
+    \item Upsampling (stride$>1$)
+    \end{enumerate}
+  \end{quizzblock}
 
 \end{frame}
 
@@ -656,8 +672,8 @@ Convolution (stride$=1$)             & \onslide<2->{yes}                        
 Max-pooling (stride $>1$)            & \onslide<3->{no}                             \\ \hline
 Transposed convolution (stride$ \geq 1$)   & \onslide<4->{yes}                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{yes}                             \\ \hline
-Concatenation            & \onslide<6->{yes}                            \\ \hline
-Addition                 & \onslide<7->{yes}                            \\ \hline
+%% Concatenation            & \onslide<6->{yes}                            \\ \hline
+%% Addition                 & \onslide<7->{yes}                            \\ \hline
 \end{tabular}
 \end{table}
 
@@ -674,8 +690,8 @@ Convolution (stride$=1$)             & \onslide<2->{ }                          
 Max-pooling (stride $>1$)            & \onslide<3->{ }                             \\ \hline
 Transposed convolution (stride$ \geq 1$)   & \onslide<4->{ }                            \\ \hline
 Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
-Concatenation            & \onslide<6->{ }                            \\ \hline
-Addition                 & \onslide<7->{ }                            \\ \hline
+%% Concatenation            & \onslide<6->{ }                            \\ \hline
+%% Addition                 & \onslide<7->{ }                            \\ \hline
 \end{tabular}
 \end{table}
 
@@ -752,8 +768,8 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.75\textheight]{fundus1}
-  \caption{Eye fundus / retina image}
+  \includegraphics[height=0.65\textheight]{fundus1}\\
+  When aiming to segment the papilla or the macula, translation equivariance is not necessarily welcome.
   \source{OPHDIAT database}
 \end{figure}
 
@@ -779,12 +795,11 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Image size flexibility}
 
-  \begin{itemize}
-  \item A NN containing fully-connected layers can only process images of a given size
-  \item A fully convolutional NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network
-  \item Practical limit: the memory of the system
-    \pause
-  \item Note that as the input image gets larger, border effects become proportionally less present
+  \begin{itemize}[<+->]
+  \item A NN containing fully-connected layers can only process images of a given size.
+  \item \alert{A fully convolutional NN can be applied to images of any size, as long as its dimensions are compatible with the subsampling steps of the network.}
+  \item Practical limit: the memory of the system.
+  \item Note that as the input image gets larger, border effects become proportionally less present.
   \end{itemize}
 
 }
@@ -1088,15 +1103,24 @@ Addition                 & \onslide<7->{ }                            \\ \hline
   \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
 
   \begin{figure}
+    \includegraphics[width=\textwidth]{unet_lo}
+  \end{figure}
+
+}
+
+\frame{
+  \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
+
+  \begin{figure}
     \includegraphics[width=0.95\textwidth]{unet_lo}
   \end{figure}
 
-  \begin{block}{Quizz}
+  \begin{quizzblock}{Quizz}
   \begin{itemize}
   \item Size and number of channels of input images?
   \item Segmentation into how many regions?
   \end{itemize}
-  \end{block}
+  \end{quizzblock}
 
 }
 
@@ -1156,6 +1180,7 @@ Addition                 & \onslide<7->{ }                            \\ \hline
   \begin{itemize}
   \item Convolutions with stride 2 instead of max-pooling in the encoder
   \item Transposed convolutions instead  of simple up-sampling in the decoder
+  \item Batch normalization
   \item Using an already optimized classification network as backbone for the encoder
   \end{itemize}
 
@@ -1191,7 +1216,6 @@ Addition                 & \onslide<7->{ }                            \\ \hline
   \item   Solution: extract fixed-sized crops from your training set:
     \begin{itemize}
     \item make them as large as possible, to reduce border effects
-    \item take a small batch size (1, 2, 4?)
     \end{itemize}
 
   \end{itemize}
@@ -1287,7 +1311,15 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Generalization to $[0,1]$}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
+      \begin{block}{Jaccard index}
+        \[
+        J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+        \]
+      \end{block}
+
+      But $\y$ and $\hat{\y}$ are in $[0,1]^n \ldots$
+
+\pause
 
   %% \begin{block}{Dice similarity}
   %%   \[
@@ -1301,6 +1333,8 @@ Addition                 & \onslide<7->{ }                            \\ \hline
     \]
   \end{block}
 
+($\y$ and $\hat{\y}$ are not simultaneously equal to $0$)
+
 }
 
 
@@ -1308,7 +1342,6 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Corresponding loss function}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
 
   %% \begin{block}{Dice loss}
   %%   \[
@@ -1318,9 +1351,11 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 
   \begin{block}{Jaccard loss}
     \[
-    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+    j(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i + \epsilon}
     \]
   \end{block}
+
+    Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
 
 }
@@ -1329,9 +1364,6 @@ Addition                 & \onslide<7->{ }                            \\ \hline
 \frame{
   \frametitle{Corresponding loss function - variant}
 
-  $\y$ and $\hat{\y}$ are in $[0,1]^n$, not simultaneously equal to $0$.
-
-  Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
 
   %% \begin{block}{Dice loss}
   %%   \[
@@ -1345,7 +1377,7 @@ Addition                 & \onslide<7->{ }                            \\ \hline
     \]
   \end{block}
 
-This version works slightly better than the first.
+This version works slightly better than the first~\cite{duque-arias_power_2021}.
 
 }
 
@@ -1356,7 +1388,7 @@ This version works slightly better than the first.
   \begin{itemize}
   \item Use the Jaccard loss as base line for segmentation problems.
   \item Note that these losses compute their values pixel-wise: they do not take into account any structure (for example, continuity).
-  \item Working on specific losses enforcing structure = interesting research path.
+  \item Working on specific losses enforcing structure is an interesting research path.
   \end{itemize}
 \end{frame}
 
@@ -1366,18 +1398,19 @@ This version works slightly better than the first.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.35\textheight]{unet_lo}
+  \includegraphics[height=0.30\textheight]{unet_lo}
 \end{figure}
 
 
-\begin{block}{Case study}
+\begin{quizzblock}{Case study}
 Suppose that we have satisfactorily optimized this U-Net model, using images of size $512 \times 512$ during training. Now I want to apply this model to a new image, of size $1000 \times 1000$. How should I proceed?
-\end{block}
+\end{quizzblock}
 
-\begin{itemize}
+\begin{enumerate}
 \item Resize the image?
 \item Cut it into $512 \times 512$ crops, predict and stitch the results together?
-\end{itemize}
+\item Pad the image.
+\end{enumerate}
 
 \end{frame}
 
@@ -1404,25 +1437,6 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Deep learning: a long history}
-
-%%   \begin{block}{}
-%%     For a very complete state of the art on deep learning, see the overview by Schmidhuber \cite{schmidhuber_deep_2015}.
-%%   \end{block}
-
-%%   \begin{itemize}[<+->]
-%%   \item 1958: Rosenblatt's perceptron \cite{rosenblatt_perceptron:_1958}
-%%   \item 1979: Neocognitron (convolutional neural network architecture) \cite{fukushima_neural_1979,fukushima_neocognitron:_1980}
-%%   \item 1989: Backpropagation applied to CNNs \cite{lecun_backpropagation_1989}
-%%   \item 2006-: 2010: GPU implementation \cite{chellapilla_high_2006, ciresan_deep_2010}
-%%   \item 2010: Availability of large databases (ImageNet, ...)
-%%   \item 2012: Imagenet image classification won by a CNN with AlexNet \cite{krizhevsky_imagenet_2012}.
-%%  \item 2014: Generative adversarial networks  \cite{goodfellow_generative_2014}
-%%   \end{itemize}
-
-%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{

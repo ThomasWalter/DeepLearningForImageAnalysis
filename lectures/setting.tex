@@ -31,9 +31,18 @@
 \setbeamertemplate{bibliography entry location}{}
 \setbeamertemplate{bibliography entry note}{}
 
+% environments
+\definecolor{celadon}{rgb}{0.67, 0.88, 0.69}
+\definecolor{teagreen}{rgb}{0.82, 0.94, 0.75}
+\newenvironment{quizzblock}[1]{%
+  \setbeamercolor{block body}{fg=black,bg=teagreen}
+  \setbeamercolor{block title}{fg=black,bg=celadon}
+  \begin{block}{#1}}{\end{block}}
+
+
+% Math notations
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
-%Definitiona
 
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
