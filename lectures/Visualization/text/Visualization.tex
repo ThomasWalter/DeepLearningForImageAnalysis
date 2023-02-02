@@ -230,24 +230,26 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \begin{itemize}
 	\item For each pixel in the input image we can calculate the derivative of the loss with respect to that pixel value \cite{Simonyan:2013}.
 	\item This allows us to visualize how much the loss changes with small variations of the pixel values.
+	\item Calculation: simple backgropagation 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Saliency maps}
-\begin{itemize}
-	\item Calculation: simple backpropagation:
-	\begin{equation}
-		\left|\frac{\partial L}{\partial x_{i,j}}\right|
-	\end{equation} 
-	\item Unpooling: the gradient is redirected to the selected input neuron (the one with maximal activation).
-	\item ReLu: multiplication of the backpropagated gradient signal by the indicator function.
-	\item Filtering: convolution with the transposed filter response.
-	\begin{eqnarray}
-		z &=& x \ast W \nonumber \\
-		\frac{\partial L}{\partial x} &=& \frac{\partial L}{\partial z} \ast W^T 
-	\end{eqnarray}
-\end{itemize}
-\end{frame}
+% \begin{frame}{Saliency maps}
+% \begin{itemize}
+% 	\item Calculation: simple backpropagation:
+% 	\begin{equation}
+% 		\left|\frac{\partial L}{\partial x_{i,j}}\right|
+% 	\end{equation} 
+% 	\item Unpooling: the gradient is redirected to the selected input neuron (the one with maximal activation).
+% 	\item ReLu: multiplication of the backpropagated gradient signal by the indicator function.
+% 	\item Filtering: convolution with the transposed filter response.
+% 	\begin{eqnarray}
+% 		z &=& x \ast W \nonumber \\
+% 		\frac{\partial L}{\partial x} &=& \frac{\partial L}{\partial z} \ast W^T 
+% 	\end{eqnarray}
+% \end{itemize}
+% \end{frame}
+
 
 \begin{frame}{Saliency maps}
 \begin{figure}[htb]
@@ -257,6 +259,14 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \end{figure}
 Sensitivity analysis: we can see which pixels would have most effect on the classification results. 
 \end{frame}
+
+\begin{frame}{Saliency maps - limitations }
+\begin{itemize}
+	\item Individual pixels may only marginally contribute to the output. 
+	\item 
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Occlusion of image patches}
 	\begin{itemize}
@@ -470,25 +480,34 @@ We observe various elements the network is trained to react on.
 
 \begin{frame}{How to map activities back to input pixel space}
 \begin{itemize}
-	\item There are three operations that need to be (approximately) inverted: convolution, ReLu, max-pooling. 
-	\item {\bf Deconvolution:} \cite{Zeiler:2013} propose to simply convolve the activation map at the upper level with the transposed learned filter (backpropagation). 
-	\item {\bf ReLu:} The Relu cannot be inverted. \cite{Zeiler:2013}  propose to simply put a ReLu in the deconvolution path. 
+	\item There are three operations that need to be "reversed": convolution, ReLu, max-pooling. 
+	\item {\bf Deconvolution:} \cite{Zeiler:2013} propose to simply convolve the activation map at the upper level with the transposed learned filter. 
+	\item {\bf ReLu:} The Relu cannot be reversed. \cite{Zeiler:2013}  propose to simply put a ReLu in the deconvolution path as to only keep positive contributions. 
+	\item {\bf Unpooling:} Pooling operations cannot be reverted. The deconvnet remembers where the maximum pixels originated from in the corresponding convolutional network. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{How to map activities back to input pixel space}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.7\textwidth]{../graphics/Vis_unpooling.pdf}
+  \includegraphics[width=.96\textwidth]{../graphics/Vis_unpooling2.pdf}
   \source{Image taken from \cite{Zeiler:2013}}
 \end{figure}
-{\bf Unpooling:} 
-\begin{itemize}
-	\item Pooling operations cannot be inverted (we lost the values that were discarded). 
-	\item The deconvnet remembers where the maximum pixels originated from in the corresponding convolutional network. 
-\end{itemize}
+% {\bf Unpooling:} 
+% \begin{itemize}
+% 	\item Pooling operations cannot be inverted (we lost the values that were discarded). 
+% 	\item The deconvnet remembers where the maximum pixels originated from in the corresponding convolutional network. 
+% \end{itemize}
 \end{frame}
 
+\begin{frame}{Experiments}
+\begin{itemize}
+	\item ImageNet Validation Set. 
+	\item For a layer, a number of feature maps is (randomly) selected.
+	\item For these feature maps, the 9 maximal activations are then reconstructed at the pixel level. 
+	\item Both the reconstructed image and the original crops are visualized.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Visualization of image features for layer 2 activation maps}
 \begin{figure}[htb]
