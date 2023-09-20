@@ -115,6 +115,37 @@
 %\vspace{-.5cm}
 \end{frame}
 
+\section{Localization and classification}
+\begin{frame}{Localization and classification}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.95\textwidth]{../graphics/class_and_loc.pdf}
+   \caption{Object detection: classification and localization}
+\end{figure}
+\begin{itemize}
+\item Simplified example: one centered object of interest
+\item Tasks: 
+\begin{itemize}
+   \item \textbf{Classification: } classification of the object's content.
+   \item \textbf{Localization: } regression on the position / extension.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Localization and classification}
+\begin{frame}{Localization and classification}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.95\textwidth]{../graphics/class_and_loc.pdf}
+   \caption{Object detection: classification and localization}
+\end{figure}
+\begin{itemize}
+   \item Two tasks from the same image, with two contributions to the loss.
+   \item Classification loss (e.g. softmax)
+   \item Localization loss (e.g. regression loss on position and extension of a bounding box)
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Object detection: example}
 \begin{figure}[htb]
    \centering
@@ -138,6 +169,7 @@
    \caption{Object detection in action. Image taken from \cite{Liu2016}}
 \end{figure}
 \end{frame}
+
 
 % \begin{frame}{Difficulties in object detection}
 % \begin{itemize}
