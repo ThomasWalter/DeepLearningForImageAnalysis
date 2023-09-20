@@ -34,7 +34,7 @@
 
 \title{Artificial neural networks and backpropagation}
 \author{E. Decencière}
-\date{MINES ParisTech\\
+\date{Mines Paris\\
   PSL Research University\\
   Center for Mathematical Morphology
 }
@@ -96,34 +96,34 @@
 \section{Artificial neurons}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Biological neuron}
+%% \frame{
+%%   \frametitle{Biological neuron}
 
-  \begin{figure}
-    \includegraphics[height=3cm]{neuron}
-  \end{figure}
-
-
-  How many neurons does the human brain contain?
-
-  \begin{itemize}
-  \item[A/] $10^8$
-  \item[B/] $10^9$
-  \item[C/] $10^{10}$
-  \item[D/] $10^{11}$
-  \end{itemize}
-
-%%   \item The human brain contains 100 billion ($10^{11}$) neurons
+%%   \begin{figure}
+%%     \includegraphics[height=3cm]{neuron}
+%%   \end{figure}
 
 
-  %% \begin{itemize}
-  %% \item[A/]
-  %% \item[B/]
-  %% \item[C/]
-  %% \item[D/]
-  %% \end{itemize}
+%%   How many neurons does the human brain contain?
 
-}
+%%   \begin{itemize}
+%%   \item[A/] $10^8$
+%%   \item[B/] $10^9$
+%%   \item[C/] $10^{10}$
+%%   \item[D/] $10^{11}$
+%%   \end{itemize}
+
+%% %%   \item The human brain contains 100 billion ($10^{11}$) neurons
+
+
+%%   %% \begin{itemize}
+%%   %% \item[A/]
+%%   %% \item[B/]
+%%   %% \item[C/]
+%%   %% \item[D/]
+%%   %% \end{itemize}
+
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -355,17 +355,17 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Quizz}
+%% \begin{frame}{Quizz}
 
-  The most commonly used activation function in feed-forward networks is:
-    \begin{itemize}
-  \item[A/] binary
-  \item[B/] sigmoid
-  \item[C/] tanh
-  \item[D/] ReLU
-  \end{itemize}
+%%   The most commonly used activation function in feed-forward networks is:
+%%     \begin{itemize}
+%%   \item[A/] binary
+%%   \item[B/] sigmoid
+%%   \item[C/] tanh
+%%   \item[D/] ReLU
+%%   \end{itemize}
 
-\end{frame}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -865,7 +865,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
 \begin{frame}{A composition of differentiable functions}
 
   \begin{itemize}
-  \item The functions composing an artificial neural network are differentiable (almost everywhere), so that it can be optimized via gradient descent. Therefore, an ANN is differentiable.
+  \item The functions composing an artificial neural network are differentiable (almost everywhere), so that it can be optimized via gradient descent. Therefore, an ANN is differentiable (almost everywhere).
   \item In fact, any continuous function on a closed bounded domain can be approached within any error margin by an artificial neural network.
 
   \end{itemize}
@@ -979,7 +979,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
 
   \pause
 
-  We \textcolor{blue}{choose} a loss function $l$ and a family $f_{\param}$
+  We \textcolor{blue}{choose} a loss function $l$ and we \textcolor{blue}{choose} a family $f_{\param}$
   of functions from $\R^p$ into $\R$,
   depending on a set of parameters $\param$,
   and \textcolor{blue}{find} the value $\param ^{\ast}$ of $\param$
