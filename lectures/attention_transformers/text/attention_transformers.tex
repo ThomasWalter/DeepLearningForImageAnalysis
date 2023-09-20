@@ -92,7 +92,7 @@ A transformer is a neural network architecture module that allows the network to
 \pause
 
 \begin{alertblock}{Transformers today}
-  Nowadays, when people refer to the transformer, they generally mean the architecture proposed by Vaswani et al. in 2017~\cite{vaswani_attention_2017}.
+  Nowadays, when people refer to the transformer, they generally mean the architecture proposed by Vaswani \textit{et al.} in 2017~\cite{vaswani_attention_2017}.
 \end{alertblock}
 
 \end{frame}
@@ -298,6 +298,7 @@ Tasks:
 \subsection{Attention with deep learning}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Region proposal networks \cite{ren_faster_2015}}
 
@@ -418,7 +419,10 @@ Tasks:
       \begin{block}{The paper that started it all}
         Vaswani et al., Attention is all you need, Neurips 2017.
       \end{block}
-        This architecture was developed for text processing.
+      This architecture was developed for text processing.\\
+\vspace{2em}
+        NB: the first general differentiable attention mechanism was published in 2015~\cite{bahdanau_neural_2015}.
+
     \end{column}
 
     \begin{column}{.5\textwidth}
@@ -429,6 +433,7 @@ Tasks:
     \end{column}
 
   \end{columns}
+
 
 \end{frame}
 
@@ -551,42 +556,42 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Detection transformer}
+%% \subsection{Detection transformer}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{end_to_end_transformer}
-\end{figure}
-
-
-\begin{block}{Remarks}
-  \begin{itemize}
-  \item Convolutional layers are used to encode the image
-  \item After a $1 \times 1$ convolutional layers, each feature map is flattened and considered as an input for the transformer encoder
-  \item Decoder outputs are processed by a feed-forward network (FFN) to generate the box coordinates and label (possibly $\emptyset$).
-  \end{itemize}
-\end{block}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Results and comments}
-
-\begin{itemize}
-\item Similar accuracy and run-time performance to Faster R-CNN on the COCO object detection dataset
-\item Optimization was apparently difficult (extra losses, for instance)
-\end{itemize}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{detr_attention_scores}
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{end_to_end_transformer}
+%% \end{figure}
 
 
-\end{frame}
+%% \begin{block}{Remarks}
+%%   \begin{itemize}
+%%   \item Convolutional layers are used to encode the image
+%%   \item After a $1 \times 1$ convolutional layers, each feature map is flattened and considered as an input for the transformer encoder
+%%   \item Decoder outputs are processed by a feed-forward network (FFN) to generate the box coordinates and label (possibly $\emptyset$).
+%%   \end{itemize}
+%% \end{block}
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Results and comments}
+
+%% \begin{itemize}
+%% \item Similar accuracy and run-time performance to Faster R-CNN on the COCO object detection dataset
+%% \item Optimization was apparently difficult (extra losses, for instance)
+%% \end{itemize}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.8\textwidth]{detr_attention_scores}
+%% \end{figure}
+
+
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Vision transformer}
@@ -611,23 +616,24 @@ Tasks:
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{ViT results}
+\begin{frame}{ViT results}
 
-%% \begin{figure}[ht]
-%%   \centering
-%%   \includegraphics[width=\textwidth]{vit_table}
-%% \end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{vit_table}
+\end{figure}
 
-%% \begin{block}{Remarks}
-%%   \begin{itemize}
-%%   \item Models pre-trained on JFT-300M
-%%   \item Note the required processing power
-%%   \end{itemize}
+\begin{block}{Remarks}
+  \begin{itemize}
+  \item Models pre-trained on JFT-300M
+  \item Note the required processing power
+  \end{itemize}
 
-%% \end{block}
+\end{block}
 
-%% \end{frame}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -651,6 +657,8 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Shifted window transformer}
+
 \begin{frame}{Shifted window (SWIN) transformer~\cite{liu_swin_2021}}
 
 
@@ -712,10 +720,51 @@ Tasks:
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transformers chronology~\cite{amatriain_transformer_2023}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{02-09}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transformers for image segmentation}
+
+
+\begin{frame}{TransUNet~\cite{chen_transunet_2021}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{TransUNet}
+\end{figure}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Task: segment the rabbits that are in danger}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.4\textwidth]{DALLE2023-02-2311.39.20-An_eagle_flying_over_a_rabbit_photograph.png}
+  \includegraphics[width=0.4\textwidth]{DALLE2023-02-23-11.40.54-a_lonely_rabbit.png}
+    \source{Images generated by DALL.E2}
+\end{figure}
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Discussion}
@@ -769,12 +818,27 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Patches are all you need?~\cite{trockman_patches_2022}}
+%% \begin{frame}{Patches are all you need?~\cite{trockman_patches_2022}}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{conv_mixer}
+%% \end{figure}
+
+
+%% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{And the winner is ...}
+
+\pause
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{conv_mixer}
+  \includegraphics[width=0.8\textwidth]{convnext_vs_transformer}
 \end{figure}
+
+Competition is still ongoing~\cite{liu_convnet_2022}...
 
 
 \end{frame}
