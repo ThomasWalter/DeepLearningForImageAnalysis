@@ -120,7 +120,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Legal and ethical aspects}
+\section{Application examples from medical imaging}
 \frame{\frametitle{Overview}\tableofcontents[currentsection]}
 \begin{frame}{An example from  medical diagnostics: radiology}
 \begin{figure}[htb]
@@ -130,18 +130,18 @@
 \begin{itemize}
 \item<1-> Problem presented in an international challenge (won by Terapixel). 
 \item<2-> A Neural Networks trained on 640.000 images obtained an accuracy of 80\%. \
-\item<3-> Ownership: who owns the trained network? 
-\item<4-> Legal problem: who is responsible in case of a wrong diagnosis? 
+\item<3-> Problem ownership: who owns the trained network? 
+\item<4-> Problem responsibility: who is responsible in case of a wrong diagnosis? 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Skin cancer detection: false and real problems.}
+\begin{frame}{Skin cancer detection}
 \begin{figure}[htb]
 \includegraphics[width=0.6\textwidth]{../graphics/dermatology.pdf}
 \end{figure}
 \begin{itemize}
 \item<1-> A Neural Network trained on 127 000 images was shown to outperform 21 dermatologists (72\% accuracy vs. 66\%) \cite{Esteva2017} 
-\item<2-> Do we still need medical doctors for diagnosis? 
+\item<2-> Improving healthcare or mass layoff of medical doctors?
 \item<3-> Do the algorithms work equally well for different ethnic groups? 
 \end{itemize}
 \end{frame}
@@ -168,16 +168,32 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{AI for criminal risk assessment}
-\begin{figure}[htb]
-\includegraphics[width=0.5\textwidth]{../graphics/jail.jpg}
-\end{figure}
+\begin{frame}{Beyond the medical domain ... }
 \begin{itemize}
-\item<1-> Predict the likelihood of recidivism from the prisoners profile.
-\item<2-> Overall, the algorithms tend to outperform humans \cite{Lin2020}. 
-\item<3-> However, they might learn "racist" associations due to the statistical composition of the training set. 
+\item AI for criminal risk assessment: predicting the likelihood  from the prisoners profiles. Problem: learning "racist" associations.
+\item AI in autonomous driving: 
+\begin{itemize}
+	\item Individual cases versus overall performance
+	\item Responsibility in case of an accident
+	\item Moral hard-coding 
 \end{itemize}
+\item Generative Models for images: new tools for manipulations, mobbing, etc. 
+\item AI replacing humans: mass layouts? 
+\item $\ldots$
+\end{itemize}
+
 \end{frame}
+
+% \begin{frame}{AI for criminal risk assessment}
+% \begin{figure}[htb]
+% \includegraphics[width=0.5\textwidth]{../graphics/jail.jpg}
+% \end{figure}
+% \begin{itemize}
+% \item<1-> Predict the likelihood of recidivism from the prisoners profile.
+% \item<2-> Overall, the algorithms tend to outperform humans \cite{Lin2020}. 
+% \item<3-> However, they might learn "racist" associations due to the statistical composition of the training set. 
+% \end{itemize}
+% \end{frame}
 
 
 
@@ -409,9 +425,9 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Model evaluation }
+\begin{frame}{Model evaluation - ROC and F1}
 	\begin{figure}[htb]
-		\includegraphics[width=0.9\textwidth]{../graphics/ModelEvaluation.pdf}
+		\includegraphics[width=0.65\textwidth]{../graphics/ROC.pdf}
 	\end{figure}
 	\begin{itemize}	
 		\item To measure a compromise between precision and recall, one can also use the $F_1$-score:
@@ -419,6 +435,7 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 		F_1 = 2 \frac{\text{precision} \times \text{recall}}{\text{precision} + \text{recall}}
 		\end{equation}
 		\item Another popular metric is related to $ROC$-curves or precision-recall curves (AUC: area under the curve). 
+		\item The AUC is identical to the concordance index: the probability that $(+,-)$ pairs of samples are correctly ordered. 
 	\end{itemize}
 \end{frame}
 
