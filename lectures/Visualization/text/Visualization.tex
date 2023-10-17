@@ -87,7 +87,7 @@
 
 \begin{frame}{Filters in Neural Networks}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/CNN_FirstLayer.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/CNN_FirstLayer.png}
 \end{figure}
 In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in layer $l$ depends on the pixel values in layer $l-1$ within the receptive field of the filter $W^{l}_r$ across all channels. The pixel value $x^{l}_{r}(n,m)$ at position $n,m$ in the activation map $r$ in layer $l$ is\footnote{For simplicity, we do not consider downsampling.}: 
 \begin{equation}
@@ -97,7 +97,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 
 \begin{frame}{Filters in Neural Networks}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/CNN_FirstLayer.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/CNN_FirstLayer.png}
 \end{figure}
 \begin{itemize}
 	\item Each filter $W^l_r$ (filter $r$ in layer $l$) is thus a 3D tensor of values with dimension $d^{l-1}\times \nu^l\times \nu^l$ ($\nu$: filter width).
@@ -109,7 +109,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 
 \begin{frame}{Visualization of the first layer filters}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/Vis_filter_imagenet.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_filter_imagenet.png}
 \end{figure}
 \begin{itemize}
 	\item First layer filters obtained by the Alexnet in the Imagenet competition \cite{Krizhevsky:2012}. 
@@ -189,14 +189,14 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 % \begin{frame}{t-SNE map: example (localization patterns inside cells)}
 % \begin{figure}[htb]
 %   \centering
-%   \includegraphics[width=\textwidth]{../graphics/Vis_tsne.pdf}
+%   \includegraphics[width=\textwidth]{../graphics/Vis_tsne.png}
 % \end{figure}
 % \end{frame}
 
 \begin{frame}{t-SNE map: ImageNet}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet1.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet1.png}
   \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
 \end{figure}
 \end{frame}
@@ -204,7 +204,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \begin{frame}{t-SNE map: ImageNet}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet2.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet2.png}
   \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
 \end{figure}
 \end{frame}
@@ -212,7 +212,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \begin{frame}{t-SNE map: ImageNet}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet3.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_tsne_imagenet3.png}
   \source{adapted from \url{https://cs.stanford.edu/people/karpathy/cnnembed/}}
 \end{figure}
 \end{frame}
@@ -225,7 +225,7 @@ In Convolutional Neural Networks (CNN), a pixel value in activation map $r$ in l
 \begin{frame}{Saliency maps}
 	\begin{figure}[htb]
 	  \centering
-	  \includegraphics[width=\textwidth]{../graphics/Vis_saliency_map_principle.pdf}
+	  \includegraphics[width=\textwidth]{../graphics/Vis_saliency_map_principle.png}
 	\end{figure}
 \begin{itemize}
 	\item For each pixel in the input image we can calculate the derivative of the loss with respect to that pixel value \cite{Simonyan:2013}.
@@ -288,7 +288,7 @@ Sensitivity analysis: we can see which pixels would have most effect on the clas
 \begin{frame}{Class Activation Mapping (CAM)}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.9\textwidth]{../graphics/Vis_CAM_principle.pdf}
+  \includegraphics[width=.9\textwidth]{../graphics/Vis_CAM_principle.png}
   \source{adapted from \cite{Zhou:2016}}
 \end{figure}
 \begin{itemize}
@@ -331,7 +331,7 @@ where $N$ is the number of neurons in each feature map and $n$ the number of fea
 \begin{frame}{Class Activation Mapping (CAM) - Results}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.8\textwidth]{../graphics/Vis_CAM_Barbell.pdf}
+  \includegraphics[width=.8\textwidth]{../graphics/Vis_CAM_Barbell.png}
   \source{adapted from \cite{Zhou:2016}}
 \end{figure}
 We see that the CAM highlights the regions which are discriminative for the predicted class ("barbell"). 
@@ -340,7 +340,7 @@ We see that the CAM highlights the regions which are discriminative for the pred
 \begin{frame}{Class Activation Mapping (CAM) - Results}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.8\textwidth]{../graphics/Vis_CAM_Dome.pdf}
+  \includegraphics[width=.8\textwidth]{../graphics/Vis_CAM_Dome.png}
   \source{Image taken from  \cite{Zhou:2016}}
 \end{figure}
 We observe the variation of the CAM according to the predicted label. Here the correct label would have been "Dome". 
@@ -365,7 +365,7 @@ We observe the variation of the CAM according to the predicted label. Here the c
 \begin{frame}{Grad-CAM results}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.7\textwidth]{../graphics/Vis_GRADCAM_cat_and_dog.pdf}
+  \includegraphics[width=.7\textwidth]{../graphics/Vis_GRADCAM_cat_and_dog.png}
   \source{adapted from \cite{Selvaraju:2020}}
 \end{figure}
 Grad-CAM result for an image with double label ("tiger-cat" and "boxer"). 
@@ -374,7 +374,7 @@ Grad-CAM result for an image with double label ("tiger-cat" and "boxer").
 \begin{frame}{Grad-CAM results: counter-factual image regions}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.7\textwidth]{../graphics/Vis_GRADCAM_Counter.pdf}
+  \includegraphics[width=.7\textwidth]{../graphics/Vis_GRADCAM_Counter.png}
   \source{adapted from \cite{Selvaraju:2020}}
 \end{figure}
 Here, the authors investigated which regions would rather make the network change its prediction. This is simply done by inverting the sign: 
@@ -386,7 +386,7 @@ Here, the authors investigated which regions would rather make the network chang
 \begin{frame}{Grad-CAM results: spotting bias}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.6\textwidth]{../graphics/Vis_GRADCAM_bias.pdf}
+  \includegraphics[width=.6\textwidth]{../graphics/Vis_GRADCAM_bias.png}
   \source{adapted from \cite{Selvaraju:2020}}
 \end{figure}
 In \cite{Selvaraju:2020}, a neural network was trained to distinguish between two classes "Nurse" and "Doctor". 
@@ -408,7 +408,7 @@ The training set contained a gender bias. We see that the important regions diff
 \begin{frame}{Maximally activating images - Results}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.9\textwidth]{../graphics/Vis_dream.pdf}
+  \includegraphics[width=.9\textwidth]{../graphics/Vis_dream.png}
   \source{adapted from \cite{Simonyan:2014}}
 \end{figure}
 We observe various elements the network is trained to react on.
@@ -447,7 +447,7 @@ We observe various elements the network is trained to react on.
       \column{0.38\linewidth}
 		\begin{figure}[htb]
 				\centering
-				\includegraphics[width=3.5cm]{../graphics/Vis_looking_activation_maps.pdf}
+				\includegraphics[width=3.5cm]{../graphics/Vis_looking_activation_maps.png}
 		    \source{Image taken from \cite{Yosinski:2015}}
 		\end{figure}
 
@@ -466,7 +466,7 @@ We observe various elements the network is trained to react on.
 \begin{frame}{Mapping activation maps to the original pixel space}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.7\textwidth]{../graphics/Vis_activationmaps_zero.pdf}
+  \includegraphics[width=.7\textwidth]{../graphics/Vis_activationmaps_zero.png}
 \end{figure}
 \begin{itemize}
 	\item We would also like to understand which patterns in the original image are important for a particular activation map.
@@ -490,7 +490,7 @@ We observe various elements the network is trained to react on.
 \begin{frame}{How to map activities back to input pixel space}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=.96\textwidth]{../graphics/Vis_unpooling2.pdf}
+  \includegraphics[width=.96\textwidth]{../graphics/Vis_unpooling2.png}
   \source{Image taken from \cite{Zeiler:2013}}
 \end{figure}
 % {\bf Unpooling:} 
@@ -512,7 +512,7 @@ We observe various elements the network is trained to react on.
 \begin{frame}{Visualization of image features for layer 2 activation maps}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_Layer2_activationmaps.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_Layer2_activationmaps.png}
 \end{figure}
 The top 9 activation maps with the strongest signal across the validation set for layer 2. \\
 Layer 2 features are slightly more complex patterns (corners, bended contours, color combinations) than in layer 1, but still relatively basic.
@@ -530,7 +530,7 @@ Higher Level features: faces, text, geometrical features.
 \begin{frame}{Visualization of image features for layer 5 activation maps}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps.png}
 \end{figure}
 The top 9 projected activation maps for layer 5 across the validation set. \\
 e.g. faces: contours, hair, nose ... 
@@ -539,7 +539,7 @@ e.g. faces: contours, hair, nose ...
 \begin{frame}{Visualization of image features for layer 5 activation maps}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps_c.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps_c.png}
 \end{figure}
 Here, we observe an eye detector and a wheel detector. \\
 The image analysis community has developed many algorithms for eye detection; here the detection is implicit.
@@ -548,7 +548,7 @@ The image analysis community has developed many algorithms for eye detection; he
 \begin{frame}{Visualization of image features for layer 5 activation maps}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps_b.pdf}
+  \includegraphics[width=\textwidth]{../graphics/Vis_Layer5_activationmaps_b.png}
 \end{figure}
 \begin{itemize}
 \item <1-> Sometimes, the results can be surprising ... (top right)
@@ -559,8 +559,8 @@ The image analysis community has developed many algorithms for eye detection; he
 \begin{frame}{Image features during training across different layers}
 \begin{figure}[htb]
   \centering
-  \subfloat{\includegraphics[height=.3\textheight]{../graphics/Vis_activationmaps_training1.pdf}}\\  
-  \subfloat{\includegraphics[height=.3\textheight]{../graphics/Vis_activationmaps_training2.pdf}} 
+  \subfloat{\includegraphics[height=.3\textheight]{../graphics/Vis_activationmaps_training1.png}}\\  
+  \subfloat{\includegraphics[height=.3\textheight]{../graphics/Vis_activationmaps_training2.png}} 
 \end{figure}
 \begin{itemize}
 	\item <1-> Image features for activation maps depending on epochs. What do you observe?
@@ -576,7 +576,7 @@ The image analysis community has developed many algorithms for eye detection; he
 % For a given activation map, we will find the "preferred" image, i.e. the image that would 
 % \begin{figure}[htb]
 %   \centering
-%   \includegraphics[width=\textwidth]{../graphics/Vis_activationmaps_training.pdf}
+%   \includegraphics[width=\textwidth]{../graphics/Vis_activationmaps_training.png}
 % \end{figure}
 % \end{frame}
 
@@ -608,13 +608,23 @@ The image analysis community has developed many algorithms for eye detection; he
 
 \begin{frame}{Convexity}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/Vis_convexity.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_convexity.png}
 \end{figure}
 \begin{itemize}
 	\item Convex optimization functions: only one local minimum (which is also the global minimum). 
 	\item In neural networks, the loss is often not convex. 
 	\item The shape of the loss is very important for the success of the optimization. 
 	\item How can we visualize the loss w.r.t $\sim10^6$ parameters? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The sharpness of a minimum}
+\begin{figure}[htb]
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_sharpness.png}
+\end{figure}
+\begin{itemize}
+	\item Sharpness of a minimum: the intuition is that sharp minima are hard to find and less robust. 
+	\item Can we use visualization in order to assess the sharpness of a minimum? 
 \end{itemize}
 \end{frame}
 
@@ -634,15 +644,6 @@ The image analysis community has developed many algorithms for eye detection; he
 \end{itemize}
 \end{frame}
 
-\begin{frame}{The sharpness of a minimum}
-\begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/Vis_sharpness.pdf}
-\end{figure}
-\begin{itemize}
-	\item Sharpness of a minimum: the intuition is that sharp minima are hard to find and less robust. 
-	\item Can we use visualization in order to assess the sharpness of a minimum? 
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Scale invariance and filter-wise normalization}
 \begin{itemize}
@@ -663,7 +664,7 @@ The image analysis community has developed many algorithms for eye detection; he
 
 \begin{frame}{Example: effect of deeper networks}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/Vis_resnet_without_skip_2d.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_resnet_without_skip_2d.png}
 \caption{Resnet architecture without skip connections (varying depth)}
 \source{From \cite{Li:2018}}
 \end{figure}
@@ -676,7 +677,7 @@ The image analysis community has developed many algorithms for eye detection; he
 
 \begin{frame}{Example: importance of skip-layers}
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{../graphics/Vis_resnet_with_skip_2d.pdf}
+\includegraphics[width=0.9\textwidth]{../graphics/Vis_resnet_with_skip_2d.png}
 \caption{Resnet architecture with skip connections (varying depth)}
 \source{From \cite{Li:2018}}
 \end{figure}
@@ -690,8 +691,8 @@ The image analysis community has developed many algorithms for eye detection; he
 \begin{frame}{More examples for the importance of skip-layers}
 \begin{figure}[htb]
   \centering
-  \subfloat{\includegraphics[width=0.7\textwidth]{../graphics/Vis_resnet_comparison_3d.pdf}}\\
-  \subfloat{\includegraphics[width=0.7\textwidth]{../graphics/Vis_resnet_comparison2_3d.pdf}} 
+  \subfloat{\includegraphics[width=0.7\textwidth]{../graphics/Vis_resnet_comparison_3d.png}}\\
+  \subfloat{\includegraphics[width=0.7\textwidth]{../graphics/Vis_resnet_comparison2_3d.png}} 
   \source{From \cite{Li:2018}}
 \end{figure}
 \end{frame}
