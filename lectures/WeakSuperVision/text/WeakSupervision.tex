@@ -405,8 +405,8 @@ Each "pixel" in feature map $FCb$ is thus the score vector for an input region. 
 \begin{frame}{Application example: histopathology}
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=0.9\textwidth]{../graphics/wsl_histo.pdf}
-   \caption{Example for WSL for tumor detection. Image provided by Peter Naylor.}
+   \includegraphics[width=0.9\textwidth]{../graphics/histo_ex2.pdf}
+   \caption{Example for MIL: classification of large images in histology.}
 \end{figure}
 \begin{itemize}
 \item Histopathology images are extremely big.
@@ -420,9 +420,21 @@ Each "pixel" in feature map $FCb$ is thus the score vector for an input region. 
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.6\textwidth]{../graphics/wsl_example_histopathology.pdf}
-   \caption{Example for WSL for tumor detection. Image adapted from \cite{courtiolClassificationDiseaseLocalization2017}}
+   \caption{Example for MIL for tumor detection. Image adapted from \cite{courtiolClassificationDiseaseLocalization2017}}
 \end{figure}
 Here, \cite{courtiolClassificationDiseaseLocalization2017} use the WELDON algorithm to detect metastases. Only global annotation is used. The results are on par with classification / detection algorithms trained on detailed annotation. 
+\end{frame}
+
+\begin{frame}{An alternative to standard MIL based on attentions}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.9\textwidth]{../graphics/histo_ex3.pdf}
+   \caption{Attention-based approach for histology image classification.}
+\end{figure}
+\begin{itemize}
+\item Attention scores are predicted from the tile images.
+\item The slide representation is the weighted sum of the tiles. 
+\end{itemize}
 \end{frame}
 
 
