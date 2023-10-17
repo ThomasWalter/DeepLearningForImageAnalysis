@@ -69,7 +69,13 @@
 \begin{itemize}
 \item Manual image annotation is annoying.
 \item Manual image annotation is expensive.
-\item We need to address the need for massive image data sets, either by avoiding massive annotation or by making annotation cheap.
+\item Sometimes it is impossible to get a lot of annotated data.
+\item We need to address the need for massive image data sets by
+\begin{itemize}
+   \item using cheap annotations.
+   \item using different (abundant) annotated data.
+   \item using unlabeled data.
+\end{itemize}
 \end{itemize}
 %\vspace{-.5cm}
 \end{frame}
@@ -77,34 +83,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Strategies}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
 
-\begin{frame}{Two main strategies to overcome massive image annotation}
-\begin{enumerate}
-   \item Use cheap annotations. 
-   \item Use different annotations. 
-\end{enumerate}
-\vspace{2cm}
-Please note:
-\begin{itemize}
-   \item We always need to consider what exactly we aim at predicting (e.g. the value of a pixel or the class of an image)
-   \item For instance, in segmentation, annotations are expensive at the image level, but not at the pixel level: a single stroke annotates hundreds of pixels. 
-\end{itemize}
-\end{frame}
+% \begin{frame}{Two main strategies to overcome massive image annotation}
+% \begin{enumerate}
+%    \item Use cheap annotations. 
+%    \item Use different annotations. 
+% \end{enumerate}
+% \vspace{2cm}
+% Please note:
+% \begin{itemize}
+%    \item We always need to consider what exactly we aim at predicting (e.g. the value of a pixel or the class of an image)
+%    \item For instance, in segmentation, annotations are expensive at the image level, but not at the pixel level: a single stroke annotates hundreds of pixels. 
+% \end{itemize}
+% \end{frame}
 
-\begin{frame}{Image segmentation: cheap annotations?}
-\begin{figure}[htb]
-   \centering
-   \includegraphics[width=0.7\textwidth]{../graphics/segmentation.pdf}
-   \caption{Segmentation is tedious, but provides rapidly many samples.}
-\end{figure}
-\begin{itemize}
-   \item Providing pixel-level annotations is extremely tedious.
-   \item But as we are classifying pixels, we can rapidly provide hundreds of thousands of samples. 
-   \item In practice however, we need to \textbf{cover the variability} to be expected at prediction time. 
-   \item For this reason, we still need a reasonable amount of images (depending on the variability). 
-\end{itemize}
-%\vspace{-.5cm}
-\end{frame}
+% \begin{frame}{Image segmentation: cheap annotations?}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{../graphics/segmentation.pdf}
+%    \caption{Segmentation is tedious, but provides rapidly many samples.}
+% \end{figure}
+% \begin{itemize}
+%    \item Providing pixel-level annotations is extremely tedious.
+%    \item But as we are classifying pixels, we can rapidly provide hundreds of thousands of samples. 
+%    \item In practice however, we need to \textbf{cover the variability} to be expected at prediction time. 
+%    \item For this reason, we still need a reasonable amount of images (depending on the variability). 
+% \end{itemize}
+% %\vspace{-.5cm}
+% \end{frame}
 
 \begin{frame}{Massive image annotation by crowd sourcing}
 \begin{figure}[htb]
@@ -169,8 +176,8 @@ Please note:
 \begin{frame}{Learning from simulated data}
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=0.95\textwidth]{../graphics/data_simulation.pdf}
-   \caption{Simulated RNA localization in cells}
+   \includegraphics[width=0.95\textwidth]{../graphics/simulation_example.pdf}
+   \caption{Two examples for learning from simulated data. Images from \cite{Kang2019} and \cite{Shrivastava2017}.}
 \end{figure}
 \begin{itemize}
    \item Simulation of large amounts of data with known ground truth. 
