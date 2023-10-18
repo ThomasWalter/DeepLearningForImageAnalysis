@@ -191,8 +191,8 @@
 \begin{frame}{Learning from other datasets / other tasks}
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=0.95\textwidth]{../graphics/transfer_learning.pdf}
-   \caption{Image representations for transfer learning. Image adapted from \cite{Iandola:2017}}
+   \includegraphics[width=0.65\textwidth]{../graphics/vgg16.png}
+   \caption{Image representations for transfer learning.}
 \end{figure}
 \begin{itemize}
    \item Train a network on large annotated image bases.
@@ -205,7 +205,6 @@
 \end{itemize}
 %\vspace{-.5cm}
 \end{frame}
-
 
 \begin{frame}{Subject of today}
 In this lecture, we will learn about three strategies to address the problem of massive datasets required for training of deep neural networks:
@@ -314,7 +313,26 @@ s(u,v) = \frac{u^Tv}{\|u\|\|v\|}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{The Multiple Instance Learning framework (MIL)}
+\begin{frame}{Multiple Instance Learning (MIL): example}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.8\textwidth]{../graphics/MIL_example_keys.pdf}
+   \caption{Principle of Multiple Instance Learning. Image taken from \cite{Babenko}}
+\end{figure}
+\begin{itemize}
+\item Key-example: we are given a number of persons each of which has several keys. You are just given the information who is able to open the door. 
+\item Examples:
+\begin{itemize}
+   \item Video tags without frame annotation
+   \item Medical imaging: image is positive in the presence of a lesion
+   \item Marketing: campaign sent out to a group of people
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Multiple Instance Learning framework (MIL)}
 \begin{itemize}
 \item MIL deals with problems with incomplete knowledge of labels in training sets.
 \item MIL assumes that instead of disposing of individual labels $y_i$ for each sample $x_i$, we only have labels for subsets of samples, called "bags": 
@@ -323,11 +341,6 @@ T &=& \{(B_i, y_i)\} \nonumber \\
 B_i &=& \{x_j\}
 \end{eqnarray}
 \item A bag is positively labeled if at least one instance in it is positive, and is negatively labeled if all instances in it are negative.
-\item Examples:
-\begin{itemize}
-   \item An image is labeled as "contains humans", if at least one region contains a human.
-   \item A tissue slide is labeled cancerous, if at least one region is cancerous. 
-\end{itemize}
 \end{itemize}
 \end{frame}
 
