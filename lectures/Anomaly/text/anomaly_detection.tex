@@ -34,11 +34,11 @@
 
 \title{Unsupervised anomalous image detection}
 \author{E. Decencière}
-\date{MINES ParisTech\\
+\date{Mines Paris\\
   PSL Research University\\
   Center for Mathematical Morphology
 }
-\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+\titlegraphic{\includegraphics[height=2cm]{../graphics/logoemp}}
 
 \useinnertheme{rounded}
 \usecolortheme{rose}
@@ -59,8 +59,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
+\begin{frame}{Lesson material}
+
+\begin{block}{}
+\url{https://colibris.link/SfBv7}
+\end{block}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Diabetic retinopathy screening}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Diabetic retinopathy screening in fundus images}
 
   \begin{columns}
     \begin{column}{.5\textwidth}
@@ -368,7 +378,7 @@ Discrepancy between an observation and a model motivates new research.
 \begin{frame}{Euclid project}
 
   \begin{itemize}
-  \item A new space telescope, to be launched in 2023
+  \item A new space telescope
   \item Its objective is improving our understanding of the acceleration of the universe expansion
   \item To do so, the shapes of galaxies at different distances from the earth will be measured
   \item An estimated $10^{10}$ extra galactic objects will be acquired by the telescope
@@ -581,7 +591,7 @@ Discrepancy between an observation and a model motivates new research.
 \begin{alertblock}{This graphical representation is misleading}
 
 \begin{itemize}
-\item If we equip our set with some kind of topology, there is hardly any reason for $\mathcal{X}$ or $\mathcal{N}$ to be connected. For $\Omega$ connection could be application dependant...
+\item If we equip our set with some kind of topology, there is hardly any reason for $\mathcal{X}$ or $\mathcal{N}$ to be connected.
 \item We do not know anything about the relative sizes of the sets, but of course $|\mathcal{X}| << |\mathcal{N}|$.
 \end{itemize}
 
@@ -647,6 +657,7 @@ Discrepancy between an observation and a model motivates new research.
   \begin{alertblock}{GANs: interesting candidates to tackle this problem}
     Generative Adversarial networks train a \alert{generator} thanks to a \alert{discriminator} (and vice-versa).
   \end{alertblock}
+  Today diffusion models are an interesting alternative.
 
 \pause
 
@@ -837,20 +848,6 @@ $\mathcal{Z}$, the representation space, is often called \alert{latent} space.
   \end{block}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Practical session}
-
-\begin{alertblock}{}
-  ae.ipynb
-\end{alertblock}
-
-\begin{block}{}
-\url{https://colibris.link/SfBv7}
-\end{block}
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on autoencoders for anomaly detection}
@@ -1066,17 +1063,17 @@ $\mathcal{Z}$, the representation space, is often called \alert{latent} space.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Practical work}
+%% \begin{frame}{Practical work}
 
-\begin{alertblock}{}
-  bigan\_anomaly.ipynb
-\end{alertblock}
+%% \begin{alertblock}{}
+%%   bigan\_anomaly.ipynb
+%% \end{alertblock}
 
-\begin{block}{}
-\url{https://colibris.link/SfBv7}
-\end{block}
+%% \begin{block}{}
+%% \url{https://colibris.link/SfBv7}
+%% \end{block}
 
-\end{frame}
+%% \end{frame}
 
 
 
@@ -1170,6 +1167,19 @@ $\mathcal{Z}$, the representation space, is often called \alert{latent} space.
 
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Anomaly score}
+
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{multivariate_gaussian}
+  \end{figure}
+  \source{Ben FrantzDale, Wikipedia}
+
+\end{frame}
+
 
 
 
