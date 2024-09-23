@@ -572,10 +572,12 @@
   \begin{block}{}
     \centering
    \includegraphics[width=0.6\textwidth]{comp_graph2}\\
-   \end{block}
+  \end{block}
+
+  \pause
 
   \begin{block}{Definition}
-    A computational graph is an acyclic direct graph such that:
+    A computational graph is an acyclic directed graph such that:
     \begin{itemize}
     \item A node is a mathematical operator
     \item To each edge is associated a value
@@ -661,12 +663,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Feed-forward neural networks}
+  \frametitle{Network layers}
 
   \begin{block}{Definition}
     \begin{itemize}
-    \item A feed-forward neural network is a NN without cycles
-    \item Neurons are organized in \alert{layers}
+    \item Neurons are usually organized in \alert{layers}
     \item Any layers other than input and output layers are called \alert{hidden layers}
     \end{itemize}
 
@@ -681,7 +682,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{
-  \frametitle{Feed-forward neural networks}
+  \frametitle{Other types of neural networks}
 
   \begin{alertblock}{}
     In the following of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.

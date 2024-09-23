@@ -49,7 +49,6 @@
 
 %% \end{frame}
 
-
 %% édition
 %% (pas de mot de passe) / lien vers l'éditeur de quiz
 %% http://www.quizzoodle.com/quizz/editor/9191b836f17f443a997bcbe08755b2de
@@ -64,11 +63,11 @@
 
 \title{Convolutional neural networks}
 \author{E. Decencière}
-\date{MINES ParisTech\\
+\date{Mines Paris -- PSL\\
   PSL Research University\\
   Center for Mathematical Morphology
 }
-\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+\titlegraphic{\includegraphics[height=2cm]{../graphics/logoemp}}
 
 \useinnertheme{rounded}
 \usecolortheme{rose}
@@ -690,7 +689,7 @@
 \begin{quizzblock}{Why is one-hot encoding used, instead of integers?}
   \begin{itemize}
   \item[1/ ] The network performs better in the $[0,1]$ range
-  \item[2/ ] One-hot encoding makes the labels symmetric, i.e. permutation invariant.
+  \item[2/ ] One-hot encoding makes the labels symmetric, i.e. permutation equivariant.
   \end{itemize}
 \end{quizzblock}
 
@@ -733,7 +732,7 @@
   \mode<beamer>{
     \begin{itemize}
     \item Using integers to represent the labels would bring an \alert{inductive bias} into the model: there will be an explicit order between the labels.
-    \item Using one-hot encoding, we make the labels permutation invariant
+    \item Using one-hot encoding, we make the labels permutation equivariant
   \end{itemize}}
 
 \end{frame}
@@ -745,12 +744,8 @@
   Different activations (typically ReLU) can be used in the intermediate layers.
   \vspace{1em}
 
-  Concerning the last layer: Given that the aim is a vector containing zeros except for a one, two designs are commonly used:
+  Concerning the last layer: Given that the aim is a vector containing zeros except for a one, a \emph{softmax} operator is used as last layer.
 
-  \begin{itemize}
-  \item Use a sigmoid as last activation
-  \item Last layer: a softmax operator
-  \end{itemize}
 
 \end{frame}
 
@@ -1489,7 +1484,7 @@ How many parameters would the corresponding convolutional layer contain?
 
   \pause
 
-  Note however a current trend that consists in using convolutional layers with a stride of 2
+  Note however that the preferred approach today is to use convolutional layers with a stride of 2
 
 }
 
