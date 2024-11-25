@@ -50,7 +50,7 @@
 
 \title{Fully convolutional neural networks}
 \author{E. Decencière}
-\date{MINES ParisTech\\
+\date{Mines Paris\\
   PSL Research University\\
   Center for Mathematical Morphology
 }
@@ -113,7 +113,6 @@
   \begin{block}{Definition}
  Here an image is a 2D array of size $p \times q$. Each array element belongs to $\R^d$. The dimension of the value space $d$, is often called the \alert{number of channels} of the image.
 
-      The set of these images is noted $\mathcal{I}^d$.
   \end{block}
 
   \begin{block}{Examples}
@@ -152,13 +151,9 @@
   \frametitle{Image-to-image translation}
 
   \begin{block}{Definition: image-to-image translation}
-    An image-to-image operator is a function that transforms an image into another image of same size:
-    \vspace{-1em}
-    \begin{align*}
-      F: \, \mathcal{I}^{d_1} & \longrightarrow \mathcal{I}^{d_2} \\
-      I &  \longmapsto     J
-    \end{align*}
-    Note that the number of channels of input and output images can be different.
+    An image-to-image operator is a function that transforms an image into another image.
+
+    The number of channels and the spatial sizes of input and output images can be different.
   \end{block}
 
       \begin{figure}
@@ -208,7 +203,6 @@
       \includegraphics[width=\textwidth]{lazard}
       \source{Tristan Lazard, master thesis. Images: L'Oréal.}
     \end{figure}
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -298,7 +292,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{From classification nets to image-to-image nets}
+\begin{frame}{From classification to image-to-image translation}
 
       \begin{figure}
       \includegraphics[width=0.5\textwidth]{image_classif.png}
@@ -971,7 +965,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \begin{itemize}
   \item These architectures easily contain a number of parameters of the order of $10^7$ (28 million for U-Net)
   \item Their optimization might be difficult
-  \item But you can reduce the number of filters or the number of layers
+  \item Depending on the complexity of the segmentation task, the number of filters or the number of layers can be reduced
 
   \end{itemize}
 
@@ -1466,7 +1460,6 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
   \item Progress in image segmentation since 2012 has been enormous
   \item Several complex problems have now satisfactory solutions
   \item Training can be a problem (large annotated databases, difficult optimization)
-  \item There are still challenges ahead...
   \end{itemize}
 
 }

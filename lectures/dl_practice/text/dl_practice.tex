@@ -1,6 +1,8 @@
 \documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
+\usepackage{multirow}
+\usepackage[export]{adjustbox}
 
 \graphicspath{{../graphics/}}
 
@@ -33,7 +35,7 @@
 
 \title{Deep learning in practice}
 \author{E. Decencière}
-\date{MINES ParisTech\\
+\date{Mines Paris\\
   PSL Research University\\
   Center for Mathematical Morphology
 }
@@ -130,7 +132,7 @@
       \item Regression or classification?
       \item Output format?
       \end{itemize}
-    \item Define an evaluation procedure
+    \item Define a validation procedure
     \end{itemize}
 
 
@@ -231,8 +233,8 @@
 \begin{frame}{Performance evaluation}
 
   \begin{itemize}
-  \item Choose the right metrics and try to use a loss function that is as close as possible to these metrics
   \item Define an objective
+  \item Choose the right metrics and try to use a loss function that is as close as possible to these metrics
   \end{itemize}
 
 \end{frame}
@@ -299,6 +301,10 @@
 
   \begin{itemize}
   \item Deep learning models tend to be robust with respect to ground-truth errors
+    \begin{itemize}
+    \item if they are not too frequent
+    \item and if they are not systematic.
+    \end{itemize}
   \item In the case of segmentation, you do not need a pixel-precision high quality segmentation \cite{heller_imperfect_2018}
   \end{itemize}
 
@@ -417,7 +423,7 @@ Plankton classification: hundred classes - a few dozen examples per class.
   \begin{itemize}[<+->]
   \item Begin with a standard architecture
     \begin{itemize}
-    \item Classification problem: VGG, ResNet...
+    \item Classification problem: ResNet, ViT ...
     \item Semantic segmentation or image transformation problem: U-Net
     \item Instance segmentation: Mask R CNN
     \end{itemize}
@@ -563,6 +569,7 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Types of transfer learning: transductive}
 
@@ -581,35 +588,49 @@ Transfer learning from $(D_S, T_s)$ to $(D_T, T_T)$, where $D_S \neq D_T$ or $T_
 
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Types of transfer learning: transductive homogeneous}
+\begin{frame}{Example of domain shift}
 
-\begin{figure}[ht]
+
+  \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.6\textwidth]{tl_0}\\
-  Initial configuration\\
-  \vspace{2em}
-  \includegraphics[width=0.6\textwidth]{tl_transductive_homo}\\
-  Transductive homogeneous transfer learning
+  \includegraphics[width=\textwidth]{camelyon_samples}\\
+  Images from the Camelyon dataset~\cite{litjens_1399_2018}
 \end{figure}
 
 
 \end{frame}
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Types of transfer learning: transductive heterogeneous}
+%% \begin{frame}{Types of transfer learning: transductive homogeneous}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{tl_0}\\
-  Initial configuration\\
-  \vspace{2em}
-  \includegraphics[width=0.6\textwidth]{tl_transductive_hete}\\
-  Transductive heterogeneous transfer learning
-\end{figure}
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.6\textwidth]{tl_0}\\
+%%   Initial configuration\\
+%%   \vspace{2em}
+%%   \includegraphics[width=0.6\textwidth]{tl_transductive_homo}\\
+%%   Transductive homogeneous transfer learning
+%% \end{figure}
 
-\end{frame}
+
+%% \end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Types of transfer learning: transductive heterogeneous}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=0.6\textwidth]{tl_0}\\
+%%   Initial configuration\\
+%%   \vspace{2em}
+%%   \includegraphics[width=0.6\textwidth]{tl_transductive_hete}\\
+%%   Transductive heterogeneous transfer learning
+%% \end{figure}
+
+%% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Transfer learning through fine-tuning}
@@ -738,6 +759,85 @@ The authors devised experiments on the ImageNet database in order to evaluate di
 \end{itemize}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unsupervised domain adaptation}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{ganin_images}
+    \source{\cite{ganin_unsupervised_2015}}
+  \end{figure}
+
+  The labels of the source domain are known, but not those of the source domain. How to proceed ?
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example method~\cite{ganin_unsupervised_2015}}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{ganin_method}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results}
+
+    \begin{figure}[ht]
+    \includegraphics[width=0.83\textwidth, right]{ganin_images}
+  \end{figure}
+
+  \scriptsize
+\begin{table}[]
+\begin{tabular}{lr||c|c|c|c}
+  \multirow{2}{*}{Method} & Source  & MNIST   & SYN NUMBERS &  SVHN  & SYN SIGNS \\
+                          & Target &  MNIST-M &  SVHN       &  MNIST & GTSRB      \\ \hline
+\multicolumn{2}{l||}{Source only} & 0.575 & 0.867 & 0.592 & 0.740 \\
+\multicolumn{2}{l||}{Proposed approach} & 0.815 & 0.905 & 0.711 & 0.887 \\
+\multicolumn{2}{l||}{Train on target} & 0.989 & 0.924 & 0.995 & 0.998
+\end{tabular}
+\end{table}
+\source{\cite{ganin_unsupervised_2015}}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Related subjects}
+
+  \begin{itemize}
+  \item Foundation models
+\pause
+\begin{block}{Definition~\cite{bommasani_opportunities_2022}}
+  ``A \alert{foundation model} is any model that is trained on broad data (generally using self-supervision at scale) that can be adapted (e.g., fine-tuned) to a wide range of downstream tasks.''
+\end{block}
+\pause
+  \item Model distillation
+  \end{itemize}
+
+
+
+
+
+\end{frame}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Examples}
+
+%%   \begin{itemize}
+%%   \item Some large language model families: GPT, LlaMA, Mistral
+%%   \item Computer vision model families: Segment Anything Model, DINO
+%%   \end{itemize}
+%% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
