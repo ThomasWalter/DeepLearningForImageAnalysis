@@ -1,3 +1,43 @@
+@inproceedings{Doersch2015,
+  title = {Unsupervised {{Visual Representation Learning}} by {{Context Prediction}}},
+  booktitle = {2015 {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Doersch, Carl and Gupta, Abhinav and Efros, Alexei A.},
+  year = {2015},
+  month = dec,
+  pages = {1422--1430},
+  publisher = {IEEE},
+  address = {Santiago, Chile},
+  doi = {10.1109/ICCV.2015.167},
+  urldate = {2024-11-04},
+  abstract = {This work explores the use of spatial context as a source of free and plentiful supervisory signal for training a rich visual representation. Given only a large, unlabeled image collection, we extract random pairs of patches from each image and train a convolutional neural net to predict the position of the second patch relative to the first. We argue that doing well on this task requires the model to learn to recognize objects and their parts. We demonstrate that the feature representation learned using this within-image context indeed captures visual similarity across images. For example, this representation allows us to perform unsupervised visual discovery of objects like cats, people, and even birds from the Pascal VOC 2011 detection dataset. Furthermore, we show that the learned ConvNet can be used in the RCNN framework [19] and provides a significant boost over a randomly-initialized ConvNet, resulting in state-of-theart performance among algorithms which use only Pascalprovided training set annotations.},
+  isbn = {978-1-4673-8391-2},
+  langid = {english},
+  file = {/Users/twalter/Zotero/storage/SMRDWGDE/Doersch et al. - 2015 - Unsupervised Visual Representation Learning by Con.pdf}
+}
+
+@article{Vincent,
+  title = {Stacked {{Denoising Autoencoders}}: {{Learning Useful Representations}} in a {{Deep Network}} with a {{Local Denoising Criterion}}},
+  author = {Vincent, Pascal and Larochelle, Hugo and Lajoie, Isabelle and Bengio, Yoshua and Manzagol, Pierre-Antoine},
+  abstract = {We explore an original strategy for building deep networks, based on stacking layers of denoising autoencoders which are trained locally to denoise corrupted versions of their inputs. The resulting algorithm is a straightforward variation on the stacking of ordinary autoencoders. It is however shown on a benchmark of classification problems to yield significantly lower classification error, thus bridging the performance gap with deep belief networks (DBN), and in several cases surpassing it. Higher level representations learnt in this purely unsupervised fashion also help boost the performance of subsequent SVM classifiers. Qualitative experiments show that, contrary to ordinary autoencoders, denoising autoencoders are able to learn Gabor-like edge detectors from natural image patches and larger stroke detectors from digit images. This work clearly establishes the value of using a denoising criterion as a tractable unsupervised objective to guide the learning of useful higher level representations.},
+  langid = {english},
+  file = {/Users/twalter/Zotero/storage/LE2V3BX3/Vincent et al. - Stacked Denoising Autoencoders Learning Useful Re.pdf}
+}
+
+@article{He2020,
+  title = {Momentum {{Contrast}} for {{Unsupervised Visual Representation Learning}}},
+  author = {He, Kaiming and Fan, Haoqi and Wu, Yuxin and Xie, Saining and Girshick, Ross},
+  year = {2020},
+  month = mar,
+  journal = {arXiv:1911.05722 [cs]},
+  eprint = {1911.05722},
+  primaryclass = {cs},
+  urldate = {2021-03-17},
+  abstract = {We present Momentum Contrast (MoCo) for unsupervised visual representation learning. From a perspective on contrastive learning [29] as dictionary look-up, we build a dynamic dictionary with a queue and a moving-averaged encoder. This enables building a large and consistent dictionary on-the-fly that facilitates contrastive unsupervised learning. MoCo provides competitive results under the common linear protocol on ImageNet classification. More importantly, the representations learned by MoCo transfer well to downstream tasks. MoCo can outperform its supervised pre-training counterpart in 7 detection/segmentation tasks on PASCAL VOC, COCO, and other datasets, sometimes surpassing it by large margins. This suggests that the gap between unsupervised and supervised representation learning has been largely closed in many vision tasks.},
+  archiveprefix = {arXiv},
+  langid = {english},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/Users/twalter/Zotero/storage/IRWTD9D9/He et al. - 2020 - Momentum Contrast for Unsupervised Visual Represen.pdf}
+}
 
 @article{ImageNet:2015,
 Author = {Olga Russakovsky and Jia Deng and Hao Su and Jonathan Krause and Sanjeev Satheesh and Sean Ma and Zhiheng Huang and Andrej Karpathy and Aditya Khosla and Michael Bernstein and Alexander C. Berg and Li Fei-Fei},

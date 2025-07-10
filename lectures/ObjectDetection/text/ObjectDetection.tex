@@ -426,7 +426,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \item First, the image is divided into a $S \times S$ grid of cells. 
    \item For each of these cells, we will then predict:
    \begin{itemize}
-      \item Location and size of $B$ different boxes 
+      \item Location and size of $B$ different boxes whose center falls into the cell. 
       \item A confidence score that the box contains an object. 
       \item The class of the object in each of the $B$ boxes. 
    \end{itemize}
@@ -444,7 +444,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \item First, the image is divided into a $S \times S$ grid of cells. 
    \item For each of these cells, we will then predict:
    \begin{itemize}
-      \item Location and size of $B$ different boxes. 
+      \item Location and size of $B$ different boxes whose center falls into the cell. 
       \item A confidence score that the box contains an object. 
       \item The class of the object in each of the $B$ boxes. 
    \end{itemize}
@@ -482,11 +482,11 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
       \item Center $(x, y)$ with respect to the origin of the cell.
       \item The relative width and height: $w$, $h$ (normalized by image width and height). 
    \end{itemize}
-   \item The confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
+   \item At training time, the confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
    \begin{equation}\nonumber
       Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
    \end{equation}
-   where $B_i$ is the ground truth bounding box. 
+   where $B_i$ is the ground truth bounding box and $P(Obj)$ the probability that $\hat{B}_i$ contains an object.
    \item At test time the confidence values $Conf_i$ are predicted (together with the bounding box geometry). 
 \end{itemize}
 \end{frame}
@@ -530,6 +530,14 @@ This is the number of output variables we would predict.
 The method is extremely fast. Localization is less precise than for Faster R-CNN. 
 \end{frame}
 
+\begin{frame}{Limitations}
+\begin{itemize}
+   \item Each grid cell can contain only one class.
+   \item Each grid cll can contain only $B$ bounding boxes (problems in crowded environments). 
+   \item Small errors in small boxes is worse than small errors in large boxes.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{More on YOLO}
 \begin{itemize}
    \item YOLO has today many versions, some developed by companies (such as YOLO v5 and YOLO v8)
@@ -544,18 +552,18 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Backbone, Head and Neck}
-\begin{figure}[htb]
-   \centering
-   \includegraphics[width=.7\textwidth]{../graphics/Backbone_Head_Neck.pdf}
-   \caption{Backbone, Head and Neck}
-\end{figure}
-\begin{itemize}
-   \item Backbone: extraction of basic features for all detection related tasks.
-   \item Neck: aggregation and refinement of backbone features to enhance the representation
-   \item Head: predictions (localization, class, $\ldots$)
-\end{itemize}
-\end{frame}
+% \begin{frame}{Backbone, Head and Neck}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=.7\textwidth]{../graphics/Backbone_Head_Neck.pdf}
+%    \caption{Backbone, Head and Neck}
+% \end{figure}
+% \begin{itemize}
+%    \item Backbone: extraction of basic features for all detection related tasks.
+%    \item Neck: aggregation and refinement of backbone features to enhance the representation
+%    \item Head: predictions (localization, class, $\ldots$)
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{Example: YOLO v.8}
 \begin{figure}[htb]
