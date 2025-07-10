@@ -63,17 +63,13 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transformers: a new revolution in deep learning?}
+\begin{frame}{Transformers: a new revolution in deep learning}
 
 \begin{itemize}
 \item Transformers~\cite{vaswani_attention_2017} have brought a break-through in natural language processing
-  \item They contribute to the development of new natural language processing applications (translation, voice assistants, etc.)
-  \item Will they do the same in image analysis?
+  \item They have contributed to the development of new natural language processing applications (translation, voice assistants, etc.)
+  \item They are now also extensively used in computer vision
 \end{itemize}
-
-\vspace{1em}
-
-\scriptsize{NB: Our aim through this lesson is to review the main ideas on attention and transformers, through selected examples. However, this overview is not exhaustive.}
 
 \end{frame}
 
@@ -88,8 +84,12 @@ A transformer is a neural network architecture module that allows the network to
 \pause
 
 \begin{alertblock}{Transformers today}
-  Nowadays, when people refer to the transformer, they generally mean the architecture proposed by Vaswani \textit{et al.} in 2017~\cite{vaswani_attention_2017}.
+  Nowadays, when people refer to transformers, they generally mean the architectures based on the one introduced by Vaswani \textit{et al.} in 2017~\cite{vaswani_attention_2017}.
 \end{alertblock}
+
+\pause
+
+One of the main ingredients in transformers is the attention mechanism.
 
 \end{frame}
 
@@ -115,11 +115,11 @@ A transformer is a neural network architecture module that allows the network to
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{How do we look at an image?}
+\begin{frame}{The attention path is linked to the task}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{Yarbus}
+  \includegraphics[width=\textwidth]{Yarbus2}
     \source{Experiments on visual attention \cite{yarbus_eye_1967}}
 \end{figure}
 
@@ -190,8 +190,8 @@ Tasks:
   \begin{alertblock}{}
     \begin{itemize}
     \item The same arguments apply to artificial visual systems
-    \item[\textbf{+}] Some degree of invariance
-    \item[\textbf{+}] Interpretability
+    %% \item[\textbf{+}] Some degree of invariance
+    %% \item[\textbf{+}] Interpretability
     \end{itemize}
   \end{alertblock}
 
@@ -380,7 +380,7 @@ Tasks:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The transformer architecture and its applications in computer vision}
+\section{The transformer architecture}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -400,11 +400,6 @@ Tasks:
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The transformer for natural language processing}
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The rise of transformers}
@@ -416,8 +411,6 @@ Tasks:
         Vaswani et al., Attention is all you need, Neurips 2017.
       \end{block}
       This architecture was developed for text processing.\\
-\vspace{2em}
-        NB: the first general differentiable attention mechanism was published in 2015~\cite{bahdanau_neural_2015}.
 
     \end{column}
 
@@ -441,35 +434,6 @@ Tasks:
   \includegraphics[width=\textwidth]{transformer_with_zooms}
   \source{\url{https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html}}
 \end{figure}
-
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Scaled dot-product attention}
-
-  \begin{block}{Definition}
-    \[Att(Q,K,V) = \sigma\left(\frac{QK^t}{\sqrt{d_{K}}}\right) V \]
-  \end{block}
-
-  \begin{itemize}
-  \item $V$: values; $K$: keys; $Q$: queries.
-  \item $d_{K}$ is the length of $K$.
-  \item $\sigma$: row-wise soft-max.
-  \end{itemize}
-
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Self-attention}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\textwidth]{self_attention}
-  \end{figure}
 
 
 \end{frame}
@@ -547,48 +511,19 @@ Tasks:
   \item Bidirectional Encoder Representations from Transformers (BERT, by Google~\cite{brown_language_2020})
   \item Generative Pre-trained Transformer 3 (GPT-3, by OpenAI~\cite{devlin_bert_2019}): 175 billion parameters.
   \item Generative Pre-trained Transformer 4 (2023) : undisclosed number of parameters.
+    \item Llama models, by Meta (Open Source)
+    \item Mistral
+    \item etc...
+    \item \url{https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard}
 
   \end{itemize}
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \subsection{Detection transformer}
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
-
-%% \begin{figure}[ht]
-%%   \centering
-%%   \includegraphics[width=\textwidth]{end_to_end_transformer}
-%% \end{figure}
-
-
-%% \begin{block}{Remarks}
-%%   \begin{itemize}
-%%   \item Convolutional layers are used to encode the image
-%%   \item After a $1 \times 1$ convolutional layers, each feature map is flattened and considered as an input for the transformer encoder
-%%   \item Decoder outputs are processed by a feed-forward network (FFN) to generate the box coordinates and label (possibly $\emptyset$).
-%%   \end{itemize}
-%% \end{block}
-
-%% \end{frame}
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Results and comments}
-
-%% \begin{itemize}
-%% \item Similar accuracy and run-time performance to Faster R-CNN on the COCO object detection dataset
-%% \item Optimization was apparently difficult (extra losses, for instance)
-%% \end{itemize}
-
-%% \begin{figure}[ht]
-%%   \centering
-%%   \includegraphics[width=0.8\textwidth]{detr_attention_scores}
-%% \end{figure}
-
-
-%% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transformers for images}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Vision transformer}
@@ -612,6 +547,113 @@ Tasks:
 
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ViT: encoding}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{vit_illustration1}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ViT: multi-head self-attention}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{vit_illustration2}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ViT: multi-layer perceptron}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{vit_illustration3}
+\end{figure}
+
+\pause
+
+The Multi-Head Self Attention and Multi-Layer Perceptron are iterated several times.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Scaled dot-product attention}
+
+  \begin{block}{Definition}
+    \[Att(Q,K,V) = \sigma\left(\frac{QK^t}{\sqrt{d_{K}}}\right) V \]
+  \end{block}
+
+  \begin{itemize}
+  \item $V$: values; $K$: keys; $Q$: queries.
+  \item $d_{K}$ is the length of $K$.
+  \item $\sigma$: row-wise soft-max.
+  \end{itemize}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Self-attention}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{self_attention}
+  \end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mean attention distance}
+
+    \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{mean_attention_distance}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Interpretability}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{attention1}
+\end{figure}
+
+Method by Abnar et al. used to ``integrate'' attention \cite{abnar_quantifying_2020}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Interpretability}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{attention2}
+\end{figure}
+
+Method by Abnar et al. used to ``integrate'' attention \cite{abnar_quantifying_2020}
+
+\end{frame}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -651,6 +693,7 @@ Tasks:
 \end{itemize}
 
 \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -717,17 +760,6 @@ Tasks:
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transformers chronology~\cite{amatriain_transformer_2023}}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{02-09}
-\end{figure}
-
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transformers for image segmentation}
@@ -745,8 +777,57 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{UNETR~\cite{hatamizadeh_unetr_2022}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{unetr}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Detection transformer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{DETR: detection transformer~\cite{carion_end--end_2020}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{end_to_end_transformer}
+\end{figure}
+
+
+\begin{block}{Remarks}
+  \begin{itemize}
+  \item Convolutional layers are used to encode the image
+  \item After a $1 \times 1$ convolutional layer, each feature map is flattened and considered as an input for the transformer encoder
+  \item Decoder outputs are processed by a feed-forward network (FFN) to generate the box coordinates and label (possibly $\emptyset$).
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results and comments}
+
+\begin{itemize}
+\item Similar accuracy and run-time performance to Faster R-CNN on the COCO object detection dataset
+\item Optimization was apparently difficult (extra losses, for instance)
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{detr_attention_scores}
+\end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Task: segment the rabbits that are in danger}
@@ -789,7 +870,7 @@ Tasks:
   \begin{block}{Transformers}
 
     \begin{itemize}[<+->]
-    \item Transformers, like fully connected layers, do not make any assumptions on the data structure
+    \item Transformers do not make any assumptions on the data structure
       \begin{itemize}
       \item Localization is brought by a positional encoding
       \end{itemize}
@@ -815,15 +896,26 @@ Tasks:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% \begin{frame}{Patches are all you need?~\cite{trockman_patches_2022}}
+\begin{frame}{Patches are all you need?~\cite{trockman_patches_2022}}
 
-%% \begin{figure}[ht]
-%%   \centering
-%%   \includegraphics[width=\textwidth]{conv_mixer}
-%% \end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{conv_mixer}
+\end{figure}
 
 
-%% \end{frame}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transformers chronology~\cite{amatriain_transformer_2023}}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{02-09}
+\end{figure}
+
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{And the winner is ...}
