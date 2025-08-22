@@ -12,6 +12,17 @@
 Visualization.pdf
 ObjectDetection.pdf
 WeakSupervision.pdf
+attention_transformers.pdf
+conv_nets.pdf
+dlia_30min.pdf
+dlia_msit.pdf
+segmentation_1h30.pdf
+dl_in_biomedical_imaging.pdf
+dl_practice.pdf
+image_quality.pdf
+intro_nn_backprop.pdf
+intro_ml.pdf
+intro_ml_ed.pdf
 
 # Created by https://www.gitignore.io/api/python
 
