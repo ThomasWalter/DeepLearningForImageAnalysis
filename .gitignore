@@ -8,6 +8,11 @@
 *.toc
 
 
+# ignore a large file
+Visualization.pdf
+ObjectDetection.pdf
+WeakSupervision.pdf
+
 # Created by https://www.gitignore.io/api/python
 
 ### Python ###
@@ -373,6 +378,11 @@ TSWLatexianTemp*
 
 # End of https://www.gitignore.io/api/latex
 
+# Other files
+*.xopp
 
 # emacs
 *~
+
+# macOS
+.DS_Store

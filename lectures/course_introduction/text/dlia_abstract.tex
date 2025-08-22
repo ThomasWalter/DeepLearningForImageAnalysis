@@ -1,0 +1,155 @@
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\input{../../setting.tex}
+\usepackage{physics}
+
+\graphicspath{{../graphics/}}
+
+%% \usepackage{animate}
+
+\AtBeginSection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+\AtBeginSubsection[]{
+  \begin{frame}{Contents}
+  \tableofcontents[currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{items}[square]
+
+\title{Deep Learning for Image Analysis\\Course Introduction}
+\author{E. Decencière, Thomas Walter, Santiago Velasco-Forero}
+\date{Mines Paris\\
+  PSL Research University
+}
+\titlegraphic{\includegraphics[height=1.7cm]{../graphics/logoemp}}
+
+\useinnertheme{rounded}
+\usecolortheme{rose}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{About the lecturers}
+
+\begin{columns}
+  \begin{column}{.2\textwidth}
+\vfill
+\includegraphics[width=\textwidth]{ThomasWalter.jpg}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{velascoforero}\\
+\vspace{2em}
+    \includegraphics[width=\textwidth]{ed.jpg}
+
+  \end{column}
+  \begin{column}{.8\textwidth}
+
+    \begin{block}{Thomas Walter \hfill \scriptsize{\url{https://thomaswalter.github.io}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: bioimage analysis and bioinformatics
+    \item Main application fields: microscopy, pathology
+    \end{itemize}
+    }
+  \end{block}
+
+  \begin{block}{Santiago Velasco-Forero  \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~velasco}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: image processing, pattern recognition, multivariate statistics, graph-based data/image analysis
+    \item Main application fields: Remote Sensing, cosmetology, astronomy, hyperspectral imaging.
+    \end{itemize}
+    }
+  \end{block}
+
+    \begin{block}{Etienne Decencière \hfill \scriptsize{\url{http://cmm.mines-paristech.fr/\~decenciere}}}
+      \scriptsize{
+    \begin{itemize}
+    \item Research: mathematical morphology and image analysis
+    \item Main application fields: Ophthalmology, dermatology, cosmetology, astronomy
+    \end{itemize}
+    }
+  \end{block}
+
+  \end{column}
+\end{columns}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Objective and pre-requisites}
+
+  \begin{block}{Objective}
+    Introduction to the theory and practice of deep learning for image analysis.
+\end{block}
+
+\begin{block}{Pre-requisites}
+\begin{itemize}
+\item Basic calculus and probabilities
+\item Programming: Python
+\end{itemize}
+  \end{block}
+
+  \begin{block}{Language}
+    \begin{itemize}
+    \item Slides: English
+    \item Oral: English or French, according to auditory
+    \end{itemize}
+
+\end{block}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contents}
+
+
+\begin{block}{Pedagogic approach}
+
+  \begin{itemize}
+  \item 8 afternoon sessions (3 hours):
+    \begin{itemize}
+    \item 12 lessons (90 minutes)
+    \item 4 sessions (90 minutes) of practical work with Jupyter notebooks (python, keras) on Google Colab
+    \end{itemize}
+  \end{itemize}
+\end{block}
+
+\begin{block}{Themes}
+\begin{itemize}
+\item Elements of Neural Networks
+\item Optimization
+\item Visualization strategies
+\item Learning from few annotated samples
+\item Autoencoders and Generative Adversarial Networks
+\item Metric learning
+\end{itemize}
+\end{block}
+
+  \begin{block}{Evaluation}
+  Practical work and exam
+  \end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
