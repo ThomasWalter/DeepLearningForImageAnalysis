@@ -195,7 +195,7 @@
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/R-CNN.pdf}
-   \caption{R-CNN strategy \cite{Girshick2014}}.
+   \caption{R-CNN strategy \cite{Girshick2014}}
 \end{figure}
 \begin{itemize}
 	\item Starting from region proposals (by any method): $\sim 2000$ regions). 
@@ -204,17 +204,90 @@
 \end{itemize}
 \end{frame}
 
+% \begin{frame}{R-CNN: bounding box regression}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/R-CNN_bb_regression.pdf}
+%    \caption{Bounding box regression in R-CNN}
+% \end{figure}
+% \begin{itemize}
+%    \item Ground-truth bounding box: $G=(G_x, G_y, G_w, G_h)$
+%    \item Predicted bounding box: $P=(P_x, P_y, P_w, P_h)$
+%    \item We wish to learn a transformation $t$ that transforms $P$ into $G$. 
+%    %\item This transformation has four parameters, that are predicted from the $P$-crop of the input image feature map. 
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{R-CNN: bounding box regression}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/R-CNN_bb_regression.pdf}
+%    \caption{Bounding box regression in R-CNN}
+% \end{figure}
+% \begin{itemize}
+%    \item Ground-truth bounding box is defined by center $(x,y)$ and dimensions $(w,h)$: $G=(x,y,w,h)$ 
+%    \item Predicted bounding box: $P=(\hat{x},\hat{y},\hat{w}. \hat{h})$.
+%    \item We wish to learn a transformation $t$ that transforms the predicted bounding box $P=(\hat{x},\hat{y},\hat{w}. \hat{h})$ into the ground truth bounding box $G=(x,y,w,h)$. 
+% \end{itemize}
+% \end{frame}
+
 \begin{frame}{R-CNN: bounding box regression}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/R-CNN_bb_regression.pdf}
-   \caption{Bounding box regression in R-CNN}.
+   \caption{Bounding box regression in R-CNN}
 \end{figure}
 \begin{itemize}
-   \item Ground-truth bounding box: $G=(G_x, G_y, G_w, G_h)$
-   \item Predicted bounding box: $P=(P_x, P_y, P_w, P_h)$
-   \item We wish to learn a transformation $t$ that transforms $P$ into $G$. 
-   \item This transformation has four parameters, that are predicted from the $P$-crop of the input image feature map. 
+   \item Ground-truth bounding box is defined by center $(G_x,G_y)$ and dimensions $(G_w,G_h)$: $G=(G_x,G_y,G_w,G_h)$ 
+   \item Predicted bounding box: $P=(P_x,P_y,P_w,P_h)$.
+   \item We wish to learn a transformation $t$ that transforms the predicted bounding box $P$ into the ground truth bounding box $G$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{R-CNN: bounding box regression}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.8\textwidth]{../graphics/R-CNN_bb_regression.pdf}
+   \caption{Bounding box regression in R-CNN}
+\end{figure}
+   Regression targets: 
+   \begin{align}
+   t_x &= \frac{G_x-P_x}{P_w}, &
+   t_y &= \frac{G_y-P_y}{P_h} \nonumber \\
+   t_w &= \log \frac{G_w}{P_w}, &
+   t_h &= \log \frac{G_h}{P_h}
+   \end{align}
+\end{frame}
+
+% \begin{frame}{R-CNN: bounding box regression}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/R-CNN_bb_regression.pdf}
+%    \caption{Bounding box regression in R-CNN}
+% \end{figure}
+%    Regression targets: 
+%    \begin{align}
+%    t_x &= \frac{\hat{x} - x}{\hat{w}}, &
+%    t_y &= \frac{\hat{y} - y}{\hat{h}}, \nonumber \\
+%    t_w &= \log \frac{w}{\hat{w}}, &
+%    t_h &= \log \frac{h}{\hat{h}},
+%    \end{align}
+%    %\item This transformation has four parameters, that are predicted from the $P$-crop of the input image feature map. 
+% %\end{itemize}
+% \end{frame}
+
+\begin{frame}{R-CNN: bounding box regression}
+\begin{itemize}
+   \item $t_x,t_y$ are normalized by the width and height, respectively. This makes the regression scale-invariant, i.e. the network does not need to learn different ranges for small or large boxes.
+   \item $t_w,t_h$ are normalized and log-transformed. This leads to symmetric values for the loss (a box twice as big leads to the same loss as a box twice as small, compared to the ground truth). 
+   \item At inference, we predict $(\hat{t}_x, \hat{t}_y, \hat{t}_w, \hat{t}_h)$. 
+   \item From there, we obtain the refined box: 
+   \begin{align}
+   \hat{x} &= P_x + \hat{t}_x \cdot P_w, &
+   \hat{y} &= P_y + \hat{t}_y \cdot P_h, \nonumber \\
+   \hat{w} &= P_w \cdot e^{\hat{t}_w}, &
+   \hat{h} &= P_h \cdot e^{\hat{t}_h}.
+   \end{align}
 \end{itemize}
 \end{frame}
 
@@ -310,7 +383,7 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.4\textheight]{../graphics/Faster_R-CNN2.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 The idea is to share convolutional feature maps at test-time, i.e. to use the CNN feature maps calculated for the entire image for both region proposal and object classification \cite{Ren2017}. 
 \end{frame}
@@ -319,7 +392,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
 \item First, we run the image through convolutional layers of a CNN and obtain feature maps that will serve both the region proposal and the object classification. 
@@ -335,7 +408,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
 \item This small network completes the Region Proposal Network (RPN).
@@ -348,7 +421,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
 \item For each sliding windows location and each of the $k$ anchor boxes, we predict:
@@ -377,7 +450,7 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
 \item We define a combined loss (as for Fast R-CNN), as sum of the classification loss and bounding box regression loss.
@@ -390,12 +463,12 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}.
+   \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
 \item We now simply apply a Fast R-CNN to the region proposals provided by the RPN.
-\item The shared layers are trained in an alternating scheme.
-\item After this initial training, the shared layers are frozen and the separate layers are trained end-to-end.
+\item Training in an alternating scheme.
+\item Today: detection networks are usually trained end-to-end.
 \end{itemize}
 \end{frame}
 
@@ -482,11 +555,11 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
       \item Center $(x, y)$ with respect to the origin of the cell.
       \item The relative width and height: $w$, $h$ (normalized by image width and height). 
    \end{itemize}
-   \item At training time, the confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
+   \item During training, the confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
    \begin{equation}\nonumber
       Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
    \end{equation}
-   where $B_i$ is the ground truth bounding box and $P(Obj)$ the probability that $\hat{B}_i$ contains an object.
+   where $B_i$ is the ground truth bounding box and $P(Obj)$ the probability that $\hat{B}_i$ contains an object (during training $P(Obj)\in\{0,1\}$)
    \item At test time the confidence values $Conf_i$ are predicted (together with the bounding box geometry). 
 \end{itemize}
 \end{frame}
@@ -533,7 +606,7 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 \begin{frame}{Limitations}
 \begin{itemize}
    \item Each grid cell can contain only one class.
-   \item Each grid cll can contain only $B$ bounding boxes (problems in crowded environments). 
+   \item Each grid cell can contain only $B$ bounding boxes (problems in crowded environments). 
    \item Small errors in small boxes is worse than small errors in large boxes.
 \end{itemize}
 \end{frame}
@@ -541,14 +614,24 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 \begin{frame}{More on YOLO}
 \begin{itemize}
    \item YOLO has today many versions, some developed by companies (such as YOLO v5 and YOLO v8)
-   \item For instance, YOLO v.2 has an improved architecture and best practices: 
+   \item Improvements of YOLO v.2: 
    \begin{itemize}
-      \item Batch normalization
-      \item Fine-tuning of low-res ImageNet pretrained Neural Networks for a high resolution classifier 
-      \item Improvement of box predictions using anchor boxes
+      \item Better backbone (deeper architecture, batch normalization, ... )
+      \item Improvement of box predictions using anchor boxes (anchors are chosen by k-means on the ground truth boxes)
+      \item Multi-scale training (by data augmentation)
+      \item Combined detection training (on COCO) with classification training (on ImageNet)
       \item $\ldots$
    \end{itemize}
-   \item Subsequent versions become increasingly complex
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO v3}
+\begin{itemize}
+      \item Better backbone (Darknet-53)
+      \item Multi-scale prediction (prediction at 3 scales)
+      \item More bounding boxes per cell (each grid cell predicts 3 anchor boxes at each scale)
+      \item New classification formulation (independent classifications, no softmax) 
+      \item $\ldots$
 \end{itemize}
 \end{frame}
 
@@ -560,18 +643,32 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 % \end{figure}
 % \begin{itemize}
 %    \item Backbone: extraction of basic features for all detection related tasks.
-%    \item Neck: aggregation and refinement of backbone features to enhance the representation
-%    \item Head: predictions (localization, class, $\ldots$)
+%    \item Neck: aggregation and refinement of backbone features to enhance the representation (e.g. multiscale aspects)
+%    \item Head: predictions (localization, class, objectness, $\ldots$)
 % \end{itemize}
 % \end{frame}
 
-\begin{frame}{Example: YOLO v.8}
+\begin{frame}{Most recent version: YOLO v.12}
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=.7\textwidth]{../graphics/YOLO_v8.pdf}
-   \caption{YOLO v.8}
+   \includegraphics[width=.7\textwidth]{../graphics/Challenge.jpg}
+   \caption{Results of a mitosis detection challenge (YOLO v12: 2nd place)}
 \end{figure}
+\begin{itemize}
+   \item Extensive use of attention mechanisms, identifying regions of importance
+   \item Very efficient implementation
+   \item Still preprint \cite{Tian2025}
+\end{itemize}
 \end{frame}
+
+
+% \begin{frame}{Example: YOLO v.8}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=.7\textwidth]{../graphics/YOLO_v8.pdf}
+%    \caption{YOLO v.8}
+% \end{figure}
+% \end{frame}
 
 \section{Multiple Instance Segmentation}
 \begin{frame}{Mask R-CNN}
