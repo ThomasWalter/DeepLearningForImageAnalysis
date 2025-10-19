@@ -7,9 +7,9 @@
 	   Learning from fewer annotations}
 \author{Thomas Walter, PhD}
 \date{Centre for Computational Biology (CBIO) \\
-	  MINES Paris-Tech, PSL Research University \\
-	  Institut Curie, PSL Research University \\
-	  INSERM U900}
+	  MINES Paris, PSL \\
+	  Institut Curie, PSL University \\
+	  INSERM U1331}
 
 
 %To include LOGO?
@@ -149,7 +149,7 @@
 %\vspace{-.5cm}
 \end{frame}
 
-\begin{frame}{Massive image annotation by experimental design}
+\begin{frame}{Massive image annotation by experimental design 1/2}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.7\textwidth]{../graphics/super_resolution.pdf}
@@ -162,23 +162,21 @@
 %\vspace{-.5cm}
 \end{frame}
 
-\begin{frame}{Massive image annotation by experimental design: multi-modality}
+\begin{frame}{Massive image annotation by experimental design 2/2}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.7\textwidth]{../graphics/in_silico_labeling.pdf}
-   \caption{Image taken with a different modality can be predicted. Here, we show an example for a fluorescent microscopy image predicted from a phase contrast microscopy image. Image adapted from \cite{Christiansen2018}}
+   \caption{Multimodal image prediction. Fluorescent microscopy image predicted from a phase contrast microscopy image. Image adapted from \cite{Christiansen2018}}
 \end{figure}
 \begin{itemize}
-   \item We can also predict images taken with different modalities. 
-   \item This is interesting if one technique is more expensive or more invasive.
+   \item We can predict images taken with different modalities. 
+   \item Interesting use case: if one technique is more expensive or more invasive.
    \item Problems:
    \begin{itemize}
       \item Images need to be perfectly aligned.
       \item Predictability is not guaranteed. 
    \end{itemize}   
-   %\item Similarly, we can also use different experimental techniques to generate ground truth experimentally \cite{Boyd2020}. 
 \end{itemize}
-%\vspace{-.5cm}
 \end{frame}
 
 
@@ -420,7 +418,118 @@ s(u,v) = \frac{u^Tv}{\|u\|\|v\|}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masked Auto-encoders
+% BYOL
+\begin{frame}{BYOL (2020): Bootstrap Your Own Latent}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../graphics/BYOL_workflow.pdf}
+    \caption{BYOL principle \cite{Grill}}
+ \end{figure}
+\begin{itemize}
+  \item Two networks with shared structure but different parameter sets $\theta, \xi$:
+  \begin{itemize}
+    \item \textbf{Online}: $y = q_\theta(g_\theta(f_\theta(v)))$ (encoder $f$, projector $g$, \emph{predictor} $q$).
+    \item \textbf{Target}: $y' = g_{\xi}(f_{\xi}(v'))$ (no predictor). \\
+          Parameters \(\xi \leftarrow \tau \xi + (1-\tau)\theta\) (exponentially moving average).
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{BYOL (2020): Bootstrap Your Own Latent}
+\begin{itemize}
+  \item \textbf{Loss}:
+  \begin{equation}
+   \mathcal{L}_{\theta, \xi} = \|\bar{q}_{\theta}(z_{\theta}) -\bar{z}'_{\xi}\|_2^2 = 2 - 2 \cdot \frac{\left\langle q_{\theta}(z_{\theta}),z'_{\xi} \right\rangle}{\|q_{\theta}(z_{\theta})\|_2\|z'_{\xi}\|_2} 
+   \end{equation}
+  \item No explicit negatives, no contrastive denominator.
+  \item The representation is trained to "chase" a slowly moving target. 
+  \item The asymmetry is essential here, to avoid collapse (trivial solution)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{BYOL (2020): Bootstrap Your Own Latent}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../graphics/BYOL_results.pdf}
+    \caption{Comparison between simCLR and BYOL \cite{Grill}}
+ \end{figure}
+\begin{itemize}
+   \item Less dependency on batch size, as no negative examples are needed. 
+   \item Less dependency on the transformations: the task never becomes simple, as it can happen in simCLR
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DINO
+\begin{frame}{DINO (2021): Self-distillation with no labels}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/DINO_workflow.pdf}
+    \caption{DINO principle \cite{Caron2021}}
+ \end{figure}
+ Similar architecture and same principle as BYOL\cite{Grill}: 
+   \begin{itemize}
+      \item Teacher-student architecture: the teacher provides the target for the student
+      \item The teacher network is updated by exponentially moving average (EMA) from the student network. 
+      \item No negatives (no contrastive learning).
+   \end{itemize}
+ \end{frame}
+
+
+\begin{frame}{Principle 1/2}
+% \small
+% \textbf{Self-distillation without labels (DINO):}
+\begin{itemize}
+  \item Two networks with shared architecture: Student $g_{\theta_s}$ and Teacher $g_{\theta_t}$ (EMA of student).
+  \item Like in contrastive learning, multiple views of each image are generated: 
+  \begin{itemize}
+   \item 2 \emph{global} views $x_1^g$, $x_2^g$ (same resolution as $x$, here $224 \times 224$).
+   \item several \emph{local} views of smaller resolution (here: $96 \times 96$). 
+  \end{itemize}
+  \item Teacher and student generate output probability distributions over $K$ dimensions: 
+  \[ P_s(x)=\mathrm{softmax}\!\left(\frac{h_{\theta_s}(f_{\theta_s}(x))}{\tau_s}\right),\quad
+     P_t(x)=\mathrm{softmax}\!\left(\frac{h_{\theta_t}(f_{\theta_t}(x))}{\tau_t}\right) \]
+    \item Here $f_{\theta}(\cdot)$ is the feature extractor (or backbone), and $h_{\theta}(\cdot)$ is the projection head. For downstream tasks, we only use $f_{\theta}$. The complete networks are $g = h\circ f$ for teacher and student respectively.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Principle 2/2}
+\begin{itemize}
+  \item During training, the student aims at approaching the teacher distributions $P_t$. 
+  \item The loss is the cross entropy between $P_t$ and $P_s$ : 
+  \[ \mathcal{L}=\sum_{\substack{x_1\in \text{student views}\\ x_1\in \text{teacher global views}}}
+     \mathrm{CE}\!\left(P_t(x_2)\;\|\;P_s(x_2)\right) \]
+  \item Teacher parameters are not updated by backpropagation, but via EMA: 
+  \begin{equation}
+   \theta _t \leftarrow \lambda \theta _t + (1-\lambda)\theta _s
+  \end{equation}
+
+\end{itemize}
+\end{frame}
+
+
+
+% ------------------------------------------------------------
+% \begin{frame}{BYOL: Why No Collapse? (Intuition)}
+% \begin{itemize}
+%   \item \textbf{Asymmetry} (online predictor $q$) + \textbf{target EMA network} provide a moving target.
+%   \item \textbf{Stop-gradient} prevents trivial mutual drift.
+%   \item \textbf{BatchNorm} / augmentation diversity help avoid constant solutions.
+%   \item Empirically: strong representations competitive with contrastive methods, without negative sampling.
+% \end{itemize}
+% \end{frame}
+
+% ------------------------------------------------------------
+% \begin{frame}{Contrastive vs.\ BYOL: Practical Considerations}
+% \begin{itemize}
+%   \item \textbf{SimCLR}: simple; needs large batch (or memory bank); very strong augs.
+%   \item \textbf{MoCo}: queue \& momentum encoder; smaller batches; more hyperparams.
+%   \item \textbf{BYOL}: no negatives, no queue; needs predictor \& EMA; sensitive to augmentations and normalization.
+%   \item \textbf{Evaluation}: linear probe; fine-tune; transfer to detection/segmentation; OOD robustness.
+% \end{itemize}
+% \end{frame}
+
 
 
 
