@@ -497,9 +497,13 @@ s(u,v) = \frac{u^Tv}{\|u\|\|v\|}
 \begin{frame}{Principle 2/2}
 \begin{itemize}
   \item During training, the student aims at approaching the teacher distributions $P_t$. 
-  \item The loss is the cross entropy between $P_t$ and $P_s$ : 
-  \[ \mathcal{L}=\sum_{\substack{x_1\in \text{student views}\\ x_1\in \text{teacher global views}}}
-     \mathrm{CE}\!\left(P_t(x_2)\;\|\;P_s(x_2)\right) \]
+  \item Training ($V$ is the full set of views): 
+  \begin{equation}
+  \min_{\theta_s} \sum_{x \in \{ x_1^g, x_2^g\}} \sum_{\substack{x' \in V\\ x\neq x'}} - P_t(x)\log{P_s(x')}
+  \end{equation}
+  % \item The loss is the cross entropy between $P_t$ and $P_s$ : 
+  % \[ \mathcal{L}=\sum_{\substack{x_1\in \text{student views}\\ x_1\in \text{teacher global views}}}
+  %    \mathrm{CE}\!\left(P_t(x_2)\;\|\;P_s(x_2)\right) \]
   \item Teacher parameters are not updated by backpropagation, but via EMA: 
   \begin{equation}
    \theta _t \leftarrow \lambda \theta _t + (1-\lambda)\theta _s
