@@ -1,5 +1,5 @@
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -28,7 +28,7 @@
 \usepackage[absolute,overlay]{textpos}
 \setbeamercolor{framesource}{fg=gray}
 \setbeamerfont{framesource}{size=\tiny}
-\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(11.7cm,8.1cm)
     \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
       \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
     \end{beamercolorbox}
@@ -114,7 +114,7 @@
 \begin{frame}{A picture is worth a thousand words}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.6\textwidth}
       \begin{block}{Definition}
         \begin{itemize}
         \item Classically, an image is a matrix of values belonging to $[0, \ldots, 255]$ (grey level images) or to $[0, \ldots, 255]^3$ (color images).
@@ -124,10 +124,10 @@
 
     \end{column}
 
-    \begin{column}{.5\textwidth}
+    \begin{column}{.4\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=5cm]{../graphics/faune.png}\\
+        \includegraphics[width=0.85\textwidth]{../graphics/faune.png}\\
         \tiny{Grey level values around the left eye of the faun}
       \end{figure}
 
@@ -149,17 +149,20 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What is special about images?}
+\begin{frame}{What is special about natural images?}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.27\textwidth}
       \begin{figure}[ht]
         \centering
-        \includegraphics[height=8cm]{bureau-1}
+        \includegraphics[width=\textwidth]{bureau-1}
       \end{figure}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+
+    \pause
+
+    \begin{column}{.6\textwidth}
       \begin{itemize}
       \item Local structure
       \item Spatial redundancy
@@ -182,14 +185,14 @@
 \begin{frame}{Extracting semantic information from an image}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.27\textwidth}
       \begin{figure}[ht]
         \centering
-        \includegraphics[height=8cm]{bureau-1}
+        \includegraphics[width=\textwidth]{bureau-1}
       \end{figure}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.6\textwidth}
       \begin{itemize}
       \item Where is the phone? (localization task)
       \item How many mugs are there? (quantification task)
@@ -210,11 +213,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image analysis applications}
 
+\begin{columns}
+  \begin{column}{.66\textwidth}
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.76\textwidth]{applis_dl_sup}
-    \includegraphics[width=0.33\textwidth]{applis_dl_nonsup}
+    \includegraphics[width=\textwidth]{applis_dl_sup}
   \end{figure}
+
+  \end{column}
+
+  \begin{column}{.33\textwidth}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{applis_dl_nonsup}
+  \end{figure}
+
+  \end{column}
+\end{columns}
+
 
 
 \end{frame}
@@ -245,7 +261,7 @@
 \begin{frame}{Classical image processing approach}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.66\textwidth}
       Detection or segmentation task.
       \begin{block}{}
         \begin{itemize}
@@ -255,7 +271,7 @@
       \end{block}
 
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.33\textwidth}
       \centering
       \includegraphics[width=\textwidth]{zhang_MA}\\
       \scriptsize{Detail of eye fundus image with microaneurysms to be detected}
@@ -363,14 +379,14 @@
 \begin{frame}{MNIST database}
 
   \centering
-  \includegraphics[width=\textwidth]{mnist_examples.png}\\
+  \includegraphics[width=0.75\textwidth]{mnist_examples.png}\\
   \source{Images from MNIST assembled by Josef Stepan (licensed under CC BY-SA 4.0)}
 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Pascal VOC project \tiny{\cite{everingham_pascal_2010, everingham_pascal_2014}}}
+\begin{frame}{Pascal VOC project \tiny{\cite{everingham_pascal_2009, everingham_pascal_2014}}}
 
   This project organized a challenge from 2005 to 2012, divided into several tasks, including an image classification task.
 
@@ -379,7 +395,7 @@
   \end{block}
 
   \centering
-  \includegraphics[width=0.75\textwidth]{pascal_examples.png}
+  \includegraphics[width=0.65\textwidth]{pascal_examples.png}
   \source{From \cite{everingham_pascal_2014}}
 
 \end{frame}
@@ -404,10 +420,10 @@
 \begin{frame}{ImageNet projet}
 
   \centering
-  \includegraphics[width=0.20\textwidth]{ilsvrc_guitar2}\hspace{0.1em}
-  \includegraphics[width=0.20\textwidth]{ilsvrc_guitar3}\\
-  \includegraphics[width=0.39\textwidth]{ilsvrc_guitar1}\hspace{0.1em}
-  \includegraphics[width=0.39\textwidth]{ilsvrc_guitar4}\\
+  \includegraphics[width=0.15\textwidth]{ilsvrc_guitar2}\hspace{0.1em}
+  \includegraphics[width=0.15\textwidth]{ilsvrc_guitar3}\\
+  \includegraphics[width=0.30\textwidth]{ilsvrc_guitar1}\hspace{0.1em}
+  \includegraphics[width=0.30\textwidth]{ilsvrc_guitar4}\\
   Examples from the \emph{acoustic guitar} class
 
 
@@ -418,23 +434,23 @@
   \frametitle{Deep learning achievements}
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.6\textwidth}
       \begin{block}{ImageNet Large Scale Visual Recognition Challenge (ILSVRC)}
         2012: \emph{AlexNet} \cite{krizhevsky_imagenet_2012} won this challenge by a large margin
       \end{block}
 
     \end{column}
 
-    \begin{column}{.5\textwidth}
+    \begin{column}{.4\textwidth}
       \centering
       \scriptsize
-      \includegraphics[height=0.75\textheight]{ImageNet_error_history}
+      \includegraphics[height=0.65\textheight]{ImageNet_error_history}
       Evolution of top-5 error rate
 
-      \source{Wikipedia (CC BY-SA 4.0)}
 
     \end{column}
   \end{columns}
+      \source{Wikipedia (CC BY-SA 4.0)}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -446,7 +462,7 @@
   \item 2011: first super-human performance, IJCNN 2011 traffic sign recognition contest \cite{ciresan_committee_2011}
     \begin{figure}[ht]
       \centering
-      \includegraphics[width=0.7\textwidth]{ijcnn2011.png}
+      \includegraphics[width=0.6\textwidth]{ijcnn2011.png}
       \source{\cite{stallkamp_german_2011}}
     \end{figure}
 
@@ -461,13 +477,13 @@
 \begin{frame}{Deep learning achievements (cont.)}
 
   \begin{columns}
-    \begin{column}{.4\textwidth}
+    \begin{column}{.6\textwidth}
       \begin{itemize}
       \item 2016: AlphaGo beats Lee Sedol, one of the best go players, in a 5-game match
       \end{itemize}
     \end{column}
 
-    \begin{column}{.6\textwidth}
+    \begin{column}{.4\textwidth}
 
       \begin{figure}[ht]
         \centering
@@ -793,9 +809,59 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Loss function for classification: cross-entropy}
 
-  The preferred loss function for classification is cross-entropy:
+\begin{frame}{Comparing probability distributions}
+
+  %% \begin{tabular}{ccccc}
+  %%   input image&
+  %%   {\large $\boldsymbol{\Rightarrow}$}&
+  %%   MODEL &
+  %%   {\large $\boldsymbol{\Rightarrow}$}&
+  %%   vector of probabilities
+  %% \end{tabular}
+  %::::::::::::::::::::::::::::::
+  \centerline{  \includegraphics[width=0.4\textwidth]{dog_image.png}}
+
+  %::::::::::::::::::::::::::::::
+  \begin{center}
+  %::::::::::::::::::::::::::::::
+  \begin{tabular}{|c|c|c|c|c|}
+
+    \hline
+    & dog&cat&elephant&snike\\
+    \hline
+    True probability & 1 & 0 & 0 & 0\\
+    \hline
+    Predicted prob.  &0.91&0.08&0.01&0\\
+    \hline
+  \end{tabular}
+  \end{center}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cross-entropy}
+
+  The dissimilarity between two probability distributions is estimated by the Kullback-Leibler divergence.
+
+  \begin{block}{  Definition: Kullback-Leibler (KL) divergence}
+
+  Consider two discrete probability distributions $P$ and $Q$. The KL-divergence of $P$ with respect to $Q$ is:
+
+  \[D_{KL}(P,Q)=\sum\limits_i P_i\log \frac{P_i}{Q_i} = \sum\limits_i P_i \log(P_i) - \sum\limits_i P_i \log(Q_i) \]
+
+  \end{block}
+
+  In our case, $P$ represents the ground-truth and $Q$ is the prediction of our network.
+Therefore, the first term $\sum\limits_i P_i \log(P_i)$ is the entropy of the ground truth labels, that does not depend on $\theta$. Finally:
+
+  \[\underset{\theta}{\mathrm{argmin}}[ D_{KL}(P,Q)] = \underset{\theta}{\mathrm{argmin}}[- \sum\limits_i P_i \log(Q_i)] = H(P,Q) \Rightarrow \textcolor{blue}{\text{Cross-Entropy formula}}\]
+%https://www.youtube.com/watch?v=SxGYPqCgJWM
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cross-entropy as a classification loss function}
 
   \begin{block}{}
     For $\y$ in $\{0, 1\}^d$ and $\hat{\y}$ in $]0, 1[^d$:
@@ -819,6 +885,21 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cross-entropy}
+
+  \begin{center}
+
+ %\includegraphics<1>[width=0.3\textwidth]{cross_entropy_loss_1.png}
+ %\includegraphics<2>[width=0.3\textwidth]{sq_CE_losses_1.png}
+ \includegraphics[width=0.5\textwidth]{sq_CE_grad_1.png}
+  \end{center}
+
+
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Image classification with a fully-connected NN}
 
@@ -834,7 +915,7 @@
 
   \begin{block}{Example: image of size $4 \times 2$, $6$ possible classes}
     \centering
-    \includegraphics[width=0.6\textwidth]{mini_reseau3_bis}
+    \includegraphics[width=0.4\textwidth]{mini_reseau3_bis}
   \end{block}
 
 \end{frame}
@@ -844,7 +925,7 @@
 \begin{frame}{Image classification using a fully-connected NN}
 
   \centering
-  \includegraphics[width=0.6\textwidth]{mini_reseau3_bis}
+  \includegraphics[width=0.4\textwidth]{mini_reseau3_bis}
 
   \begin{itemize}[<+->]
   \item A small image easily contains $100\,000$ pixels
@@ -924,21 +1005,21 @@
 
     \begin{column}<1->{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{fully_connected_layer.png}
+        \includegraphics[width=0.61\textwidth]{fully_connected_layer.png}
         \\ \scriptsize{Fully connected layer: $n \times n$ weights and $n$ bias: $n(n+1)$ parameters}
       \end{center}
     \end{column}
 
     \begin{column}<2->{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{locally_connected_layer.png}
+        \includegraphics[width=0.61\textwidth]{locally_connected_layer.png}
         \\ \scriptsize{Locally conn. layer: $n(s+1)$ parameters}
       \end{center}
     \end{column}
 
     \begin{column}<3->{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{convolutional_layer.png}
+        \includegraphics[width=0.61\textwidth]{convolutional_layer.png}
         \\ \scriptsize{Weight replication: $s+1$ parameters.\\
           \alert{Convolutional layer.}}
       \end{center}
@@ -960,7 +1041,6 @@
       \item[1/] $3$
       \item[2/] $4$
       \item[3/] $9$
-      \item[4/] $10$
       \end{itemize}
 
       \end{quizzblock}
@@ -1000,7 +1080,7 @@
 
     \begin{column}{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{fully_connected_layer.png}
+        \includegraphics[width=0.61\textwidth]{fully_connected_layer.png}
         \\ \scriptsize{Fully connected layer: $n(n+1)$ parameters}
         \\ \textcolor{blue}{\scriptsize{$\approx 6.10^5$}}
         \\ \textcolor{orange}{\scriptsize{$\approx 10^{12}$}}
@@ -1009,7 +1089,7 @@
 
     \begin{column}{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{locally_connected_layer.png}
+        \includegraphics[width=0.61\textwidth]{locally_connected_layer.png}
         \\ \scriptsize{Locally conn. layer: $n(s+1)$ parameters}
         \\ \textcolor{blue}{\scriptsize{$7840$}}
         \\ \textcolor{orange}{\scriptsize{$10^7$}}
@@ -1018,7 +1098,7 @@
 
     \begin{column}{0.3\textwidth}
       \begin{center}
-        \includegraphics[width=0.74\textwidth]{convolutional_layer.png}
+        \includegraphics[width=0.61\textwidth]{convolutional_layer.png}
         \\ \scriptsize{Weight replication: $s+1$ parameters.}
         \\ \textcolor{blue}{\scriptsize{$10$}}
         \\ \textcolor{orange}{\scriptsize{$10$}}
@@ -1136,23 +1216,23 @@
 
   \begin{columns}
 
-    \begin{column}<1->{0.3\textwidth}
+    \begin{column}<1->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{stride1.png}
+        \includegraphics[width=0.51\textwidth]{stride1.png}
         \\ \scriptsize{Stride 1}
       \end{center}
     \end{column}
 
-    \begin{column}<2->{0.3\textwidth}
+    \begin{column}<2->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{stride2.png}
+        \includegraphics[width=0.51\textwidth]{stride2.png}
         \\ \scriptsize{Stride 2}
       \end{center}
     \end{column}
 
-    \begin{column}<3>{0.3\textwidth}
+    \begin{column}<3>{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{stride3.png}
+        \includegraphics[width=0.51\textwidth]{stride3.png}
         \\ \scriptsize{Stride 3}
       \end{center}
     \end{column}
@@ -1168,23 +1248,23 @@
 
   \begin{columns}
 
-    \begin{column}<1->{0.3\textwidth}
+    \begin{column}<1->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{dil_conv1.png}
+        \includegraphics[width=0.51\textwidth]{dil_conv1.png}
         \\ \scriptsize{Normal convolution}
       \end{center}
     \end{column}
 
-    \begin{column}<2->{0.3\textwidth}
+    \begin{column}<2->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{dil_conv2.png}
+        \includegraphics[width=0.51\textwidth]{dil_conv2.png}
         \\ \scriptsize{Dilation rate 2}
       \end{center}
     \end{column}
 
-    \begin{column}<3->{0.3\textwidth}
+    \begin{column}<3->{0.33\textwidth}
       \begin{center}
-        \includegraphics[width=0.60\textwidth]{dil_conv3.png}
+        \includegraphics[width=0.51\textwidth]{dil_conv3.png}
         \\ \scriptsize{Dilation rate 3}
       \end{center}
     \end{column}
@@ -1201,14 +1281,14 @@
 
 
   \begin{columns}
-    \begin{column}{.53\textwidth}
+    \begin{column}{.43\textwidth}
       \begin{center}
         \includegraphics[width=\textwidth]{convolutional_layer2.png}
       \end{center}
 
     \end{column}
 
-    \begin{column}{.47\textwidth}
+    \begin{column}{.57\textwidth}
       \begin{block}{Note on vocabulary}
         The filters are also called \alert{channels} or \alert{feature maps}.
       \end{block}
@@ -1224,7 +1304,7 @@
   \frametitle{Several filters in the same convolutional layer}
 
   \begin{center}
-    \includegraphics[width=0.53\textwidth]{convolutional_layer3.png}
+    \includegraphics[width=0.49\textwidth]{convolutional_layer3.png}
 
   \end{center}
 
@@ -1235,7 +1315,7 @@
   \frametitle{Several filters in the same convolutional layer}
 
   \begin{center}
-    \includegraphics[width=0.53\textwidth]{convolutional_layer4.png}
+    \includegraphics[width=0.49\textwidth]{convolutional_layer4.png}
 
   \end{center}
 
@@ -1479,7 +1559,7 @@ How many parameters would the corresponding convolutional layer contain?
   \end{itemize}
 
   \begin{center}
-    \includegraphics[width=0.41\textwidth]{max_pooling.png}
+    \includegraphics[width=0.31\textwidth]{max_pooling.png}
   \end{center}
 
   \pause
@@ -1494,7 +1574,7 @@ How many parameters would the corresponding convolutional layer contain?
 \begin{frame}{Branch merging: concatenation}
 
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{concatenation.png}
+    \includegraphics[width=0.41\textwidth]{concatenation.png}
   \end{center}
 
 \end{frame}
@@ -1504,7 +1584,7 @@ How many parameters would the corresponding convolutional layer contain?
 \begin{frame}{Branch merging: addition}
 
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{addition.png}
+    \includegraphics[width=0.41\textwidth]{addition.png}
   \end{center}
 
 \end{frame}
@@ -1567,16 +1647,16 @@ How many parameters would the corresponding convolutional layer contain?
 \begin{frame}{2D representations}
 
   \centering
-  \includegraphics[width=\textwidth]{fovea_convnet2}
+  \includegraphics[width=0.75\textwidth]{fovea_convnet2}
 
   \vspace{1em}
   \pause
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.4\textwidth}
       \includegraphics[width=0.8\textwidth]{Fundus_photograph_of_normal_right_eye.jpg}
     \end{column}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.6\textwidth}
       This NN was used to estimate the position of the center of the macula on fundus images.
     \end{column}
   \end{columns}
@@ -1591,7 +1671,7 @@ How many parameters would the corresponding convolutional layer contain?
 
   \begin{center}
     \begin{figure}
-      \includegraphics[width=0.75\textwidth]{vgg16.png}
+      \includegraphics[width=0.65\textwidth]{vgg16.png}
       \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
     \end{figure}
   \end{center}
@@ -1666,7 +1746,7 @@ How many parameters would the corresponding convolutional layer contain?
 
   \begin{center}
     \begin{figure}
-      \includegraphics[width=0.75\textwidth]{vgg16.png}
+      \includegraphics[width=0.55\textwidth]{vgg16.png}
       \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
     \end{figure}
   \end{center}
@@ -1785,25 +1865,25 @@ How many parameters would the corresponding convolutional layer contain?
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{DenseNet\cite{huang_densely_2018}}
+%% \begin{frame}{DenseNet\cite{huang_densely_2018}}
 
 
-  \begin{block}{Architecture}
-    \begin{figure}[ht]
-      \centering
-      \includegraphics[width=\textwidth]{densenet}
-    \end{figure}
+%%   \begin{block}{Architecture}
+%%     \begin{figure}[ht]
+%%       \centering
+%%       \includegraphics[width=\textwidth]{densenet}
+%%     \end{figure}
 
-  \end{block}
+%%   \end{block}
 
-  \begin{block}{Dense block}
-    \begin{figure}[ht]
-      \centering
-      \includegraphics[width=0.5\textwidth]{densenet_block}
-    \end{figure}
-  \end{block}
+%%   \begin{block}{Dense block}
+%%     \begin{figure}[ht]
+%%       \centering
+%%       \includegraphics[width=0.5\textwidth]{densenet_block}
+%%     \end{figure}
+%%   \end{block}
 
-\end{frame}
+%% \end{frame}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Xception}
@@ -1815,7 +1895,7 @@ How many parameters would the corresponding convolutional layer contain?
 
 
   \begin{columns}
-    \begin{column}{.5\textwidth}
+    \begin{column}{.35\textwidth}
       \begin{block}{Depth-wise separable convolution}
         \begin{figure}[ht]
           \centering
@@ -1825,11 +1905,11 @@ How many parameters would the corresponding convolutional layer contain?
 
     \end{column}
 
-    \begin{column}{.5\textwidth}
+    \begin{column}{.65\textwidth}
       \begin{block}{Architecture}
         \begin{figure}[ht]
           \centering
-          \includegraphics[width=\textwidth]{mobilenet}
+          \includegraphics[width=0.6\textwidth]{mobilenet}
         \end{figure}
 
       \end{block}
@@ -1842,7 +1922,7 @@ How many parameters would the corresponding convolutional layer contain?
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
+\section*{Conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% \frame{
@@ -1910,28 +1990,28 @@ How many parameters would the corresponding convolutional layer contain?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-  \frametitle{Some deep learning libraries}
+%% \frame{
+%%   \frametitle{Some deep learning libraries}
 
-  Deep learning is a very competitive domain, where code sharing is very common. Main libraries:
+%%   Deep learning is a very competitive domain, where code sharing is very common. Main libraries:
 
-  \begin{itemize}
-  \item Tensorflow (with its \alert{keras} interface), by Google (Apache licence)
-  \item PyTorch (Facebook - BSD licence)
-  %% \item Caffe (Univ. of California, Berkeley - BSD licence)
-  %% \item Microsoft Cognitive Toolkit (MIT licence)
-  %% \item MatConvNet (for MatLab users)
-  \end{itemize}
+%%   \begin{itemize}
+%%   \item Tensorflow (with its \alert{keras} interface), by Google (Apache licence)
+%%   \item PyTorch (Facebook - BSD licence)
+%%   %% \item Caffe (Univ. of California, Berkeley - BSD licence)
+%%   %% \item Microsoft Cognitive Toolkit (MIT licence)
+%%   %% \item MatConvNet (for MatLab users)
+%%   \end{itemize}
 
-  %% \begin{block}{Comments}
-  %%   \begin{itemize}
-  %%   \item Most of these libraries are distributed with very permissive licences
-  %%   \item Most of them use Python as prototyping language
-  %%   \item \alert{Keras} is a very easy to use interface to Tensorflow.
-  %%   \end{itemize}
+%%   %% \begin{block}{Comments}
+%%   %%   \begin{itemize}
+%%   %%   \item Most of these libraries are distributed with very permissive licences
+%%   %%   \item Most of them use Python as prototyping language
+%%   %%   \item \alert{Keras} is a very easy to use interface to Tensorflow.
+%%   %%   \end{itemize}
 
-  %% \end{block}
-}
+%%   %% \end{block}
+%% }
 
 
 

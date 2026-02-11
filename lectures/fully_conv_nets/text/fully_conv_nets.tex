@@ -1,5 +1,5 @@
-%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+%\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -26,7 +26,7 @@
 \usepackage[absolute,overlay]{textpos}
 \setbeamercolor{framesource}{fg=gray}
 \setbeamerfont{framesource}{size=\tiny}
-\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(11.7cm,8.1cm)
     \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
       \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
     \end{beamercolorbox}
@@ -117,9 +117,9 @@
 
   \begin{block}{Examples}
     \begin{figure}
-      \hfill
-      \includegraphics[width=2cm]{mnist_example_5}
-      \hfill
+      \centering
+      \includegraphics[width=3cm]{mnist_example_5}
+      ~~~~~~~~
       \includegraphics[width=4cm]{berkeley_db_33066.jpg}
       \caption{$28 \times 28$ grey level image $(d=1)$ from the MNIST data set, and $481 \times 321$ colour image $(d=3)$ from the Berkeley segmentation data set.}
     \end{figure}
@@ -131,17 +131,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Learning image transformations}
 
+  \begin{columns}
+    \begin{column}{.5\textwidth}
   \begin{itemize}
   \item An image classification task is a function from the set of considered images into a set of labels
       \begin{figure}
-      \includegraphics[width=0.40\textheight]{image_classif.png}
+      \includegraphics[width=0.80\textwidth]{image_classif.png}
       \end{figure}
-      \pause
+\end{itemize}
+    \end{column}
+\pause
+    \begin{column}{.5\textwidth}
+  \begin{itemize}
   \item In many applications, we want to transform an image into another image
       \begin{figure}
-      \includegraphics[width=0.40\textheight]{image_transf0.png}
+      \includegraphics[width=0.80\textwidth]{image_transf0.png}
       \end{figure}
   \end{itemize}
+
+    \end{column}
+  \end{columns}
+
 
 \end{frame}
 
@@ -157,7 +167,7 @@
   \end{block}
 
       \begin{figure}
-      \includegraphics[width=0.40\textheight]{image_transf0.png}
+      \includegraphics[width=0.40\textwidth]{image_transf0.png}
       \end{figure}
 
 }
@@ -166,14 +176,6 @@
 \frame{
   \frametitle{Examples}
 
-  \begin{block}{Bulge / disk decomposition}
-    \begin{figure}
-      \includegraphics[width=8cm]{decomposition.png}\\
-      \hfill {\tiny (Credits: Tuccillo, Huertas-Company, Velasco-Forero, Decencière)}
-    \end{figure}
-  \end{block}
-
-  \pause
 
   \begin{block}{Deblurring network \cite{hradis_convolutional_2015}}
     \begin{figure}
@@ -181,6 +183,14 @@
     \end{figure}
   \end{block}
 
+  \pause
+
+  \begin{block}{Bulge / disk decomposition}
+    \begin{figure}
+      \includegraphics[width=8cm]{decomposition.png}\\
+      \hfill {\tiny (Credits: Tuccillo, Huertas-Company, Velasco-Forero, Decencière)}
+    \end{figure}
+  \end{block}
 
 }
 
@@ -200,7 +210,7 @@
   \frametitle{Counting cells}
 
     \begin{figure}
-      \includegraphics[width=\textwidth]{lazard}
+      \includegraphics[width=0.65\textwidth]{lazard}
       \source{Tristan Lazard, master thesis. Images: L'Oréal.}
     \end{figure}
 }
@@ -221,7 +231,7 @@
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{microscopy_modality_pred}
+    \includegraphics[width=0.75\textwidth]{microscopy_modality_pred}
   \end{figure}
 
 
@@ -238,17 +248,15 @@
 
   \item Image segmentation is often an important step in an image processing work flow
 
-  \item Image segmentation has been a very active deep learning research field
-
   \end{itemize}
 
 
   \begin{block}{Example}
     \begin{figure}
       \centering
-      \includegraphics[height=2.5cm]{pascal_moto}
+      \includegraphics[height=4.5cm]{pascal_moto}
       \hspace{1em}
-      \includegraphics[height=2.5cm]{pascal_moto_seg}\\
+      \includegraphics[height=4.5cm]{pascal_moto_seg}\\
       \source{Pascal VOC database}
     \end{figure}
   \end{block}
@@ -294,15 +302,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{From classification to image-to-image translation}
 
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
       \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_classif.png}
+      \includegraphics[width=0.9\textwidth]{image_classif.png}
       \end{figure}
 
+    \end{column}
       \pause
 
+    \begin{column}{.5\textwidth}
       \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_transf.png}
+      \includegraphics[width=0.9\textwidth]{image_transf.png}
       \end{figure}
+
+    \end{column}
+  \end{columns}
+
+
 
 
 \end{frame}
@@ -311,15 +329,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{From classification nets to image-to-image nets}
 
+\begin{columns}
+  \begin{column}{.5\textwidth}
       \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_transf1.png}
+      \includegraphics[width=0.9\textwidth]{image_transf1.png}
       \end{figure}
 
+  \end{column}
       \pause
 
+  \begin{column}{.5\textwidth}
       \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_transf2.png}
+      \includegraphics[width=0.9\textwidth]{image_transf2.png}
       \end{figure}
+
+  \end{column}
+\end{columns}
+
+
+
 
 \end{frame}
 
@@ -327,14 +355,14 @@
 \begin{frame}{From classification nets to image-to-image nets}
 
       \begin{figure}
-      \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
+      \includegraphics[width=0.4\textwidth]{image_transf_fin.png}
       \end{figure}
 
 \pause
 
       \begin{itemize}
       \item The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
-      \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{feng_ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
+      \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
       \end{itemize}
 
 \end{frame}
@@ -497,7 +525,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 \begin{frame}<beamer>{Illustration}
 
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{receptive_field.png}
+    \includegraphics[width=0.6\textwidth]{receptive_field.png}
   \end{figure}
 
 \end{frame}
@@ -506,7 +534,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 \begin{frame}<beamer>{Illustration}
 
   \begin{figure}
-  \includegraphics[width=0.8\textwidth]{receptive_field2.png}
+  \includegraphics[width=0.6\textwidth]{receptive_field2.png}
   \end{figure}
 
 \end{frame}
@@ -515,7 +543,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 \begin{frame}{Illustration}
 
   \begin{figure}
-  \includegraphics[width=0.8\textwidth]{receptive_field3.png}
+  \includegraphics[width=0.6\textwidth]{receptive_field3.png}
   \end{figure}
 
 \end{frame}
@@ -525,7 +553,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 %% \begin{frame}{Receptive field evolution through an upsampling layer}
 
 %%   \begin{figure}
-%%   \includegraphics[width=0.8\textwidth]{receptive_field_upsampling.png}
+%%   \includegraphics[width=0.6\textwidth]{receptive_field_upsampling.png}
 %%   \end{figure}
 
 %% \end{frame}
@@ -536,7 +564,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 
   \begin{block}{}
     \begin{figure}
-      \includegraphics[width=0.8\textwidth]{plain_convnet.png}
+      \includegraphics[width=0.6\textwidth]{plain_convnet.png}
     \end{figure}
   \end{block}
 
@@ -554,7 +582,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
   \mode<beamer>{
   \pause
 
-  Answer: $1 + 2 \times (n+1)$
+  Answer: if the input image is large enough, then its size is $1 + 2 \times (n+1)$
   }
   }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -572,7 +600,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 \begin{frame}{Effective receptive field: intuition}
 
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{receptive_field3.png}
+    \includegraphics[width=0.6\textwidth]{receptive_field3.png}
   \end{figure}
 
 \end{frame}
@@ -602,7 +630,7 @@ Note that in most cases, receptive fields are square shaped (border effects igno
 \end{block}
 
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{effective_receptive_field.png}
+    \includegraphics[width=0.6\textwidth]{effective_receptive_field.png}
   \end{figure}
 
 
@@ -772,7 +800,8 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=0.65\textheight]{fundus1}\\
+  \includegraphics[height=0.60\textheight]{fundus1}\\
+  \pause
   When aiming to segment the papilla or the macula, translation equivariance is not necessarily welcome.
   \source{OPHDIAT database}
 \end{figure}
@@ -1107,7 +1136,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
 
   \begin{figure}
-    \includegraphics[width=\textwidth]{unet_lo}
+    \includegraphics[width=0.75\textwidth]{unet_lo}
   \end{figure}
 
 }
@@ -1116,7 +1145,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
   \frametitle{U-Net architecture \cite{ronneberger_u-net:_2015}}
 
   \begin{figure}
-    \includegraphics[width=0.95\textwidth]{unet_lo}
+    \includegraphics[width=0.70\textwidth]{unet_lo}
   \end{figure}
 
   \begin{quizzblock}{Quizz}
@@ -1132,7 +1161,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
 \begin{frame}{U-Net main ideas}
 
       \begin{figure}
-        \includegraphics[width=0.86\textwidth]{unet_lo}
+        \includegraphics[width=0.66\textwidth]{unet_lo}
       \end{figure}
 
 
@@ -1145,32 +1174,32 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{
-  \frametitle{U-Net details}
+%% \frame{
+%%   \frametitle{U-Net details}
 
-  \begin{columns}
-    \begin{column}{.4\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{unet_lo}
-      \end{figure}
+%%   \begin{columns}
+%%     \begin{column}{.4\textwidth}
+%%       \begin{figure}
+%%         \includegraphics[width=0.75\textwidth]{unet_lo}
+%%       \end{figure}
 
-    \end{column}
+%%     \end{column}
 
-    \begin{column}{.6\textwidth}
+%%     \begin{column}{.6\textwidth}
 
-      \begin{itemize}
-      \item Activation of the last layer: soft-max
-      \item Other activations: ReLU
-      \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
-        \[
-        L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
-        \]
-      \end{itemize}
+%%       \begin{itemize}
+%%       \item Activation of the last layer: soft-max
+%%       \item Other activations: ReLU
+%%       \item Loss used in the original publication: cross entropy with a weight map $w$ to favor some pixels:
+%%         \[
+%%         L(\param) = \sum\limits_{M \in D} w(M)\log(\hat{y}_{l(M)}(M))
+%%         \]
+%%       \end{itemize}
 
-    \end{column}
-  \end{columns}
+%%     \end{column}
+%%   \end{columns}
 
-}
+%% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \begin{frame}{Illustration}
@@ -1294,7 +1323,7 @@ Upsampling (stride$>1$) & \onslide<5->{ }                             \\ \hline
     \end{column}
 
     \begin{column}{.3\textwidth}
-      \includegraphics[width=\textwidth]{Intersection_of_sets_A_and_B}
+      \includegraphics[width=0.75\textwidth]{Intersection_of_sets_A_and_B}
       \source{Public domain (Wikipedia.org)}
     \end{column}
   \end{columns}
@@ -1423,7 +1452,7 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 %% \begin{frame}{Practical example}
 %%     \begin{columns}[c]
 %%     \column{.5\textwidth}
-%%         \includegraphics[width=0.9\textwidth]{hst.jpg}\\
+%%         \includegraphics[width=0.7\textwidth]{hst.jpg}\\
 %%         \source{ESA/Hubble, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=34205833}
 %%     \column{.5\textwidth}
 %%       How would you:
@@ -1440,7 +1469,7 @@ Suppose that we have satisfactorily optimized this U-Net model, using images of 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
+\section*{Conclusion}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

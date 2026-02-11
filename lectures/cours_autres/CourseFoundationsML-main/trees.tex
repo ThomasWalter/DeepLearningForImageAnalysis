@@ -1,0 +1,313 @@
+\begin{frame}
+  \begin{center}
+    \large{Arbres de décision}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exemple}
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{figures/fruit_tree}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Les arbres de décision}
+  \begin{itemize}
+    \item Méthode hiérarchique
+    \item Série successive de tests conditionnels.
+    \item Souvent utilisé en dehors de la classification automatique : 
+    \begin{itemize}
+      \item aide à la décision
+      \item formalisation d'un raisonnement
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Les arbres de décision pour la classification}
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{figures/arbre}
+  \end{center}
+  \begin{itemize}
+    \item En classification, les tests correspondent à des seuils, appliqués aux descripteurs. 
+    \item Chaque arbre de décision correspond à une partition de l'espace des descripteurs.
+    \item On peut assigner une classe à chaque feuille. 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Les arbres de décision - avantages}
+  \begin{itemize}
+    \item Classification en classes multiples
+    \item Interprétabilité
+    \item Traitement de variables catégoriques
+    \item Mélange de types de variables
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Construction des arbres}
+  \begin{itemize}
+    \item CART: Classification and regression trees
+    \item A chaque étape, une région est divisée en deux. 
+    \item Pour ce, il faut choisir un descripteur $x_j$ et un seuil $s$. 
+    \item Ce choix est fait pour optimiser un critère, calculé sur les régions qui résultent de ce seuillage. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Split : critère de régression}
+  \begin{itemize}
+    \item Un suppose qu'un split $(j,s)$ génère deux régions $R_1$ et $R_2$. 
+    \item Dans le cas d'une regression, on calcule alors les moyennes $\overline{y_1}$ et $\overline{y_2}$ des étiquettes dans les régions $R_1(j,s)$ et $R_2(j,s)$. 
+    \item Le critère à minimiser par $(j,s)$:
+    \begin{equation*}
+    (j,s)^{\ast} = \argmin_{j,s}\sum_{\xvec_k \in R_1} (y_k-\overline{y_1})^2 + \sum_{\xvec_k \in R_2}(y_k-\overline{y_2})^2
+    \end{equation*}
+    où $\overline{y_1}, \overline{y_2}, R_1, R_2$ dépendent de $(j,s)$. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Split : critère de classification}
+  \begin{itemize}
+    \item \blue{Erreur de classification} :  
+    \begin{equation*}
+    Imp(R) = 1- \max_{c=1, \ldots C}p_c(R)
+    \end{equation*}
+    avec $p_c(R)$ la probabilité (proportion) de la classe $c$ dans $R$. 
+    \item Ce critère est:
+    \begin{itemize}
+      \item 0 si toutes les instances appartiennent à la même classe.
+      \item $1-\frac{1}{C}$ si les classes sont distributées équitablement.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Split : critère de classification}
+  \begin{itemize}
+    \item \blue{Entropie} :  
+    \begin{equation*}
+      Imp(R) = -\sum_{c=1}^{C}p_c(R)\log_2p_c(R)
+    \end{equation*}
+    \item Ce critère est:
+    \begin{itemize}
+      \item 0 si toutes les instances appartiennent à la même classe.
+      \item $\log_2{C}$ si les classes sont distributées équitablement.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Split : critère de classification}
+  \begin{itemize}
+    \item \blue{Critère de impureté GINI}: 
+    \begin{equation*}
+    Imp(R) = \sum_{c=1}^{C}p_c(R)(1-p_c(R))
+    \end{equation*}
+    avec $p_c(R)$ la probabilité (proportion) de la classe $c$ dans $R$.     
+    \item Ce critère est:
+    \begin{itemize}
+      \item 0 si toutes les instances appartiennent à la même classe.
+      \item $1-\frac{1}{C}$ si les classes sont distributées équitablement.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Split : critère de classification}
+  \begin{itemize}
+    \item Le critère à minimiser par $(j,s)$:
+    \begin{equation*}
+    (j,s)^{\ast} = \argmin_{j,s}\frac{|R_1|}{n}Imp(R_1) + \frac{|R_2|}{n}Imp(R_2)
+    \end{equation*}
+    avec $|\cdot|$ le cardinal et $R_1, R_2$ des fonctions de $(j,s)$. 
+    \item On itère sur toutes les valeurs possibles de j et toutes les valeurs possibles de $s$ pour déterminer le couple (j, s) qui minimise le critère.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Critère d'impureté GINI: Exemple}  
+   \begin{figure} 
+     \includegraphics[width=0.8\textwidth]{GINI_example.pdf}
+     \caption{Exemple pour le calcul de l'impureté GINI}
+   \end{figure}
+   % \begin{eqnarray}
+   % GI(R_1) &=& \frac{2}{5}\frac{3}{5} + \frac{4}{15}\frac{11}{15} + \frac{1}{3}\frac{2}{3} = 0.658\nonumber \\
+   % GI(R_2) &=& \frac{1}{8}\frac{7}{8} + \frac{1}{8}\frac{7}{8} + \frac{6}{8}\frac{2}{8} = 0.40625\nonumber \\
+   % GI(j,s) &=& \frac{15}{23}GI(R_1) + \frac{8}{23}GI(R_2) = 0.57
+   % \end{eqnarray}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Critère d'impureté GINI: Exemple} 
+   \begin{figure}
+     \includegraphics[width=0.4\textwidth]{GINI_example.pdf}
+     \caption{Exemple pour le calcul de l'impureté GINI}
+   \end{figure}
+   \begin{eqnarray}
+   GI(R_1) &=& \frac{2}{5}\cdot\frac{3}{5} + \frac{4}{15}\cdot\frac{11}{15} + \frac{1}{3}\cdot\frac{2}{3} = 0.658\nonumber \\
+   GI(R_2) &=& \frac{1}{8}\cdot\frac{7}{8} + \frac{1}{8}\cdot\frac{7}{8} + \frac{6}{8}\cdot\frac{2}{8} = 0.40625\nonumber \\
+   GI(j,s) &=& \frac{15}{23}GI(R_1) + \frac{8}{23}GI(R_2) = 0.57 \nonumber
+   \end{eqnarray}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Critère d'arrêt}
+  \begin{itemize}
+    \item Une classe par feuille : risque de sur-apprentissage
+    \item Profondeur fixe
+    \item Nombre d'observation par feuille
+  \end{itemize}
+\end{frame}
+
+
+% \begin{frame}[t]
+%   \frametitle{Construction d'un arbre}
+%   \begin{itemize}
+%   \item Exemple :
+%     \begin{itemize}
+%     \item 4 petites pommes jaunes, 5 grosses pommes vertes, 3 bananes, 6 mini-concombres
+%     \item attributs : vert/jaune, rond/pas rond, gros/petit
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Avantages / Inconvénients}
+  \begin{itemize}
+    \item Avantages : 
+    \begin{itemize}
+      \item Simplicité
+      \item Interpretabilité
+      \item Peut gérer des variables catégoriques et coninues.
+    \end{itemize}
+    \item Inconvénients : 
+    \begin{itemize}
+      %\item Temps de calcul sous-optimal (en inférence)
+      \item Grand risque de sur-apprentissage
+      \item Généralement une performance limitée
+  \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    \large{2. Méthodes ensemblistes}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sagesse des foules}
+  \begin{center}
+    \includegraphics[width=.5\textwidth]{figures/crowd_diagonal}
+  \end{center}
+  \begin{itemize}
+  \item Combiner des \blue{apprenants faibles}.
+  \item Exemple: fonction diagonale, approchée par des fonctions en esaclier. 
+  \item Principe démocratique. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bagging}
+  \begin{itemize}
+    \item Bagging = Bootstrap + aggregation
+    \item On considère une partie de $\dset$ (e.g. $80\%$) par échantillonage "bootstrap" (avec remise). 
+    \item On entraîne un arbre de décision. 
+    \item On reitère cette procédure pour obtenir un ensemble d'arbres. 
+    \item Le résultat est obtenu par vote majoritaire (classification) ou en moyennant (régression).  
+    \item Faire une moyenne de modèles est effectivement une technique de régularisation. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Forêts aléatoires}
+  \begin{itemize}
+    \item En plus du bagging, on peut à chaque noeud tirer aléatoirement des variables parmi lesquels la variable optimale est trouvée. 
+    \item Le résultat : \blue{les forêts aléatoires}. 
+    \item Les arbres sont plus différents et couvrent "différent aspects" des données. 
+    \item En pratique : 
+    \begin{itemize}
+      \item généralement bons résultats sans "tuning"
+      \item applicable pour $P \gg N$
+      \item Régularisation par "ensembling"
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{2.4 Boosting}
+  \begin{itemize}
+    \item Les idées : 
+      \begin{itemize}
+      \item tendre vers plus de complémentarité entre les classifieurs simples en se concentrant sur les erreurs
+      \item rajouter un terme de confiance pour chaque classifieur
+    \end{itemize}
+    \item Deux variantes principales : 
+    \begin{itemize}
+    \item \blue{AdaBoost} (Schapire \& Freund 1997) 
+    \item \blue{Gradient Boosting} (Friedman 2001) : forme générale
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Adaboost}
+  \begin{itemize}
+    \item Le nom Adaboost vient de "Adaptive Boosting"
+    \item Construction itérative : les classifieurs faibles sont forcés à se concentrer sur les erreurs du modèle
+    \item Nous supposons pour la suite que nous avons un jeu d'entrainement $\dset = \{(\xvec_1, y_1), (\xvec_2, y_2), \dots, (\xvec_n, y_n)\}$ et que l'ensemble des étiquettes est $\ycal=\{-1,1\}$
+    \item L'algorithme Adaboost va associer à chaque élément $i$ de $\dset$ un poids $w_i$. On a donc un jeu de données pondérées $\dset_m = \{(w^m_1, \xvec_1, y_1), (w^m_2, \xvec_2, y_2), \dots, (w^m_n, \xvec_n, y_n)\}$ 
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adaboost}
+    \begin{enumerate}
+      \item Initialisation: $w_i^1 = \frac{1}{n}$
+      \item Apprendre le classifieur $f_m$ à partir de $\dset_m$. Les poids influencent le calul du critère. 
+      \item Calculer l'erreur du modèle : 
+      \begin{equation*}
+      \epsilon_m = \sum_{i=1}^n w_i^m \mathds{1}_{f_m(\xvec_i) \neq y_i}
+      \end{equation*}
+      \item Calculer une confiance qu'on associe au classifieur : 
+      \begin{equation*}
+      \alpha_m = \frac{1}{2}\log{\frac{1-\epsilon_m}{\epsilon_m}}
+      \end{equation*}
+      Plus l'erreur est petite, plus ce coefficient de confiance est grand. 
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adaboost}
+    \begin{enumerate}
+      \setcounter{enumi}{4}
+      \item On redéfinit les poids pour donner plus de poids aux échantillons sur lesquelles $f_m$ s'est trompé : 
+      \begin{equation*}
+      w_i^{m+1} = \frac{1}{Z_m} w_i^{m}e^{-\alpha_m y_i f_m(\xvec_i)}
+      \end{equation*}
+      Ici, $Z_m$ est un facteur qui fera que $\sum_iw_i^{m+1}=1$. 
+      \item Le modèle AdaBoost est alors: 
+      \begin{equation*}
+      f(\xvec) = \sum_{m=1}^{M}\alpha_mf_m(\xvec)
+      \end{equation*}
+      On a donc une pondération des modèles faibles (des arbres) avec ses coefficients de confiance.
+    \end{enumerate}
+\end{frame}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "2022-01-azencott"
+%%% End:

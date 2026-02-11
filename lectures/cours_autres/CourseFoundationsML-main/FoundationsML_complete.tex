@@ -1,0 +1,435 @@
+\documentclass[sans,14pt]{beamer}
+\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen}
+%\setbeameroption{show notes}
+\setbeameroption{hide notes}
+
+\usepackage{etex}
+
+
+\usepackage{fixltx2e} % for \textsubscript
+
+
+%% Format the bibliography
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+\addbibresource{references}
+\setbeamercolor*{bibliography entry title}{fg=MyDarkGrey}
+\setbeamercolor*{bibliography entry author}{fg=black}
+\setbeamercolor*{bibliography entry location}{fg=black}
+\setbeamercolor*{bibliography entry note}{fg=black}
+\setbeamertemplate{bibliography item}[text]
+
+% Space between label and reference
+\setlength{\biblabelsep}{-15pt}
+
+
+\mode<presentation>
+{
+  \usetheme{Copenhagen}
+  \usecolortheme{beaver}
+  \usefonttheme[onlymath]{serif}
+}
+
+%% Change bullet points style
+%\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{itemize items}{{\textemdash}}
+\setbeamercolor*{item}{fg=MyDarkGrey}
+
+%% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+
+%% Use only frame number (no total frame count) in footer
+\setbeamertemplate{footline}{%
+  \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[20pt]{
+        \scriptsize\insertframenumber}}}
+}
+
+% Adjust margin of itemize environment
+\setlength{\leftmargini}{0pt}
+\setlength{\leftmarginii}{10pt}
+\setlength{\leftmarginiii}{17pt}
+
+%% Adjust font sizes
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{normal text}{size=\small}
+\setbeamerfont{itemize/enumerate body}{size=\small}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
+%%% To use the Cabin-Condensed fonts
+%%% More fonts: see http://www.tug.dk/FontCatalogu
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage[sfdefault]{cabin}
+\usepackage{PTSans}
+\usepackage{PTSansNarrow}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\newenvironment{ptnormal}{\fontfamily{PTSans-TLF}\selectfont}{\par}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage[all]{xy}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{dsfont}
+%
+
+
+% tikzmark command, for shading over items
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+\usetikzlibrary{decorations.pathreplacing} % for curly braces
+\usepackage[framemethod=tikz]{mdframed} % for fancy title page and other boxes
+
+%% Subfigures
+\usepackage[labelformat=simple,caption=false,textfont=scriptsize]{subfig}
+\renewcommand{\thesubfigure}{\relax} % do not number captions of
+                                     % subfloats
+
+
+%% to write text at the bottom of a beamer slide
+%\def\writeatbottom#1{\vskip 0pt plus 1filll \scriptsize #1}
+
+\newcommand{\topspace}{\rule{0pt}{2.6ex}}
+\newcommand{\botspace}{\rule[-1.2ex]{0pt}{0pt}}
+
+
+%%% Colors
+%\usepackage{color}
+\definecolor{MyBlue}{rgb}{0.27,0.62,0.73}%{0.,0.2,0.4}
+\definecolor{Aubergine}{rgb}{0.47,0.13,0.44} % 119 33 111
+\definecolor{MyTurq}{rgb}{0.,0.8,0.8}
+\definecolor{MyDarkGrey}{rgb}{0.3,0.3,0.3}
+\definecolor{MyMedGrey}{rgb}{0.6,0.6,0.6}
+\definecolor{MyLightGrey}{rgb}{0.95,0.95,0.95}
+\definecolor{MyDarkRed}{rgb}{0.8,0.,0.}
+\definecolor{MyOrange}{rgb}{0.93,0.56,0.25}
+\definecolor{MyPink}{rgb}{0.73,0.27,0.39}
+\definecolor{MyLightYellow}{HTML}{FFFFCC}
+%\usepackage[colorlinks=true,citecolor=MyTurq]{hyperref}
+\AtEveryCite{\color{MyMedGrey}}
+
+\newcommand{\blue}[1]{{\color{MyBlue}{\textbf{#1}}}}
+\newcommand{\red}[1]{{\color{MyOrange}{\textbf{#1}}}}
+\newcommand{\black}[1]{{\color{MyDarkGrey}{\textbf{#1}}}}
+\newcommand{\yellow}[1]{{\color{MyLightYellow}{\textbf{#1}}}}
+
+\newcommand{\TODO}{{\color{MyDarkRed}{TODO~}}}
+
+\setbeamercolor{normal text}{fg=MyDarkGrey}
+\setbeamercolor{frametitle}{fg=Aubergine}
+
+%%% ---- Titre des slides  (underline) ----------------
+\setbeamertemplate{frametitle}{%
+    \usebeamerfont{frametitle}\insertframetitle\strut%
+    \vskip-.05\baselineskip%
+    \leaders\vrule width \paperwidth\vskip1.pt%
+    \vskip0pt%
+    \nointerlineskip
+}
+%%% ---------------------------------------------------
+
+
+% --- Math symbols -------------------------------------------------------------
+\newcommand{\EE}{{\mathbb E}}
+\newcommand{\PP}{{\mathbb P}}
+\newcommand{\NN}{{\mathbb N}}
+\newcommand{\RR}{{\mathbb R}}
+
+\newcommand{\avec}{\vec{a}}
+\newcommand{\alphavec}{\vec{\alpha}}
+\newcommand{\betavec}{\vec{\beta}}
+\newcommand{\cvec}{\vec{c}}
+\newcommand{\fvec}{\vec{f}}
+\newcommand{\muvec}{\vec{\mu}}
+\newcommand{\mvec}{\vec{m}}
+\newcommand{\rvec}{\vec{r}}
+\newcommand{\thetavec}{\vec{\theta}}
+\newcommand{\xvec}{\vec{x}}
+\newcommand{\yvec}{\vec{y}}
+\newcommand{\wvec}{\vec{w}}
+\newcommand{\uvec}{\vec{u}}
+\newcommand{\vvec}{\vec{v}}
+\newcommand{\zvec}{\vec{z}}
+
+% \newcommand{\amat}{{\mathbf A}}}
+% \newcommand{\dmat}{{\mathbf D}}
+% \newcommand{\gmat}{{\mathbf G}}
+% \newcommand{\kmat}{{\mathbf K}}
+% \newcommand{\lmat}{{\mathbf L}}
+% \newcommand{\mmat}{{\mathbf M}}
+% \newcommand{\wmat}{{\mathbf W}}
+% \newcommand{\xmat}{{\mathbf X}}
+
+\newcommand{\aset}{\mathcal{A}}
+\newcommand{\cset}{\mathcal{C}}
+\newcommand{\dset}{\mathcal{D}}
+\newcommand{\fcal}{\mathcal{F}}
+\newcommand{\hcal}{\mathcal{H}}
+\newcommand{\ncal}{\mathcal{N}}
+\newcommand{\nset}{\mathcal{N}}
+\newcommand{\rcal}{\mathcal{R}}
+\newcommand{\sset}{\mathcal{S}}
+\newcommand{\vset}{\mathcal{V}}
+\newcommand{\tset}{\mathcal{T}}
+\newcommand{\xcal}{\mathcal{X}}
+\newcommand{\ycal}{\mathcal{Y}}
+
+\newcommand{\lzeronorm}[1]{\left|\left|#1\right|\right|_0}
+\newcommand{\lonenorm}[1]{\left|\left|#1\right|\right|_1}
+\newcommand{\ltwonorm}[1]{\left|\left|#1\right|\right|_2}
+
+\usepackage{bbm}
+\newcommand{\indic}{\mathbbm{1}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\graphicspath{{./figures/}}
+
+% ------------------------------------------------------------------------------
+
+
+
+% \newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+%     \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+%       \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+%     \end{beamercolorbox}
+% \end{textblock*}}
+
+
+
+
+\newcommand{\mytitle}{Fondamentaux du Machine Learning}
+\author[Walter]{Thomas Walter \and  Chlo\'e-Agathe~Azencott}
+\institute[CBIO]{\inst{1} Centre for Computational Biology(CBIO), Mines Paris, PSL University\and %
+                      \inst{2} Institut Curie\and
+                      \inst{3} U900 - INSERM}
+
+%\author{Chlo\'e-Agathe~Azencott}
+\date{\small November 2022}
+
+\begin{document}
+{
+  %\titlepage
+
+  \begin{frame}[plain]
+    \fontfamily{PTSansNarrow-TLF}\selectfont
+    \begin{center}
+      {\ptnormal{\textit{Formation Chef de Projet IA}}}
+    \end{center}
+
+    \vspace{70pt}
+
+    \centerline{{\Large \bf \mytitle}}
+
+    \vspace{15pt}
+
+    \centerline{\insertauthor}
+
+    %\centerline{\insertinstitute}
+    \vspace{15pt}
+
+    {\footnotesize
+      \centerline{Center for Computational Biology (CBIO)}
+
+      \centerline{Mines Paris -- Institut Curie -- INSERM U900}
+
+      \centerline{PSL Research University \& PR[AI]RIE, Paris, France}
+    }
+
+    \centerline {\insertdate}
+
+
+      % \vspace{-15pt}
+
+      % \begin{center}
+      %   \begin{tabular}[b]{ccc}
+      %     {\scriptsize \href{http://cazencott.info}{http://cazencott.info}} &
+      %     {\scriptsize \href{chloe-agathe.azencott@mines-paristech.fr}
+      %       {chloe-agathe.azencott@mines-paristech.fr}} &
+      %     {\scriptsize \href{http://twitter.com/cazencott}{@cazencott}} \\
+      %   \end{tabular}
+      % \end{center}
+\end{frame}
+
+% Do not count title slide when numbering frames
+\addtocounter{framenumber}{-1}
+
+% % restore geometry by hand
+% \newgeometry{top=0pt, bottom=15pt,left=28pt,right=28pt}
+% \usebackgroundtemplate{}
+
+
+% \begin{frame}
+%   \frametitle{Chloé-Agathe Azencott}
+
+%     \small
+%   \begin{tabular}[h]{ll}
+%     \black{Depuis 2013} & \blue{Chargée de recherche} puis \blue{Maîtresse-assistante} au CBIO \\
+%     & \\
+%     \black{2011--2013} & \blue{Chargée de recherche post-doctorante} \\
+%     \multicolumn{2}{l}{Machine Learning for Computational Biology, MPI T\"ubingen (Allemagne).} \\
+%     & \\
+%     \black{2005--2010} & \blue{Doctorante} \\
+%     \multicolumn{2}{l}{Institute for Genomics and Bioinformatics, University of California Irvine (USA).} \\
+%     & \\
+%     \black{2002--2005} & \blue{Double dipl\^ome Ingénieur \& Master}\\
+%     \multicolumn{2}{l}{IMT Atlantlique (à l'époque, ENST Bretagne} \\
+%     \multicolumn{2}{l}{Informatique et Mathématiques.} \\
+%   \end{tabular}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Centre de Bioinformatique (CBIO)}
+  \centerline{\includegraphics[width=0.75\textwidth]{figures/cbio}}
+  \begin{itemize}
+    \item Centre de recherche de l'\'Ecole des Mines
+    \item 20 personnes, 5 chercheurs permanents (dont 2 chaires PRAIRIE)
+    \item Thématique : IA pour les sciences de la vie
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Objectifs}
+  \begin{itemize}
+  \item Présenter les concepts et outils fondamentaux pour développer et
+    analyser des algorithmes d'apprentissage automatique :
+    \begin{itemize}
+    \item Fondements théoriques
+    \item Panorama d'algorithmes
+    \item Choisir et évaluer un algorithme / un modèle d'apprentissage
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Programme}
+
+  \begin{itemize}
+  \item Introduction à l'apprentissage automatique
+  \item \blue{Cours 1 :} Minimisation du risque empirique
+  \item \blue{Cours 2 :} Régularisation et sélection de modèle
+  \item \blue{Cours 3 :} Arbres et méthodes ensemblistes
+  \item \blue{Cours 4 :} Méthodes à noyaux
+  \item \blue{Cours 5 :} Réduction de dimension
+  \item \blue{Cours 6 :} Clustering
+  \item Travaux pratiques : mise en œuvre des notions et algorithmes avec scikit-learn (Python numérique).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Introduction à l'apprentissage}
+  \end{center}
+\end{frame}
+%\input{intro}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 1 -- Minimisation du risque empirique}
+  \end{center}
+\end{frame}
+\input{erm}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 2 -- Régularisation et sélection de modèle}
+  \end{center}
+\end{frame}
+%\input{modelsel}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 3 -- Arbres et méthodes ensemblistes}
+  \end{center}
+\end{frame}
+\input{trees}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 4 -- SVM et noyaux}
+  \end{center}
+\end{frame}
+%\input{kernels}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 5 -- Réduction de dimension}
+  \end{center}
+\end{frame}
+\input{dimred}
+
+\begin{frame}
+  \begin{center}
+    \red{\LARGE Cours 6 -- Clustering}
+  \end{center}
+\end{frame}
+%\input{clustering}
+
+\begin{frame}
+  \frametitle{Références / page pub}
+  \begin{itemize}
+  \item \black{Introduction au Machine Learning}, Chloé-Agathe Azencott, Dunod InfoSup \\
+    Version électronique (PDF) sans exercices disponible gratuitement sur  \textcolor{MyBlue}{\href{http://cazencott.info/dotclear/public/lectures/IntroML_Azencott.pdf}{http://cazencott.info [lien cliquable]}}\\
+    (nouvelle édition en préparation)
+  \item \black{Le Machine Learning avec scikit-learn}, Aurélien Géron, Dunod
+    InfoSup
+  \item Textes et vidéos sur \blue{OpenClassrooms :} \\
+    {\footnotesize Textes accessibles librement ; vidéos accessibles avec un compte gratuit.}
+    \begin{itemize}
+    \item \textcolor{MyBlue}{\href{https://openclassrooms.com/fr/paths/148-ingenieur-machine-learning\#path-tabs}{Parcours Ingénieur Machine Learning [lien cliquable]}}
+     \item \textcolor{MyBlue}{\href{https://openclassrooms.com/fr/courses/6417031-objectif-ia-initiez-vous-a-lintelligence-artificielle}{Objectif IA (grand public)  [lien cliquable]}}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ressources complémentaires}
+  \begin{itemize}
+  \item \blue{Sources de jeux de données}
+    \begin{itemize}
+    \item Kaggle \href{https://www.kaggle.com/}{[lien cliquable]}
+    \item Le module \texttt{datasets} de \texttt{scikit-learn} \textcolor{MyBlue}{\href{https://sklearn.org/datasets/index.html}{[lien cliquable]}}
+    \item Le UCI Machine Learning Repository \textcolor{MyBlue}{\href{https://archive.ics.uci.edu/ml/index.php}{[lien cliquable]}}
+    \end{itemize}
+  \item \blue{MOOC scikit-learn } \textcolor{MyBlue}{\href{https://inria.github.io/scikit-learn-mooc/}{[lien cliquable]}}
+  \end{itemize}
+\end{frame}
+
+
+% \begin{frame}
+%   \begin{center}
+%     \red{\LARGE Cours 5 -- Réduction de dimension}
+%   \end{center}
+% \end{frame}
+% %\input{dimred}
+
+
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

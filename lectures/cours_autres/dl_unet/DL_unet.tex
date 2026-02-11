@@ -1,0 +1,1946 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[xcolor=dvipsnames,french,graphics,aspectratio=169]{beamer}
+\graphicspath{{images},{./graphics/fully_conv_nets}}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+\usepackage{amsmath,amssymb}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{alltt}
+
+\usepackage[absolute,showboxes,overlay]{textpos}
+%\usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic}%GRI!!!!
+
+\textblockorigin{0pt}{0pt}                           %origine des positions (coin gauche) attention, axe y vers le bas !!
+%\TPshowboxestrue                                  % affiche le contour des textblock
+\TPshowboxesfalse                                % n'affiche pas le contour des textblock
+
+\setlength{\TPHorizModule}{\paperwidth}\setlength{\TPVertModule}{\paperheight}
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+\usetheme{Warsaw}
+\setbeamertemplate{headline}{%
+\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette secondary}%quaternary
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+    \end{beamercolorbox}%
+  }
+}
+
+\defbeamertemplate*{footline}{shadow theme}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fil,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\hfill\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\definecolor{mygray}{rgb}{0.3, 0.3, 0.3}
+% --------------------------------------------------
+%\usepackage[footheight=1em]{beamerthemeboxes}
+%\addfootboxtemplate{\color{black}}{\color{white}
+%     \hfill\insertframenumber/\inserttotalframenumber\hspace{2em}\null}
+%\addtobeamertemplate{footline}{\insertframenumber/\inserttotalframenumber}
+% --------------------------------------------------
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}%jaune
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}% blanc sur blanc
+%\usecolortheme{fly}%gris
+%\usecolortheme{lily}% se parece a beamer
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}% mode presentation
+
+\usepackage{graphicx} % Allows including images
+\usepackage[export]{adjustbox}
+
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[latin1]{inputenc}
+\usepackage{babel}
+\usepackage{multimedia}
+\usepackage{media9}
+\usepackage{animate}% animategraphics
+\usepackage{hyperref}
+\usepackage{colortbl}  %Use to unconver columns in a table
+\usepackage{tikz}
+
+%\usepackage{enumitem}
+\usepackage{array,arydshln}% http://ctan.org/pkg/array and \usepackage{} % dashlines
+
+\newcolumntype{M}{>{\centering\arraybackslash}m{\dimexpr.25\linewidth-2\tabcolsep}}
+
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+  \setlength{\textwidth}{#1}
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}}
+  {\par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[ September 2025]{Semantic segmentation with U-net} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Beatriz Marcotegui} % Your name
+\institute[MINES ParisTech] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+  Centre de Morphologie Mathématique \\ % Your institution for the title page
+MINES ParisTech\\
+PSL Research University\\
+\medskip
+\textit{beatriz.marcotegui@minesparis.psl.eu}\\ % Your email address
+\bigskip
+
+}
+\date{September 2025} % Date, can be changed to a custom date
+
+
+
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}<beamer>
+\frametitle{Plan}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+
+% UNCOMMENT NEXT LINES IN ORDER TO ADD TITLE FRAMES BETWEEN SECTIONS
+% Add support for \subsubsectionpage
+\def\subsubsectionname{\translate{Subsubsection}}
+\def\insertsubsubsectionnumber{\arabic{subsubsection}}
+\setbeamertemplate{subsubsection page}
+{
+  \begin{centering}
+    {\usebeamerfont{subsubsection name}\usebeamercolor[fg]{subsubsection name}\subsubsectionname~\insertsubsubsectionnumber}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=4pt,center]{part title}
+      \usebeamerfont{subsubsection title}\insertsubsubsection\par
+    \end{beamercolorbox}
+  \end{centering}
+}
+\def\subsubsectionpage{\usebeamertemplate*{subsubsection page}}
+
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+
+\newcommand{\dl}{\delta}
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+    \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
+      \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
+    \end{beamercolorbox}
+\end{textblock*}}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\W}{\mathbf{W}} %Weight
+\newcommand{\bias}{\mathbf{b}}%Bias
+\newcommand{\act}{\texttt{g}}%Activation
+\newcommand{\lr}{\eta} % learning rate
+\newcommand{\loss}{L}
+\newcommand{\pdata}{\hat{p}_{\texttt{data}}}
+\newcommand{\nsize}{N}
+\newcommand{\nfeatures}{P}
+\newcommand{\param}{\boldsymbol{\theta}}
+\newcommand{\featmap}{\boldsymbol{\phi}}
+\newcommand{\EV}{\mathbb{E}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ``ADD VIDEO'' DEFINITION
+\newcommand{\addvideo}[3]{
+% Macro to add video :
+% Argument 1 : video source location
+% Argument 2 : image preview file location
+% Argument 3 : width of video
+\begin{center}
+    \includemedia
+    [
+        width  = #3\linewidth,
+        height  = #3\linewidth,
+        activate=pageopen,
+        addresource = #1,               %Inclut le fichier source dans le fichier pdf
+        flashvars = {source=#1 & scaleMode = letterbox&autoPlay=true&loop=true}     % Appelle le fichier source dans le lecteur
+    ]
+    {#2}{VPlayer.swf} % Arg #2 is used as preview image
+\end{center}
+}
+
+\begin{document}
+\tikzstyle{RectObject}=[rectangle,fill=white,draw,line width=0.5mm]
+\tikzstyle{RectObject2}=[rectangle,fill=white,draw,line width=0.7mm color = <blue>]
+\tikzstyle{line}=[draw]
+\tikzstyle{arrow}=[draw, -latex]
+\setlength{\unitlength}{1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercovered{transparent=30}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Plan } % Table of contents slide, comment this block out to remove it
+\tableofcontents[currentsection] % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \setbeamercovered{invisible}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Some vocabulary}
+
+  %..............................
+  \begin{itemize}{}
+
+  \item \textbf{Semantic segmentation}: each pixel gets a "class" label
+\onslide<4->{  \item \textbf{Instance segmentation}:  each pixel takes an "instance" label.}
+\onslide<5->{  \item \textbf{Panoptic segmentation}: each pixel takes "class" and "instance" labels.}
+  \end{itemize}
+  %..............................
+
+%  Note: \textbf{panoptic} definition (Larousse): Said of a building (penitentiary, hospital, etc.) from which, from an internal observation deck, one can see the entire interior.
+\begin{small}
+\begin{center}
+  %::::::::::::::::::::::::::::::
+  \begin{tabular}{cccc}
+
+      \onslide<2->{original}&\onslide<3->{\textbf{semantic seg}}&\onslide<4->{\textbf{instance seg}}&\onslide<5->{\textbf{panoptic seg}}\\
+
+      \onslide<2->{\includegraphics[width=0.22\textwidth]{../images/berkeley_elephants.png}}&
+      \onslide<3->{\includegraphics[width=0.22\textwidth]{../images/berkeley_semantic_seg.png}}&
+      \onslide<4->{\includegraphics[width=0.22\textwidth]{../images/berkeley_elephants_instance.png}}&
+      \onslide<5->{\includegraphics[width=0.22\textwidth]{../images/berkeley_semantic_seg.png}}\\
+      & & &      \onslide<5->{\includegraphics[width=0.22\textwidth]{../images/berkeley_elephants_instance.png}}
+
+  \end{tabular}
+  %::::::::::::::::::::::::::::::
+\end{center}
+\end{small}
+
+%% %::::::::::::::::::::::::::::::
+%% \begin{tabular}{ccc}
+%% \includegraphics[width=0.3\textwidth]{../images/hierarchy/car_ori.png}&
+%% \includegraphics[width=0.3\textwidth]{../images/hierarchy/car_ws.png}&
+%% \includegraphics[width=0.3\textwidth]{../images/hierarchy/car_hierarchy.png}\\
+
+%% \end{tabular}
+%% %::::::::::::::::::::::::::::::
+
+\end{frame}
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Pascal visual object classes segmentation challenge 2012 \cite{everingham_pascal_2014}}
+
+
+%%   \begin{itemize}
+%%   \item 1464 training and 1449 validation images
+%%   \item automatic online test, with unknown images
+%%   \item 20 image categories (cat, sofa, motorbike, person, etc.)
+%%   \end{itemize}
+
+%%   \begin{figure}
+%%     \includegraphics[height=2.5cm]{../images/pascal_cat.jpg}
+%%     \includegraphics[height=2.5cm]{../images/pascal_cat_seg.png}\\
+%%     \includegraphics[height=2.5cm]{../images/pascal_moto.jpg}
+%%     \includegraphics[height=2.5cm]{../images/pascal_moto_seg.png}
+%%   \end{figure}
+
+%% \end{frame}
+\section{Metrics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Measures used in image processing}
+
+
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      Let $A$ and $B$ be two sets, not simultaneously empty ({\begin{small} Credits: public domain wikipedia.org. \end{small}})
+
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=0.8\textwidth]{../images/Intersection_of_sets_A_and_B.png}
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Jaccard index}
+        \[
+        J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+        \]
+      \end{block}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Dice coefficient}
+        \[
+        D(A,B) = \frac{2|A \cap B|}{|A|+|B|}
+        \]
+      \end{block}
+
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+  \begin{block}{Properties}
+    \begin{itemize}
+    \item $\forall A, B: 0 \leq J(A, B) \leq D(A,B) \leq 1$
+    \item If $A=B$, then $D(A,B) = J(A,B) = 1$
+    \item If $ A \cap B = \emptyset$, then $D(A,B) = J(A,B) = 0$
+    \end{itemize}
+  \end{block}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Generalization to $[0,1]$}
+
+  \begin{block}{Jaccard index}
+    Also named Intersection over Union (IoU)
+        \[
+        J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+        \]
+      \end{block}
+
+      But $\y$ and $\hat{\y}$ are in $[0,1]^n \ldots$
+
+\pause
+
+  %% \begin{block}{Dice similarity}
+  %%   \[
+  %%   D(\y, \hat{\y}) = \frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+  %%   \]
+  %% \end{block}
+
+  \begin{block}{Jaccard similarity}
+    \[
+    J(\y, \hat{\y}) = \frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i}
+    \]
+  \end{block}
+
+($\y$ and $\hat{\y}$ are not simultaneously equal to $0$)
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Corresponding loss function}
+
+
+  %% \begin{block}{Dice loss}
+  %%   \[
+  %%   d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+  %%   \]
+  %% \end{block}
+
+  \begin{block}{Jaccard loss}
+    \[
+    j(\y, \hat{\y}) = \textcolor{blue}{1-}\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i - \sum_i y_i\hat{y}_i + \epsilon}
+    \]
+  \end{block}
+
+    Constant $\epsilon$, which is typically ``small'', keeps the denominator ``far enough'' from zero.
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Jaccard Loss code (keras)}
+\begin{verbatim}
+def jaccard1_coef(y_true, y_pred, smooth=SMOOTH):
+    y_true_f = K.flatten(y_true)
+    y_pred_f = K.flatten(y_pred)
+    intersection = K.sum(y_true_f * y_pred_f)
+    union = K.sum(y_true_f) + K.sum(y_pred_f) - intersection
+    return (intersection + smooth) / (union + smooth)
+
+
+def jaccard1_loss(y_true, y_pred, smooth=SMOOTH):
+    return 1 - jaccard1_coef(y_true, y_pred, smooth=SMOOTH)
+\end{verbatim}
+  \end{frame}
+\begin{frame}{Jaccard loss function - variant}
+
+
+  %% \begin{block}{Dice loss}
+  %%   \[
+  %%   d(\y, \hat{\y}) = 1-\frac{2\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 + \epsilon}
+  %%   \]
+  %% \end{block}
+
+  \begin{block}{Jaccard2 loss}
+    \[
+    j_2(\y, \hat{\y}) = 1-\frac{\sum_i y_i\hat{y}_i}{\sum_i y_i^2 + \sum_i \hat{y}_i^2 - \sum_i y_i\hat{y}_i + \epsilon}
+    \]
+  \end{block}
+
+  This version works slightly better than standard Jaccard loss ($j_1$).
+
+  \vspace*{0.5cm}
+  \parbox[c]{0.9\textwidth}{
+\begin{scriptsize}
+    %..............................
+    \begin{itemize}{}
+    \item Cha, S. H. (2007). Comprehensive survey on distance/similarity measures between probability density functions. City, 1(2), 1.
+
+    \item
+ Duque-Arias, D. et al. (2021). On power Jaccard losses for semantic segmentation. In VISAPP 2021.
+      \end{itemize}
+    %..............................
+\end{scriptsize}
+}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Loss functions}
+    \begin{itemize}
+    \item Cross-entropy: $ -\sum\limits_i y_i\log(\hat{y}_i)$
+    \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Cross entropy}
+  Classification loss function.
+
+
+  It is the sum of the true probability ($y_i$) multiplied by the log of the prediction ($\hat{y}_i$) over all classes of the distribution.
+
+\textcolor{blue}{  \centerline{  Cross-entropy:  $CE=-\sum\limits_i y_i\log(\hat{y}_i)$}}
+
+  %::::::::::::::::::::::::::::::
+  \begin{tabular}{ccccc}
+    input image&
+    {\large $\boldsymbol{\Rightarrow}$}&
+    MODEL &
+    {\large $\boldsymbol{\Rightarrow}$}&
+    vector of probabilities
+  \end{tabular}
+  %::::::::::::::::::::::::::::::
+  \centerline{  \includegraphics[width=0.2\textwidth]{../images/dog_image.png}}
+
+  %::::::::::::::::::::::::::::::
+  \begin{center}
+  %::::::::::::::::::::::::::::::
+  \begin{tabular}{|c|c|c|c|c|}
+
+    \hline
+    & dog&cat&elephant&snike\\
+    \hline
+    True probability & 1 & 0 & 0 & 0\\
+    \hline
+    Predicted prob.  &0.91&0.08&0.01&0\\
+    \hline
+  \end{tabular}
+  \end{center}
+
+
+Usually softmax is found at the end of DL classification systems, in order to convert output scores in probabilities (between [0,1] and sum to 1).
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Softmax operator}
+
+  \begin{block}{Definition}
+    The softmax operator $\sigma: \R^d \rightarrow \R^d$ is given by:
+    \[
+    \forall \mathbf{x}  \in \R^d, \forall k \in \{1, \ldots, d\}:\quad \sigma(\mathbf{x})_k = \frac{e^{\mathbf{x}_k}}{\sum\limits_{i=1}^d e^{\mathbf{x}_i}}
+    \]
+  \end{block}
+
+  \pause
+
+  \begin{columns}
+    \begin{column}{.3\textwidth}
+      \begin{block}{Some properties}
+        \begin{itemize}
+        \item $0 < \sigma(\mathbf{x})_k < 1$
+        \item $\sum\limits_{i=1}^d \sigma(\mathbf{x})_i = 1$
+        \end{itemize}
+      \end{block}
+
+    \end{column}
+
+    \pause
+
+    \begin{column}{.7\textwidth}
+
+      \begin{block}{Example}
+        \[
+        \mathbf{x} = \myvec{10.1\\0\\-4.3\\1.33}  \quad \sigma(\mathbf{x}) \approx \myvec{0.9998\\0.000041\\0.00000056\\0.00016}
+        \]
+
+      \end{block}
+
+
+
+    \end{column}
+  \end{columns}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cross entropy}
+  \begin{block}{  Kullback - Leibler divergence}
+    The dissimilarity between two probability distributions is estimated by the KL divergence.
+  \end{block}
+  %..........
+
+  Consider two probability distributions $P$ and $Q$: the true probability ($P=y$) and  the predicted probability ($Q=\hat{y}_i$).
+
+  $D_{KL}(P,Q)=\sum\limits_i P_i\log \frac{P_i}{Q_i} = \sum\limits_i P_i [\log (P_i)-\log(Q_i)]= \sum\limits_i P_i \log(P_i) - \sum\limits_i P_i \log(Q_i) $
+
+  The first term $\sum\limits_i P_i \log(P_i)$ is the entropy of the ground truth labels, that does not depend on $\theta$. Therefore:
+
+  $ \underset{\theta}{\mathrm{argmin}}[ D_{KL}(P,Q)] = \underset{\theta}{\mathrm{argmin}}[- \sum\limits_i P_i \log(Q_i)] \Rightarrow \textcolor{blue}{\text{Cross Entropy formula}}$
+%https://www.youtube.com/watch?v=SxGYPqCgJWM
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cross entropy}
+  %::::::::::::::::::::::::::::::
+  \begin{center}
+
+ \includegraphics<1>[width=0.6\textwidth]{../images/cross_entropy_loss_1.png}
+ \includegraphics<2>[width=0.6\textwidth]{../images/sq_CE_losses_1.png}
+\includegraphics<3>[width=0.6\textwidth]{../images/sq_CE_grad_1.png}
+  \end{center}
+  %::::::::::::::::::::::::::::::
+
+\only<3>{ Cross entropy: higher gradient for worst predictions. $\Rightarrow$ faster convergence}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Some losses comparison}
+  \centerline{ \includegraphics[width=0.6\textwidth]{../images/jac_sq_CE_losses_1_limit0-1.png}}
+
+  Sometimes, several losses are combined.
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Focal loss}
+  %..........
+  \begin{block}{Goal}
+Designed to fight against class imbalance, focuses training on a
+sparse set of "hard" examples and prevents the vast number of "easy"
+samples from overwhelming the detector.
+    \end{block}
+      $$
+      CE(p,y)=
+    \left\lbrace
+      \begin{array}{cc}
+        -log(p)  & \text{if } y = 1\\
+        -log(1-p) & otherwise
+      \end{array}\right.
+      $$
+
+      y: ground truth class
+
+      $p \in [0,1]$: estimated probability for the class y = 1
+
+            $$
+      p_t=
+    \left\lbrace
+      \begin{array}{cc}
+        p  & \text{if } y = 1\\
+        (1-p) & otherwise
+      \end{array}\right.
+      $$
+
+      $$ CE(p,y)=CE(p_t)=-log(p_t)$$
+
+      {\scriptsize   Focal Loss for Dense Object Detection
+  https://arxiv.org/pdf/1708.02002v2.pdf
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Focal loss}
+  %..........
+  \begin{block}{definition}
+  $$FL(p_t)=-(1-p_t)^\gamma log(p_t)$$
+    \end{block}
+\centerline{  \includegraphics[width=0.6\textwidth]{../images/focal_loss.png}}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Multi-class segmentation}
+  \parbox{0.9\textwidth}{Each class is set in a different output channel (one-hot encoding). Then binary segmentation is applied.}
+
+  \centerline{  \includegraphics[width=0.7\textwidth]{../images/categorical_2D.png}}
+
+
+  \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Multi-class segmentation}
+  Each class is set in a different output channel.
+
+  For example:
+
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+
+    \begin{column}{0.15\textwidth}
+      \begin{center}
+      %::::::::::::::::::::::::::::::
+      \begin{tabular}{|c|}
+        \hline
+        \textcolor{green}{1}\\
+        \hline
+        \textcolor{red}{0}\\
+        \hline
+        \textcolor{blue}{2}\\
+        \hline
+        \textcolor{blue}{2}\\
+        \hline
+        \textcolor{green}{1}\\
+        \hline
+        \textcolor{red}{0}\\
+        \hline
+        \textcolor{blue}{2}\\
+        \hline
+        \textcolor{blue}{2}\\
+        \hline
+      \end{tabular}
+      %::::::::::::::::::::::::::::::
+          \end{center}
+    \end{column}
+
+    \begin{column}{0.1\textwidth}
+      {\large $$\boldsymbol{\Rightarrow}$$}
+    \end{column}
+
+    \begin{column}{0.15\textwidth}
+      \begin{center}
+      \begin{tabular}{|c|c|c|}
+        \hline
+        0&\textcolor{green}{1}&0\\
+        \hline
+        \textcolor{red}{1}&0 &0\\
+        \hline
+        0&0&\textcolor{blue}{1}\\
+        \hline
+        0 &0&\textcolor{blue}{1}\\
+        \hline
+        0 &\textcolor{green}{1} &0\\
+        \hline
+        \textcolor{red}{1}&0 &0\\
+        \hline
+        0 &0&\textcolor{blue}{1}\\
+        \hline
+        0 &0&\textcolor{blue}{1}\\
+        \hline
+      \end{tabular}
+      %::::::::::::::::::::::::::::::
+    \end{center}
+    \end{column}
+
+  \end{columns}
+
+  $$Y2= tf.keras.utils.to\_categorical(Y)$$
+  %::::::::::::::::::::::::::::::
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{multi-class segmentation metric}
+  %..........
+  \begin{block}{mean Intersection over Union (mIoU)}
+  Usual multi-class segmentation metric:
+
+$$  mIoU = \frac{1}{N} \sum_{i=1} ^N IoU_i$$
+
+  $N$: number of classes, $IoU_i$: IoU of class i.
+    \end{block}
+  \end{frame}
+\section{Optimizers}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Optimizers}
+%https://www.youtube.com/watch?v=YnQJTfbwBM8&list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r&index=6
+  Method used to update the NN weights so that the loss in the training set is reduced.
+
+  The problem is strongly non-convex. We do not have convergence guarantees. Only a few guidelines.
+%..............................
+  \begin{itemize}{}
+  \item Gradient descent
+  \item Stochastic Gradient Descent (SGD)
+
+
+\end{itemize}
+%..............................
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Gradient descent}
+  \begin{alltt}
+    for t in nb_steps:
+        dw = compute_gradient(lossF,training_samples,w)
+        w = w - lr * dw
+    \end{alltt}
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \centerline{  \includegraphics[width=0.8\textwidth]{../images/gradient_descent.jpeg}}
+      {\scriptsize \parbox {0.95\textwidth}{ From https://towardsdatascience.com/linear-regression-using-gradient-descent-97a6c8700931}}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      $ dw = \bigtriangledown_\theta \sum_i^N  L(f(x_i,\theta_{t-1}),y_i)$
+
+      with $(x_i,y_i)$, the training set and N the number of training samples.
+
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Stochastic Gradient Descent}
+  \begin{alltt}
+    for t in nb_steps:
+       \textcolor{blue}{SelectBatch}
+       dw = compute_gradient(lossF,\textcolor{blue}{batch},w)
+       w = w - lr * dw
+  \end{alltt}
+
+  $ dw = \bigtriangledown_\theta \sum_i^m  L(f(x_i,\theta_{t-1}),y_i)$
+
+  with $(x_i,y_i)$, the training set and m the number of batch samples.
+
+  %..........
+  \begin{block}{Hyper-parameters}
+    %..............................
+    \begin{itemize}{}
+    \item weight initialization
+    \item learning rate
+    \item number of iterations
+    \item batch size (stochastic!) because it is computationaly expensive to compute the loss on the whole dataset
+    \end{itemize}
+    %..............................
+
+    \end{block}
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]{SGD + momentum}
+
+  %..........
+  \begin{block}{Momentum}
+     Accelerates optimization, integrating gradient with an exponentially decaying moving average
+
+
+    \end{block}
+
+  \begin{alltt}
+    v = 0
+    for i in nb_steps:
+        dw = compute_gradient(lossF,data,w)
+        \textcolor{blue}{v = rho * v + dw}
+        w = w - lr * \textcolor{blue}{v}
+  \end{alltt}
+  %..............................
+  \begin{itemize}{}
+  \item Intuition: a ball going down a hill. The ball does not follow the gradient direction because of its velocity.
+  \item $\rho$ typically 0.9 or 0.99
+  \end{itemize}
+  %..............................
+
+
+  %% \begin{alltt} EQUIVALENT
+  %%   v = 0
+  %%   for i in nb_steps:
+  %%       dw = compute_gradient(lossF,data,w)
+  %%       v = rho * v  - lr * dw
+  %%       $ w^{n+1} = w^{n} + v$
+
+  %%   \end{alltt}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]{SGD + momentum}
+
+  $$ v_i = \rho v_{i-1} + dw_i$$
+    $ v_0 = dw_0$
+
+  $v_1 = \rho * dw_0 + dw_1$
+
+  $v_2 = \rho * v_1 + dw_2 = \rho (\rho * v_0 + dw_1)+ dw_2 = \rho^2 dw_0 + \rho dw_1 + dw_2$
+
+  $...$
+
+  $ v_i =\rho^i dw_0 + \rho^{i-1} dw_1 + ....+  dw_i $
+
+\textcolor{blue}{    $$ v_i =\rho^i dw_0 + \rho^{i-1} dw_1 + ....+  dw_i $$}
+
+%..............................
+\begin{itemize}{}
+
+    \item If gradient is in the same direction it is amplified
+
+    \item Abrupt changes are smoothed
+
+
+\end{itemize}
+%..............................
+
+{\scriptsize Sutskever et al."On the importance of initialization and momentun in DL" ICML 2013.}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{SGD difficulties}
+
+
+  %..............................
+  \begin{itemize}{}
+  \item  If the gradient is high in one dimension and low in another one:
+
+  %..............................
+    \begin{itemize}{}
+    \item The optimization process may oscillate ("zigzag") if the learning rate is large
+    \item The optimization process may be slow, if the learning rate is small
+
+      In both cases, too many iterarations are required for convergence, if it converges!
+    \end{itemize}
+
+      %::::::::::::::::::::::::::::::
+    \begin{center}
+    \begin{columns}
+      \begin{column}{0.5\textwidth}
+        \centerline{\includegraphics<1>[width=0.6\textwidth]{../images/DL_optimization_path_01.png}}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+        \centerline{\includegraphics<1>[width=0.6\textwidth]{../images/DL_optimization_path_02.png}}
+      \end{column}
+    \end{columns}
+    \end{center}
+    %::::::::::::::::::::::::::::::
+
+\onslide<2->{    \item local minima}
+\onslide<3->{    \item saddle points: increases in one dimension and decreases in another one}
+\onslide<4->{    \item noisy "stochastic" estimations}
+
+  \end{itemize}
+  %..............................
+
+  % having a high condition number. Can be estimated by the ratio between the singular value of the Hessian matrix.
+  % saddle points have 0 gradient. Increases in one dimension and decreases in another one
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{AdaGrad}
+\textcolor{blue}{  Adaptive} learning rates (per parameter).
+  \begin{alltt}
+    grad_sq = 0
+    for i in nb_steps:
+        dw = compute_gradient(lossF,data,w)
+        \textcolor{blue}{grad_sq +=  dw * dw}
+        w = w - lr*dw/(grad_sq+epsilon)
+    \end{alltt}
+
+  The squared gradient is always positive. Its sum is increasing over time. Then, AdaGrad decreases the learning rate over time.
+
+  The square gradient may become too big. The optimization progress may stop.
+
+  Duchi et al. "Adaptive subgradient methods for online learning and stochastic optimization" JMLR 2011.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{RMSProp: "Leak Adagrad"}
+  \begin{alltt}
+    grad_sq = 0
+    for i in nb_steps:
+        dw = compute_gradient(lossF,data,w)
+        \textcolor{blue}{grad_sq = decay_rate * grad_sq + (1-decay_rate) * dw * dw}
+        w = w - lr*dw/(grad_sq+epsilon)
+    \end{alltt}
+
+  Intuition: do not slow down over the optimization process.
+
+  Momentum based optimization can overshoot and then come back.
+
+  AdaGrad and RMSProp arrest progress along the fast moving direction while simultaneously accelerating progress along slow moving direction. $\Rightarrow$ Bends directly to the minimum.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Adam: RMSProp + momentum}
+  Bias at the beginning of the optimization process, gradient is close to 0.
+
+
+  \begin{alltt}
+    grad_sq = 0
+    for i in nb_steps:
+        dw = compute_gradient(lossF,data,w)
+        moment1 = beta1 * moment1 + (1-beta1) * dw
+        moment2 = beta2 * moment2 + (1-beta2) * dw * dw
+
+        momment1_unbias = moment1/(1-beta1**i)
+        momment2_unbias = moment2/(1-beta2**i)
+        w = w - lr*moment1_unbias/(moment2_unbias+epsilon)
+
+    \end{alltt}
+
+
+default values: $ \beta_1=0.9; \beta_2 = 0.999$
+
+  Kingma and Ba, "Adam: A method for stochastic optimization", ICLR 2015.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weigth Decay}
+
+{\bf  Idea}: keep weights small unless absolutely necessary. A regularization technique that prevents overfitting.
+
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+        $$ \mathcal{L}_{total} = \mathcal{L}_{original}+ \lambda \sum w_i^2$$
+
+    \end{column}
+    \begin{column}{0.65\textwidth}
+        \begin{itemize}{}
+        \item
+
+          $ \mathcal{L}_{original}$: Original loss, i.e. cross entropy, dice...
+        \item $ \sum w_i^2$ : $L_2$ norm of all weights
+        \item $\lambda$: weight decay coefficient
+        \end{itemize}
+    \end{column}
+
+
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+  %..............................
+
+  %% \vspace*{0.5cm}
+
+  %%   \centerline{      \includegraphics[width=0.95\textwidth]{weight_decay_graphics2.png}}
+
+  %..............................
+
+  \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{AdamW}
+
+  Adam: weight decay added as L2 regularization term to loss function.
+
+  AdamW: weight decay applied directly to weight updates
+
+   \begin{alltt}
+   w = w - lr (moment1_unbias /(moment2_unbias + epsilon) + lambda w)
+   \end{alltt}
+  %::::::::::::::::::::::::::::::
+   \begin{tabular}{|c|c|c|}
+     \hline
+     & Adam&AdamW\\
+    \hline
+    Weight Decay   &  \parbox[m]{5cm}{L2 regularization applied to the loss}  & \parbox[t]{5cm}{Applied directly to \\weight updates }\\
+    \hline
+
+     Impact         & \parbox[c]{5cm}{Can interfere with adaptive lr} & \parbox[t]{5cm}{Decoupled, leads to \\consistent updates } \\
+        \hline
+
+        Generalization & \parbox[t]{5cm}{Can cause overfitting\\ in complex models}  & \parbox[t]{5cm}{Better regularization \\and generalization }\\
+        \hline
+
+  \end{tabular}
+  %::::::::::::::::::::::::::::::
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Adam vs AdamW}
+
+  %..............................
+  \begin{itemize}{}
+  \item {\bf Adam}: may converge faster but can suffer from poor generalization
+  \item {\bf AdamW}: in case of large models, AdamW may help to achieve better generalization and stable convergence.
+
+  \end{itemize}
+  %..............................
+
+
+  \end{frame}
+\section{From classification to image-to-image translation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{VGG16: a network for image classification}
+
+%%   \begin{center}
+%%     \begin{figure}
+%%       \centering
+%%       \includegraphics[width=0.65\textwidth]{vgg16.png}
+%%       \source{VGG16 (From https://www.cs.toronto.edu/~frossard/post/vgg16/)}
+%%     \end{figure}
+%%   \end{center}
+
+
+%% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification to image-to-image translation}
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+      \includegraphics[width=0.8\textwidth]{image_classif.png}
+      \end{figure}
+
+    \end{column}
+          \pause
+          \begin{column}{0.5\textwidth}
+            \begin{figure}
+      \includegraphics[width=0.8\textwidth]{image_transf.png}
+      \end{figure}
+
+    \end{column}
+
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf1.png}
+      \end{figure}
+
+    \end{column}
+          \pause
+          \begin{column}{0.5\textwidth}
+            \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf2.png}
+      \end{figure}
+
+    \end{column}
+
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From classification nets to image-to-image nets}
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+      \includegraphics[width=0.5\textwidth]{image_transf_fin.png}
+      \end{figure}
+
+    \end{column}
+          \pause
+          \begin{column}{0.5\textwidth}
+
+      \begin{itemize}
+      \item The neuron membrane segmentation challenge winner~\cite{ciresan_deep_2012} used this strategy. It is inefficient.
+      \item The idea to compute the whole output image with a single pass through the network had already been proposed \cite{ning_toward_2005, jain_supervised_2007} (but with architectures more complex than those used today).
+      \end{itemize}
+
+    \end{column}
+
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{The simplest image-to-image architecture}
+
+  \begin{block}{Example: plain CNN \cite{pang_cell_2010}}
+    \begin{figure}
+      \includegraphics[width=0.7\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+
+  \pause
+
+Note that today we would use ReLU activations on all layers except the last.
+
+\begin{block}{}%quizzblock
+  How many parameters does the first layer contain? The last? The second?
+\end{block}%quizzblock
+
+\pause
+
+\mode<beamer>{$(9+1) \times d$ ;  $9d+1$ ; $(9d+1) \times d$}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back1.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back2.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Going back to the original image size}
+
+    \begin{figure}
+      \includegraphics[width=\textwidth]{going_back.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Upsampling techniques}
+
+
+\begin{itemize}
+\item Replication
+\item Transposed convolution
+\item Pooling index memorization
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Upsampling through replication}
+
+  \begin{figure}
+      \includegraphics[height=0.8\textheight]{upsampling.png}
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transposed convolution}
+
+  \begin{columns}
+
+    \begin{column}<1->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{convolutional_layer}
+        \\ \scriptsize{Convolutional layer}
+      \end{center}
+    \end{column}
+
+    \begin{column}<2->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{transposed_conv.png}
+        \\ \scriptsize{Transposed convolutional layer}
+      \end{center}
+    \end{column}
+
+    \begin{column}<3->{0.3\textwidth}
+      \begin{center}
+        \includegraphics[width=0.74\textwidth]{transposed_conv_stride.png}
+        \\ \scriptsize{Transposed convolutional layer with stride $=2$}
+      \end{center}
+    \end{column}
+
+  \end{columns}
+
+
+\end{frame}
+
+%% Je pense que cet example est avec stride =1 et on utilise stride = 2 pour l'upsampling
+%% \begin{frame}{Transposed convolution: example}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{TransposedConv_Example.pdf}
+%% \end{figure}
+
+%% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Pooling index memorization}
+
+%% \begin{figure}[ht]
+%%   \centering
+%%   \includegraphics[width=\textwidth]{index_unpooling}
+%% \source{Divyanshu Mishra, Transposed convolution demystified, \url{http://towardsdatascience.com}}
+%% \end{figure}
+
+
+%% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Receptive field}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Receptive field}
+
+  \begin{block}{Definition: links between neurons}
+    In a NN, we say that neuron $a$ is linked to neuron $b$ if there is an oriented path in the corresponding graph going from $a$ to $b$.
+  \end{block}
+
+
+  \begin{block}{Definition}
+    The \alert{receptive field} of a neuron in a NN is the set of \emph{input neurons} that are linked to that neuron.
+
+    The size of the receptive field is an essential property when designing a fully-convolutional NN architecture.
+  \end{block}
+
+Note that in most cases, receptive fields are square shaped (border effects ignored).
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Illustration}
+
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{receptive_field.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>{Illustration}
+
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{receptive_field2.png}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Illustration}
+
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{receptive_field3.png}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Receptive field evolution through an upsampling layer}
+
+%%   \begin{figure}
+%%   \includegraphics[width=0.8\textwidth]{receptive_field_upsampling.png}
+%%   \end{figure}
+
+%% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Example}
+
+  \begin{block}{}
+    \begin{figure}
+      \includegraphics[width=0.6\textwidth]{plain_convnet.png}
+    \end{figure}
+  \end{block}
+
+
+  \begin{block}{What is the width of the receptive field of the neurons in the last layer?}%quizzblock
+    \begin{enumerate}
+    \item $n$
+    \item $1 + 2 \times n$
+    \item $1 + 2 \times (n+1)$
+    \item It depends on the input image
+    \end{enumerate}
+
+  \end{block}%quizzblock
+
+  \mode<beamer>{
+  \pause
+
+  Answer: $1 + 2 \times (n+1)$
+  }
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \frame<handout>{
+%%   \frametitle{Example}
+
+%%   \begin{block}{What is the width of the receptive field of the neurons in the last layer?}%quizzblock
+%%     \begin{figure}
+%%       \includegraphics[width=\textwidth]{plain_convnet.png}
+%%     \end{figure}
+%%   \end{block}%quizzblock
+%% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Effective receptive field: intuition}
+
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{receptive_field3.png}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conclusion on the receptive field}
+
+  When choosing or designing a NN architecture:
+\begin{itemize}
+\item Establish its minimal required size with respect to the application
+\item Make it larger than that...
+\end{itemize}
+
+\end{frame}
+
+
+
+\section{U-net architecture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{U-net architecture}
+
+  %..........
+  \begin{block}{Architecture}
+  \begin{itemize}{}
+  \item Fully convolutional network, with an encoder and a decoder.
+
+  \item The \textbf{encoder} (contracting path) is inspired by typical classification networks:
+    %..............................
+    \begin{itemize}{}
+    \item    a series basic blocks: Convolution (3x3), Activation (RELU) and max-pooling 2x2 for downsampling.
+  \item At each downsampling step, the number of channels (features) is multiplied by 2.
+    \end{itemize}
+    %..............................
+  \item The \textbf{decoder} (expanding path)
+    %..............................
+    \begin{itemize}{}
+    \item upsampling the feature map
+    \item concatenate corresponding features from contracting path $\Rightarrow$   \textcolor{blue}{\underline{\textbf{ Skip connection}}}
+    \item Basic block: Convolution (3x3), Activation (RELU)
+    \end{itemize}
+    %..............................
+  \item A final Convolution 1x1 with the output number of classes.
+  \end{itemize}
+  %..............................
+
+    \end{block}
+  %..............................
+
+{\small    Ronneberger, O., Fischer, P., and Brox, T. (\textbf{2015}). U-net: Convolutional networks for biomedical image segmentation. MICCAI 2015.} University of Freiburg, Germany.
+
+  \end{frame}
+
+\begin{frame}{Skip connection}
+  %..........
+  \begin{block}{The key idea}
+
+  Skip connection combine:
+  %..............................
+  \begin{itemize}{}
+  \item  spatial information from the encoding part
+  \item  with up-sampled deeper layers with more relevant feature representations.
+  \end{itemize}
+  %..............................
+
+    \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{U-net architecture}
+\centerline{  \includegraphics[width=0.8\textwidth]{../images/unet_architecture.png}}
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{U-net implementation (keras)}
+  \begin{small}
+    %\begin{Verbatim}[commandchars=\\\{\}]
+    \begin{alltt}
+  def \textcolor{blue}{modular_u_net}(shape, nb_levels = 4, nb_filters=32,output_channels=1):
+    x = Input(shape); first_layer=[]; first_layer.append(x); skip_layers=[]
+    \textcolor{blue}{# ENCODER}
+    for lev in range(nb_levels):
+        x = unet_block(nb_filters, res, "conv"+str(lev+1), batch_norm)(x)
+        if(lev < nb_levels -1):#not the last one
+            skip_layers.append(x)
+            x = unet_down(conv_sampling, nb_filters)(x)
+            nb_filters = nb_filters * 2
+    \textcolor{blue}{# DECODER}
+    for lev in range(nb_levels-1):
+        x = unet_up(conv_sampling, nb_filters)(x)
+        \textcolor{blue}{\textbf{x = concatenate([x, skip_layers.pop()], axis=3)}}
+        nb_filters= int(nb_filters/2)
+        x = unet_block(nb_filters, res, "conv"+str(nb_levels+lev+1), batch_norm)(x)
+    xFinal = Conv2D(output_channels, 1, activation="sigmoid", name="out")(x)
+    return Model(first_layer.pop(), xFinal)
+\end{alltt}
+  \end{small}
+  \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{U-net block}
+
+  %..........
+  \begin{alltt}
+    def \textcolor{blue}{unet_block}(nb_fil, res, name, batch_norm):
+    def fn(tensor):
+        x = Conv2D(nb_fil, 3, padding="same", name="\%s_1" \% name)(tensor)
+        if batch_norm:
+            x = BatchNormalization()(x)
+        x = Activation("relu")(x)
+        x = Conv2D(nb_fil, 3, padding="same", name="\%s_2" \% name)(x)
+        if batch_norm:
+            x = BatchNormalization()(x)
+        if res:
+            skip=Conv2D(nb_fil,3,padding="same",name="\%s_res"\% name)(tensor)
+            x = add([x, skip])
+        x = Activation("relu")(x)
+        return x
+    return fn
+    \end{alltt}
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{U-net down block}
+  %..........
+  \begin{alltt}
+def \textcolor{blue}{unet_down}(conv_sampling, nb_filters=None):
+    if conv_sampling:
+        if nb_filters is None:
+            raise ValueError("When conv_sampling is True, nb_filters should be given")
+        def fn(tensor):
+            x = Conv2D(nb_filters, 3, padding="same", strides=(2, 2))(tensor)
+            return x
+    else:
+        def fn(tensor):
+            x = MaxPooling2D(pool_size=(2, 2))(tensor)
+            return x
+    return fn
+
+    \end{alltt}
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{U-net up block}
+  %..........
+  \begin{alltt}
+def \textcolor{blue}{unet_up}(conv_sampling, nb_filters):
+    if conv_sampling:
+        if nb_filters is None:
+            raise ValueError("When conv_sampling is True, nb_filters should be given")
+        def fn(tensor):
+            x = Conv2DTranspose(nb_filters, 3, padding="same", strides=(2, 2))(tensor)
+            return x
+    else:
+        def fn(tensor):
+            x = UpSampling2D(size=(2, 2))(tensor)
+            return x
+    return fn
+
+    \end{alltt}
+  \end{frame}
+
+\section{Unet variants}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unet variants}
+  %..............................
+  \begin{itemize}{}
+  \item Add residual connections in the convolutional blocks
+  \item Unet ++: A nested u-net architecture for medical image segmentation. 2018.
+  \item Attention u-net
+  \item UnetR: U-net Transformer
+  \item Sharp U-net
+  \item Motion U-net
+  \item ...
+
+  \end{itemize}
+  %..............................
+
+  Siddique, N., Paheding, S., Elkin, C. P., \& Devabhaktuni, V. (2021). U-net and its variants for medical image segmentation: A review of theory and applications. IEEE Access, 9.
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unet++}
+  %..........
+  \begin{block}{Dense skip pathways}
+    %..............................
+    \begin{itemize}{}
+    \item  Aim: reduce semantic gap between the encoder and decoder feature maps.
+    \item $x^{0,1} = H[x^{0,0},U(x^{1,0})]$; $x^{0,2} = H[x^{0,0},x^{0,1},U(x^{1,1})]$; $x^{0,2} = H[x^{0,0},x^{0,1},x^{0,2},U(x^{1,2})]$...
+
+    \end{itemize}
+    %..............................
+
+    \end{block}
+
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+  \centerline{        \includegraphics[width=0.9\textwidth]{../images/UnetPlusPlus_01.png}}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+        %Rahman Siddiquee, M. M., Tajbakhsh, N., \& Liang, J
+  \begin{footnotesize}  Zhou, Z. et al. (2018). Unet++: A nested u-net architecture for medical image segmentation. In DL in medical image analysis and multimodal learning for clinical decision support (pp. 3-11).
+    \end{footnotesize}
+
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unet++}
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+        \includegraphics[width=0.8\textwidth]{../images/UnetPlusPlus_01.png}
+
+        \includegraphics[width=0.8\textwidth]{../images/UnetPlusPlus_02.png}
+
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \includegraphics[height=0.95\textheight]{../images/UnetPlusPlus_03.png}
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Attention U-net}
+\centerline{  \includegraphics[width=0.8\textwidth]{../images/unet_attention_architecture.png}}
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Attention u-net}
+%https://www.youtube.com/watch?v=KOF38xAvo8I
+
+  %..............................
+  \begin{itemize}{}
+  \item  Highlights relevant activations during training
+  \item   Reduces computational ressources on irrelevant activations
+  \item   Better generalization
+  \end{itemize}
+  %..............................
+
+  %..........
+  %% \begin{block}{Hard attention}
+  %%   %..............................
+  %%   \begin{itemize}{}
+  %%   \item    One region of an image at a time
+  %%   \item Relevant regions are cropped
+  %%   \item     Network can pay attention or not, binary choice
+  %%   \item not differentiable, Backpropagation cannot be used, needs reinforcement learning)
+  %%   \end{itemize}
+  %%   %..............................
+  %%   \end{block}
+
+
+    %..........
+    \begin{block}{Soft attention}
+      %..............................
+      \begin{itemize}{}
+      \item Attention weights the relevance of different parts of the image
+      \item The more relevant, the larger weight
+      \item Backpropagation can be used
+      \item The weights are trained
+      \item Adds weights to pixels based on their relevance
+
+      \end{itemize}
+      %..............................
+
+      \end{block}
+
+
+  Oktay, O., Schlemper, J., Folgoc, L. L., Lee, M., Heinrich, M., Misawa, K., ... \& Rueckert, D. (2018). Attention u-net: Learning where to look for the pancreas. arXiv preprint arXiv:1804.03999.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Attention gate}
+
+  %..............................
+  \begin{itemize}{}
+  \item Takes two inputs:
+    %..............................
+    \begin{itemize}{}
+    \item x from the skip connection, with better spatial information
+    \item g from the lower layer, with better feature representation
+    \end{itemize}
+    %..............................
+
+
+
+  \end{itemize}
+  %..............................
+\centerline{  \includegraphics[width=0.8\textwidth]{../images/unet_attention_gate.png}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Attention gate code}
+%  \centerline{  \includegraphics[width=0.5\textwidth]{../images/unet_attention_gate.png}}
+  \begin{small}
+%https://www.youtube.com/watch?v=KOF38xAvo8I
+\begin{verbatim}
+def attention_block_2d(x, g, inter_channel):
+    # x is the skip connexion
+    x2 = Conv2D(inter_channel, [1, 1], strides=[1, 1])(x)
+    # g is the up-sampled deeper level feature (stride is then 1)
+    g2 = Conv2D(inter_channel, [1, 1], strides=[1, 1])(g)
+
+    # add both branches and then activation
+    f = Activation('relu')(add([x2, g2]))
+
+    # get the scalar value, then apply sigmoid
+    psi_f = Conv2D(1, [1, 1], strides=[1, 1])(f)
+    rate = Activation('sigmoid')(psi_f)
+
+    # multiply
+    att_x = multiply([x, rate])
+    return att_x
+
+
+\end{verbatim}
+\end{small}
+
+
+%https://github.com/lixiaolei1982/Keras-Implementation-of-U-Net-R2U-Net-Attention-U-Net-Attention-R2U-Net.-/blob/master/network.py
+
+
+\end{frame}
+
+
+\section{Google Colab}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Google Colab}
+  %..............................
+  \begin{itemize}{}
+  \item Go to the website https://colab.research.google.com/
+  \item Open a new notebook or an existing one
+  \item For existing notebooks, upload it to your google drive
+  \item Copy it in the colab content. For this purpose:
+    %..............................
+
+\textcolor{blue}{     !cp /content/gdrive/MyDrive/Colab\ Notebooks/my\_notebook.ipynb /content"}
+
+    %..............................
+  \item Copy additional files:
+    %..............................
+
+\textcolor{blue}{\small{     !cp /content/gdrive/MyDrive/Colab\ Notebooks/Unet\_MAREVA/parameters.py /content}}
+
+\textcolor{blue}{\small{      !cp -r /content/gdrive/MyDrive/Colab\ Notebooks/Unet\_MAREVA/dl\_tools /content}}
+
+%..............................
+{\bf{Replace "Unet\_MAREVA" with your directory name on google drive.}}
+
+
+  \item In the first cell of your notebook add the following two lines:
+
+\textcolor{blue}{    from google.colab import drive}
+
+\textcolor{blue}{    drive.mount('/content/gdrive')}
+  \end{itemize}
+  %..............................
+
+\end{frame}
+
+\section{Conclusions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusions}
+%..............................
+  \begin{itemize}{}
+\item U-net and its variants continue to be a prominent method for semantic segmentation
+\item For medical images and other domains
+\item Rmsprop or Adam can be used as default optimizers
+\item Jaccard2 or Cross-Entropy can be used as a baseline
+\item Loss is computed pixel-wise
+\item Working on specific losses enforcing structure is an interesting research topic
+
+\end{itemize}
+%..............................
+
+  \end{frame}
+
+
+\begin{frame}{Residual learning (ResNet)}
+
+  Shortcut connection: Allow deeper networks with less risk of performance loss.
+  %::::::::::::::::::::::::::::::
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+
+
+ \centerline{     Residual block}
+    \end{column}
+    \begin{column}{0.8\textwidth}
+      \centerline{  \includegraphics[width=0.95\textwidth]{../images/resnet_block.png}}
+    \end{column}
+  \end{columns}
+  %::::::::::::::::::::::::::::::
+
+
+\small{  He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.}
+
+\small{\href{https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf}{https://openaccess.thecvf.com/content\_cvpr\_2016/papers/He\_Deep\_Residual\_Learning\_CVPR\_2016\_paper.pdf}}
+\end{frame}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Res-Unet}
+%%     %::::::::::::::::::::::::::::::
+%%   \begin{columns}
+%%     \begin{column}{0.5\textwidth}
+
+
+%%  \centerline{\small{\href{https://ieeexplore.ieee.org/document/8959021}{  \parbox[c]{0.9\textwidth}{
+%% Zhang, Z., Liu, Q., \& Wang, Y. (2018). Road extraction by deep residual u-net. IEEE Geoscience and Remote Sensing Letters, 15(5), 749-753.}}}
+%% }
+%%     \end{column}
+%%     \begin{column}{0.4\textwidth}
+%%       \centerline{  \includegraphics[width=0.80\textwidth]{../images/resunet.png}}
+%%     \end{column}
+%%   \end{columns}
+%%   %::::::::::::::::::::::::::::::
+
+%%   \end{frame}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}{Res-Unet ++}
+%%     %::::::::::::::::::::::::::::::
+%%   \begin{columns}
+%%     \begin{column}{0.5\textwidth}
+
+
+%%  \centerline{\small{\href{https://ieeexplore.ieee.org/document/8959021}{\parbox[c]{0.9\textwidth}{Jha, D., Smedsrud, P. H., Riegler, M. A., Johansen, D., De Lange, T., Halvorsen, P., \& Johansen, H. D. (2019, December). Resunet++: An advanced architecture for medical image segmentation. In 2019 IEEE international symposium on multimedia (ISM) (pp. 225-2255). IEEE.}}}
+%% }
+%%     \end{column}
+%%     \begin{column}{0.4\textwidth}
+%%       \centerline{  \includegraphics[width=0.95\textwidth]{../images/resunet++.png}}
+%%     \end{column}
+%%   \end{columns}
+%%   %::::::::::::::::::::::::::::::
+
+%%   \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Google colab}
+  %..............................
+  \begin{itemize}{}
+  \item Upload files (notebook, dl\_tools directory and parameters.py file) to your google drive
+  \item mount your google drive
+    \begin{itemize}
+\item
+  from google.colab import drive
+\item
+  drive.mount('/content/gdrive')
+      \end{itemize}
+
+  \item change directory
+    \begin{itemize}
+\item
+import os
+\item
+  os.chdir("gdrive/My Drive/")
+      \end{itemize}
+
+  \end{itemize}
+  %..............................
+
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{frame}[fragile]{Dashboard}
+%% \begin{alltt}
+%% tensorboard --logdir=runs   (path of logfiles) runs directory
+
+%% http://localhost:6006/
+
+%% from torch.utils.tensorboard import SummaryWriter
+
+%% writer = SummaryWriter("runs/mnist")
+
+%% for n_iter in range(100):
+%%     writer.add_scalar('Loss/train', np.random.random(), n_iter)
+%%     writer.add_scalar('Loss/test', np.random.random(), n_iter)
+%%     writer.add_scalar('Accuracy/train', np.random.random(), n_iter)
+%%     writer.add_scalar('Accuracy/test', np.random.random(), n_iter)
+
+%% img_grid = torchvision.utils.make_grid(example_data)
+%% writer.add_image('mnist_images',image_grid)
+%% writer.close()
+
+
+%% logdir = "logs/scalars/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+%% file_writer = tf.summary.create_file_writer(logdir + "/metrics")
+%% file_writer.set_as_default()
+
+%% tf.summary.scalar('learning rate', data=learning_rate, step=epoch)
+
+%% \end{alltt}
+%% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{efficientNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FROM ETIENNE's slides
+%\input{attention}
+%\input{attention_towardsai}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
+
+%\bibliographystyle{elsart-num}
+%\bibliographystyle{plain}
+%\bibliography{D:/marcoteg-svn/papers/HDR/HDR_biblio}
+\frame[allowframebreaks]{
+
+  \scriptsize
+
+  \frametitle{References}
+
+  %\bibliographystyle{amsalpha}
+  %\bibliographystyle{apalike}
+\bibliographystyle{plain}
+  \bibliography{edf.bib}
+
+  \normalsize
+
+}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

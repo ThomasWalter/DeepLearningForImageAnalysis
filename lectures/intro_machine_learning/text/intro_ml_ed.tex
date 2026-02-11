@@ -7,7 +7,7 @@
 	   Lecture 1: Introduction to Machine Learning}
 \author{Thomas Walter, PhD}
 \date{Centre for Computational Biology (CBIO) \\
-	  MINES Paris-Tech, PSL Research University \\
+	  Mines Paris, PSL Research University \\
 	  Institut Curie, PSL Research University \\
 	  INSERM U900}
 
@@ -73,7 +73,7 @@
  		& Supervised & Unsupervised \\
 		\hline \hline
 		$y$ labels & Classification & Clustering \\
-		$y$ continuous & Regression & Dimensionality reduction\\
+		$y$ continuous & Regression & \\
 		\hline
 	\end{tabular}
 	\end{table}
@@ -152,7 +152,7 @@
 \end{figure}
 \begin{itemize}
 \item<1-> A NN trained on 128.000 images reaches 87\% sensitivity and 91 \% specificity and became the first FDA approved autonomous IA medical device \cite{Abramoff2018}
-\item<2-> From eye images, we can also predict age, BMI, cardiovascular risks and smoking habits \cite{Poplin2018}
+\item<2-> From eye images, we can also predict age, body mass index, cardiovascular risks and smoking habits \cite{Poplin2018}
 \item<3-> What do we allow to predict? Who is using this information?
 \end{itemize}
 \end{frame}
@@ -648,12 +648,12 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 \end{itemize}
 \end{frame}
 
-\subsection{Linear Discriminant Analysis (LDA)}
-\begin{frame}[plain,c]
-\begin{center}
-\Huge Linear Discriminant Analysis
-\end{center}
-\end{frame}
+%% \subsection{Linear Discriminant Analysis (LDA)}
+%% \begin{frame}[plain,c]
+%% \begin{center}
+%% \Huge Linear Discriminant Analysis
+%% \end{center}
+%% \end{frame}
 
 
 % \begin{frame}{The Bayes rule of classification 1/4}
@@ -689,30 +689,30 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 
 % \end{frame}
 
-\begin{frame}{The Bayes rule of classification 1/2}
+%% \begin{frame}{The Bayes rule of classification 1/2}
 
-\begin{block}{Bayes rule of classification}
-	\textbf{Bayes Theorem}: Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $y \in \{1 \ldots, K\}$ a discrete set of class labels. The posterior probability $P(y=k\,|\,x)$ can be written as:
-	\begin{equation}
-		P(y=k \, | \, x) = \frac{p(x \, | \, y=k) P(y=k)}{p(x)}
-	\end{equation}
-	\textbf{The Bayes rule of classification}: \emph{choose the class that maximizes the posterior probability} $P(y=k|x)$:
-	\begin{equation}\label{equ:bayes_rule}
-		\hat{y}(x) = \arg\max_k P(y=k \, | \, x) = \arg\max_k p(x\,|\,y=k)P(y=k)
-	\end{equation}
-\end{block}
+%% \begin{block}{Bayes rule of classification}
+%% 	\textbf{Bayes Theorem}: Let $x \in \mathbb{R}^P$ with a probability density $p(x)$ and $y \in \{1 \ldots, K\}$ a discrete set of class labels. The posterior probability $P(y=k\,|\,x)$ can be written as:
+%% 	\begin{equation}
+%% 		P(y=k \, | \, x) = \frac{p(x \, | \, y=k) P(y=k)}{p(x)}
+%% 	\end{equation}
+%% 	\textbf{The Bayes rule of classification}: \emph{choose the class that maximizes the posterior probability} $P(y=k|x)$:
+%% 	\begin{equation}\label{equ:bayes_rule}
+%% 		\hat{y}(x) = \arg\max_k P(y=k \, | \, x) = \arg\max_k p(x\,|\,y=k)P(y=k)
+%% 	\end{equation}
+%% \end{block}
 
-\end{frame}
+%% \end{frame}
 
 
-\begin{frame}{The Bayes rule of classification 2/2}
-\begin{itemize}
-\item The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
-\item Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities.
-\item This rule is important because it gives the best possible classifier, given that the class dependent feature distributions $p(x\,|\,y=k)$ and the class probabilities $P(y=k)$ are known.
-\item However, this is normally not the case: these distributions need to be estimated from the training data.
-\end{itemize}
-\end{frame}
+%% \begin{frame}{The Bayes rule of classification 2/2}
+%% \begin{itemize}
+%% \item The Bayes rule of classification simply states that the best class to choose is the one with highest probability given the observation.
+%% \item Importantly, we can calculate this posterior probability from the class dependent feature distributions and the class probabilities.
+%% \item This rule is important because it gives the best possible classifier, given that the class dependent feature distributions $p(x\,|\,y=k)$ and the class probabilities $P(y=k)$ are known.
+%% \item However, this is normally not the case: these distributions need to be estimated from the training data.
+%% \end{itemize}
+%% \end{frame}
 
 % \begin{frame}{The Bayes rule for classification in the binary case}
 
@@ -729,27 +729,27 @@ Minimizing the loss $\loss (\param)$ aims at finding the rule to reproduce the a
 
 % \end{frame}
 
-\begin{frame}{Normality assumption}
-\begin{figure}[htb]
-\includegraphics[width=0.8\textwidth]{../graphics/LDA3.pdf}
-\end{figure}
-We assume that features are normally distributed for each of the classes:
-\begin{equation}\label{equ:lda:normal}
-p(x|y=k)=\frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma_k|^{\frac{1}{2}}}e^{-\frac{1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)}
-\end{equation}
-\end{frame}
+%% \begin{frame}{Normality assumption}
+%% \begin{figure}[htb]
+%% \includegraphics[width=0.8\textwidth]{../graphics/LDA3.pdf}
+%% \end{figure}
+%% We assume that features are normally distributed for each of the classes:
+%% \begin{equation}\label{equ:lda:normal}
+%% p(x|y=k)=\frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma_k|^{\frac{1}{2}}}e^{-\frac{1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)}
+%% \end{equation}
+%% \end{frame}
 
-\begin{frame}{Linear Discriminant Analysis (LDA)}
-Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:bayes_rule}) and the additional assumption that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$, we obtain {\bf Linear Discriminant Analysis, LDA}:
-\begin{equation*}
-\log{\frac{P(y=1)}{P(y=2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
-\end{equation*}
-\begin{itemize}
-	\item We see that this is a linear classifier: $x$ is multiplied with $\Sigma^{-1}(\mu_1-\mu_2)$.
-	\item $LDA$ is an old technique, but it is still used in practice.
-	\item With neural networks, we typically aim at predicting posterior probabilities without parametric modeling of class dependent densities.
-\end{itemize}
-\end{frame}
+%% \begin{frame}{Linear Discriminant Analysis (LDA)}
+%% Plugging equation (\ref{equ:lda:normal}) into (\ref{equ:bayes_rule}) and the additional assumption that the covariance matrices of the classes are equal, i.e. $\Sigma_1 = \Sigma_2 = \Sigma$, we obtain {\bf Linear Discriminant Analysis, LDA}:
+%% \begin{equation*}
+%% \log{\frac{P(y=1)}{P(y=2)}} + x^T\Sigma^{-1}(\mu_1-\mu_2) - \frac{1}{2}(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1+\mu_2) > 0
+%% \end{equation*}
+%% \begin{itemize}
+%% 	\item We see that this is a linear classifier: $x$ is multiplied with $\Sigma^{-1}(\mu_1-\mu_2)$.
+%% 	\item $LDA$ is an old technique, but it is still used in practice.
+%% 	\item With neural networks, we typically aim at predicting posterior probabilities without parametric modeling of class dependent densities.
+%% \end{itemize}
+%% \end{frame}
 
 % \begin{frame}{Comparison LDA vs. closest mean 1/2}
 % \begin{itemize}
