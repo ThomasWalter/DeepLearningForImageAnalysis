@@ -173,40 +173,9 @@
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - set of normal images}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.25\textwidth]{snow1-pexels-photo-290548.jpg}
-    \includegraphics[width=0.25\textwidth]{snow2-pexels-photo-235621.jpg}
-    \includegraphics[width=0.25\textwidth]{snow3-pexels-photo-839462.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow4-pexels-photo-688660.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow5-pexels-photo-773594.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow6-pexels-photo-1559117.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow7-pexels-photo-66284.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow8-pexels-photo-1571442.jpeg}
-    \includegraphics[width=0.25\textwidth]{snow9-pexels-photo-416728.jpeg}\
-    \source{http://pexels.com}
-  \end{figure}
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example - which image is anomalous?}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.25\textwidth]{test1-pexels-photo-414459.jpeg}
-    \includegraphics[width=0.25\textwidth]{test2-pexels-photo-414171.jpeg}
-    \source{http://pexels.com}
-  \end{figure}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A more applied example}
+\begin{frame}{First example - set of normal images}
   \begin{figure}[ht]
     \centering
     \includegraphics[width=0.25\textwidth]{mvtec_tb_000}
@@ -249,6 +218,37 @@
   \item 4: bent/disorganized bristles
   \item 6: foreign object
   \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Second example - set of normal images}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.25\textwidth]{snow1-pexels-photo-290548.jpg}
+    \includegraphics[width=0.25\textwidth]{snow2-pexels-photo-235621.jpg}
+    \includegraphics[width=0.25\textwidth]{snow3-pexels-photo-839462.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow4-pexels-photo-688660.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow5-pexels-photo-773594.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow6-pexels-photo-1559117.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow7-pexels-photo-66284.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow8-pexels-photo-1571442.jpeg}
+    \includegraphics[width=0.25\textwidth]{snow9-pexels-photo-416728.jpeg}\
+    \source{http://pexels.com}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example - which image is anomalous?}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.25\textwidth]{test1-pexels-photo-414459.jpeg}
+    \includegraphics[width=0.25\textwidth]{test2-pexels-photo-414171.jpeg}
+    \source{http://pexels.com}
+  \end{figure}
+
 \end{frame}
 
 
@@ -867,6 +867,7 @@ $\mathcal{Z}$, the representation space, is often called \alert{latent} space.
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion on autoencoders for anomaly detection}
 
@@ -875,6 +876,23 @@ $\mathcal{Z}$, the representation space, is often called \alert{latent} space.
   \item In practice, methods based on the latent space seem to give the best results.
   \item Are there ways to find a better image representation?
   \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A similar approach using diffusion models}
+
+  \begin{block}{Diffusion modelling~\cite{wolleb_diffusion_2022}}
+
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=\textwidth]{2022.miccai.wolleb}
+
+    \end{figure}
+
+  \end{block}
+
+
 
 \end{frame}
 
@@ -1301,11 +1319,51 @@ Note: this decomposition does not help selecting the best dimensions for anomaly
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Results}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{anomaly_scores_distributions}
+  \end{figure}
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Other approaches}
+
+\begin{block}{SimpleNet\tiny{\cite{liu_simplenet_2023}}}
+
+  \begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{simplenet}
+\end{figure}
+
+\end{block}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Limits of current approaches~\cite{casagrande_bertoldo_contributions_2025}}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{auroc_per_base_per_method}
+  \end{figure}
+
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion}
