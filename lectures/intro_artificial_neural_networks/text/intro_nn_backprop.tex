@@ -1,5 +1,4 @@
-\documentclass[handout,xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
-%\documentclass[xcolor=pdftex,dvipsnames,table,mathserif]{beamer}
+\documentclass[xcolor=pdftex,dvipsnames,table,mathserif,aspectratio=169]{beamer}
 \input{../../setting.tex}
 \usepackage{physics}
 
@@ -26,7 +25,7 @@
 \usepackage[absolute,overlay]{textpos}
 \setbeamercolor{framesource}{fg=gray}
 \setbeamerfont{framesource}{size=\tiny}
-\newcommand{\source}[1]{\begin{textblock*}{4cm}(8.7cm,8.6cm)
+\newcommand{\source}[1]{\begin{textblock*}{4cm}(11.7cm,8.1cm)
     \begin{beamercolorbox}[ht=0.5cm,right]{framesource}
       \usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Credits: {#1}
     \end{beamercolorbox}
@@ -36,7 +35,7 @@
 \author{E. Decencière}
 \date{Mines Paris\\
   PSL Research University\\
-  Center for Mathematical Morphology
+  Center for Statistics and Images
 }
 \titlegraphic{\includegraphics[height=1.7cm]{logoemp}}
 
@@ -189,7 +188,7 @@
 
   \begin{itemize}
   \item The initial idea behind the activation function is that it works somehow as a gate
-  \item If its input in ``high enough'', then the neuron is activated, i.e. a signal (other than zero) is produced
+  \item If its input is ``high enough'', then the neuron is activated, i.e. a signal (other than zero) is produced
   \item It can be interpreted as a source of abstraction: information considered as unimportant is ignored (or reduced)
   \end{itemize}
 
@@ -673,7 +672,7 @@
   \frametitle{Other types of neural networks}
 
   \begin{alertblock}{}
-    In the following of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.
+    In the remainder of this course, except when otherwise specified, all NNs will be feed-forward. Indeed, this is the preferred type of NN for image processing.
   \end{alertblock}
 
   \begin{block}{What about other architectures?}
@@ -696,7 +695,7 @@
 
   \begin{itemize}
   \item A layer is said to be fully-connected (FC) if each of its neurons is connected to all the neurons of the previous layer
-  \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are a 2D dimensional array (a matrix) of size $q \times r$
+  \item  If a FC layer contains $r$ neurons, and the previous layer $q$, then its weights are a 2-dimensional array (a matrix) of size $q \times r$
   \end{itemize}
 
   \begin{figure}
@@ -831,7 +830,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
     \[\Y = \act_3(\X_3\W_3 + \bias_3)\]
   \end{block}
 
-  This can accelerate processing thanks to hardware architectures such a Graphical Processing Units (GPUs) but can also play an important role in optimization.
+  This can accelerate processing thanks to hardware architectures such as Graphical Processing Units (GPUs) but can also play an important role in optimization.
 
 \end{frame}
 
@@ -855,7 +854,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
 
   \begin{itemize}
   \item The functions composing an artificial neural network are differentiable (almost everywhere). Therefore, an ANN is differentiable (almost everywhere).
-  \item In fact, any continuous function on a closed bounded domain can be approached within any error margin by an artificial neural network.
+  \item In fact, any continuous function on a closed bounded domain can be approximated within any error margin by an artificial neural network.
 
   \end{itemize}
 
@@ -1197,7 +1196,7 @@ $$
 \begin{frame}{Mini-batch processing}
 
   \begin{itemize}[<+->]
-  \item One can (and often does) choose and intermediate solution between the full gradient and the stochastic gradient: mini-batch gradient.
+  \item One can (and often does) choose an intermediate solution between the full gradient and the stochastic gradient: mini-batch gradient.
     \item   The training database is then separated into subsets containing $m$ samples ($m < n$).
     \item This has a regularization effect on the optimization with respect to the stochastic gradient and speeds up computation thanks to the vectorization capacity of hardware architectures such as GPUs.
   \end{itemize}
@@ -1671,11 +1670,11 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Weights initialization}
+\subsection{Weight initialization}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Network parameters initialization}
+\begin{frame}{Network parameters initialisation}
 
   \begin{block}{General idea}
     Inputs of activation functions should be in a range such that gradients are high.
@@ -1692,7 +1691,7 @@ $$
 
     \begin{column}{.7\textwidth}
       \begin{itemize}
-      \item Bias are set to zero
+      \item Biases are set to zero
       \item If weights are also initialized to zero, then in each layer the activations will remain equal -- symmetry will never be broken
       \item Empirical solutions are based on a gaussian distribution of the weights, with \textit{small} standard deviation.
       \end{itemize}
