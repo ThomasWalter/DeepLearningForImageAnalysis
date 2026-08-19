@@ -51,18 +51,6 @@
 \end{frame}
 
 
-%% QuizZoodle:
-%% * lien d'édition:
-%% http://www.quizzoodle.com/quizz/editor/3094208fcf224de4bdcf4e0d22c2f20f
-%% mot de passe: no password
-
-%% * lien de session:
-%% http://www.quizzoodle.com/session/6266c678a7964535812b5990e26f9b99
-%% mot de passe: no password
-
-%% * lien pour suppression:
-%% http://www.quizzoodle.com/quizz/delete/427672d20f2045d2972f305d67b49eb4
-%% mot de passe: no password
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Contents}
@@ -238,7 +226,7 @@
     \item Biologically inspired
     \item[+] Simple to compute
     \item[+] High abstraction
-    \item[-] Gradient nil except on one point
+    \item[-] Its derivative is undefined at $0$, equal to $0$ everywhere else
     \item \alert{In practice, almost never used}
     \end{itemize}
   \end{block}
@@ -747,11 +735,11 @@
   \end{figure}
 
   \begin{block}{}
-    For $i \in \{1, 2, 3\}$:
+    For $i \in \{0, 1, 2\}$:
     \[\x_i = \act_i(\x_{i-1}^t \W_i + \bias_i)\]
   \end{block}
   \begin{block}{}
-    \[\y = \act_4(\x_4^t \W_4 + \bias_4)\]
+    \[\y = \act_3(\x_3^t \W_3 + \bias_3)\]
   \end{block}
 
   \pause
@@ -836,11 +824,11 @@
 They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ corresponding outputs $\y_i$ can also be grouped into a matrix $\Y$. The resulting equations are:
 
 \begin{block}{}
-  For $i \in \{1, 2, 3\}$:
+  For $i \in \{0, 1, 2\}$:
     \[\X_i = \act_i(\X_{i-1}\W_i + \bias_i)\]
   \end{block}
 \begin{block}{}
-    \[\Y = \act_4(\X_4\W_4 + \bias_4)\]
+    \[\Y = \act_3(\X_3\W_3 + \bias_3)\]
   \end{block}
 
   This can accelerate processing thanks to hardware architectures such a Graphical Processing Units (GPUs) but can also play an important role in optimization.
@@ -920,7 +908,7 @@ They can be grouped into a matrix $\mathbf{X}$ of size $n \times p$. The $n$ cor
   \frametitle{Universal approximation theorem: what does it mean?}
 
   \[
-  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i\x + b_i) \right| < \epsilon
+  \left| f(\x) - \sum\limits_{i=1}^q v_i \act(\mathbf{w}_i^T\x + b_i) \right| < \epsilon
   \]
 
   This means that function $f$ can be approximated with a neural network containing:
@@ -1075,9 +1063,9 @@ $$
         \[
         \nabla \loss (x) =
         \begin{pmatrix}
-          \frac{\partial \loss}{\partial \x_1}(x) \\
+          \frac{\partial \loss}{\partial x_1}(x) \\
           \vdots \\
-          \frac{\partial \loss}{\partial \x_n}(x)
+          \frac{\partial \loss}{\partial x_n}(x)
         \end{pmatrix}
         \]
 
@@ -1466,7 +1454,7 @@ $$
       \begin{equation*}
     \begin{split}
       \mathcal{M}: \R^{(m,n)} & \longrightarrow \R^{(p,q)}\\
-      \X      & \longmapsto \mathcal{M}(M)
+      \X      & \longmapsto \mathcal{M}(\X)
     \end{split}
   \end{equation*}
 
@@ -1476,13 +1464,13 @@ $$
         \begin{pmatrix}
           \frac{\partial \mathcal{M}_{1,1}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{1,q}}{\partial \X}  \\
           \vdots  & \ddots & \vdots  \\
-          \frac{\partial \mathcal{M}_{p,q}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{p,q}}{\partial \X}
+          \frac{\partial \mathcal{M}_{p,1}}{\partial \X} & \cdots & \frac{\partial \mathcal{M}_{p,q}}{\partial \X}
         \end{pmatrix}
         $
 
       \end{block}
 
-  This is an array of size $(m, n, p, q)$.
+  This is an array of size $(p, q, m, n)$.
 
 
 \end{frame}
@@ -1502,7 +1490,7 @@ $$
   \begin{itemize}[<+->]
   \item Computing the full matrix $\pdv{\Y}{\X}$ is impractical
   \item But here $Y_{i,j}$ only depends on $X_{i,j}$: $Y_{i,j} = \act(X_{i,j})$
-  \item Therefore: $\pdv{\Y_{i,j}}{\X_{i,j}} = \act'$.
+  \item Therefore: $\pdv{\Y_{i,j}}{\X_{i,j}} = \act'(X_{i,j})$.
   \item Finally:
     \[
     \pdv{\loss}{\X} = \pdv{\loss}{\Y} \odot \act'(\X) \text{  ,}
@@ -1601,7 +1589,7 @@ $$
   \begin{eqnarray*}
     p, q \in \N^*\\
     \x \in \R^p \\
-    \W \in \R^q \times \R^p \\
+    \W \in \R^{q \times p} \\
     \bias, \mathbf{t}, \y \in \R^q \\
     \loss \in \R
   \end{eqnarray*}
@@ -1713,11 +1701,11 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Network parameters initialization: current practice}
+\begin{frame}{Network parameters initialization}
 
   \begin{itemize}
-  \item \cite{glorot_understanding_2010}: they empirically show that a standard deviation of $1/\sqrt n$ gives good results (where $n$ is the number of inputs of a neuron)
-  \item \cite{he_delving_2015}: in the case of ReLU activations, they recommend a $2/\sqrt  n$ standard deviation
+   \item \cite{lecun_efficient_1998}: Lecun et al. suggest drawing the weights from a normal distribution of mean $0$ and variance $1/n$  (where $n$ is the number of inputs of a neuron)
+  \item \cite{he_delving_2015}: in the case of ReLU activations, He et al. recommend a $2/n$ variance
   \end{itemize}
 
 \end{frame}
@@ -1820,7 +1808,7 @@ $$
   %\bibliographystyle{amsalpha}
   %\bibliographystyle{apalike}
 
-  \bibliography{../../edf.bib}
+  \bibliography{../../edf}
 
   \normalsize
 
