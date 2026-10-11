@@ -317,11 +317,11 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 \begin{figure}[htb]
    \centering
    \includegraphics[width=0.8\textwidth]{../graphics/Fast_R-CNN.pdf}
-   \caption{Fast R-CNN \cite{Girshick2015}}.
+   \caption{Fast R-CNN \cite{Girshick2015}}
 \end{figure}
 \begin{itemize}
 	\item The entire image is processed by a neural network: generation of feature maps.
-	\item Region are proposed by some algorithm (as before).
+	\item Regions are proposed by some algorithm (as before).
 	\item To each region, a ROI pooling layer is applied. 
 \end{itemize}
 %\vspace{-.5cm}
@@ -332,7 +332,7 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 \begin{figure}[htb]
    \centering
    \includegraphics[height=0.4\textheight]{../graphics/ROI_pooling_layer.pdf}
-   \caption{ROI pooling layer in Fast R-CNN}.
+   \caption{ROI pooling layer in Fast R-CNN}
 \end{figure}
 \begin{itemize}
    \item The layer has to be differentiable. 
