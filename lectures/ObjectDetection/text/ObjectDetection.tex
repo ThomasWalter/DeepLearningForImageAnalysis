@@ -20,6 +20,8 @@
 \usepackage[absolute,overlay]{textpos}
 
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \definecolor{lightblue}{RGB}{0,200,255}
 
 
@@ -114,6 +116,9 @@
 \end{frame}
 
 \section{Localization and classification}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+
 \begin{frame}{Localization and classification}
 \begin{figure}[htb]
    \centering
@@ -124,7 +129,7 @@
 \item Simplified example: one centered object of interest
 \item Tasks: 
 \begin{itemize}
-   \item \textbf{Classification: } classification of the object's content.
+   \item \textbf{Classification: } classification of the object's content
    \item \textbf{Localization: } regression on the position / extension.
 \end{itemize}
 \end{itemize}
@@ -140,6 +145,64 @@
    \item Two tasks from the same image, with two contributions to the loss.
    \item Classification loss (e.g. softmax)
    \item Localization loss (e.g. regression loss on position and extension of a bounding box)
+\end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Difficulties in object detection}
+% \begin{itemize}
+% \item Orientation: an object can appear under any variation in the image. 
+% \end{itemize}
+% \end{frame}
+
+
+%------------------------------------------------------------------------
+\begin{frame}{Intersection over Union (IoU)}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.55]
+  % example 1: IoU = 0.82
+  \begin{scope}
+    \fill[orange!25] (0.2,0) rectangle (2,2);
+    \draw[thick, green!50!black] (0,0) rectangle (2,2);
+    \draw[thick, red, dashed] (0.2,0) rectangle (2.2,2);
+    \node at (1.1,-0.6) {\small $IoU \approx 0.82$};
+  \end{scope}
+  % example 2: IoU = 0.5
+  \begin{scope}[xshift=4.2cm]
+    \fill[orange!25] (0.667,0) rectangle (2,2);
+    \draw[thick, green!50!black] (0,0) rectangle (2,2);
+    \draw[thick, red, dashed] (0.667,0) rectangle (2.667,2);
+    \node at (1.33,-0.6) {\small $IoU = 0.5$};
+  \end{scope}
+  % example 3: IoU = 0.12
+  \begin{scope}[xshift=9cm]
+    \fill[orange!25] (1.4,0.6) rectangle (2,2);
+    \draw[thick, green!50!black] (0,0) rectangle (2,2);
+    \draw[thick, red, dashed] (1.4,0.6) rectangle (3.4,2.6);
+    \node at (1.7,-0.6) {\small $IoU \approx 0.12$};
+  \end{scope}
+  % legend
+  \begin{scope}[xshift=13.6cm, yshift=0.6cm]
+    \draw[thick, green!50!black] (0,1.2) -- (0.6,1.2) node[right, black] {\scriptsize ground truth};
+    \draw[thick, red, dashed] (0,0.6) -- (0.6,0.6) node[right, black] {\scriptsize prediction};
+    \fill[orange!25] (0,-0.15) rectangle (0.6,0.15); \node[right] at (0.6,0) {\scriptsize intersection};
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\vspace{-.3cm}
+\begin{equation*}
+IoU(A,B) = \frac{|A\cap B|}{|A\cup B|} \in [0,1]
+\end{equation*}
+\begin{itemize}
+  \item Measures how well two boxes (or masks) overlap.
+  \item Scale-invariant: the same shift (in number of pixels) costs more for a small box than for a large one.
+  \item Used everywhere in detection:
+  \begin{itemize}
+    \item Evaluation: a prediction counts as correct if $IoU \geq$ threshold (often 0.5).
+    \item Training: assigning ground truth to predictions.
+    \item Post-processing to remove false detections. 
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -159,22 +222,48 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Object detection: example}
-\begin{figure}[htb]
-   \centering
-   \includegraphics[width=\textwidth]{../graphics/Detection_example3.pdf}
-   \caption{Object detection in action. Image taken from \cite{Liu2016}}
-\end{figure}
-\end{frame}
-
-
-% \begin{frame}{Difficulties in object detection}
-% \begin{itemize}
-% \item Orientation: an object can appear under any variation in the image. 
-% \end{itemize}
+% \begin{frame}{Object detection: example}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=\textwidth]{../graphics/Detection_example3.pdf}
+%    \caption{Object detection in action. Image taken from \cite{Liu2016}}
+% \end{figure}
 % \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architectures for object detection}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{A common framework for object detectors}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, fill=blue!8, minimum height=0.8cm, align=center, font=\scriptsize},
+  arr/.style={->, thick}]
+  \node[box] (img) {Image};
+  \node[box, right=0.35cm of img] (bb) {CNN\\features};
+  \node[box, right=0.35cm of bb, fill=orange!20] (cand) {\textbf{1. Candidates}};
+  \node[box, right=0.35cm of cand, fill=orange!20] (pred) {\textbf{3. Prediction}\\class + box};
+  \node[box, right=0.35cm of pred, fill=orange!20] (post) {\textbf{4. Post-}\\\textbf{processing}};
+  \node[box, right=0.35cm of post] (out) {Detections};
+  \draw[arr] (img) -- (bb); \draw[arr] (bb) -- (cand); \draw[arr] (cand) -- (pred);
+  \draw[arr] (pred) -- (post); \draw[arr] (post) -- (out);
+  \node[box, below=0.45cm of pred, fill=orange!20] (assign) {\textbf{2. Assignment} (training only):\\which candidate is responsible for which object?};
+  \draw[arr, dashed] (assign) -- (pred);
+\end{tikzpicture}
+\end{figure}
+\vspace{-.2cm}
+\small
+Every detector has 4 ingredients:
+\begin{enumerate}
+  \item \textbf{Candidates:} proposition of boxes potentially containing objects (region proposals, anchor boxes, grid cells, $\ldots$)
+  \item \textbf{Assignment:} during training, which candidate should predict which ground-truth object? (IoU with the ground truth, cell containing the object center, $\ldots$)
+  \item \textbf{Prediction and loss:} for each candidate, a class (classification loss) and a box, usually as offsets relative to the candidate regions (regression loss).
+  \item \textbf{Post-processing:} removal of duplicate detections (non-maximum suppression).
+\end{enumerate}
+\end{frame}
+
 \begin{frame}{Early approaches: the sliding window approach}
 \begin{figure}[htb]
    \centering
@@ -278,7 +367,7 @@
 
 \begin{frame}{R-CNN: bounding box regression}
 \begin{itemize}
-   \item $t_x,t_y$ are normalized by the width and height, respectively. This makes the regression scale-invariant, i.e. the network does not need to learn different ranges for small or large boxes.
+   \item Each proposal is warped to the same input size: the network only sees positions \emph{relative} to the box (a shift of 10 px in a 50 px box looks like a shift of 100 px in a 500 px box). The targets must therefore be relative too: $t_x,t_y$ are normalized by the width and height. This also keeps the targets in a similar range for all box sizes, so that large boxes do not dominate the loss.
    \item $t_w,t_h$ are normalized and log-transformed. This leads to symmetric values for the loss (a box twice as big leads to the same loss as a box twice as small, compared to the ground truth). 
    \item At inference, we predict $(\hat{t}_x, \hat{t}_y, \hat{t}_w, \hat{t}_h)$. 
    \item From there, we obtain the refined box: 
@@ -291,15 +380,60 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Filtering with greedy non-maximum suppression}
+%------------------------------------------------------------------------
+% NEW: non-maximum suppression (replaces the former NMS slide)
+\begin{frame}{Filtering with greedy non-maximum suppression (NMS)}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.56]
+  % before
+  \node[font=\scriptsize] at (2.5,4.6) {Before NMS};
+  \draw[gray!60, fill=gray!8] (0,0) rectangle (5,4.2);
+  \draw[thick, red] (0.4,1.2) rectangle (2.4,3.6); \node[red, font=\tiny, anchor=south east, inner sep=1pt] at (2.4,3.6) {0.9};
+  \draw[thick, red, dashed] (0.8,0.8) rectangle (2.7,3.1); \node[red, font=\tiny, anchor=north east, inner sep=1pt] at (2.7,0.8) {0.8};
+  \draw[thick, red, dashed] (0.2,1.6) rectangle (1.9,3.9); \node[red, font=\tiny, anchor=south west, inner sep=1pt] at (0.2,3.9) {0.6};
+  \draw[thick, blue] (2.9,0.5) rectangle (4.6,2.6); \node[blue, font=\tiny, anchor=south east, inner sep=1pt] at (4.6,2.6) {0.75};
+  \draw[thick, blue, dashed] (3.1,0.3) rectangle (4.8,2.3); \node[blue, font=\tiny, anchor=north east, inner sep=1pt] at (4.8,0.3) {0.5};
+  % after
+  \begin{scope}[yshift=-5.6cm]
+  \node[font=\scriptsize] at (2.5,4.6) {After NMS};
+  \draw[gray!60, fill=gray!8] (0,0) rectangle (5,4.2);
+  \draw[thick, red] (0.4,1.2) rectangle (2.4,3.6); \node[red, font=\tiny, anchor=south east, inner sep=1pt] at (2.4,3.6) {0.9};
+  \draw[thick, blue] (2.9,0.5) rectangle (4.6,2.6); \node[blue, font=\tiny, anchor=south east, inner sep=1pt] at (4.6,2.6) {0.75};
+  \end{scope}
+\end{tikzpicture}
+\end{figure}
+\end{column}
+\begin{column}{0.55\textwidth}
+\small
+Many candidate regions are overlapping and target the same region. Thus, for each class:
+\begin{enumerate}
+  \item Discard boxes with a score below a minimum value.
+  \item Sort the remaining boxes by score.
+  \item Keep the box with the highest score.
+  \item Remove all boxes with $IoU > \tau$ with this box (typically $\tau = 0.5$).
+  \item Repeat 3--4 with the remaining boxes until none are left.
+\end{enumerate}
+\vspace{.2cm}
+Each group of overlapping boxes is reduced to its most confident member.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Non-maximum suppression: remarks}
 \begin{itemize}
-\item At prediction time, 2000 region proposals are processed. 
-\item These region proposals often overlap. 
-\item The overlap can be quantified by the Intersection over Union (IoU):
-\begin{equation*}
-IoU(A,B) = \frac{A\cap B}{A\cup B}
-\end{equation*}
-\item NMS : greedy algorithm that keeps for a group with high $IoU$ the one with maximal posterior probability. 
+  \item Used by nearly all methods in this lecture: R-CNN, Fast R-CNN, Faster R-CNN (twice: in the RPN with $\tau = 0.7$, and on the final detections), YOLO.
+  \item NMS is not learned: it is a post-processing step outside the network, and $\tau$ is a hyperparameter.
+  \item Applied per class: a ``person'' box does not suppress an overlapping ``bicycle'' box.
+  \item Important for evaluation: duplicate detections count as false positives (see later).
+  \item Failure case: crowded scenes. Two true objects with large overlap (touching nuclei, people in a crowd) can lead to suppression of one of them.   
+  % \item Alternatives (later more):
+  % \begin{itemize}
+  %   \item Soft-NMS: decrease the score of overlapping boxes instead of removing them \cite{Bodla2017}.
+  %   \item Set-based detectors (DETR \cite{Carion2020}) avoid duplicates by design and need no NMS.
+  % \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -307,7 +441,7 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 \begin{itemize}
 \item Fixed input size for the CNN: distortion and rescaling of images is necessary.
 \item Multi-stage pipeline (no end-to-end solution, which is globally optimal).
-\item Training is expensive in space and time, mainly due to the separate feature extraction step. 
+\item Training is expensive (memory and compute), mainly due to the separate feature extraction step. 
 \item Computationally expensive at prediction time, as many (overlapping) regions need to be classified. 
 \item Sub-optimal region proposal step.
 \end{itemize} 
@@ -335,10 +469,22 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
    \caption{ROI pooling layer in Fast R-CNN}
 \end{figure}
 \begin{itemize}
-   \item The layer has to be differentiable. 
-   \item Each region of arbitrary size $w \times h$ is divided into $W \times H$ tiles. $W$ and $H$ are fixed, where as $w$ and $h$ are arbitrary.
-   \item For each tile, the maximum is calculated (max-pooling operation) in the feature map.
+   \item The region is projected onto the feature map (coordinates divided by the stride).
+   \item It is divided into $W \times H$ tiles (e.g. $7\times7$): $W, H$ fixed; $w, h$ arbitrary.
+   \item In each tile and each channel, the maximum is calculated (max-pooling).
    \item The output (fixed size) can then be processed by dense layers. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fast R-CNN: ROI pooling layer}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.4\textheight]{../graphics/ROI_pooling_layer.pdf}
+   \caption{ROI pooling layer in Fast R-CNN}
+\end{figure}
+\begin{itemize}
+   \item Differentiable w.r.t.\ the features: as for max-pooling, the gradient goes to the maximum of each tile. The backbone can thus be trained through the detection head.
+   \item Not differentiable w.r.t.\ the candidate box coordinates: the proposal itself is not modified by training, only the regressed offsets and object classes are.
 \end{itemize}
 \end{frame}
 
@@ -346,7 +492,7 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 % \begin{figure}[htb]
 %    \centering
 %    \includegraphics[width=0.8\textwidth]{../graphics/Fast_R-CNN.pdf}
-%    \caption{Fast R-CNN \cite{Girshick2015}}.
+%    \caption{Fast R-CNN \cite{Girshick2015}}
 % \end{figure}
 \begin{itemize}
 \item Two outputs:
@@ -354,13 +500,18 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 	\item Classification output (with a standard softmax layer)
 	\item Bounding box regression: prediction of position and extension offsets with respect to the original region proposal. 
 \end{itemize}
-\item The loss has thus two components: $\loss_{class}$ which is the standard cross-entropy loss and $\loss_{loc}$, the localization loss (smooth $\loss_1$ loss of the offsets with respect to the proposed regions). This multi-task loss allows one to optimize both classification and localization accuracies together. 
+\item The loss has thus two components: 
+\begin{itemize}
+   \item $\loss_{class}$: standard cross-entropy loss
+   \item $\loss_{loc}$: localization loss (smooth $\loss_1$ loss of the offsets with respect to the proposed regions). 
+\end{itemize}
+   \item This multi-task loss allows one to optimize both classification and localization accuracies together. 
 % , i.e. for each sample we have a loss:
 % \begin{equation*}
 % \loss = - \sum_k y_k \log(\hat{y}_k) + \lambda[y \geq 1] \sum_{j \in \{x,y,w,h\}} \loss_1(v^k_j - \hat{v^k}_j)
 % \end{equation*}
 % where $v$ is the offset relative to a region proposal. 
-\item During training, the batch is constructed from many objects drawn from very few images. Feature maps do then not need to be recalculated. 
+% \item During training, the batch is constructed from many objects drawn from very few images. Feature maps do then not need to be recalculated. 
 %\item For the prediction, each class gets its own region proposal, that is processed individually with non-maxima suppression. 
 \end{itemize}
 \end{frame}
@@ -373,7 +524,7 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 
 \begin{frame}{Faster R-CNN: motivation}
 \begin{itemize}
-	\item Fast R-CNN solves nearly all problem of R-CNN, and is end-to-end given a set of region proposals.
+	\item Fast R-CNN solves nearly all problems of R-CNN, and is end-to-end given a set of region proposals.
 	\item The problem is that we still need to make region proposals to start with (time-consuming and two-stage algorithm).
 	\item Faster R-CNN \cite{Ren2017} trains a network called Region Proposal Network (RPN) to overcome this issue.
 \end{itemize}
@@ -382,10 +533,10 @@ IoU(A,B) = \frac{A\cap B}{A\cup B}
 \begin{frame}{Faster R-CNN: Idea}
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=0.4\textheight]{../graphics/Faster_R-CNN2.pdf}
+   \includegraphics[width=0.6\textheight]{../graphics/Faster_R-CNN2.pdf}
    \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
-The idea is to share convolutional feature maps at test-time, i.e. to use the CNN feature maps calculated for the entire image for both region proposal and object classification \cite{Ren2017}. 
+The idea is to share convolutional feature maps calculated on the entire image for both region proposal and object classification \cite{Ren2017}. 
 \end{frame}
 
 \begin{frame}{Faster R-CNN: shared layers}
@@ -395,9 +546,14 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
-\item First, we run the image through convolutional layers of a CNN and obtain feature maps that will serve both the region proposal and the object classification. 
-\item We now "slide" a small $n \times n$ network over the common feature map. In practice, this is implemented as a convolutional layer, followed by $1D$-convolutions. 
-\item The size can be relatively small (in \cite{Ren2017}, it is $3 \times 3$); the receptive field is much larger. 
+\item The image passes through the convolutional layers of a CNN; the feature maps serve both region proposal and object classification.
+\item Region Proposal Network (RPN): 
+\begin{itemize}
+   \item The objective of the RPN is to identify regions potentially containing objects.
+   \item Architecture: $3\times3$ convolution (512 channels, ReLU), followed by two $1\times1$ convolution heads
+   \item This kernel corresponds to a much larger image region.
+\end{itemize}
+
 % , that outputs both scores (object yes/no) and regression offsets defining the bounding box. 
 % \item The size can be relatively small (in \cite{Ren2017}, it is $3 \times 3$); the receptive field is much larger. 
 %\item The size of the window needs to be chosen such that the receptive field is larger than all regions in the ground truth. 
@@ -411,25 +567,85 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
-\item This small network completes the Region Proposal Network (RPN).
-\item The RPN outputs a set of rectangular object proposals, each with an objectness score.
-\item For this, we define $k$ anchor boxes (defined by scale and aspect ratio) at each sliding-window location.
+  \item Bounding boxes in the image space could have arbitrary size and aspect ratio.   
+  \item For this, we define $k$ anchor boxes (defined by scale and aspect ratio, e.g. 3 scales $\times$ 3 ratios, $k=9$), covering different object geometries in the image space.
+% \item The RPN outputs a set of rectangular object proposals, each with an objectness score.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Faster R-CNN: Region proposal network (RPN)}
+
+
+% \begin{frame}{Faster R-CNN: Region proposal network (RPN)}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
+%    \caption{Faster R-CNN \cite{Ren2017}}
+% \end{figure}
+% \begin{itemize}
+% \item At each position, the two $1\times1$ convolutions output:
+% \begin{itemize}
+%    \item $k$ objectness scores (sigmoid): does anchor $a$ overlap an object? (The paper uses $2k$ outputs with a two-class softmax, which is equivalent.)
+%    \item $4k$ offsets (linear): refinement of anchor $a$, same parametrization as in R-CNN.
+% \end{itemize}
+% \item Output tensors: $H \times W \times k$ and $H \times W \times 4k$ ($\sim$20\,000 anchors for a $600 \times 1000$ image).
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{Anchor boxes 1/2}
 \begin{figure}[htb]
-   \centering
-   \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}
+\centering
+\begin{tikzpicture}[scale=0.6, arr/.style={->, thick}]
+  % feature map
+  \foreach \i in {0,...,5} \foreach \j in {0,...,3}
+    \draw[gray] (\i*0.5,\j*0.5) rectangle ++(0.5,0.5);
+  \fill[orange!50] (1.5,1.0) rectangle ++(0.5,0.5);
+  \draw[very thick, orange!80!black] (1.0,0.5) rectangle ++(1.5,1.5);
+  \node[font=\tiny, align=center] at (1.5,-0.6) {feature map\\($3\times3$ conv)};
+  % feature vector
+  \draw[arr] (3.1,1.0) -- (4.1,1.0);
+  \draw[fill=orange!30] (4.3,-0.2) rectangle (4.7,2.2);
+  \node[font=\tiny, align=center] at (4.5,-0.9) {one feature\\vector (512)};
+  % 1x1 convs and outputs
+  \draw[arr] (4.9,1.6) -- (6.2,2.25);
+  \draw[arr] (4.9,0.4) -- (6.2,-0.25);
+  \node[font=\tiny] at (5.3,2.35) {$1\times1$};
+  \node[font=\tiny] at (5.3,-0.35) {$1\times1$};
+  \foreach \a/\c in {0/red,1/red,2/red,3/blue,4/blue,5/blue,6/green!60!black,7/green!60!black,8/green!60!black}{
+    \fill[\c!40] (6.4+\a*0.4,2.1) rectangle ++(0.35,0.35);
+    \draw[\c] (6.4+\a*0.4,2.1) rectangle ++(0.35,0.35);
+    \fill[\c!40] (6.4+\a*0.4,-0.55) rectangle ++(0.35,0.35);
+    \draw[\c] (6.4+\a*0.4,-0.55) rectangle ++(0.35,0.35);
+  }
+  \node[font=\tiny, anchor=west] at (6.3,2.75) {$k$ objectness scores};
+  \node[font=\tiny, anchor=west] at (6.3,-0.85) {$k$ groups of 4 offsets};
+  % image with anchors
+  \begin{scope}[xshift=10.8cm, yshift=-0.9cm]
+    \draw[gray!60, fill=gray!8] (0,0) rectangle (5.4,4.0);
+    \foreach \s/\c in {0.8/red, 1.4/blue, 2.0/green!60!black}
+      \foreach \r in {1, 2, 0.5}
+        \draw[thick, \c] ({2.7-\s*sqrt(\r)/2}, {2.0-\s/sqrt(\r)/2}) rectangle ({2.7+\s*sqrt(\r)/2}, {2.0+\s/sqrt(\r)/2});
+    \fill (2.7,2.0) circle (2pt);
+    \node[font=\tiny, align=center] at (2.7,-0.55) {image: $k=9$ anchors (3 scales $\times$ 3 ratios),\\all centered at the same position};
+  \end{scope}
+\end{tikzpicture}
 \end{figure}
 \begin{itemize}
-\item For each sliding windows location and each of the $k$ anchor boxes, we predict:
-\begin{itemize}
-   \item Objectness (object yes/no) of the anchor box.
-   \item Width, height and offset w.r.t. the anchor box.
+  \item All $k$ anchors at a position share the \textbf{same input}: one feature vector (from one position at the feature map). 
+  \item They differ only on the output side: each anchor $a$ has its own fixed output channels (1 score, 4 offsets).
+  %\item They differ only on the \textbf{output side}: output group $a$ is always paired with anchor shape $a$ (same color).
 \end{itemize}
-\item During training, an anchor box is considered to be positive if the $IoU>0.7$ with a ground-truth box, or if the $IoU$ is maximal among all anchors and none is larger than 0.7. Negative anchor boxes have $IoU<0.3$. 
+\end{frame}
+
+\begin{frame}{Anchor boxes 2/2}
+\begin{itemize}
+  \item Anchors are \textbf{reference boxes in image space}. They are used to:
+  \begin{itemize}
+    \item assign training labels: output group $a$ (i.e. objectness and coordinates) at position $p$ is trained as positive if anchor $a$ centered at the corresponding image position $p$ has $IoU>0.7$ with a ground-truth box.
+    \item decode predictions: the predicted offsets are applied to anchor $a$, with the same parametrization as in R-CNN (anchor instead of proposal).
+  \end{itemize}
+  %\item Through training, each output group specializes in one object shape and size. At one location, the network answers $k$ questions: ``Is there a tall object here? A wide one? A large one?''
+  \item Anchors can be larger than the receptive field (512 vs.\ 228 pixels): the extent of an object can be inferred from its central part.
+  %\item Contrast with the second stage: there, the input \emph{does} depend on the box (features are cropped by RoI pooling).
 \end{itemize}
 \end{frame}
 
@@ -453,10 +669,14 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
-\item We define a combined loss (as for Fast R-CNN), as sum of the classification loss and bounding box regression loss.
-\item Classification loss: cross entropy for a binary classifier, indicating whether the region contains an object or not.
-\item Regression loss compares for each region proposal its offsets to the anchors with the offsets of the ground truth box.
+\item Training labels: an anchor is positive if $IoU>0.7$ with a ground-truth box (or if it has the highest $IoU$ with this box), negative if $IoU<0.3$.
+\item Combined loss (as for Fast R-CNN): sum of classification loss and bounding box regression loss.
+\begin{itemize}
+\item Classification loss: binary cross entropy, indicating whether the anchor overlaps an object or not.
+\item Regression loss (positive anchors only): compares the predicted offsets with the offsets of the ground-truth box relative to the anchor.
 \end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Faster R-CNN: Training}
@@ -466,26 +686,51 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{Faster R-CNN \cite{Ren2017}}
 \end{figure}
 \begin{itemize}
-\item We now simply apply a Fast R-CNN to the region proposals provided by the RPN.
+\item The RPN proposals are filtered by NMS ($\tau=0.7$, $\sim$2000 proposals remain); the top-ranked ones (300 at test time) are passed to the second stage.
+\item We now simply apply a Fast R-CNN to these region proposals.
 \item Training in an alternating scheme.
-\item Today: detection networks are usually trained end-to-end.
+%\item Today: detection networks are usually trained end-to-end.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{YOLO: You only look once}
-% \begin{figure}[htb]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-%    \caption{Faster R-CNN \cite{Ren2017}}.
-% \end{figure}
+\begin{frame}{Faster R-CNN: two stages, two regressions, two NMS}
+\centering
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{3.6cm}|>{\raggedright\arraybackslash}p{3.6cm}|}
+\hline
+ & \textbf{Stage 1: RPN} & \textbf{Stage 2: Fast R-CNN head} \\
+\hline
+Input & anchors ($k=9$ per position) & proposals ($\sim$300 at test time), features cropped by RoI pooling \\
+\hline
+Classification & object vs.\ background & $K$ classes + background \\
+\hline
+Box regression & offsets w.r.t.\ anchor (class-agnostic) & offsets w.r.t.\ proposal (class-specific) \\
+\hline
+NMS & $\tau = 0.7$: $\sim$2000 proposals, top 300 passed on & $\tau \approx 0.5$, per class: final detections \\
+\hline
+\end{tabular}
+\vspace{.4cm}
 \begin{itemize}
-\item Problem of most detection systems: 
-\begin{itemize}
-\item First: region proposals 
-\item Second: classification of all region proposals individually
-\item Consequently: the best performing methods are very slow and not applicable in real-time
+  \item Stage 2 repeats stage 1 more precisely: with class information and with features cropped from the proposal.
+  \item Both stages share the same backbone feature maps.
 \end{itemize}
-\item YOLO \cite{Redmon2016}: end-to-end strategy that only uses one forward-pass of an image for object detection. 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   YOLO   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO: You only look once}
+\begin{itemize}
+\item Problem of two-stage detection systems:
+\begin{itemize}
+\item First: region proposals
+\item Second: classification of all region proposals individually
+\item Consequently: the best performing methods are slow and not applicable in real time
+\end{itemize}
+\item YOLO \cite{Redmon2016}: detection as a single regression problem, from the image directly to boxes and class probabilities.
+\item One forward pass of the network for the whole image: 45 images/s.
 \end{itemize}
 \end{frame}
 
@@ -496,12 +741,12 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
    \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
 \end{figure}
 \begin{itemize}
-   \item First, the image is divided into a $S \times S$ grid of cells. 
-   \item For each of these cells, we will then predict:
+   \item The image is divided into an $S \times S$ grid of cells ($S=7$).
+   \item During training, a cell is always responsible for the ground truth object whose center it contains. 
+   \item For each cell, we predict:
    \begin{itemize}
-      \item Location and size of $B$ different boxes whose center falls into the cell. 
-      \item A confidence score that the box contains an object. 
-      \item The class of the object in each of the $B$ boxes. 
+      \item $B$ boxes ($B=2$), each with 4 coordinates and 1 confidence score.
+      \item One set of $K$ class probabilities, shared by its $B$ boxes.
    \end{itemize}
 \end{itemize}
 \end{frame}
@@ -510,89 +755,118 @@ The idea is to share convolutional feature maps at test-time, i.e. to use the CN
 \begin{figure}[htb]
    \centering
    \includegraphics[height=0.4\textheight]{../graphics/YOLO_2_v2.pdf}
-%   \includegraphics[height=0.4\textheight]{../graphics/YOLO_workflow.pdf}
-   \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
+   \caption{All boxes predicted in one forward pass (line width: confidence).}
 \end{figure}
 \begin{itemize}
-   \item First, the image is divided into a $S \times S$ grid of cells. 
-   \item For each of these cells, we will then predict:
-   \begin{itemize}
-      \item Location and size of $B$ different boxes whose center falls into the cell. 
-      \item A confidence score that the box contains an object. 
-      \item The class of the object in each of the $B$ boxes. 
-   \end{itemize}
+   \item All $S \times S \times B = 98$ boxes are predicted at once.
+   \item Most boxes do not contain an object; they have a low confidence score.
+   \item The candidates are fixed by the grid: no region proposals, no anchors (in YOLO v1).
 \end{itemize}
 \end{frame}
 
-% \begin{frame}{YOLO: confidence score of a predicted box}
-% % \begin{figure}[htb]
-% %    \centering
-% %    \includegraphics[height=0.4\textheight]{../graphics/YOLO_2.pdf}
-% %    \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
-% % \end{figure}
-% \begin{itemize}
-%    \item The confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
-%    \begin{equation}
-%       Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
-%    \end{equation}
-%    \item The confidence score is thus close to 0 if there is no object associated in the bounding box. 
-%    \item Otherwise the confidence score corresponds to the intersection over union ($IOU$). 
-%    \item The confidence score thus represents both the probability of an object and the localization quality of the predicted box.  
-% \end{itemize}
-% \end{frame}
-
-
-\begin{frame}{YOLO: each cell predicts boxes and confidences}
-% \begin{figure}[htb]
-%    \centering
-%    \includegraphics[height=0.4\textheight]{../graphics/YOLO_2.pdf}
-%    \caption{YOLO: the image is partitioned by an $S \times S$ grid.}
-% \end{figure}
-\begin{itemize}
-   \item If the center of an object falls into one cell, that cell is responsible for the prediction of the object. 
-   \item Geometry and position of the bounding box: 
-   \begin{itemize}
-      \item Center $(x, y)$ with respect to the origin of the cell.
-      \item The relative width and height: $w$, $h$ (normalized by image width and height). 
-   \end{itemize}
-   \item During training, the confidence score of a predicted bounding box $\hat{B}_i$ is defined as:
-   \begin{equation}\nonumber
-      Conf_i = P(Obj) IOU(\hat{B}_i, B_i)
-   \end{equation}
-   where $B_i$ is the ground truth bounding box and $P(Obj)$ the probability that $\hat{B}_i$ contains an object (during training $P(Obj)\in\{0,1\}$)
-   \item At test time the confidence values $Conf_i$ are predicted (together with the bounding box geometry). 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{YOLO: prediction of the class}
-\begin{figure}[htb]
-   \centering
-   \includegraphics[height=0.4\textheight]{../graphics/YOLO_ClassProbabilityMap.pdf}
-   \caption{Class map prediction}
-\end{figure}
-\begin{itemize}
-\item Each cell of the partition predicts also $K$ class probabilities, conditioned on the presence of an object $P(C_i|obj)$. 
-\item During prediction, this class probability is multiplied with the confidence score:  
-\begin{equation}\nonumber
-P(C_k|obj) Conf = P(C_k | obj) P(obj) IOU(\hat{B}, B) = P(C_k) IOU(\hat{B}, B)
-\end{equation}
-This provides class-specific confidence scores for each of the predicted boxes. 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{YOLO: Output}
+\begin{frame}{YOLO v1: network and output}
 \begin{figure}[htb]
    \centering
    \includegraphics[height=0.4\textheight]{../graphics/YOLO_Output.pdf}
-   \caption{Output layer of YOLO for 5 classes}
+   \caption{Output tensor of YOLO (illustration with 5 classes)}
 \end{figure}
-If we assume that our initial grid was $7 \times 7$, we predict two boxes per cell and that we have 20 classes, we obtain as output layer a tensor of dimension: 
-\begin{equation}\nonumber
-(7 \times 7) \times (2 \times 5 + 20) = 1470
-\end{equation}
-This is the number of output variables we would predict. 
+\begin{itemize}
+   \item Input $448 \times 448$; 24 convolutional layers, then 2 fully connected layers.
+   \item Output: $S \times S \times (5B + K)$. 
+   \item Example: For $S=7$, $B=2$, $K=20$: $7 \times 7 \times 30 = 1470$ outputs.
+   \item Because of the fully connected layers, the prediction of each cell depends on the \emph{whole} image (global context).
+\end{itemize}
 \end{frame}
 
+\begin{frame}{YOLO: box coordinates and confidence}
+\begin{itemize}
+   \item Box coordinates:
+   \begin{itemize}
+      \item Center $(x, y)$: offset relative to the cell, in $[0,1]$.
+      \item Width and height $(w, h)$: relative to the image size, in $[0,1]$.
+      \item The network regresses $\sqrt{w}$ and $\sqrt{h}$ (to increase the contribution of smaller boxes to the loss). 
+   \end{itemize}
+   \item Confidence: one output per box. Its training target is
+   \begin{equation*}
+   Conf^{target} =
+   \begin{cases}
+   IoU(\hat{B}, B) & \text{if responsible for an object } B\\
+   0 & \text{otherwise}
+   \end{cases}
+   \end{equation*}
+   where $\hat{B}$ is the predicted box.
+   \item At test time, the predicted confidence estimates $P(obj) \cdot IoU$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: which box is responsible for which object?}
+\begin{columns}[c]
+\begin{column}{0.42\textwidth}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.62]
+  \fill[orange!25] (2,2) rectangle (3,3);
+  \draw[gray!60, step=1] (0,0) grid (7,7);
+  \draw[gray] (0,0) rectangle (7,7);
+  % ground truth
+  \draw[very thick, green!50!black] (1.2,0.8) rectangle (4.1,4.6);
+  \fill[green!50!black] (2.65,2.7) circle (2.5pt);
+  % predictors of the cell
+  \draw[thick, red] (1.4,1.1) rectangle (3.9,4.3);
+  \draw[thick, red, dashed] (2.2,0.3) rectangle (3.1,5.6);
+\end{tikzpicture}
+\caption{\scriptsize Green: ground truth and its center. Red: the two boxes predicted by the orange cell; solid: responsible (best IoU), dashed: not responsible.}
+\end{figure}
+\end{column}
+\begin{column}{0.58\textwidth}
+\small
+During training, for each ground-truth object:
+\begin{enumerate}
+   \item The cell containing the center of the object is responsible for it.
+   \item Among the $B$ boxes of this cell, the one with the highest $IoU$ with the ground truth is responsible.
+\end{enumerate}
+\vspace{.2cm}
+Consequences:
+\begin{itemize}
+   \item Only the responsible box learns the coordinates of this object.
+   \item The $B$ boxes of a cell specialize in different shapes (similar to anchors, but learned).
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{YOLO: loss function}
+%Sum of squared errors (predictions are marked with a hat):
+{\small
+\begin{align*}
+\mathcal{L} = \; & \lambda_{coord} \sum_{\text{resp. boxes}} \left[ (\hat{x}-x)^2 + (\hat{y}-y)^2 + (\sqrt{\hat{w}}-\sqrt{w})^2 + (\sqrt{\hat{h}}-\sqrt{h})^2 \right] \\
+& + \sum_{\text{resp. boxes}} \left( \widehat{Conf} - IoU(\hat{B},B) \right)^2
+  + \lambda_{noobj} \sum_{\text{other boxes}} \widehat{Conf}^{\,2} \\
+& + \sum_{\text{cells with object}} \; \sum_{k=1}^{K} \left( \hat{P}(C_k|obj) - p_k \right)^2
+\end{align*}}
+\begin{itemize}
+   \item Coordinates: responsible boxes only (as in the RPN: positive anchors only).
+   \item Most boxes contain no object: $\lambda_{noobj}$ needs to be low to avoid them from dominating. 
+   \item $\lambda_{coord}$ increases the weight of localization.
+   \item Class probabilities: only cells that contain an object. $p_k=1$ for the true class $k$ and 0 otherwise.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{YOLO: inference}
+\begin{figure}[htb]
+   \centering
+   \includegraphics[height=0.35\textheight]{../graphics/YOLO_ClassProbabilityMap.pdf}
+   \caption{Class probability map}
+\end{figure}
+\begin{enumerate}
+   \item One forward pass: 98 boxes with confidences, and class probabilities per cell.
+   \item Class-specific score of each box:
+   \begin{equation*}
+   P(C_k|obj) \cdot Conf \approx P(C_k|obj)\, P(obj)\, IoU = P(C_k)\, IoU
+   \end{equation*}
+   \item Remove boxes with a low score, then NMS for each class.
+\end{enumerate}
+\end{frame}
 
 \begin{frame}{YOLO: Examples}
 \begin{figure}[htb]
@@ -600,66 +874,279 @@ This is the number of output variables we would predict.
    \includegraphics[width=\textwidth]{../graphics/YOLO_ex.pdf}
    \caption{Examples for YOLO detections}
 \end{figure}
-The method is extremely fast. Localization is less precise than for Faster R-CNN. 
+The method is extremely fast. Localization is less precise than for Faster R-CNN.
 \end{frame}
 
-\begin{frame}{Limitations}
+\begin{frame}{YOLO v1: limitations}
 \begin{itemize}
-   \item Each grid cell can contain only one class.
-   \item Each grid cell can contain only $B$ bounding boxes (problems in crowded environments). 
-   \item Small errors in small boxes is worse than small errors in large boxes.
+   \item Each grid cell predicts only $B$ boxes and one class: problems with small objects that appear in groups (e.g. flocks of birds, crowds, clusters of nuclei).
+   \item Coarse grid ($7 \times 7$) and no reference shapes: localization errors are the main source of errors.
+   \item The loss treats errors in small and large boxes similarly, although the same error matters more for a small box. Regressing $\sqrt{w}, \sqrt{h}$ only partially compensates.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{More on YOLO}
-\begin{itemize}
-   \item YOLO has today many versions, some developed by companies (such as YOLO v5 and YOLO v8)
-   \item Improvements of YOLO v.2: 
-   \begin{itemize}
-      \item Better backbone (deeper architecture, batch normalization, ... )
-      \item Improvement of box predictions using anchor boxes (anchors are chosen by k-means on the ground truth boxes)
-      \item Multi-scale training (by data augmentation)
-      \item Combined detection training (on COCO) with classification training (on ImageNet)
-      \item $\ldots$
-   \end{itemize}
-\end{itemize}
+
+\section{Beyond YOLO: major strategies}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+
+\begin{frame}{After YOLO v1: weaknesses and strategies}
+\centering
+\tiny
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}p{2.6cm}|}
+\hline
+\textbf{Weakness} & \textbf{Strategy} & \textbf{Examples} \\
+\hline
+Coarse grid, few boxes and one class per cell & Dense anchors on a fully convolutional feature map, classes predicted per anchor & SSD \cite{Liu2016}, YOLO v2 \cite{Redmon2017} \\
+\hline
+Small objects, scale variation & Predictions on several feature maps (feature pyramid) & SSD, FPN \cite{Lin2017FPN}, YOLO v3 \\
+\hline
+Many easy background candidates dominate the loss & Focal loss: down-weight easy examples & RetinaNet \cite{Lin2017Focal} \\
+\hline
+Hand-designed anchors (shapes, IoU thresholds) & Anchor-free: predict object centers and box sizes & CenterNet \cite{Zhou2019}, FCOS \cite{Tian2019}, YOLO v8 \\
+\hline
+Box loss not aligned with the metric & Loss computed directly on the IoU & GIoU \cite{Rezatofighi2019} \\
+\hline
+NMS and hand-crafted assignment & Set prediction with one-to-one matching & DETR \cite{Carion2020}, RT-DETR \cite{Zhao2024} \\
+\hline
+\end{tabular}
 \end{frame}
 
-\begin{frame}{YOLO v3}
-\begin{itemize}
-      \item Better backbone (Darknet-53)
-      \item Multi-scale prediction (prediction at 3 scales)
-      \item More bounding boxes per cell (each grid cell predicts 3 anchor boxes at each scale)
-      \item New classification formulation (independent classifications, no softmax) 
-      \item $\ldots$
-\end{itemize}
-\end{frame}
-
-% \begin{frame}{Backbone, Head and Neck}
-% \begin{figure}[htb]
-%    \centering
-%    \includegraphics[width=.7\textwidth]{../graphics/Backbone_Head_Neck.pdf}
-%    \caption{Backbone, Head and Neck}
-% \end{figure}
+% %------------------------------------------------------------------------
+% \begin{frame}{One-stage detectors: an RPN that predicts classes}
+% \centering
+% \small
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.8cm}|}
+% \hline
+%  & \textbf{RPN (Faster R-CNN)} & \textbf{SSD, YOLO v2/v3, RetinaNet} \\
+% \hline
+% Candidates & anchors at each feature-map position & anchors at each feature-map position (several scales) \\
+% \hline
+% Outputs per anchor & objectness + 4 offsets & 4 offsets + class scores (+ objectness in YOLO) \\
+% \hline
+% Second stage & yes (RoI pooling + Fast R-CNN head) & no \\
+% \hline
+% Post-processing & NMS & NMS \\
+% \hline
+% \end{tabular}
+% \vspace{.3cm}
 % \begin{itemize}
-%    \item Backbone: extraction of basic features for all detection related tasks.
-%    \item Neck: aggregation and refinement of backbone features to enhance the representation (e.g. multiscale aspects)
-%    \item Head: predictions (localization, class, objectness, $\ldots$)
+%    \item Gain: speed. Price: no refinement with features cropped from the proposal.
+%    \item Focal loss (RetinaNet) closed most of the accuracy gap with two-stage detectors.
 % \end{itemize}
 % \end{frame}
 
-\begin{frame}{Most recent version: YOLO v.12}
+%------------------------------------------------------------------------
+\begin{frame}{Anchor-free detection: CenterNet \cite{Zhou2019}}
+
 \begin{figure}[htb]
    \centering
-   \includegraphics[width=.7\textwidth]{../graphics/Challenge.jpg}
-   \caption{Results of a mitosis detection challenge (YOLO v12: 2nd place)}
+   \includegraphics[width=0.95\textwidth]{../graphics/CenterNet.pdf}
+   \caption{Object detection: classification and localization}
 \end{figure}
+% \begin{figure}[htb]
+% \centering
+% \begin{tikzpicture}[scale=0.55, arr/.style={->, thick}]
+%   % image
+%   \draw[gray!60, fill=gray!8] (0,0) rectangle (4,3);
+%   \draw[very thick, green!50!black] (0.8,0.6) rectangle (2.6,2.6);
+%   \fill[green!50!black] (1.7,1.6) circle (2.5pt);
+%   \node[font=\tiny] at (2,-0.4) {image and annotated box};
+%   \draw[arr] (4.3,1.5) -- (5.5,1.5) node[midway, above, font=\tiny] {CNN};
+%   % heatmap
+%   \begin{scope}[xshift=5.8cm]
+%     \fill[white] (0,0) rectangle (4,3);
+%     \shade[inner color=red, outer color=white] (1.7,1.6) circle (0.7);
+%     \draw[gray] (0,0) rectangle (4,3);
+%     \node[font=\tiny, align=center] at (2,-0.55) {heatmap for class ``dog''\\(one per class)};
+%   \end{scope}
+%   % size map
+%   \begin{scope}[xshift=11.6cm]
+%     \draw[gray, fill=blue!5] (0,0) rectangle (4,3);
+%     \fill (1.7,1.6) circle (2pt);
+%     \draw[dashed, blue] (0.8,0.6) rectangle (2.6,2.6);
+%     \draw[<->, blue] (0.8,2.85) -- (2.6,2.85) node[midway, above, font=\tiny] {$w$};
+%     \draw[<->, blue] (0.25,0.6) -- (0.25,2.6) node[midway, left, font=\tiny] {$h$};
+%     \node[font=\tiny, align=center] at (2,-0.55) {width and height,\\read at the peak};
+%   \end{scope}
+% \end{tikzpicture}
+% \end{figure}
 \begin{itemize}
-   \item Extensive use of attention mechanisms, identifying regions of importance
-   \item Very efficient implementation
-   \item Still preprint \cite{Tian2025}
+   \item An object is represented by a single point: the center of its box.
+   \item The network outputs, on a feature map with stride 4:
+   \begin{itemize}
+      \item one heatmap per class: peaks indicate object centers;
+      \item at each position: box width and height (encoded as pixel values in the centers), and a small offset (correcting the rounding due to the stride).
+   \end{itemize}
+   \item Center pixels replace thus anchors or proposed regions, and all information is encoded into the center pixels. 
 \end{itemize}
 \end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{CenterNet: training and inference}
+\begin{itemize}
+   \item \textbf{Training targets:}
+   \begin{itemize}
+      \item Heatmap: a Gaussian centered on each annotated object, with a width depending on the object size.
+      \item Width, height and offset: learned only at the object centers (L1 loss).
+   \end{itemize}
+   \item Heatmap loss: focal loss (pixel-wise classification, easy background pixels are down-weighted).
+   \item \textbf{Inference:}
+   \begin{itemize}
+      \item Local maxima of the predicted heatmaps provide the object centers
+      \item Box = center $\pm$ half the predicted width and height.
+      \item The local maxima replace NMS.
+   \end{itemize}
+   %\item Compare with the sliding window approach of \cite{Ciresan2013}: probability map and local maxima, now dense, multi-class, end-to-end, and with box sizes.
+   \item Natural for point-like objects (nuclei, mitoses).
+\end{itemize}
+\end{frame}
+
+% %------------------------------------------------------------------------
+% \begin{frame}{DETR: detection as set prediction \cite{Carion2020}}
+% \begin{figure}[htb]
+% \centering
+% \begin{tikzpicture}[
+%   box/.style={draw, rounded corners, fill=blue!8, minimum height=0.9cm, align=center, font=\tiny},
+%   arr/.style={->, thick}]
+%   \node[box] (img) {Image};
+%   \node[box, right=0.3cm of img] (cnn) {CNN\\backbone};
+%   \node[box, right=0.3cm of cnn] (tok) {feature vectors\\+ positions};
+%   \node[box, right=0.3cm of tok, fill=orange!20] (enc) {Transformer\\encoder};
+%   \node[box, right=0.3cm of enc, fill=orange!20] (dec) {Transformer\\decoder};
+%   \node[box, right=0.3cm of dec] (ffn) {$N$ predictions:\\class or $\varnothing$,\\box};
+%   \node[box, below=0.35cm of dec, fill=green!12] (q) {$N$ object queries\\(learned)};
+%   \draw[arr] (img) -- (cnn); \draw[arr] (cnn) -- (tok); \draw[arr] (tok) -- (enc);
+%   \draw[arr] (enc) -- (dec); \draw[arr] (dec) -- (ffn); \draw[arr] (q) -- (dec);
+% \end{tikzpicture}
+% \end{figure}
+% \begin{itemize}
+%    \item The feature map is flattened into a sequence of vectors (one per position) and processed by a transformer encoder: every position can attend to every other position.
+%    \item The decoder takes a fixed number $N$ of \textbf{object queries} (e.g. 100): learned vectors, each of which produces one prediction.
+%    \item Each prediction is a class (or ``no object'' $\varnothing$) and a box (center, width, height).
+%    \item All $N$ predictions are produced in parallel; most are $\varnothing$.
+% \end{itemize}
+% \end{frame}
+
+% %------------------------------------------------------------------------
+% \begin{frame}{DETR: one-to-one matching}
+% \begin{columns}[c]
+% \begin{column}{0.38\textwidth}
+% \begin{figure}[htb]
+% \centering
+% \begin{tikzpicture}[scale=0.8, font=\tiny]
+%   \foreach \i/\l in {1/{dog, 0.9}, 2/{dog, 0.7}, 3/{cat, 0.8}, 4/{$\varnothing$}, 5/{$\varnothing$}}
+%     \node[draw, rounded corners, fill=red!10, minimum width=1.3cm] (p\i) at (0,-\i*0.7) {\l};
+%   \node[draw, rounded corners, fill=green!15, minimum width=1.3cm] (g1) at (3,-1.05) {dog};
+%   \node[draw, rounded corners, fill=green!15, minimum width=1.3cm] (g2) at (3,-2.45) {cat};
+%   \node[draw, rounded corners, fill=gray!15, minimum width=1.3cm] (g0) at (3,-3.5) {$\varnothing$};
+%   \node at (0,-0.1) {\textbf{predictions}};
+%   \node at (3,-0.1) {\textbf{ground truth}};
+%   \draw[thick] (p1.east) -- (g1.west);
+%   \draw[thick] (p3.east) -- (g2.west);
+%   \draw[thick, gray] (p2.east) -- (g0.west);
+%   \draw[thick, gray] (p4.east) -- (g0.west);
+%   \draw[thick, gray] (p5.east) -- (g0.west);
+% \end{tikzpicture}
+% \caption{\scriptsize The duplicate ``dog'' is matched to $\varnothing$.}
+% \end{figure}
+% \end{column}
+% \begin{column}{0.62\textwidth}
+% \small
+% \begin{itemize}
+%    \item Training: each ground-truth object is matched to \emph{exactly one} prediction (Hungarian algorithm), minimizing a cost based on class probability and box distance.
+%    \item All other predictions get the target $\varnothing$.
+%    \item Loss on matched pairs: cross-entropy (class) + L1 and GIoU (box).
+%    \item A duplicate is matched to $\varnothing$ and thus penalized: the network learns not to produce duplicates.
+% \end{itemize}
+% \vspace{.2cm}
+% In the common framework: candidates = object queries; assignment = one-to-one matching; post-processing: none (no NMS, no anchors).
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+% %------------------------------------------------------------------------
+% \begin{frame}{DETR: properties and successors}
+% \begin{itemize}
+%    \item Advantages:
+%    \begin{itemize}
+%       \item Simple and end-to-end: no anchors, no hand-designed assignment rules, no NMS.
+%       \item Global reasoning through attention: good for large objects and for relations between objects.
+%    \end{itemize}
+%    \item Drawbacks of the original version:
+%    \begin{itemize}
+%       \item Very slow training (500 epochs on COCO, about 10 times more than Faster R-CNN).
+%       \item Weaker on small objects (one coarse feature map).
+%    \end{itemize}
+%    \item Successors:
+%    \begin{itemize}
+%       \item Deformable DETR \cite{Zhu2021}: attention to a few sampled points on several feature maps; faster training, better on small objects.
+%       \item Real-time DETRs, e.g. RT-DETR \cite{Zhao2024}: today competitive with YOLO in speed and accuracy.
+%    \end{itemize}
+%    \item Detection has converged: modern YOLO versions are anchor-free and use attention, DETRs have become fast.
+% \end{itemize}
+% \end{frame}
+
+
+
+% \begin{frame}{YOLO v2 \cite{Redmon2017}}
+% \begin{itemize}
+%    \item Better backbone (Darknet-19) with batch normalization.
+%    \item Fully convolutional: the fully connected layers are removed. The grid cells are now simply the positions of the output feature map ($13 \times 13$ for a $416 \times 416$ input, stride 32).
+%    \item Anchor boxes are reintroduced: 5 anchors per cell, whose shapes are chosen by $k$-means clustering of the ground-truth boxes.
+%    \item Class probabilities are predicted for each anchor, not for each cell.
+%    \item Assignment: the anchor with the highest $IoU$ in the cell containing the object center.
+%    \item Multi-scale training: the input size is changed every few batches.
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{YOLO v3 \cite{Redmon2018}}
+% \begin{itemize}
+%    \item Better backbone (Darknet-53).
+%    \item Predictions at 3 scales (feature maps with stride 32, 16 and 8), with 3 anchors per position at each scale: small objects are detected on the fine feature maps.
+%    \item Independent classifications (sigmoids instead of softmax): an object can have several labels (e.g. ``woman'' and ``person'').
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Backbone, Neck and Head}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=.7\textwidth]{../graphics/Backbone_Head_Neck.pdf}
+%    \caption{Backbone, Neck and Head}
+% \end{figure}
+% \begin{itemize}
+%    \item Backbone: extraction of basic features for all detection related tasks.
+%    \item Neck: aggregation and refinement of backbone features (e.g. combination of several scales).
+%    \item Head: predictions (localization, class, objectness, $\ldots$).
+% \end{itemize}
+% Later YOLO versions mostly differ in these three components.
+% \end{frame}
+
+% \begin{frame}{YOLO (from v2 on) and the RPN of Faster R-CNN}
+% \centering
+% \small
+% \renewcommand{\arraystretch}{1.5}
+% \begin{tabular}{|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|}
+% \hline
+%  & \textbf{RPN (Faster R-CNN)} & \textbf{YOLO v2/v3} \\
+% \hline
+% Candidates & anchors at each feature-map position & anchors at each feature-map position \\
+% \hline
+% Outputs per anchor & objectness + 4 offsets & objectness + 4 offsets + $K$ class probabilities \\
+% \hline
+% Second stage & yes (RoI pooling + Fast R-CNN head) & no \\
+% \hline
+% Post-processing & NMS & NMS \\
+% \hline
+% \end{tabular}
+% \vspace{.3cm}
+% \begin{itemize}
+%    \item A one-stage detector is essentially an RPN that directly predicts the classes.
+%    \item Gain: speed. Price: no refinement with features cropped from the proposal.
+% \end{itemize}
+% \end{frame}
 
 
 % \begin{frame}{Example: YOLO v.8}
@@ -670,7 +1157,209 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 % \end{figure}
 % \end{frame}
 
-\section{Multiple Instance Segmentation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Evaluating object detection}
+\frame{\frametitle{Overview}\tableofcontents[currentsection]}
+
+\begin{frame}{Matching predictions to the ground truth}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.55]
+  \draw[gray!60, fill=gray!8] (0,0) rectangle (10,7);
+  % object 1: correct detection + duplicate
+  \draw[very thick, green!50!black] (0.5,3.8) rectangle (3,6.3);
+  \draw[thick, red, dashed] (0.7,3.9) rectangle (3.2,6.2);
+  \node[red, font=\tiny, anchor=south west, inner sep=1pt] at (0.5,6.3) {TP (0.9)};
+  \draw[thick, red, dashed] (1.3,3.1) rectangle (3.7,5.4);
+  \node[red, font=\tiny, anchor=north west, inner sep=1pt] at (1.3,3.1) {FP: duplicate (0.7)};
+  % object 2: poorly localized
+  \draw[very thick, green!50!black] (6,4.1) rectangle (9.5,6.3);
+  \node[green!40!black, font=\tiny, anchor=south east, inner sep=1pt] at (9.5,6.3) {FN};
+  \draw[thick, red, dashed] (7.2,2.4) rectangle (9.7,4.6);
+  \node[red, font=\tiny, anchor=north east, inner sep=1pt] at (9.7,2.4) {FP: $IoU<0.5$ (0.6)};
+  % object 3: missed
+  \draw[very thick, green!50!black] (0.8,0.5) rectangle (3.3,1.7);
+  \node[green!40!black, font=\tiny, anchor=west, inner sep=1pt] at (3.4,1.1) {FN: missed};
+\end{tikzpicture}
+\caption{\scriptsize Green: ground truth. Red: predictions (score). Threshold: $IoU \geq 0.5$.}
+\end{figure}
+\end{column}
+\begin{column}{0.5\textwidth}
+\small
+Detector output: (box, class, score).
+For one class, on the whole test set:
+\begin{enumerate}
+  \item Sort detections by decreasing confidence score.
+  \item For each detection, find the unmatched ground truth with the highest IoU.
+  \item If $IoU \geq 0.5$: \textbf{true positive (TP)}; this ground truth is now matched.
+  \item Otherwise: \textbf{false positive (FP)}.
+  \item Unmatched ground truth: \textbf{false negatives (FN)}.
+\end{enumerate}
+\vspace{.1cm}
+Each object is matched only once: duplicates are FP (hence NMS).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Precision and recall}
+\begin{equation*}
+\text{Precision} = \frac{TP}{TP+FP}
+\qquad\qquad
+\text{Recall} = \frac{TP}{TP+FN}
+\end{equation*}
+\begin{itemize}
+  \item Recall: fraction of true objects detected by the algorithm.
+  \item Precision: fraction of detected objects that are true objects.
+  \item There are no true negatives: the number of possible ``empty'' boxes is unbounded. Accuracy, specificity and ROC curves are therefore not used.
+  \item Both depend on the score threshold:
+  \begin{itemize}
+    \item High threshold: few, confident detections $\rightarrow$ high precision, low recall.
+    \item Low threshold: many detections $\rightarrow$ high recall, low precision.
+  \end{itemize}
+  \item To evaluate a detector independently of the threshold, we record precision and recall for several thresholds, providing the \textbf{precision--recall curve}.
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{Building the precision--recall curve}
+% \begin{columns}[c]
+% \begin{column}{0.5\textwidth}
+% \centering
+% \scriptsize
+% \setlength{\tabcolsep}{3pt}
+% 4 objects in the dataset, 6 predictions:\\[.2cm]
+% \begin{tabular}{cccccc}
+% \hline
+% rank & score & match & TP/FP & P & R \\
+% \hline
+% 1 & 0.95 & TP & 1/0 & 1.00 & 0.25 \\
+% 2 & 0.90 & TP & 2/0 & 1.00 & 0.50 \\
+% 3 & 0.80 & FP & 2/1 & 0.67 & 0.50 \\
+% 4 & 0.70 & TP & 3/1 & 0.75 & 0.75 \\
+% 5 & 0.60 & FP & 3/2 & 0.60 & 0.75 \\
+% 6 & 0.50 & FP & 3/3 & 0.50 & 0.75 \\
+% \hline
+% \end{tabular}\\[.2cm]
+% TP/FP: cumulative counts down to this rank.\\
+% One object is never found: recall stays $\leq 0.75$.
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \small
+% \begin{itemize}
+%   \item Lowering the threshold = going down the ranked list: each rank gives one point (recall, precision).
+%   \item Recall can only increase.
+%   \item Precision goes down at each FP and up again at each TP.
+%   \item Objects that are never detected: recall never reaches 1.
+% \end{itemize}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+\begin{frame}{A realistic precision--recall curve}
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[x=6.2cm, y=4.2cm]
+  % interpolated precision (upper envelope)
+  \fill[blue!12] (0.000,1.000) -- (0.000,1.000) -- (0.025,1.000) -- (0.025,1.000) -- (0.050,1.000) -- (0.050,1.000) -- (0.075,1.000) -- (0.075,1.000) -- (0.100,1.000) -- (0.100,1.000) -- (0.125,1.000) -- (0.125,1.000) -- (0.150,1.000) -- (0.150,1.000) -- (0.175,1.000) -- (0.175,1.000) -- (0.200,1.000) -- (0.200,0.952) -- (0.225,0.952) -- (0.225,0.952) -- (0.250,0.952) -- (0.250,0.952) -- (0.275,0.952) -- (0.275,0.952) -- (0.300,0.952) -- (0.300,0.952) -- (0.325,0.952) -- (0.325,0.952) -- (0.350,0.952) -- (0.350,0.952) -- (0.375,0.952) -- (0.375,0.952) -- (0.400,0.952) -- (0.400,0.952) -- (0.425,0.952) -- (0.425,0.952) -- (0.450,0.952) -- (0.450,0.952) -- (0.475,0.952) -- (0.475,0.952) -- (0.500,0.952) -- (0.500,0.923) -- (0.525,0.923) -- (0.525,0.923) -- (0.550,0.923) -- (0.550,0.923) -- (0.575,0.923) -- (0.575,0.923) -- (0.600,0.923) -- (0.600,0.871) -- (0.625,0.871) -- (0.625,0.871) -- (0.650,0.871) -- (0.650,0.871) -- (0.675,0.871) -- (0.675,0.853) -- (0.700,0.853) -- (0.700,0.853) -- (0.725,0.853) -- (0.725,0.811) -- (0.750,0.811) -- (0.750,0.727) -- (0.775,0.727) -- (0.775,0.727) -- (0.800,0.727) -- (0.800,0.647) -- (0.825,0.647) -- (0.825,0.567) -- (0.850,0.567) -- (0.850,0.556) -- (0.875,0.556) -- (0.875,0.000) -- (0,0) -- cycle;
+  \draw[blue, thick] (0.000,1.000) -- (0.000,1.000) -- (0.025,1.000) -- (0.025,1.000) -- (0.050,1.000) -- (0.050,1.000) -- (0.075,1.000) -- (0.075,1.000) -- (0.100,1.000) -- (0.100,1.000) -- (0.125,1.000) -- (0.125,1.000) -- (0.150,1.000) -- (0.150,1.000) -- (0.175,1.000) -- (0.175,1.000) -- (0.200,1.000) -- (0.200,0.952) -- (0.225,0.952) -- (0.225,0.952) -- (0.250,0.952) -- (0.250,0.952) -- (0.275,0.952) -- (0.275,0.952) -- (0.300,0.952) -- (0.300,0.952) -- (0.325,0.952) -- (0.325,0.952) -- (0.350,0.952) -- (0.350,0.952) -- (0.375,0.952) -- (0.375,0.952) -- (0.400,0.952) -- (0.400,0.952) -- (0.425,0.952) -- (0.425,0.952) -- (0.450,0.952) -- (0.450,0.952) -- (0.475,0.952) -- (0.475,0.952) -- (0.500,0.952) -- (0.500,0.923) -- (0.525,0.923) -- (0.525,0.923) -- (0.550,0.923) -- (0.550,0.923) -- (0.575,0.923) -- (0.575,0.923) -- (0.600,0.923) -- (0.600,0.871) -- (0.625,0.871) -- (0.625,0.871) -- (0.650,0.871) -- (0.650,0.871) -- (0.675,0.871) -- (0.675,0.853) -- (0.700,0.853) -- (0.700,0.853) -- (0.725,0.853) -- (0.725,0.811) -- (0.750,0.811) -- (0.750,0.727) -- (0.775,0.727) -- (0.775,0.727) -- (0.800,0.727) -- (0.800,0.647) -- (0.825,0.647) -- (0.825,0.567) -- (0.850,0.567) -- (0.850,0.556) -- (0.875,0.556) -- (0.875,0.000);
+  % raw curve
+  \draw[red, thin] plot coordinates {(0,1) (0.025,1.000) (0.050,1.000) (0.075,1.000) (0.100,1.000) (0.125,1.000) (0.150,1.000) (0.175,1.000) (0.200,1.000) (0.200,0.889) (0.225,0.900) (0.250,0.909) (0.275,0.917) (0.300,0.923) (0.325,0.929) (0.350,0.933) (0.375,0.938) (0.400,0.941) (0.425,0.944) (0.450,0.947) (0.475,0.950) (0.500,0.952) (0.500,0.909) (0.525,0.913) (0.550,0.917) (0.575,0.920) (0.600,0.923) (0.600,0.889) (0.600,0.857) (0.625,0.862) (0.650,0.867) (0.675,0.871) (0.675,0.844) (0.700,0.848) (0.725,0.853) (0.725,0.829) (0.725,0.806) (0.750,0.811) (0.750,0.789) (0.750,0.769) (0.750,0.750) (0.750,0.732) (0.750,0.714) (0.775,0.721) (0.800,0.727) (0.800,0.711) (0.800,0.696) (0.800,0.681) (0.800,0.667) (0.800,0.653) (0.800,0.640) (0.825,0.647) (0.825,0.635) (0.825,0.623) (0.825,0.611) (0.825,0.600) (0.825,0.589) (0.825,0.579) (0.825,0.569) (0.825,0.559) (0.850,0.567) (0.850,0.557) (0.850,0.548) (0.875,0.556) (0.875,0.547) (0.875,0.538) (0.875,0.530) (0.875,0.522) (0.875,0.515) (0.875,0.507) (0.875,0.500) (0.875,0.493) (0.875,0.486) (0.875,0.479) (0.875,0.473) (0.875,0.467) (0.875,0.461) (0.875,0.455) (0.875,0.449) (0.875,0.443) (0.875,0.438) (0.875,0.432) (0.875,0.427) (0.875,0.422) (0.875,0.417) (0.875,0.412) (0.875,0.407) (0.875,0.402) (0.875,0.398) (0.875,0.393) (0.875,0.389) (0.875,0.385) (0.875,0.380) (0.875,0.376) (0.875,0.372) (0.875,0.368)};
+  % axes
+  \draw[->] (0,0) -- (1.05,0) node[right, font=\scriptsize] {Recall};
+  \draw[->] (0,0) -- (0,1.1) node[above, font=\scriptsize] {Precision};
+  \foreach \x in {0,0.2,0.4,0.6,0.8,1}
+    \draw (\x,0) -- (\x,-0.02) node[below, font=\tiny] {\x};
+  \foreach \y in {0,0.5,1}
+    \draw (0,\y) -- (-0.015,\y) node[left, font=\tiny] {\y};
+  % annotations
+  \node[font=\tiny, align=left, anchor=west] (hi) at (0.12,0.62) {high threshold:\\few, confident detections};
+  \draw[->, gray] (hi.west) -- (0.03,0.97);
+  \node[font=\tiny, align=right, anchor=east] (lo) at (0.72,0.3) {low threshold:\\many detections};
+  \draw[->, gray] (lo.east) -- (0.86,0.45);
+  \draw[dashed, gray] (0.875,0) -- (0.875,1.0) node[above, font=\tiny, black] {max.\ recall};
+  % legend
+  \draw[red, thin] (0.05,0.17) -- (0.11,0.17) node[right, black, font=\tiny] {raw curve};
+  \draw[blue, thick] (0.05,0.09) -- (0.11,0.09) node[right, black, font=\tiny] {interpolated (upper envelope)};
+\end{tikzpicture}
+\caption{Simulated detector: 40 objects, 95 detections.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Average Precision (AP) and mAP}
+\begin{itemize}
+  \item \textbf{Interpolation:} the raw curve zig-zags. Precision at recall $r$ is replaced by the best precision reachable at recall $\geq r$ (upper envelope):
+  \begin{equation*}
+  p_{interp}(r) = \max_{\tilde{r} \geq r} p(\tilde{r})
+  \end{equation*}
+  \item \textbf{AP} = area under the interpolated precision--recall curve (one value per class, between 0 and 1).
+  \item \textbf{mAP} (mean Average Precision) = mean of AP over all classes.
+  \item AP summarizes the curve in one number, independently of the choice of a score threshold.
+  %\item The training loss is computed per candidate box and is differentiable; mAP is computed on the whole test set after NMS and matching, and is not differentiable.
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{How to interpret AP?}
+% \begin{itemize}
+%   \item \textbf{Average over recall levels:} if a user picks a required recall $r$ at random (uniformly in $[0,1]$), AP is the expected best precision they can obtain.
+%   \item \textbf{Average over objects:} for each ground-truth object, look at all detections scored at least as high as the one that found it. Which fraction of them is correct? AP is the average of this fraction over all objects (0 for missed objects).
+%   \begin{equation*}
+%   AP \approx \frac{1}{N_{objects}} \sum_{\text{TP at rank } n} \text{Precision}(n)
+%   \end{equation*}
+%   \item Consequences:
+%   \begin{itemize}
+%     \item AP $=1$ only if all objects are found and all TP are ranked above all FP.
+%     \item AP measures the quality of the \emph{ranking}: correct detections should have higher scores than wrong ones.
+%     \item Each missed object costs $1/N_{objects}$ of the maximal AP.
+%   \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{Common variants of the metric}
+\begin{itemize}
+  \item \textbf{PASCAL VOC} \cite{Everingham2010}: mAP at $IoU \geq 0.5$ (often written AP$_{50}$).
+  \item \textbf{COCO} \cite{Lin2014}: AP averaged over 10 IoU thresholds $0.50, 0.55, \ldots, 0.95$, written AP or AP@[.5:.95].
+  \begin{itemize}
+    \item Rewards precise localization, not only finding the object.
+    \item Also reported: AP$_{50}$, AP$_{75}$, and AP$_S$, AP$_M$, AP$_L$ for small, medium and large objects.
+    \item In COCO papers, ``AP'' already denotes the mean over classes.
+  \end{itemize}
+  \item \textbf{Instance segmentation}: same procedure, with IoU computed on masks instead of boxes.
+  \item \textbf{Biomedical point-like objects} (mitoses, nuclei centroids): boxes are not meaningful.
+  \begin{itemize}
+    \item Matching by distance between centroids (e.g. within 7.5\,$\mu m$ in MIDOG \cite{Aubreville2023}).
+    \item Often reported as F1 score $= \frac{2\,TP}{2\,TP + FP + FN}$ at a fixed threshold.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+% % Numbers: YOLO paper, Table 1 (VOC 2007 test) for Fast R-CNN, Faster R-CNN and YOLO;
+% % R-CNN: Fast R-CNN paper (VGG-16, trained on VOC 2007 only). Please double-check before the lecture.
+% \begin{frame}{Comparison on PASCAL VOC 2007}
+% \begin{table}
+% \centering
+% \small
+% \begin{tabular}{lcc}
+% \hline
+% Method & mAP (\%) & Speed (images/s) \\
+% \hline
+% R-CNN (VGG-16) \cite{Girshick2014} & 66.0 & 0.02 \\
+% Fast R-CNN \cite{Girshick2015} & 70.0 & 0.5 \\
+% Faster R-CNN (VGG-16) \cite{Ren2017} & 73.2 & 7 \\
+% YOLO \cite{Redmon2016} & 63.4 & 45 \\
+% Fast YOLO \cite{Redmon2016} & 52.7 & 155 \\
+% \hline
+% \end{tabular}
+% \end{table}
+% \begin{itemize}
+%   \item mAP at $IoU \geq 0.5$. Training data and hardware differ slightly between methods.
+%   \item Speed--accuracy trade-off: two-stage detectors are more accurate, one-stage detectors are much faster.
+%   \item Later one-stage detectors (SSD, RetinaNet, later YOLO versions) closed most of the accuracy gap.
+% \end{itemize}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Instance segmentation}
 \begin{frame}{Mask R-CNN}
 \begin{figure}[htb]
    \centering
@@ -727,6 +1416,36 @@ The method is extremely fast. Localization is less precise than for Faster R-CNN
 
 
 \section{Conclusion}
+
+%------------------------------------------------------------------------
+% NEW: summary of the methods in the common framework
+% \begin{frame}{Summary: the methods in the common framework}
+% \centering
+% \tiny
+% \setlength{\tabcolsep}{3pt}
+% \renewcommand{\arraystretch}{1.4}
+% \begin{tabular}{|>{\raggedright\arraybackslash}p{1.45cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{1.5cm}|}
+% \hline
+%  & \textbf{1. Candidates} & \textbf{2. Assignment} & \textbf{3. Box prediction} & \textbf{4. Post-proc.} \\
+% \hline
+% Sliding window \cite{Ciresan2013} & every pixel (fixed-size crop) & pixel close to an object center & none (known object size) & local maxima \\
+% \hline
+% R-CNN \cite{Girshick2014} & $\sim$2000 region proposals (external method) & IoU with ground truth & offsets w.r.t.\ proposal & NMS \\
+% \hline
+% Fast R-CNN \cite{Girshick2015} & same proposals, features computed once (RoI pooling) & IoU with ground truth & offsets w.r.t.\ proposal & NMS \\
+% \hline
+% Faster R-CNN \cite{Ren2017} & anchors $\rightarrow$ RPN proposals & anchors: IoU $>0.7$ / $<0.3$; proposals: IoU & offsets w.r.t.\ anchor, then w.r.t.\ proposal & NMS (twice) \\
+% \hline
+% YOLO \cite{Redmon2016} & $S \times S$ grid cells, $B$ boxes each & cell containing the object center & center in cell, size relative to image & NMS \\
+% \hline
+% \end{tabular}
+% \vspace{.3cm}
+% \begin{itemize}
+% \small
+% \item Two-stage (R-CNN family): candidates are refined twice. One-stage (YOLO): one pass, dense predictions.
+% \end{itemize}
+% \end{frame}
+
 
 \begin{frame}{Conclusion}
 \begin{itemize}
