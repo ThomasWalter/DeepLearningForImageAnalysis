@@ -243,7 +243,7 @@ IoU(A,B) = \frac{|A\cap B|}{|A\cup B|} \in [0,1]
   arr/.style={->, thick}]
   \node[box] (img) {Image};
   \node[box, right=0.35cm of img] (bb) {CNN\\features};
-  \node[box, right=0.35cm of bb, fill=orange!20] (cand) {\textbf{1. Candidates}};
+  \node[box, right=0.35cm of bb, fill=orange!20] (cand) {\textbf{1. Candidate}};
   \node[box, right=0.35cm of cand, fill=orange!20] (pred) {\textbf{3. Prediction}\\class + box};
   \node[box, right=0.35cm of pred, fill=orange!20] (post) {\textbf{4. Post-}\\\textbf{processing}};
   \node[box, right=0.35cm of post] (out) {Detections};
@@ -638,14 +638,10 @@ The idea is to share convolutional feature maps calculated on the entire image f
 
 \begin{frame}{Anchor boxes 2/2}
 \begin{itemize}
-  \item Anchors are \textbf{reference boxes in image space}. They are used to:
-  \begin{itemize}
-    \item assign training labels: output group $a$ (i.e. objectness and coordinates) at position $p$ is trained as positive if anchor $a$ centered at the corresponding image position $p$ has $IoU>0.7$ with a ground-truth box.
-    \item decode predictions: the predicted offsets are applied to anchor $a$, with the same parametrization as in R-CNN (anchor instead of proposal).
-  \end{itemize}
-  %\item Through training, each output group specializes in one object shape and size. At one location, the network answers $k$ questions: ``Is there a tall object here? A wide one? A large one?''
-  \item Anchors can be larger than the receptive field (512 vs.\ 228 pixels): the extent of an object can be inferred from its central part.
-  %\item Contrast with the second stage: there, the input \emph{does} depend on the box (features are cropped by RoI pooling).
+  \item Anchors are \textbf{reference boxes in image space}. 
+  \item The classification problem we try to solve is: does the anchor-box $a$ in image space contain an object, yes or no? 
+  \item Input to this classification is the feature vector from the feature map. 
+  \item The anchor-box is also used as starting point for the bounding box regression (i.e. we predict a transformation of the anchor box $a$ to the true bounding box). 
 \end{itemize}
 \end{frame}
 
@@ -662,22 +658,22 @@ The idea is to share convolutional feature maps calculated on the entire image f
 % \end{itemize}
 % \end{frame}
 
-\begin{frame}{Faster R-CNN: Region proposal network (RPN)}
-\begin{figure}[htb]
-   \centering
-   \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
-   \caption{Faster R-CNN \cite{Ren2017}}
-\end{figure}
-\begin{itemize}
-\item Training labels: an anchor is positive if $IoU>0.7$ with a ground-truth box (or if it has the highest $IoU$ with this box), negative if $IoU<0.3$.
-\item Combined loss (as for Fast R-CNN): sum of classification loss and bounding box regression loss.
-\begin{itemize}
-\item Classification loss: binary cross entropy, indicating whether the anchor overlaps an object or not.
-\item Regression loss (positive anchors only): compares the predicted offsets with the offsets of the ground-truth box relative to the anchor.
-\end{itemize}
-\end{itemize}
+% \begin{frame}{Faster R-CNN: Region proposal network (RPN)}
+% \begin{figure}[htb]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../graphics/Faster_R-CNN.pdf}
+%    \caption{Faster R-CNN \cite{Ren2017}}
+% \end{figure}
+% \begin{itemize}
+% \item Training labels: an anchor is positive if $IoU>0.7$ with a ground-truth box (or if it has the highest $IoU$ with this box), negative if $IoU<0.3$.
+% \item Combined loss (as for Fast R-CNN): sum of classification loss and bounding box regression loss.
+% \begin{itemize}
+% \item Classification loss: binary cross entropy, indicating whether the anchor overlaps an object or not.
+% \item Regression loss (positive anchors only): compares the predicted offsets with the offsets of the ground-truth box relative to the anchor.
+% \end{itemize}
+% \end{itemize}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}{Faster R-CNN: Training}
 \begin{figure}[htb]
